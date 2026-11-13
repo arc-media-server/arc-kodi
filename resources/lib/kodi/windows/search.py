@@ -43,11 +43,9 @@ class SearchWindow(ArcWindow):
         ctrl.reset()
         for it in self.items:
             ctrl.addItem(item_list_item(self.session, it, "poster"))
-        self.set_visible(EMPTY, not self.items)
+        self.set_label(EMPTY, "" if self.items else T(30106))
         if self.items:
             self.focus_id(GRID)
-        elif error is None:
-            self.set_text(EMPTY, T(30106))
 
     def on_click(self, control_id):
         if control_id == BOX:

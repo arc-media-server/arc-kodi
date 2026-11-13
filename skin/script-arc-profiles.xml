@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol always="true">100</defaultcontrol>
+  <controls>
+    <include>PageBackground</include>
+    <control type="label" id="101">
+      <left>0</left><top>160</top><width>1920</width><height>40</height>
+      <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
+      <label></label>
+    </control>
+    <control type="label">
+      <left>0</left><top>210</top><width>1920</width><height>70</height>
+      <font>arc-hero</font><textcolor>fg</textcolor><align>center</align>
+      <label>$ADDON[script.arc 30060]</label>
+    </control>
+    <control type="list" id="100">
+      <left>360</left><top>420</top><width>1200</width><height>340</height>
+      <orientation>horizontal</orientation>
+      <itemgap>40</itemgap>
+      <focusposition>0</focusposition>
+      <itemlayout width="240" height="320">
+        <control type="image">
+          <left>30</left><top>16</top><width>180</width><height>180</height>
+          <texture>arc-circle.png</texture>
+          <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
+        </control>
+        <control type="label">
+          <left>30</left><top>16</top><width>180</width><height>180</height>
+          <font>arc-title</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor>
+          <label>$INFO[ListItem.Property(initial)]</label>
+        </control>
+        <control type="label">
+          <left>0</left><top>226</top><width>240</width><height>40</height>
+          <font>arc-label</font><align>center</align><textcolor>muted</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+        </control>
+      </itemlayout>
+      <focusedlayout width="240" height="320">
+        <control type="image">
+          <left>14</left><top>0</top><width>212</width><height>212</height>
+          <texture>arc-ring.png</texture>
+        </control>
+        <control type="image">
+          <left>30</left><top>16</top><width>180</width><height>180</height>
+          <texture>arc-circle.png</texture>
+          <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
+        </control>
+        <control type="label">
+          <left>30</left><top>16</top><width>180</width><height>180</height>
+          <font>arc-title</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor>
+          <label>$INFO[ListItem.Property(initial)]</label>
+        </control>
+        <control type="label">
+          <left>0</left><top>226</top><width>240</width><height>40</height>
+          <font>arc-label</font><align>center</align><textcolor>fg</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+        </control>
+      </focusedlayout>
+    </control>
+  </controls>
+</window>

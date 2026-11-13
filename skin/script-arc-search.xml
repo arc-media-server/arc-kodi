@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol>100</defaultcontrol>
+  <controls>
+    <include>PageBackground</include>
+    <control type="button" id="100">
+      <left>80</left><top>48</top><width>1760</width><height>76</height>
+      <font>arc-label</font><textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
+      <texturefocus border="38">arc-pill-white.png</texturefocus>
+      <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+      <align>left</align><textoffsetx>28</textoffsetx><aligny>center</aligny>
+      <label>$ADDON[script.arc 30080]</label>
+    </control>
+    <control type="panel" id="101">
+      <left>72</left><top>160</top><width>1800</width><height>890</height>
+      <onup>100</onup>
+      <orientation>vertical</orientation>
+      <itemlayout width="292" height="460"><include>PosterCard</include></itemlayout>
+      <focusedlayout width="292" height="460"><include content="PosterCard"><param name="focused" value="Control.HasFocus(101)"/><param name="labelcolor" value="fg"/></include></focusedlayout>
+    </control>
+    <control type="label" id="102">
+      <left>80</left><top>500</top><width>1760</width><height>60</height>
+      <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
+      <label></label>
+    </control>
+  </controls>
+</window>

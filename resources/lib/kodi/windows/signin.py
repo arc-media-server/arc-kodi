@@ -23,20 +23,30 @@ class ConnectWindow(ArcWindow):
     CONNECT = 101
     STATUS = 102
 
+    def __init__(self, *args, **kwargs):
+        ArcWindow.__init__(self, *args, **kwargs)
+        self.address = ""
+
     def on_init(self):
-        self.set_label(self.CONNECT, T(30024))
         self.focus_id(self.ADDRESS)
 
     def on_click(self, control_id):
-        if control_id in (self.ADDRESS, self.CONNECT):
-            self._connect()
+        if control_id == self.ADDRESS:
+            if self._type_address():
+                self._connect()
+        elif control_id == self.CONNECT:
+            if self.address or self._type_address():
+                self._connect()
+
+    def _type_address(self):
+        typed = (xbmcgui.Dialog().input(T(30020), self.address) or "").strip()
+        if typed:
+            self.address = typed
+            self.set_label(self.ADDRESS, typed)
+        return bool(typed)
 
     def _connect(self):
-        typed = self.getControl(self.ADDRESS).getLabel() if self._has(self.ADDRESS) else ""
-        if not typed:
-            typed = xbmcgui.Dialog().input(T(30022)) or ""
-            self.set_label(self.ADDRESS, typed)
-        base = normalise_address(typed)
+        base = normalise_address(self.address)
         if not base:
             self.set_text(self.STATUS, T(30026))
             return
@@ -61,13 +71,6 @@ class ConnectWindow(ArcWindow):
         self.session.set_server(base, name)
         self.result = "connected"
         self.close()
-
-    def _has(self, control_id):
-        try:
-            self.getControl(control_id)
-            return True
-        except Exception:
-            return False
 
 
 class SignInWindow(ArcWindow):
@@ -141,6 +144,13 @@ class SignInWindow(ArcWindow):
         ArcWindow.close(self)
 
 
+# A profile's colour (web/src/components/Avatar.tsx; the deeper end of its gradient), as ARGB.
+PROFILE_COLOURS = {
+    "blue": "FF2563EB", "teal": "FF0891B2", "green": "FF15803D", "amber": "FFCA8A04",
+    "orange": "FFDC2626", "rose": "FFE11D48", "slate": "FF334155", "violet": "FF4F46E5",
+}
+
+
 class ProfilesWindow(ArcWindow):
     """"Who's watching?" — pick a profile, with a PIN when one is set."""
 
@@ -166,9 +176,14 @@ class ProfilesWindow(ArcWindow):
         ctrl = self.list_control(self.LIST)
         ctrl.reset()
         for p in self._profiles:
-            ctrl.addItem(list_item(p.get("name", ""), art={"thumb": ""},
-                                   props={"color": p.get("color", "violet"),
-                                          "haspin": p.get("has_pin"), "admin": p.get("is_admin")}))
+            name = p.get("name", "")
+            ctrl.addItem(list_item(name, props={
+                "colorhex": PROFILE_COLOURS.get(p.get("color"), PROFILE_COLOURS["violet"]),
+                "initial": name[:1].upper(), "haspin": p.get("has_pin"), "admin": p.get("is_admin")}))
+        # Centre the row of avatars (a Kodi list can't centre its own items).
+        width = len(self._profiles) * 240 + max(0, len(self._profiles) - 1) * 40
+        ctrl.setWidth(min(width, 1760))
+        ctrl.setPosition(int((1920 - min(width, 1760)) / 2), 420)
         self.focus_id(self.LIST)
 
     def on_click(self, control_id):

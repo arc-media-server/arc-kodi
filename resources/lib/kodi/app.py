@@ -17,6 +17,8 @@ from .windows import signin, home, library, details, search, settings
 
 class App(object):
     def __init__(self):
+        self.home_window = None
+        self.playback = None  # the playing title, kept alive while Kodi plays it
         logmod.install()
         self.session = Session()
         self.session.start_proxy()
@@ -73,8 +75,10 @@ class App(object):
         while True:
             w = home.HomeWindow(home.HomeWindow.xml, self._path(), "Main", "1080i", session=self.session)
             w.nav = self._navigate
+            self.home_window = w
             w.doModal()
             result = w.result
+            self.home_window = None
             del w
             if result == "exit":
                 return
@@ -153,13 +157,10 @@ class App(object):
 
     def _open_settings(self):
         result = self._open(settings.SettingsWindow)
-        if result == "sign_out":
-            self.session.sign_out()
-            self.run()
-        elif result == "switch_profile":
-            self.session.forget_profile()
-            if self._ensure_profile() and self._load():
-                pass
+        if result in ("sign_out", "switch_profile") and self.home_window is not None:
+            # Home closes and _home() acts on it: a new profile gets a new Home, from scratch.
+            self.home_window.result = result
+            self.home_window.close()
 
     def _open_playlists(self):
         try:
@@ -193,18 +194,17 @@ class App(object):
     # MARK: - playback
 
     def _play(self, item, resume_ms):
-        done = {"over": False}
+        """Starts playback and returns at once. Kodi delivers the player's events (started, paused,
+        ended) on this thread through the open window's loop, so it must not be held here waiting;
+        the Playback reports progress and cleans up on its own threads."""
+        if self.playback is not None:
+            self.playback.stop()
 
         def finished():
-            done["over"] = True
+            if self.playback is pb:
+                self.playback = None
 
         pb = Playback(self.session, item, resume_ms=resume_ms, on_finished=finished)
+        self.playback = pb
         if not pb.start():
-            return
-        # Keep this window's modal loop alive until playback is over; the Playback reports progress
-        # and cleans up on its own thread, and calls `finished` when it ends (or fails to start).
-        monitor = pb.monitor
-        while not done["over"]:
-            if monitor.waitForAbort(0.5):
-                pb.stop()
-                break
+            self.playback = None

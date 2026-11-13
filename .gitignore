@@ -3,3 +3,4 @@ __pycache__/
 *.pyo
 /dist/
 .pytest_cache/
+shots/
