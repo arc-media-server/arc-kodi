@@ -71,7 +71,8 @@
           <top>8</top>
           <width>244</width>
           <height>366</height>
-          <texture border="8">arc-card-bg.png</texture>
+          <texture>arc-mask-poster.png</texture>
+          <colordiffuse>FF26272D</colordiffuse>
         </control>
         <control type="image">
           <left>8</left>
@@ -79,14 +80,14 @@
           <width>244</width>
           <height>366</height>
           <aspectratio>scale</aspectratio>
-          <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+          <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
         </control>
         <control type="image">
-          <left>4</left>
-          <top>4</top>
-          <width>252</width>
-          <height>374</height>
-          <texture border="8">arc-card-border.png</texture>
+          <left>2</left>
+          <top>2</top>
+          <width>256</width>
+          <height>378</height>
+          <texture>arc-ring-poster.png</texture>
           <visible>false</visible>
         </control>
         <control type="label">
@@ -147,7 +148,8 @@
           <top>8</top>
           <width>244</width>
           <height>366</height>
-          <texture border="8">arc-card-bg.png</texture>
+          <texture>arc-mask-poster.png</texture>
+          <colordiffuse>FF26272D</colordiffuse>
         </control>
         <control type="image">
           <left>8</left>
@@ -155,14 +157,14 @@
           <width>244</width>
           <height>366</height>
           <aspectratio>scale</aspectratio>
-          <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+          <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
         </control>
         <control type="image">
-          <left>4</left>
-          <top>4</top>
-          <width>252</width>
-          <height>374</height>
-          <texture border="8">arc-card-border.png</texture>
+          <left>2</left>
+          <top>2</top>
+          <width>256</width>
+          <height>378</height>
+          <texture>arc-ring-poster.png</texture>
           <visible>Control.HasFocus(100)</visible>
         </control>
         <control type="label">

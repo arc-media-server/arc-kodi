@@ -41,6 +41,7 @@ class HomeWindow(ArcWindow):
         self.places = []
         self._focused_once = False
         self._refreshing = False
+        self._row = None  # the row with the focus, as of the last key (see on_action)
         self.nav = None           # a callback the app sets: nav(kind, payload)
 
     def on_init(self):
@@ -170,6 +171,7 @@ class HomeWindow(ArcWindow):
                     break
                 if r["cards"]:
                     self._focused_once = True
+                    self._row = i
                     self.focus_when_visible(self._list_id(i))
                     self._update_hero(i)
                     return
@@ -243,16 +245,25 @@ class HomeWindow(ArcWindow):
         return cards[pos] if 0 <= pos < len(cards) else None
 
     def on_action(self, action, code):
-        idx = self._row_at(self.getFocusId())
+        # Kodi handles the key before the add-on hears of it, so the focus here is already where
+        # Kodi put it. `self._row` is the row the focus was on before this key.
+        before, self._row = self._row, self._row_at(self.getFocusId())
+        idx = self._row
         if idx is None:
             return False
         if code in (ACTION_UP, ACTION_DOWN):
-            # Up and Down go to the nearest row with cards (Kodi's own grouplist navigation
-            # doesn't skip the empty slots reliably); the grouplist scrolls to it.
+            if before is not None and idx != before:
+                # Kodi's own navigation already moved to another row (it does on some Kodi
+                # versions): just follow it, or Down would move twice.
+                self._update_hero(idx)
+                return True
+            # Kodi didn't move (it doesn't skip the empty slots everywhere): go to the nearest
+            # row with cards ourselves; the grouplist scrolls to it.
             step = 1 if code == ACTION_DOWN else -1
             i = idx + step
             while 0 <= i < len(self.rows):
                 if self.rows[i].get("cards"):
+                    self._row = i
                     self.focus_when_visible(self._list_id(i))
                     self._update_hero(i)
                     break
