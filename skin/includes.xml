@@ -83,16 +83,17 @@
     <definition>
       <control type="image">
         <left>8</left><top>8</top><width>244</width><height>366</height>
-        <texture border="8">arc-card-bg.png</texture>
+        <texture>arc-mask-poster.png</texture>
+        <colordiffuse>surface</colordiffuse>
       </control>
       <control type="image">
         <left>8</left><top>8</top><width>244</width><height>366</height>
         <aspectratio>scale</aspectratio>
-        <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+        <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
       </control>
       <control type="image">
-        <left>4</left><top>4</top><width>252</width><height>374</height>
-        <texture border="8">arc-card-border.png</texture>
+        <left>2</left><top>2</top><width>256</width><height>378</height>
+        <texture>arc-ring-poster.png</texture>
         <visible>$PARAM[focused]</visible>
       </control>
       <control type="label">
@@ -135,16 +136,17 @@
     <definition>
       <control type="image">
         <left>8</left><top>8</top><width>464</width><height>261</height>
-        <texture border="8">arc-card-bg.png</texture>
+        <texture>arc-mask-thumb.png</texture>
+        <colordiffuse>surface</colordiffuse>
       </control>
       <control type="image">
         <left>8</left><top>8</top><width>464</width><height>261</height>
         <aspectratio>scale</aspectratio>
-        <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+        <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
       </control>
       <control type="image">
-        <left>4</left><top>4</top><width>472</width><height>269</height>
-        <texture border="8">arc-card-border.png</texture>
+        <left>2</left><top>2</top><width>476</width><height>273</height>
+        <texture>arc-ring-thumb.png</texture>
         <visible>$PARAM[focused]</visible>
       </control>
       <control type="progress">
@@ -241,6 +243,8 @@
   <!-- A horizontal row of cards with its title, for Home and the title page. -->
   <include name="PosterRow">
     <param name="title"/><param name="list"/><param name="onleft" default=""/>
+    <!-- Rows run to the screen's right edge: width is from the row's left to 1920. -->
+    <param name="width" default="1728"/>
     <definition>
       <!-- Title and list sit directly in the parent grouplist (as Estuary's widgets do), so Up and
            Down move between rows; both show only once the list has cards. -->
@@ -250,7 +254,7 @@
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
       <control type="list" id="$PARAM[list]">
-        <width>1520</width><height>450</height>
+        <width>$PARAM[width]</width><height>450</height>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>8</itemgap>
         <scrolltime tween="cubic" easing="out">220</scrolltime>
@@ -266,6 +270,8 @@
 
   <include name="ThumbRow">
     <param name="title"/><param name="list"/><param name="onleft" default=""/>
+    <!-- Rows run to the screen's right edge: width is from the row's left to 1920. -->
+    <param name="width" default="1728"/>
     <definition>
       <!-- Title and list sit directly in the parent grouplist (as Estuary's widgets do), so Up and
            Down move between rows; both show only once the list has cards. -->
@@ -275,7 +281,7 @@
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
       <control type="list" id="$PARAM[list]">
-        <width>1520</width><height>450</height>
+        <width>$PARAM[width]</width><height>450</height>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>8</itemgap>
         <scrolltime tween="cubic" easing="out">220</scrolltime>

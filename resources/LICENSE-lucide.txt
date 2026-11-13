@@ -1,4 +1,4 @@
-The sidebar icons (resources/skins/Main/media/arc-icon-*.png) are drawn from Lucide
+The sidebar and player icons (resources/skins/Main/media/arc-icon-*.png, arc-osd-*.png) are drawn from Lucide
 (https://lucide.dev), the same icons Arc's web and Android apps use, under this licence:
 
 ISC License

@@ -1,28 +1,206 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Arc's overlay on the video: Skip Intro/Recap/Credits and Up Next, shown by the window
-     properties arc.skip and arc.upnext (a fixed <visible> would override setVisible). It's a modeless dialog with
-     nothing focusable while both are hidden, so the remote goes to Kodi's own full-screen player
-     (its OSD, seeking, play/pause) until Skip or Up Next shows and takes focus. -->
+<!-- Arc's player (kodi/player_osd.py): a window over Kodi's video for the whole playback that owns
+     the remote, as PM4K's does, laid out as the Apple and Android players:
+     - at the bottom left the title (an episode's "S2, E4 · name" above its show), and to its
+       right three round buttons, Playback, Audio and Subtitles, each opening a menu above it;
+     - the timeline under them, the time played under its marker and the time left at the end;
+     - Skip Intro/Recap/Credits and Up Next at the bottom right while the controls are hidden.
+     What shows is driven by window properties (a fixed <visible> would override setVisible):
+     arc.osd (the controls), arc.menu (a menu), arc.skip, arc.upnext, arc.paused, arc.seeking. -->
 <window>
-  <defaultcontrol>100</defaultcontrol>
+  <defaultcontrol>90</defaultcontrol>
   <controls>
+    <!-- Holds the focus while the controls are hidden, so every key reaches the player. -->
+    <control type="button" id="90">
+      <left>0</left><top>0</top><width>1</width><height>1</height>
+      <texturefocus></texturefocus><texturenofocus></texturenofocus>
+      <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+    </control>
+
+    <control type="group" id="200">
+      <visible>String.IsEqual(Window.Property(arc.osd),1)</visible>
+      <animation effect="fade" time="200">VisibleChange</animation>
+      <control type="image">
+        <left>0</left><top>480</top><width>1920</width><height>600</height>
+        <texture>arc-osd-scrim.png</texture>
+      </control>
+
+      <control type="label" id="201">
+        <left>100</left><top>800</top><width>1300</width><height>40</height>
+        <font>arc-body</font><textcolor>CCFFFFFF</textcolor>
+      </control>
+      <control type="label" id="202">
+        <left>100</left><top>836</top><width>1300</width><height>76</height>
+        <font>arc-title</font><textcolor>white</textcolor>
+      </control>
+
+      <!-- Playback, Audio, Subtitles: round, white with a black icon when focused. -->
+      <control type="button" id="301">
+        <left>1560</left><top>836</top><width>76</width><height>76</height>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="99FFFFFF">arc-pill-surface.png</texturenofocus>
+        <onleft>noop</onleft><onright>302</onright><onup>noop</onup><ondown>noop</ondown>
+      </control>
+      <control type="button" id="302">
+        <left>1652</left><top>836</top><width>76</width><height>76</height>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="99FFFFFF">arc-pill-surface.png</texturenofocus>
+        <onleft>301</onleft><onright>303</onright><onup>noop</onup><ondown>noop</ondown>
+      </control>
+      <control type="button" id="303">
+        <left>1744</left><top>836</top><width>76</width><height>76</height>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="99FFFFFF">arc-pill-surface.png</texturenofocus>
+        <onleft>302</onleft><onright>noop</onright><onup>noop</onup><ondown>noop</ondown>
+      </control>
+      <control type="image">
+        <left>1581</left><top>857</top><width>34</width><height>34</height>
+        <texture>arc-osd-sliders-horizontal.png</texture><colordiffuse>white</colordiffuse>
+        <visible>!Control.HasFocus(301)</visible>
+      </control>
+      <control type="image">
+        <left>1581</left><top>857</top><width>34</width><height>34</height>
+        <texture>arc-osd-sliders-horizontal.png</texture><colordiffuse>black</colordiffuse>
+        <visible>Control.HasFocus(301)</visible>
+      </control>
+      <control type="image">
+        <left>1673</left><top>857</top><width>34</width><height>34</height>
+        <texture>arc-osd-volume-2.png</texture><colordiffuse>white</colordiffuse>
+        <visible>!Control.HasFocus(302)</visible>
+      </control>
+      <control type="image">
+        <left>1673</left><top>857</top><width>34</width><height>34</height>
+        <texture>arc-osd-volume-2.png</texture><colordiffuse>black</colordiffuse>
+        <visible>Control.HasFocus(302)</visible>
+      </control>
+      <control type="image">
+        <left>1765</left><top>857</top><width>34</width><height>34</height>
+        <texture>arc-osd-captions.png</texture><colordiffuse>white</colordiffuse>
+        <visible>!Control.HasFocus(303)</visible>
+      </control>
+      <control type="image">
+        <left>1765</left><top>857</top><width>34</width><height>34</height>
+        <texture>arc-osd-captions.png</texture><colordiffuse>black</colordiffuse>
+        <visible>Control.HasFocus(303)</visible>
+      </control>
+
+      <!-- The timeline. 400 takes the focus (it has no look of its own; the marker grows). -->
+      <control type="button" id="400">
+        <left>100</left><top>930</top><width>1720</width><height>40</height>
+        <texturefocus></texturefocus><texturenofocus></texturenofocus>
+        <onleft>noop</onleft><onright>noop</onright><onup>noop</onup><ondown>noop</ondown>
+      </control>
+      <control type="progress" id="401">
+        <left>100</left><top>944</top><width>1720</width><height>12</height>
+        <texturebg border="6">arc-tl-bg.png</texturebg>
+        <midtexture border="6">arc-tl-fg.png</midtexture>
+      </control>
+      <control type="image" id="402">
+        <left>100</left><top>934</top><width>8</width><height>32</height>
+        <texture border="4">arc-tl-marker.png</texture>
+      </control>
+      <!-- Under the marker (moved by the Python): playing or paused, and the time played. -->
+      <control type="group" id="403">
+        <left>100</left><top>976</top><width>240</width><height>40</height>
+        <control type="image">
+          <left>0</left><top>7</top><width>26</width><height>26</height>
+          <texture>arc-osd-pause.png</texture>
+          <visible>!String.IsEqual(Window.Property(arc.paused),1)</visible>
+        </control>
+        <control type="image">
+          <left>0</left><top>7</top><width>26</width><height>26</height>
+          <texture>arc-osd-play.png</texture>
+          <visible>String.IsEqual(Window.Property(arc.paused),1)</visible>
+        </control>
+        <control type="label" id="404">
+          <left>38</left><top>0</top><width>200</width><height>40</height>
+          <font>arc-body</font><textcolor>white</textcolor>
+        </control>
+      </control>
+      <control type="label" id="405">
+        <left>1420</left><top>976</top><width>400</width><height>40</height>
+        <font>arc-body</font><textcolor>white</textcolor><align>right</align>
+      </control>
+    </control>
+
+    <!-- A menu: Playback (and its Quality and Version), Audio or Subtitles. -->
+    <control type="group" id="600">
+      <left>1240</left><top>290</top><width>580</width><height>520</height>
+      <visible>String.IsEqual(Window.Property(arc.menu),1)</visible>
+      <animation effect="fade" time="150">VisibleChange</animation>
+      <control type="image" id="603">
+        <left>0</left><top>0</top><width>580</width><height>520</height>
+        <texture border="38" colordiffuse="F2FFFFFF">arc-pill-surface.png</texture>
+      </control>
+      <control type="label" id="601">
+        <left>32</left><top>20</top><width>516</width><height>50</height>
+        <font>arc-label</font><textcolor>muted</textcolor>
+      </control>
+      <control type="list" id="602">
+        <left>16</left><top>76</top><width>548</width><height>428</height>
+        <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+        <scrolltime>150</scrolltime>
+        <itemlayout width="548" height="64">
+          <control type="image">
+            <left>16</left><top>17</top><width>30</width><height>30</height>
+            <texture>arc-osd-check.png</texture><colordiffuse>white</colordiffuse>
+            <visible>String.IsEqual(ListItem.Property(selected),1)</visible>
+          </control>
+          <control type="label">
+            <left>62</left><top>0</top><width>440</width><height>64</height>
+            <font>arc-label</font><aligny>center</aligny><textcolor>fg</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>300</left><top>0</top><width>228</width><height>64</height>
+            <font>arc-small</font><aligny>center</aligny><align>right</align><textcolor>muted</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+          </control>
+        </itemlayout>
+        <focusedlayout width="548" height="64">
+          <control type="image">
+            <left>0</left><top>0</top><width>548</width><height>64</height>
+            <texture border="32">arc-pill-white.png</texture>
+          </control>
+          <control type="image">
+            <left>16</left><top>17</top><width>30</width><height>30</height>
+            <texture>arc-osd-check.png</texture><colordiffuse>black</colordiffuse>
+            <visible>String.IsEqual(ListItem.Property(selected),1)</visible>
+          </control>
+          <control type="label">
+            <left>62</left><top>0</top><width>440</width><height>64</height>
+            <font>arc-label</font><aligny>center</aligny><textcolor>black</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>300</left><top>0</top><width>228</width><height>64</height>
+            <font>arc-small</font><aligny>center</aligny><align>right</align><textcolor>FF3A3A40</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+          </control>
+        </focusedlayout>
+      </control>
+    </control>
+
+    <!-- Skip Intro/Recap/Credits (focused when it appears, as Plex's). -->
     <control type="button" id="100">
-      <left>1520</left><top>880</top><width>340</width><height>76</height>
-      <visible>String.IsEqual(Window.Property(arc.skip),1)</visible>
+      <left>1480</left><top>880</top><width>340</width><height>76</height>
+      <visible>String.IsEqual(Window.Property(arc.skip),1) + !String.IsEqual(Window.Property(arc.osd),1)</visible>
       <include content="PrimaryButton"><param name="width" value="340"/></include>
       <texturenofocus border="38">arc-pill-white.png</texturenofocus>
       <textcolor>black</textcolor>
+      <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
       <label>$ADDON[script.arc 30180]</label>
       <animation effect="fade" time="200">VisibleChange</animation>
     </control>
 
+    <!-- Up Next. -->
     <control type="group" id="101">
-      <left>1300</left><top>700</top><width>560</width><height>300</height>
-      <visible>String.IsEqual(Window.Property(arc.upnext),1)</visible>
+      <left>1260</left><top>680</top><width>560</width><height>300</height>
+      <visible>String.IsEqual(Window.Property(arc.upnext),1) + !String.IsEqual(Window.Property(arc.osd),1)</visible>
       <animation effect="slide" start="0,40" time="250" tween="cubic" easing="out">Visible</animation>
       <control type="image">
         <left>0</left><top>0</top><width>560</width><height>300</height>
-        <texture border="38">arc-pill-surface.png</texture>
+        <texture border="38" colordiffuse="F2FFFFFF">arc-pill-surface.png</texture>
       </control>
       <control type="label" id="102">
         <left>32</left><top>24</top><width>496</width><height>36</height>
@@ -33,18 +211,22 @@
         <left>32</left><top>64</top><width>496</width><height>80</height>
         <font>arc-label</font><textcolor>fg</textcolor><wrapmultiline>true</wrapmultiline>
       </control>
+      <control type="label" id="106">
+        <left>32</left><top>144</top><width>496</width><height>36</height>
+        <font>arc-small</font><textcolor>muted</textcolor>
+      </control>
       <control type="button" id="103">
         <left>32</left><top>196</top><width>300</width><height>76</height>
         <include content="PrimaryButton"><param name="width" value="300"/></include>
         <label>$ADDON[script.arc 30005]</label>
-        <onright>105</onright>
+        <onright>105</onright><onleft>noop</onleft><onup>noop</onup><ondown>noop</ondown>
       </control>
       <control type="button" id="105">
         <left>348</left><top>196</top><width>180</width><height>76</height>
         <include content="PillButton"><param name="width" value="180"/></include>
         <textoffsetx>0</textoffsetx>
         <label>$ADDON[script.arc 30003]</label>
-        <onleft>103</onleft>
+        <onleft>103</onleft><onright>noop</onright><onup>noop</onup><ondown>noop</ondown>
       </control>
     </control>
   </controls>

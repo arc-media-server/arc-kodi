@@ -346,3 +346,60 @@ msgstr ""
 msgctxt "#30203"
 msgid "Version %s"
 msgstr ""
+
+# player menus
+msgctxt "#30210"
+msgid "Quality"
+msgstr ""
+
+msgctxt "#30211"
+msgid "Original"
+msgstr ""
+
+msgctxt "#30212"
+msgid "Version"
+msgstr ""
+
+msgctxt "#30213"
+msgid "Play from the Beginning"
+msgstr ""
+
+msgctxt "#30214"
+msgid "Mono"
+msgstr ""
+
+msgctxt "#30215"
+msgid "Stereo"
+msgstr ""
+
+msgctxt "#30216"
+msgid "%s Mbps"
+msgstr ""
+
+msgctxt "#30217"
+msgid "%d kbps"
+msgstr ""
+
+msgctxt "#30218"
+msgid "Forced"
+msgstr ""
+
+msgctxt "#30219"
+msgid "SDH"
+msgstr ""
+
+msgctxt "#30220"
+msgid "Track %d"
+msgstr ""
+
+msgctxt "#30221"
+msgid "Starting in %d…"
+msgstr ""
+
+msgctxt "#30222"
+msgid "S%d, E%d · %s"
+msgstr ""
+
+msgctxt "#30223"
+msgid "External"
+msgstr ""

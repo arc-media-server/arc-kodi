@@ -143,16 +143,16 @@
       <control type="list" id="200">
         <left>8</left>
         <width>1700</width>
-        <height>68</height>
+        <height>76</height>
         <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
         <orientation>horizontal</orientation>
         <itemgap>12</itemgap>
-        <itemlayout width="220" height="68">
+        <itemlayout width="220" height="76">
           <control type="label">
             <left>0</left>
             <top>0</top>
             <width>220</width>
-            <height>68</height>
+            <height>76</height>
             <font>font13</font>
             <align>center</align>
             <aligny>center</aligny>
@@ -160,20 +160,20 @@
             <label>$INFO[ListItem.Label]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="220" height="68">
+        <focusedlayout width="220" height="76">
           <control type="image">
             <left>0</left>
             <top>0</top>
             <width>220</width>
-            <height>68</height>
-            <texture border="34">arc-pill-white.png</texture>
+            <height>76</height>
+            <texture border="38">arc-pill-white.png</texture>
             <visible>Control.HasFocus(200)</visible>
           </control>
           <control type="label">
             <left>0</left>
             <top>0</top>
             <width>220</width>
-            <height>68</height>
+            <height>76</height>
             <font>font13</font>
             <align>center</align>
             <aligny>center</aligny>
@@ -185,7 +185,7 @@
             <left>0</left>
             <top>0</top>
             <width>220</width>
-            <height>68</height>
+            <height>76</height>
             <font>font13</font>
             <align>center</align>
             <aligny>center</aligny>
@@ -208,7 +208,8 @@
             <top>8</top>
             <width>464</width>
             <height>261</height>
-            <texture border="8">arc-card-bg.png</texture>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
             <left>8</left>
@@ -216,14 +217,14 @@
             <width>464</width>
             <height>261</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
-            <left>4</left>
-            <top>4</top>
-            <width>472</width>
-            <height>269</height>
-            <texture border="8">arc-card-border.png</texture>
+            <left>2</left>
+            <top>2</top>
+            <width>476</width>
+            <height>273</height>
+            <texture>arc-ring-thumb.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
@@ -263,7 +264,8 @@
             <top>8</top>
             <width>464</width>
             <height>261</height>
-            <texture border="8">arc-card-bg.png</texture>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
             <left>8</left>
@@ -271,14 +273,14 @@
             <width>464</width>
             <height>261</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
-            <left>4</left>
-            <top>4</top>
-            <width>472</width>
-            <height>269</height>
-            <texture border="8">arc-card-border.png</texture>
+            <left>2</left>
+            <top>2</top>
+            <width>476</width>
+            <height>273</height>
+            <texture>arc-ring-thumb.png</texture>
             <visible>Control.HasFocus(201)</visible>
           </control>
           <control type="progress">
@@ -331,7 +333,7 @@
         <visible>Integer.IsGreater(Container(300).NumItems,0)</visible>
       </control>
       <control type="list" id="300">
-        <width>1520</width>
+        <width>1808</width>
         <height>450</height>
         <visible>Integer.IsGreater(Container(300).NumItems,0)</visible>
         <orientation>horizontal</orientation>
@@ -345,7 +347,8 @@
             <top>8</top>
             <width>244</width>
             <height>366</height>
-            <texture border="8">arc-card-bg.png</texture>
+            <texture>arc-mask-poster.png</texture>
+            <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
             <left>8</left>
@@ -353,14 +356,14 @@
             <width>244</width>
             <height>366</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
-            <left>4</left>
-            <top>4</top>
-            <width>252</width>
-            <height>374</height>
-            <texture border="8">arc-card-border.png</texture>
+            <left>2</left>
+            <top>2</top>
+            <width>256</width>
+            <height>378</height>
+            <texture>arc-ring-poster.png</texture>
             <visible>false</visible>
           </control>
           <control type="label">
@@ -421,7 +424,8 @@
             <top>8</top>
             <width>244</width>
             <height>366</height>
-            <texture border="8">arc-card-bg.png</texture>
+            <texture>arc-mask-poster.png</texture>
+            <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
             <left>8</left>
@@ -429,14 +433,14 @@
             <width>244</width>
             <height>366</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
-            <left>4</left>
-            <top>4</top>
-            <width>252</width>
-            <height>374</height>
-            <texture border="8">arc-card-border.png</texture>
+            <left>2</left>
+            <top>2</top>
+            <width>256</width>
+            <height>378</height>
+            <texture>arc-ring-poster.png</texture>
             <visible>Control.HasFocus(300)</visible>
           </control>
           <control type="label">
