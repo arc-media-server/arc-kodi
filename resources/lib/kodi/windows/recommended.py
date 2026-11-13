@@ -2,12 +2,14 @@
 server's Recommended rows (arc/recommended.py), under the library's tab pills, without the
 sidebar. It is Home's window with a different skin and a different source of rows."""
 
+import time
+
 from arc import recommended
 
 from ..compat import T
 from ..log import log
 from . import home
-from .library import TABS, TabsMixin
+from .library import TAB_BASE, TabsMixin
 
 # The Kodi side's words for arc/recommended.py's title keys.
 TITLE_STRINGS = {
@@ -30,6 +32,13 @@ class RecommendedWindow(TabsMixin, home.HomeWindow):
 
     def on_init(self):
         self.show_tabs()
+        cached = self.session.recommended.get(self.library.get("id"))
+        if cached is not None:
+            # Shown at once from the last visit; the fresh rows replace them in place.
+            self._show(cached)
+            self._refreshing = True
+        else:
+            self.set_label(home.HERO_TITLE, T(30007))
         self._load()
 
     def on_return(self):
@@ -38,22 +47,47 @@ class RecommendedWindow(TabsMixin, home.HomeWindow):
         self._load()
 
     def _load(self):
-        self.run_async(lambda: self.session.api.recommended(self.library.get("id")), self._loaded)
+        def fetch():
+            started = time.time()
+            page = self.session.api.recommended(self.library.get("id"))
+            return page, int((time.time() - started) * 1000)
 
-    def _loaded(self, page, error):
+        self.run_async(fetch, self._loaded)
+
+    def _loaded(self, result, error):
         if error is not None:
             log.warning("library recommended failed: %s", type(error).__name__)
-            page = {}
+            if self.rows:
+                return  # keep what's showing
+            result = ({}, 0)
+        page, took = result
+        if took >= 3000:
+            # Arc took a while: the server's own log says why (its "recommended rows" line).
+            log.info("library recommended took %d ms", took)
+        started = time.time()
         rows = recommended.rows(page, self.library)[:home.MAX_ROWS]
+        self.session.recommended[self.library.get("id")] = rows
+        self._show(rows)
+        log.debug("library recommended: %d rows, fetched in %d ms, shown in %d ms",
+                  len(rows), took, int((time.time() - started) * 1000))
+
+    def _show(self, rows):
         if not rows and not self._refreshing:
             # Nothing to recommend yet: say so, and leave the focus on the tabs.
             self.set_label(home.HERO_TITLE, T(30231))
-            self.focus_id(TABS)
+            self.focus_id(TAB_BASE)
             return
+        if self.rows and [r["id"] for r in rows] != [r["id"] for r in self.rows]:
+            # Different rows than the ones showing: lay them out afresh.
+            self._refreshing = False
+            self._focused_once = False
         self.rows = rows
         self._layout_rows()
         for i, row in enumerate(rows):
-            self._fill_row(i, row["cards"], None)
+            self._clear_slot(i, keep=self._bases(row)[0])  # a slot that changed style
+            self._fill_row(i, [dict(c) for c in row["cards"]], None)
+        for i in range(len(rows), home.MAX_ROWS):
+            self._clear_slot(i)
         self._refreshing = False
 
     def _row_title(self, row):
@@ -63,9 +97,13 @@ class RecommendedWindow(TabsMixin, home.HomeWindow):
         text = T(TITLE_STRINGS[key])
         return text % name if "%s" in text else text
 
+    def onFocus(self, control_id):
+        self.tab_focused(control_id)
+        home.HomeWindow.onFocus(self, control_id)
+
     def on_click(self, control_id):
-        if control_id == TABS:
-            self.tab_clicked()
+        if self.tab_at(control_id):
+            self.tab_clicked(control_id)
         else:
             home.HomeWindow.on_click(self, control_id)
 

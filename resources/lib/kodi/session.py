@@ -23,6 +23,9 @@ class Session(object):
         self.libraries = []
         self.identity_name = saved.get("server_name", "")
         self.local = None
+        # The last Recommended page per library id, shown at once on the next visit while a fresh
+        # one loads (dropped with the profile).
+        self.recommended = {}
         self.api = ArcAPI(self.base_url or "", token=lambda: self._token,
                           user_agent="Arc for Kodi/%s" % ADDON_VERSION)
         self.artwork = ArtworkProxy(self.api)
@@ -55,6 +58,7 @@ class Session(object):
 
     def forget_profile(self):
         self.profile = None
+        self.recommended = {}
         storage.update(profile_id=None, profile_name=None, profile_admin=False)
 
     def sign_out(self):

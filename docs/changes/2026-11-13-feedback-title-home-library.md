@@ -101,3 +101,20 @@ A failed Recommended load logs a warning naming the error type. Nothing else new
 
 Checked in Kodi on a virtual display: the Backdrops row (corners close up), Mushoku Tensei's page
 (bright artwork), and the Films tabs on Recommended (over artwork) and Browse (plain background).
+
+## Third round: tab spacing, Recommended's wait
+
+- **The tabs' spacing was uneven:** every tab was a fixed 240 wide, so a short word sat in a lot
+  of space. Each tab is now its own pill sized to its word with the same padding. They're
+  auto-width buttons in a horizontal grouplist, three slots each with a "current" and an "other"
+  button, shown by a window property. Coming up into the tabs lands on the one showing.
+- **Recommended took a while to appear.**
+  - On the scratch server the call takes about 13 ms and drawing it 9–36 ms. The wait on the
+    owner's server is most likely the server building every row (ten or more, each up to 20
+    full titles) for a large library.
+  - The add-on now shows Loading… while the first answer comes.
+  - It keeps the last rows of each library for the session, so the next visit shows them at
+    once and refreshes them behind. The kept rows are dropped with the profile.
+  - It logs the time at debug ("library recommended: N rows, fetched in X ms, shown in Y ms").
+    A fetch of 3 s or more is logged at info, so a slow server shows in Kodi's log without
+    debug logging. The server's own detailed log has a matching "recommended rows … took" line.

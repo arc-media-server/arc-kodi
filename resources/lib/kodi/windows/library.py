@@ -22,7 +22,8 @@ FILTER = 103
 COUNT = 104
 EMPTY = 105
 TABS = 120
-TABS_BACK = 119
+TAB_BASE = 121          # slot i: "current" button 121 + 2i, "other" button 122 + 2i
+TAB_SLOTS = 3
 
 PAGE_SIZE = 60
 
@@ -39,23 +40,38 @@ class TabsMixin(object):
     """The tab pills for a window showing one of a library's tabs (`self.library`, `self.tab`)."""
 
     def show_tabs(self):
-        from .base import list_item
         self.tabs = library_tabs(self.library)
-        ctrl = self.list_control(TABS)
-        ctrl.reset()
-        for key, name in self.tabs:
-            ctrl.addItem(list_item(name, props={"current": "1" if key == self.tab else ""}))
-        ctrl.selectItem([k for k, _ in self.tabs].index(self.tab))
-        try:
-            self.getControl(TABS_BACK).setWidth(len(self.tabs) * 240 + (len(self.tabs) - 1) * 12)
-        except Exception:
-            pass
+        for slot in range(TAB_SLOTS):
+            if slot < len(self.tabs):
+                key, name = self.tabs[slot]
+                self.set_label(TAB_BASE + 2 * slot, name)
+                self.set_label(TAB_BASE + 2 * slot + 1, name)
+                self.setProperty("arc.tab%d" % slot, "current" if key == self.tab else "other")
+            else:
+                self.setProperty("arc.tab%d" % slot, "")
 
-    def tab_clicked(self):
-        key = self.tabs[self.list_control(TABS).getSelectedPosition()][0]
-        if key != self.tab:
+    def tab_at(self, control_id):
+        """The tab key a tab button stands for, or None."""
+        slot = (control_id - TAB_BASE) // 2
+        if TAB_BASE <= control_id < TAB_BASE + 2 * TAB_SLOTS and slot < len(getattr(self, "tabs", [])):
+            return self.tabs[slot][0]
+        return None
+
+    def tab_clicked(self, control_id):
+        key = self.tab_at(control_id)
+        if key and key != self.tab:
             self.result = ("tab", key)
             self.close()
+
+    def tab_focused(self, control_id):
+        """Coming up into the tabs lands on the one showing, as the Apple app's pill bar."""
+        into = self.tab_at(control_id) is not None
+        if into and not getattr(self, "_in_tabs", False):
+            slot = [k for k, _ in self.tabs].index(self.tab)
+            current = TAB_BASE + 2 * slot
+            if control_id != current:
+                self.focus_id(current)
+        self._in_tabs = into
 
 
 class GridWindow(TabsMixin, ArcWindow):
@@ -142,9 +158,13 @@ class GridWindow(TabsMixin, ArcWindow):
                     return True
         return False
 
+    def onFocus(self, control_id):
+        if self.library is not None:
+            self.tab_focused(control_id)
+
     def on_click(self, control_id):
-        if control_id == TABS:
-            self.tab_clicked()
+        if self.tab_at(control_id):
+            self.tab_clicked(control_id)
         elif control_id == GRID and self.nav:
             pos = self.list_control(GRID).getSelectedPosition()
             if 0 <= pos < len(self.items):

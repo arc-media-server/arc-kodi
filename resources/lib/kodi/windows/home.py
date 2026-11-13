@@ -100,6 +100,15 @@ class HomeWindow(ArcWindow):
             if i < len(self.rows):
                 self.set_label(self._bases(self.rows[i])[1] + 1 + i, self._row_title(self.rows[i]))
 
+    def _clear_slot(self, idx, keep=None):
+        """Empties row slot `idx` in every style but `keep` (its title and list hide themselves)."""
+        for list_base, _ in STYLE_BASES.values():
+            if list_base != keep:
+                try:
+                    self.list_control(list_base + 1 + idx).reset()
+                except Exception:
+                    pass
+
     def on_return(self):
         # Refresh the rows in place (Continue Watching changes after playing), keeping the focus.
         self._refreshing = True

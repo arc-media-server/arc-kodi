@@ -18,116 +18,97 @@
       <font>font52_title</font>
       <textcolor>FFF5F5F7</textcolor>
       <label />
-      <visible>!Integer.IsGreater(Container(120).NumItems,0)</visible>
+      <visible>String.IsEmpty(Window.Property(arc.tab0))</visible>
     </control>
-    <control type="image" id="119">
-      <left>80</left>
-      <top>40</top>
-      <width>744</width>
-      <height>76</height>
-      <texture border="38" colordiffuse="A6000000">arc-pill-white.png</texture>
-      <visible>Integer.IsGreater(Container(120).NumItems,0)</visible>
-    </control>
-    <control type="list" id="120">
+    <control type="grouplist" id="120">
       <left>80</left>
       <top>40</top>
       <width>1000</width>
       <height>76</height>
-      <visible>Integer.IsGreater(Container(120).NumItems,0)</visible>
       <orientation>horizontal</orientation>
       <itemgap>12</itemgap>
       <onup>noop</onup>
       <ondown>100</ondown>
       <onleft>noop</onleft>
       <onright>102</onright>
-      <itemlayout width="240" height="76">
-        <control type="image">
-          <left>0</left>
-          <top>0</top>
-          <width>240</width>
-          <height>76</height>
-          <texture border="38" colordiffuse="38FFFFFF">arc-pill-white.png</texture>
-          <visible>String.IsEqual(ListItem.Property(current),1)</visible>
-        </control>
-        <control type="label">
-          <left>0</left>
-          <top>0</top>
-          <width>240</width>
-          <height>76</height>
-          <font>font13</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textcolor>C8F5F5F7</textcolor>
-          <label>$INFO[ListItem.Label]</label>
-          <visible>!String.IsEqual(ListItem.Property(current),1)</visible>
-        </control>
-        <control type="label">
-          <left>0</left>
-          <top>0</top>
-          <width>240</width>
-          <height>76</height>
-          <font>font13</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textcolor>FFF5F5F7</textcolor>
-          <label>$INFO[ListItem.Label]</label>
-          <visible>String.IsEqual(ListItem.Property(current),1)</visible>
-        </control>
-      </itemlayout>
-      <focusedlayout width="240" height="76">
-        <control type="image">
-          <left>0</left>
-          <top>0</top>
-          <width>240</width>
-          <height>76</height>
-          <texture border="38">arc-pill-white.png</texture>
-          <visible>Control.HasFocus(120)</visible>
-        </control>
-        <control type="image">
-          <left>0</left>
-          <top>0</top>
-          <width>240</width>
-          <height>76</height>
-          <texture border="38" colordiffuse="38FFFFFF">arc-pill-white.png</texture>
-          <visible>!Control.HasFocus(120) + String.IsEqual(ListItem.Property(current),1)</visible>
-        </control>
-        <control type="label">
-          <left>0</left>
-          <top>0</top>
-          <width>240</width>
-          <height>76</height>
-          <font>font13</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textcolor>FF000000</textcolor>
-          <label>$INFO[ListItem.Label]</label>
-          <visible>Control.HasFocus(120)</visible>
-        </control>
-        <control type="label">
-          <left>0</left>
-          <top>0</top>
-          <width>240</width>
-          <height>76</height>
-          <font>font13</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textcolor>FFF5F5F7</textcolor>
-          <label>$INFO[ListItem.Label]</label>
-          <visible>!Control.HasFocus(120) + String.IsEqual(ListItem.Property(current),1)</visible>
-        </control>
-        <control type="label">
-          <left>0</left>
-          <top>0</top>
-          <width>240</width>
-          <height>76</height>
-          <font>font13</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textcolor>C8F5F5F7</textcolor>
-          <label>$INFO[ListItem.Label]</label>
-          <visible>!Control.HasFocus(120) + !String.IsEqual(ListItem.Property(current),1)</visible>
-        </control>
-      </focusedlayout>
+      <control type="button" id="121">
+        <width>auto</width>
+        <height>76</height>
+        <font>font13</font>
+        <align>center</align>
+        <aligny>center</aligny>
+        <textoffsetx>36</textoffsetx>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+        <visible>String.IsEqual(Window.Property(arc.tab0),current)</visible>
+      </control>
+      <control type="button" id="122">
+        <width>auto</width>
+        <height>76</height>
+        <font>font13</font>
+        <align>center</align>
+        <aligny>center</aligny>
+        <textoffsetx>36</textoffsetx>
+        <textcolor>C8F5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+        <visible>String.IsEqual(Window.Property(arc.tab0),other)</visible>
+      </control>
+      <control type="button" id="123">
+        <width>auto</width>
+        <height>76</height>
+        <font>font13</font>
+        <align>center</align>
+        <aligny>center</aligny>
+        <textoffsetx>36</textoffsetx>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+        <visible>String.IsEqual(Window.Property(arc.tab1),current)</visible>
+      </control>
+      <control type="button" id="124">
+        <width>auto</width>
+        <height>76</height>
+        <font>font13</font>
+        <align>center</align>
+        <aligny>center</aligny>
+        <textoffsetx>36</textoffsetx>
+        <textcolor>C8F5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+        <visible>String.IsEqual(Window.Property(arc.tab1),other)</visible>
+      </control>
+      <control type="button" id="125">
+        <width>auto</width>
+        <height>76</height>
+        <font>font13</font>
+        <align>center</align>
+        <aligny>center</aligny>
+        <textoffsetx>36</textoffsetx>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+        <visible>String.IsEqual(Window.Property(arc.tab2),current)</visible>
+      </control>
+      <control type="button" id="126">
+        <width>auto</width>
+        <height>76</height>
+        <font>font13</font>
+        <align>center</align>
+        <aligny>center</aligny>
+        <textoffsetx>36</textoffsetx>
+        <textcolor>C8F5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+        <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
+      </control>
     </control>
     <control type="label" id="104">
       <left>80</left>
@@ -181,8 +162,8 @@
       <top>170</top>
       <width>1800</width>
       <height>880</height>
-      <onup condition="Integer.IsGreater(Container(120).NumItems,0)">120</onup>
-      <onup condition="!Integer.IsGreater(Container(120).NumItems,0)">102</onup>
+      <onup condition="!String.IsEmpty(Window.Property(arc.tab0))">120</onup>
+      <onup condition="String.IsEmpty(Window.Property(arc.tab0))">102</onup>
       <orientation>vertical</orientation>
       <itemlayout width="292" height="460">
         <control type="image">

@@ -310,56 +310,66 @@
     </definition>
   </include>
 
-  <!-- A library's tabs (Recommended, Browse, Collections), as the Apple app's pill bar: the one
-       showing is outlined white; the focused one is white with black text. Select switches. -->
+  <!-- A library's tabs (Recommended, Browse, Collections), as the Apple app's pill bar: each a
+       pill sized to its word, the one showing lit, the focused one white with black text. Three
+       slots, each a "current" (121 + 2i) and an "other" (122 + 2i) button; the Python shows one
+       of each slot's pair with the window property arc.tab<i>. Select switches. -->
   <include name="LibraryTabs">
     <param name="left" default="80"/><param name="top" default="40"/>
     <param name="ondown"/><param name="onright" default="noop"/>
     <definition>
-      <!-- One dark capsule behind the tabs, so they read on any picture or background (its
-           width is set from the Python, for two or three tabs). -->
-      <control type="image" id="119">
-        <left>$PARAM[left]</left><top>$PARAM[top]</top><width>744</width><height>76</height>
-        <texture border="38" colordiffuse="A6000000">arc-pill-white.png</texture>
-        <visible>Integer.IsGreater(Container(120).NumItems,0)</visible>
-      </control>
-      <control type="list" id="120">
+      <control type="grouplist" id="120">
         <left>$PARAM[left]</left><top>$PARAM[top]</top><width>1000</width><height>76</height>
-        <visible>Integer.IsGreater(Container(120).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>12</itemgap>
         <onup>noop</onup><ondown>$PARAM[ondown]</ondown><onleft>noop</onleft><onright>$PARAM[onright]</onright>
-        <itemlayout width="240" height="76">
-          <control type="image"><left>0</left><top>0</top><width>240</width><height>76</height>
-            <texture border="38" colordiffuse="38FFFFFF">arc-pill-white.png</texture>
-            <visible>String.IsEqual(ListItem.Property(current),1)</visible></control>
-          <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
-            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>C8F5F5F7</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-            <visible>!String.IsEqual(ListItem.Property(current),1)</visible></control>
-          <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
-            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>fg</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-            <visible>String.IsEqual(ListItem.Property(current),1)</visible></control>
-        </itemlayout>
-        <focusedlayout width="240" height="76">
-          <control type="image"><left>0</left><top>0</top><width>240</width><height>76</height>
-            <texture border="38">arc-pill-white.png</texture>
-            <visible>Control.HasFocus(120)</visible></control>
-          <control type="image"><left>0</left><top>0</top><width>240</width><height>76</height>
-            <texture border="38" colordiffuse="38FFFFFF">arc-pill-white.png</texture>
-            <visible>!Control.HasFocus(120) + String.IsEqual(ListItem.Property(current),1)</visible></control>
-          <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
-            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>black</textcolor>
-            <label>$INFO[ListItem.Label]</label><visible>Control.HasFocus(120)</visible></control>
-          <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
-            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>fg</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-            <visible>!Control.HasFocus(120) + String.IsEqual(ListItem.Property(current),1)</visible></control>
-          <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
-            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>C8F5F5F7</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-            <visible>!Control.HasFocus(120) + !String.IsEqual(ListItem.Property(current),1)</visible></control>
-        </focusedlayout>
+        <control type="button" id="121">
+          <width>auto</width><height>76</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
+          <texturefocus border="38">arc-pill-white.png</texturefocus>
+          <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab0),current)</visible>
+        </control>
+        <control type="button" id="122">
+          <width>auto</width><height>76</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <textcolor>C8F5F5F7</textcolor><focusedcolor>black</focusedcolor>
+          <texturefocus border="38">arc-pill-white.png</texturefocus>
+          <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab0),other)</visible>
+        </control>
+        <control type="button" id="123">
+          <width>auto</width><height>76</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
+          <texturefocus border="38">arc-pill-white.png</texturefocus>
+          <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab1),current)</visible>
+        </control>
+        <control type="button" id="124">
+          <width>auto</width><height>76</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <textcolor>C8F5F5F7</textcolor><focusedcolor>black</focusedcolor>
+          <texturefocus border="38">arc-pill-white.png</texturefocus>
+          <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab1),other)</visible>
+        </control>
+        <control type="button" id="125">
+          <width>auto</width><height>76</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
+          <texturefocus border="38">arc-pill-white.png</texturefocus>
+          <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab2),current)</visible>
+        </control>
+        <control type="button" id="126">
+          <width>auto</width><height>76</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <textcolor>C8F5F5F7</textcolor><focusedcolor>black</focusedcolor>
+          <texturefocus border="38">arc-pill-white.png</texturefocus>
+          <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
+        </control>
       </control>
     </definition>
   </include>
