@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol always="true">100</defaultcontrol>
+  <controls>
+    <include>PageBackground</include>
+    <control type="label" id="101">
+      <left>0</left><top>160</top><width>1920</width><height>40</height>
+      <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
+      <label></label>
+    </control>
+    <control type="label">
+      <left>0</left><top>210</top><width>1920</width><height>70</height>
+      <font>arc-hero</font><textcolor>fg</textcolor><align>center</align>
+      <label>$ADDON[script.arc 30060]</label>
+    </control>
+    <control type="list" id="100">
+      <left>360</left><top>420</top><width>1200</width><height>340</height>
+      <orientation>horizontal</orientation>
+      <itemgap>40</itemgap>
+      <focusposition>0</focusposition>
+      <itemlayout width="240" height="320">
+        <control type="group">
+          <control type="image">
+            <left>20</left><top>0</top><width>200</width><height>200</height>
+            <texture border="100">arc-round-surface.png</texture>
+          </control>
+          <control type="label">
+            <left>0</left><top>210</top><width>240</width><height>40</height>
+            <font>arc-label</font><align>center</align><textcolor>muted</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+        </control>
+      </itemlayout>
+      <focusedlayout width="240" height="320">
+        <control type="group">
+          <control type="image">
+            <left>20</left><top>0</top><width>200</width><height>200</height>
+            <texture border="100">arc-round-white.png</texture>
+          </control>
+          <control type="label">
+            <left>0</left><top>210</top><width>240</width><height>40</height>
+            <font>arc-label</font><align>center</align><textcolor>fg</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+        </control>
+      </focusedlayout>
+    </control>
+  </controls>
+</window>

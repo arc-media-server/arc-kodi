@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The few settings only Kodi can know. Viewing preferences (subtitles, audio, auto-play) live
+     on the server, in the profile's prefs, set in Arc's own apps. -->
+<settings version="1">
+  <section id="script.arc">
+    <category id="playback" label="30144">
+      <group id="1">
+        <setting id="max_height" type="integer" label="30130">
+          <level>0</level>
+          <default>2160</default>
+          <constraints>
+            <options>
+              <option label="4K">2160</option>
+              <option label="1080p">1080</option>
+              <option label="720p">720</option>
+            </options>
+          </constraints>
+          <control type="spinner" format="integer"/>
+        </setting>
+      </group>
+    </category>
+  </section>
+</settings>
