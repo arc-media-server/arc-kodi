@@ -118,3 +118,13 @@ Checked in Kodi on a virtual display: the Backdrops row (corners close up), Mush
   - It logs the time at debug ("library recommended: N rows, fetched in X ms, shown in Y ms").
     A fetch of 3 s or more is logged at info, so a slow server shows in Kodi's log without
     debug logging. The server's own detailed log has a matching "recommended rows … took" line.
+
+## From the owner's kodi.log (Kodi 22 RC2, Windows 11, Microsoft Store build)
+
+- `[Arc] library recommended took 4546 ms`: the server took 4.5 s to answer the Recommended
+  call on the owner's library. The scratch server answers in about 13 ms, so the wait is the
+  server building its rows for a large library, not the add-on. That's for a server change; the
+  add-on now shows Loading… and keeps the rows for the next visit.
+- `Control 100 ... has been asked to focus, but it can't` on opening a grid: Kodi refuses focus
+  to a panel until its first cards are drawn. The grid and search now focus through
+  `focus_when_visible`, which tries again until it takes. Kodi still logs its first refusal.

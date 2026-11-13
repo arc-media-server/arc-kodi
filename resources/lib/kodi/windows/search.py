@@ -46,7 +46,7 @@ class SearchWindow(ArcWindow):
             ctrl.addItem(item_list_item(self.session, it, "poster"))
         self.set_label(EMPTY, "" if self.items else T(30106))
         if self.items:
-            self.focus_id(GRID)
+            self.focus_when_visible(GRID)  # Kodi refuses focus until the cards are drawn
 
     def on_click(self, control_id):
         if control_id == BOX:

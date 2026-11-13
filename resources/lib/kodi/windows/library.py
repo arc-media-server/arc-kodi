@@ -127,7 +127,7 @@ class GridWindow(TabsMixin, ArcWindow):
             else:
                 self.set_label(EMPTY, "")
                 if offset == 0:
-                    self.focus_id(GRID)
+                    self.focus_when_visible(GRID)  # Kodi refuses focus until the cards are drawn
             count = self.total or len(self.items)
             text = str(count) if count else ""
             if self.library is not None:
