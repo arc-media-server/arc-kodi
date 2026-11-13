@@ -78,6 +78,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3001).NumItems,0)</visible>
       </control>
@@ -121,6 +122,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -150,6 +152,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -172,6 +175,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -182,6 +186,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -218,6 +223,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -247,6 +253,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -269,6 +276,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -279,6 +287,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -290,6 +299,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3401).NumItems,0)</visible>
       </control>
@@ -352,6 +362,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -362,6 +373,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -417,6 +429,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -427,6 +440,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -438,6 +452,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3801).NumItems,0)</visible>
       </control>
@@ -450,43 +465,43 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>noop</onleft>
-        <itemlayout width="512" height="450">
+        <itemlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -497,10 +512,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -513,15 +528,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -530,62 +545,64 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="512" height="450">
+        <focusedlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -596,10 +613,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -612,15 +629,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>Control.HasFocus(3801)</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -629,20 +646,22 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -654,6 +673,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3002).NumItems,0)</visible>
       </control>
@@ -697,6 +717,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -726,6 +747,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -748,6 +770,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -758,6 +781,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -794,6 +818,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -823,6 +848,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -845,6 +871,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -855,6 +882,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -866,6 +894,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3402).NumItems,0)</visible>
       </control>
@@ -928,6 +957,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -938,6 +968,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -993,6 +1024,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -1003,6 +1035,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -1014,6 +1047,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3802).NumItems,0)</visible>
       </control>
@@ -1026,43 +1060,43 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>noop</onleft>
-        <itemlayout width="512" height="450">
+        <itemlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -1073,10 +1107,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -1089,15 +1123,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -1106,62 +1140,64 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="512" height="450">
+        <focusedlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -1172,10 +1208,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -1188,15 +1224,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>Control.HasFocus(3802)</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -1205,20 +1241,22 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -1230,6 +1268,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3003).NumItems,0)</visible>
       </control>
@@ -1273,6 +1312,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -1302,6 +1342,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -1324,6 +1365,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -1334,6 +1376,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -1370,6 +1413,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -1399,6 +1443,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -1421,6 +1466,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -1431,6 +1477,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -1442,6 +1489,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3403).NumItems,0)</visible>
       </control>
@@ -1504,6 +1552,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -1514,6 +1563,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -1569,6 +1619,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -1579,6 +1630,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -1590,6 +1642,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3803).NumItems,0)</visible>
       </control>
@@ -1602,43 +1655,43 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>noop</onleft>
-        <itemlayout width="512" height="450">
+        <itemlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -1649,10 +1702,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -1665,15 +1718,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -1682,62 +1735,64 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="512" height="450">
+        <focusedlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -1748,10 +1803,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -1764,15 +1819,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>Control.HasFocus(3803)</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -1781,20 +1836,22 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -1806,6 +1863,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3004).NumItems,0)</visible>
       </control>
@@ -1849,6 +1907,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -1878,6 +1937,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -1900,6 +1960,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -1910,6 +1971,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -1946,6 +2008,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -1975,6 +2038,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -1997,6 +2061,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -2007,6 +2072,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -2018,6 +2084,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3404).NumItems,0)</visible>
       </control>
@@ -2080,6 +2147,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -2090,6 +2158,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -2145,6 +2214,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -2155,6 +2225,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -2166,6 +2237,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3804).NumItems,0)</visible>
       </control>
@@ -2178,43 +2250,43 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>noop</onleft>
-        <itemlayout width="512" height="450">
+        <itemlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -2225,10 +2297,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -2241,15 +2313,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -2258,62 +2330,64 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="512" height="450">
+        <focusedlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -2324,10 +2398,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -2340,15 +2414,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>Control.HasFocus(3804)</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -2357,20 +2431,22 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -2382,6 +2458,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3005).NumItems,0)</visible>
       </control>
@@ -2425,6 +2502,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -2454,6 +2532,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -2476,6 +2555,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -2486,6 +2566,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -2522,6 +2603,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -2551,6 +2633,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -2573,6 +2656,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -2583,6 +2667,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -2594,6 +2679,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3405).NumItems,0)</visible>
       </control>
@@ -2656,6 +2742,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -2666,6 +2753,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -2721,6 +2809,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -2731,6 +2820,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -2742,6 +2832,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3805).NumItems,0)</visible>
       </control>
@@ -2754,43 +2845,43 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>noop</onleft>
-        <itemlayout width="512" height="450">
+        <itemlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -2801,10 +2892,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -2817,15 +2908,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -2834,62 +2925,64 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="512" height="450">
+        <focusedlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -2900,10 +2993,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -2916,15 +3009,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>Control.HasFocus(3805)</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -2933,20 +3026,22 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -2958,6 +3053,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3006).NumItems,0)</visible>
       </control>
@@ -3001,6 +3097,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -3030,6 +3127,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -3052,6 +3150,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -3062,6 +3161,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -3098,6 +3198,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -3127,6 +3228,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -3149,6 +3251,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -3159,6 +3262,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -3170,6 +3274,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3406).NumItems,0)</visible>
       </control>
@@ -3232,6 +3337,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -3242,6 +3348,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -3297,6 +3404,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -3307,6 +3415,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -3318,6 +3427,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3806).NumItems,0)</visible>
       </control>
@@ -3330,43 +3440,43 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>noop</onleft>
-        <itemlayout width="512" height="450">
+        <itemlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -3377,10 +3487,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -3393,15 +3503,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -3410,62 +3520,64 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="512" height="450">
+        <focusedlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -3476,10 +3588,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -3492,15 +3604,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>Control.HasFocus(3806)</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -3509,20 +3621,22 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -3534,6 +3648,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3007).NumItems,0)</visible>
       </control>
@@ -3577,6 +3692,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -3606,6 +3722,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -3628,6 +3745,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -3638,6 +3756,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -3674,6 +3793,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -3703,6 +3823,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -3725,6 +3846,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -3735,6 +3857,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -3746,6 +3869,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3407).NumItems,0)</visible>
       </control>
@@ -3808,6 +3932,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -3818,6 +3943,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -3873,6 +3999,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -3883,6 +4010,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -3894,6 +4022,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3807).NumItems,0)</visible>
       </control>
@@ -3906,43 +4035,43 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>noop</onleft>
-        <itemlayout width="512" height="450">
+        <itemlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -3953,10 +4082,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -3969,15 +4098,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -3986,62 +4115,64 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="512" height="450">
+        <focusedlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -4052,10 +4183,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -4068,15 +4199,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>Control.HasFocus(3807)</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -4085,20 +4216,22 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -4110,6 +4243,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3008).NumItems,0)</visible>
       </control>
@@ -4153,6 +4287,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -4182,6 +4317,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -4204,6 +4340,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -4214,6 +4351,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -4250,6 +4388,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -4279,6 +4418,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -4301,6 +4441,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -4311,6 +4452,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -4322,6 +4464,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3408).NumItems,0)</visible>
       </control>
@@ -4384,6 +4527,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -4394,6 +4538,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -4449,6 +4594,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -4459,6 +4605,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -4470,6 +4617,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3808).NumItems,0)</visible>
       </control>
@@ -4482,43 +4630,43 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>noop</onleft>
-        <itemlayout width="512" height="450">
+        <itemlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -4529,10 +4677,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -4545,15 +4693,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -4562,62 +4710,64 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="512" height="450">
+        <focusedlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -4628,10 +4778,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -4644,15 +4794,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>Control.HasFocus(3808)</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -4661,20 +4811,22 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -4686,6 +4838,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3009).NumItems,0)</visible>
       </control>
@@ -4729,6 +4882,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -4758,6 +4912,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -4780,6 +4935,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -4790,6 +4946,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -4826,6 +4983,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -4855,6 +5013,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -4877,6 +5036,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -4887,6 +5047,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -4898,6 +5059,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3409).NumItems,0)</visible>
       </control>
@@ -4960,6 +5122,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -4970,6 +5133,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -5025,6 +5189,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -5035,6 +5200,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -5046,6 +5212,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3809).NumItems,0)</visible>
       </control>
@@ -5058,43 +5225,43 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>noop</onleft>
-        <itemlayout width="512" height="450">
+        <itemlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -5105,10 +5272,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -5121,15 +5288,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -5138,62 +5305,64 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="512" height="450">
+        <focusedlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -5204,10 +5373,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -5220,15 +5389,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>Control.HasFocus(3809)</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -5237,20 +5406,22 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -5262,6 +5433,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3010).NumItems,0)</visible>
       </control>
@@ -5305,6 +5477,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -5334,6 +5507,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -5356,6 +5530,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -5366,6 +5541,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -5402,6 +5578,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -5431,6 +5608,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -5453,6 +5631,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -5463,6 +5642,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -5474,6 +5654,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3410).NumItems,0)</visible>
       </control>
@@ -5536,6 +5717,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -5546,6 +5728,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -5601,6 +5784,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -5611,6 +5795,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -5622,6 +5807,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3810).NumItems,0)</visible>
       </control>
@@ -5634,43 +5820,43 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>noop</onleft>
-        <itemlayout width="512" height="450">
+        <itemlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -5681,10 +5867,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -5697,15 +5883,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -5714,62 +5900,64 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="512" height="450">
+        <focusedlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -5780,10 +5968,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -5796,15 +5984,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>Control.HasFocus(3810)</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -5813,20 +6001,22 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -5838,6 +6028,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3011).NumItems,0)</visible>
       </control>
@@ -5881,6 +6072,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -5910,6 +6102,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -5932,6 +6125,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -5942,6 +6136,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -5978,6 +6173,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -6007,6 +6203,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -6029,6 +6226,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -6039,6 +6237,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -6050,6 +6249,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3411).NumItems,0)</visible>
       </control>
@@ -6112,6 +6312,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -6122,6 +6323,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -6177,6 +6379,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -6187,6 +6390,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -6198,6 +6402,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3811).NumItems,0)</visible>
       </control>
@@ -6210,43 +6415,43 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>noop</onleft>
-        <itemlayout width="512" height="450">
+        <itemlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -6257,10 +6462,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -6273,15 +6478,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -6290,62 +6495,64 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="512" height="450">
+        <focusedlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -6356,10 +6563,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -6372,15 +6579,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>Control.HasFocus(3811)</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -6389,20 +6596,22 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -6414,6 +6623,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3012).NumItems,0)</visible>
       </control>
@@ -6457,6 +6667,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -6486,6 +6697,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -6508,6 +6720,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -6518,6 +6731,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -6554,6 +6768,7 @@
             <width>220</width>
             <height>340</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <textcolor>FFA1A1AD</textcolor>
             <align>center</align>
             <aligny>center</aligny>
@@ -6583,6 +6798,7 @@
             <width>64</width>
             <height>44</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <aligny>center</aligny>
             <textcolor>FFFFFFFF</textcolor>
@@ -6605,6 +6821,7 @@
             <width>244</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -6615,6 +6832,7 @@
             <width>244</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -6626,6 +6844,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3412).NumItems,0)</visible>
       </control>
@@ -6688,6 +6907,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -6698,6 +6918,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -6753,6 +6974,7 @@
             <width>464</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
@@ -6763,6 +6985,7 @@
             <width>464</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
@@ -6774,6 +6997,7 @@
         <width>1500</width>
         <height>50</height>
         <font>font32_title</font>
+        <shadowcolor>99000000</shadowcolor>
         <textcolor>FFF5F5F7</textcolor>
         <visible>Integer.IsGreater(Container(3812).NumItems,0)</visible>
       </control>
@@ -6786,43 +7010,43 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>noop</onleft>
-        <itemlayout width="512" height="450">
+        <itemlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -6833,10 +7057,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -6849,15 +7073,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>false</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -6866,62 +7090,64 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="512" height="450">
+        <focusedlayout width="424" height="450">
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-mask-backdrop.png</texture>
             <colordiffuse>FF26272D</colordiffuse>
           </control>
           <control type="image">
-            <left>8</left>
+            <left>-58</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>533</width>
+            <height>300</height>
             <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+            <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
             <left>8</left>
             <top>8</top>
-            <width>488</width>
-            <height>366</height>
+            <width>400</width>
+            <height>300</height>
             <texture>arc-fade-backdrop.png</texture>
           </control>
           <control type="image">
-            <left>76</left>
-            <top>238</top>
-            <width>352</width>
-            <height>96</height>
+            <left>64</left>
+            <top>206</top>
+            <width>288</width>
+            <height>78</height>
             <aspectratio align="center" aligny="bottom">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -6932,10 +7158,10 @@
             <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
           </control>
           <control type="label">
-            <left>40</left>
-            <top>254</top>
-            <width>424</width>
-            <height>80</height>
+            <left>30</left>
+            <top>214</top>
+            <width>356</width>
+            <height>70</height>
             <font>font13</font>
             <align>center</align>
             <aligny>bottom</aligny>
@@ -6948,15 +7174,15 @@
           <control type="image">
             <left>2</left>
             <top>2</top>
-            <width>500</width>
-            <height>378</height>
+            <width>412</width>
+            <height>312</height>
             <texture>arc-ring-backdrop.png</texture>
             <visible>Control.HasFocus(3812)</visible>
           </control>
           <control type="progress">
             <left>20</left>
-            <top>354</top>
-            <width>464</width>
+            <top>288</top>
+            <width>376</width>
             <height>8</height>
             <texturebg border="4">arc-bar-bg.png</texturebg>
             <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -6965,26 +7191,36 @@
           </control>
           <control type="label">
             <left>8</left>
-            <top>384</top>
-            <width>488</width>
+            <top>318</top>
+            <width>400</width>
             <height>34</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="label">
             <left>8</left>
-            <top>416</top>
-            <width>488</width>
+            <top>350</top>
+            <width>400</width>
             <height>30</height>
             <font>font12</font>
+            <shadowcolor>99000000</shadowcolor>
             <align>center</align>
             <textcolor>FF6B6B78</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </focusedlayout>
       </control>
+    </control>
+    <control type="image" id="119">
+      <left>112</left>
+      <top>40</top>
+      <width>744</width>
+      <height>76</height>
+      <texture border="38" colordiffuse="A6000000">arc-pill-white.png</texture>
+      <visible>Integer.IsGreater(Container(120).NumItems,0)</visible>
     </control>
     <control type="list" id="120">
       <left>112</left>
@@ -7004,7 +7240,7 @@
           <top>0</top>
           <width>240</width>
           <height>76</height>
-          <texture border="38">arc-pill-surface.png</texture>
+          <texture border="38" colordiffuse="38FFFFFF">arc-pill-white.png</texture>
           <visible>String.IsEqual(ListItem.Property(current),1)</visible>
         </control>
         <control type="label">
@@ -7015,7 +7251,7 @@
           <font>font13</font>
           <align>center</align>
           <aligny>center</aligny>
-          <textcolor>FFA1A1AD</textcolor>
+          <textcolor>C8F5F5F7</textcolor>
           <label>$INFO[ListItem.Label]</label>
           <visible>!String.IsEqual(ListItem.Property(current),1)</visible>
         </control>
@@ -7046,7 +7282,7 @@
           <top>0</top>
           <width>240</width>
           <height>76</height>
-          <texture border="38">arc-pill-surface.png</texture>
+          <texture border="38" colordiffuse="38FFFFFF">arc-pill-white.png</texture>
           <visible>!Control.HasFocus(120) + String.IsEqual(ListItem.Property(current),1)</visible>
         </control>
         <control type="label">
@@ -7081,7 +7317,7 @@
           <font>font13</font>
           <align>center</align>
           <aligny>center</aligny>
-          <textcolor>FFA1A1AD</textcolor>
+          <textcolor>C8F5F5F7</textcolor>
           <label>$INFO[ListItem.Label]</label>
           <visible>!Control.HasFocus(120) + !String.IsEqual(ListItem.Property(current),1)</visible>
         </control>

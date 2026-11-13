@@ -137,30 +137,27 @@ class DetailsWindow(ArcWindow):
             filled = i == 0 and text in ("4K", "1080p", "720p", "SD")
             self.set_label(CAPSULE_BASE + 2 * i + (0 if filled else 1), text)
             self.setProperty("arc.cap%d" % i, ("f" if filled else "o") if text else "")
-        # Starring and Director, one line each at the right, as the Apple app's: the label muted,
-        # the names bold. The lower line is filled first, so the text sits level with the buttons.
-        lines = []
+        # Starring and Director at the right, as the Apple app's: the label lighter, the names
+        # bold, ending level with the buttons. Starring (which may wrap to two lines) sits above
+        # Director, or in its place when there's no director.
         stars = titlepage.starring(item)
-        if stars:
-            lines.append(self._labelled(T(30158), stars))
         directors = titlepage.people(item, ("director",), 2)
-        if directors:
-            lines.append(self._labelled(T(30147), directors))
+        self.set_label(STARRING, self._labelled(T(30158), stars) if stars else "")
+        self.set_label(DIRECTORS, self._labelled(T(30147), directors) if directors else "")
+        # Kodi won't bottom-align a wrapping label, so the Python places Starring by how many
+        # lines it takes (it wraps from about 42 characters at this size, allowing for wide letters).
         wraps = bool(stars) and len(T(30158)) + 1 + len(", ".join(stars)) > 42
-        lines = [""] * (2 - len(lines)) + lines
-        self.set_label(STARRING, lines[0])
-        self.set_label(DIRECTORS, lines[1])
-        # Kodi won't bottom-align a wrapping label, so a Starring line long enough to wrap (about
-        # 42 characters at this size, allowing for wide letters) moves up a line, just above Director.
+        bottom = 36 if directors else 76      # where Starring's last line must end, in the row
+        lines = 2 if wraps else 1
         try:
-            self.getControl(STARRING).setPosition(1120, -36 if directors and wraps else -2)
-            self.getControl(STARRING).setHeight(80 if wraps else 40)
+            self.getControl(STARRING).setPosition(1120, bottom - 38 * lines)
+            self.getControl(STARRING).setHeight(40 * lines)
         except Exception:
             pass
 
     @staticmethod
     def _labelled(label, names):
-        return "[COLOR FFA1A1AD]%s[/COLOR] [B]%s[/B]" % (label, ", ".join(names))
+        return "[COLOR FFD8D8DE]%s[/COLOR] [B]%s[/B]" % (label, ", ".join(names))
 
     def _facts(self, item):
         """The year (or an episode's code and year) and the length."""

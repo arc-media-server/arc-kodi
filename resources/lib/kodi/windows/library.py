@@ -22,6 +22,7 @@ FILTER = 103
 COUNT = 104
 EMPTY = 105
 TABS = 120
+TABS_BACK = 119
 
 PAGE_SIZE = 60
 
@@ -45,6 +46,10 @@ class TabsMixin(object):
         for key, name in self.tabs:
             ctrl.addItem(list_item(name, props={"current": "1" if key == self.tab else ""}))
         ctrl.selectItem([k for k, _ in self.tabs].index(self.tab))
+        try:
+            self.getControl(TABS_BACK).setWidth(len(self.tabs) * 240 + (len(self.tabs) - 1) * 12)
+        except Exception:
+            pass
 
     def tab_clicked(self):
         key = self.tabs[self.list_control(TABS).getSelectedPosition()][0]

@@ -15,13 +15,13 @@
     </control>
     <control type="button" id="102">
       <include content="PillButton"><param name="width" value="420"/></include>
-      <left>1180</left><top>56</top>
+      <left>1180</left><top>40</top>
       <ondown>100</ondown><onup>noop</onup><onleft>120</onleft><onright>103</onright>
       <label>$ADDON[script.arc 30123]</label>
     </control>
     <control type="button" id="103">
       <include content="PillButton"><param name="width" value="260"/></include>
-      <left>1620</left><top>56</top><width>260</width>
+      <left>1620</left><top>40</top><width>260</width>
       <ondown>100</ondown><onup>noop</onup><onleft>102</onleft><onright>noop</onright>
       <label>$ADDON[script.arc 30124]</label>
     </control>

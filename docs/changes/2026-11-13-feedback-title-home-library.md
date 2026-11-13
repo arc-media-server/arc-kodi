@@ -78,3 +78,26 @@ virtual display (no hardware).
 ## Logging
 
 A failed Recommended load logs a warning naming the error type. Nothing else new.
+
+## Second round (owner's screenshots: The Simpsons, the library tabs)
+
+- **Backdrop cards were too big and square-cornered.** They're now 400x300, about a fifth
+  smaller. The corners were lost because Kodi lines a mask up with the whole picture before it
+  crops the picture to the control: a 16:9 backdrop cropped to 4:3 lost its sides, and the
+  rounded corners went with them. The backdrop now shows at its own 16:9 shape, centred on the
+  card, through a 16:9 mask that is clear at the sides with the card's rounded shape in the middle
+  (`arc-mask-backdrop-wide.png`).
+- **Words were hard to read over bright artwork** (the overview, the season tabs, the hint,
+  Starring).
+  - A scrim over the title page's artwork (`arc-title-scrim.png`) darkens it at the left, behind
+    the hero's words, and towards the foot, behind the tabs and rows.
+  - Season tabs, row titles, the hint and every card's words now have shadows; unselected season
+    tabs are brighter; Starring's label is lighter.
+  - Starring is placed by how many lines it takes, with or without a director, so it no longer
+    truncates when there's no director.
+- **The library tabs vanished on backgrounds of their own colour.** They're now in one dark
+  capsule, as the Apple app's pill bar, with the tab showing lit in it and brighter words for the
+  others. Sort and Filter line up with them.
+
+Checked in Kodi on a virtual display: the Backdrops row (corners close up), Mushoku Tensei's page
+(bright artwork), and the Films tabs on Recommended (over artwork) and Browse (plain background).

@@ -50,7 +50,7 @@ def pill(name, fill, size=76):
 
 # Cards are drawn at the exact size the skin shows them (skin/includes.xml), so Kodi never
 # stretches their corners: a mask that rounds the picture, and the focus ring around it.
-CARDS = {"poster": (244, 366), "thumb": (464, 261), "backdrop": (488, 366)}
+CARDS = {"poster": (244, 366), "thumb": (464, 261), "backdrop": (400, 300)}
 CARD_RADIUS = 14
 
 
@@ -60,6 +60,18 @@ def cards():
         # The ring sits 6 px outside the card: 4 px of white, a 2 px gap.
         _rounded((w + 12, h + 12), CARD_RADIUS + 6, outline=WHITE, width=4).save(
             os.path.join(MEDIA, "arc-ring-%s.png" % kind))
+
+
+def backdrop_wide_mask():
+    """A backdrop card's picture is a 16:9 backdrop shown at its own shape and centred on the 4:3
+    card, through this 16:9 mask: clear at the sides, the card's rounded shape in the middle.
+    (Kodi lines a mask up with the whole picture before cropping it to the control, so a mask the
+    card's own shape would lose its corners with the cropped sides.)"""
+    w, h = CARDS["backdrop"]
+    wide = int(round(h * 16 / 9.0))
+    img = Image.new("RGBA", (wide, h), (0, 0, 0, 0))
+    img.paste(_rounded((w, h), CARD_RADIUS, fill=WHITE), ((wide - w) // 2, 0))
+    img.save(os.path.join(MEDIA, "arc-mask-backdrop-wide.png"))
 
 
 def backdrop_fade():
@@ -261,6 +273,19 @@ def title_page():
             across = 0.5 + 0.5 * min(1.0, fx / 0.55)
             px[x, y] = (255, 255, 255, int(round(255 * down * across)))
     img.save(os.path.join(MEDIA, "arc-hero-mask.png"))
+    # Over the artwork, so words stay readable on bright pictures (a yellow cartoon): darker at the
+    # left, behind the hero's words, and towards the foot, behind the season tabs and rows.
+    w, h = 384, 216
+    img = Image.new("RGBA", (w, h))
+    px = img.load()
+    for y in range(h):
+        fy = y / (h - 1.0)
+        for x in range(w):
+            fx = x / (w - 1.0)
+            left = 0.55 * max(0.0, 1.0 - fx / 0.65) ** 1.2
+            foot = 0.65 * max(0.0, (fy - 0.35) / 0.65) ** 1.2
+            px[x, y] = (0, 0, 0, int(round(255 * min(0.85, left + foot))))
+    img.save(os.path.join(MEDIA, "arc-title-scrim.png"))
     # A soft dark area behind text over bright artwork (the hero's Starring column).
     _rounded((160, 160), 80, fill=WHITE).save(os.path.join(MEDIA, "arc-mask-face.png"))
     face = Image.new("RGBA", (160, 240), (0, 0, 0, 0))
@@ -294,6 +319,7 @@ def main():
     pill("arc-pill-white-64.png", WHITE, 64)
     cards()
     backdrop_fade()
+    backdrop_wide_mask()
     count_tab()
     wash()
     hero_scrim()

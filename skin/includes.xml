@@ -104,7 +104,7 @@
       </control>
       <control type="label">
         <left>20</left><top>20</top><width>220</width><height>340</height>
-        <font>arc-small</font><textcolor>muted</textcolor><align>center</align><aligny>center</aligny>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><textcolor>muted</textcolor><align>center</align><aligny>center</aligny>
         <wrapmultiline>true</wrapmultiline>
         <label>$INFO[ListItem.Label]</label>
         <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
@@ -122,7 +122,7 @@
       </control>
       <control type="label">
         <left>188</left><top>8</top><width>64</width><height>44</height>
-        <font>arc-small</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><aligny>center</aligny><textcolor>white</textcolor>
         <label>$INFO[ListItem.Property(unwatched)]</label>
         <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
       </control>
@@ -135,13 +135,13 @@
       </control>
       <control type="label">
         <left>8</left><top>384</top><width>244</width><height>34</height>
-        <font>arc-small</font><align>center</align>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align>
         <textcolor>$PARAM[labelcolor]</textcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label">
         <left>8</left><top>416</top><width>244</width><height>30</height>
-        <font>arc-small</font><align>center</align><textcolor>subtle</textcolor>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><textcolor>subtle</textcolor>
         <label>$INFO[ListItem.Label2]</label>
       </control>
     </definition>
@@ -181,13 +181,13 @@
       </control>
       <control type="label">
         <left>8</left><top>278</top><width>464</width><height>34</height>
-        <font>arc-small</font><align>center</align>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align>
         <textcolor>$PARAM[labelcolor]</textcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label">
         <left>8</left><top>310</top><width>464</width><height>30</height>
-        <font>arc-small</font><align>center</align><textcolor>subtle</textcolor>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><textcolor>subtle</textcolor>
         <label>$INFO[ListItem.Label2]</label>
       </control>
     </definition>
@@ -316,6 +316,13 @@
     <param name="left" default="80"/><param name="top" default="40"/>
     <param name="ondown"/><param name="onright" default="noop"/>
     <definition>
+      <!-- One dark capsule behind the tabs, so they read on any picture or background (its
+           width is set from the Python, for two or three tabs). -->
+      <control type="image" id="119">
+        <left>$PARAM[left]</left><top>$PARAM[top]</top><width>744</width><height>76</height>
+        <texture border="38" colordiffuse="A6000000">arc-pill-white.png</texture>
+        <visible>Integer.IsGreater(Container(120).NumItems,0)</visible>
+      </control>
       <control type="list" id="120">
         <left>$PARAM[left]</left><top>$PARAM[top]</top><width>1000</width><height>76</height>
         <visible>Integer.IsGreater(Container(120).NumItems,0)</visible>
@@ -323,10 +330,10 @@
         <onup>noop</onup><ondown>$PARAM[ondown]</ondown><onleft>noop</onleft><onright>$PARAM[onright]</onright>
         <itemlayout width="240" height="76">
           <control type="image"><left>0</left><top>0</top><width>240</width><height>76</height>
-            <texture border="38">arc-pill-surface.png</texture>
+            <texture border="38" colordiffuse="38FFFFFF">arc-pill-white.png</texture>
             <visible>String.IsEqual(ListItem.Property(current),1)</visible></control>
           <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
-            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>muted</textcolor>
+            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>C8F5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
             <visible>!String.IsEqual(ListItem.Property(current),1)</visible></control>
           <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
@@ -339,7 +346,7 @@
             <texture border="38">arc-pill-white.png</texture>
             <visible>Control.HasFocus(120)</visible></control>
           <control type="image"><left>0</left><top>0</top><width>240</width><height>76</height>
-            <texture border="38">arc-pill-surface.png</texture>
+            <texture border="38" colordiffuse="38FFFFFF">arc-pill-white.png</texture>
             <visible>!Control.HasFocus(120) + String.IsEqual(ListItem.Property(current),1)</visible></control>
           <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
             <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>black</textcolor>
@@ -349,7 +356,7 @@
             <label>$INFO[ListItem.Label]</label>
             <visible>!Control.HasFocus(120) + String.IsEqual(ListItem.Property(current),1)</visible></control>
           <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
-            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>muted</textcolor>
+            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>C8F5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
             <visible>!Control.HasFocus(120) + !String.IsEqual(ListItem.Property(current),1)</visible></control>
         </focusedlayout>
@@ -394,7 +401,7 @@
       </control>
       <control type="label">
         <left>20</left><top>10</top><width>160</width><height>160</height>
-        <font>arc-title</font><align>center</align><aligny>center</aligny><textcolor>muted</textcolor>
+        <font>arc-title</font><shadowcolor>99000000</shadowcolor><align>center</align><aligny>center</aligny><textcolor>muted</textcolor>
         <label>$INFO[ListItem.Property(initials)]</label>
       </control>
       <!-- Photos are portrait (2:3): drawn 160x240 with a mask whose circle is the top 160, so
@@ -411,12 +418,12 @@
       </control>
       <control type="label">
         <left>0</left><top>186</top><width>200</width><height>34</height>
-        <font>arc-small</font><align>center</align><textcolor>$PARAM[labelcolor]</textcolor>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><textcolor>$PARAM[labelcolor]</textcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label">
         <left>0</left><top>218</top><width>200</width><height>30</height>
-        <font>arc-small</font><align>center</align><textcolor>subtle</textcolor>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><textcolor>subtle</textcolor>
         <label>$INFO[ListItem.Label2]</label>
       </control>
     </definition>
@@ -461,7 +468,7 @@
            Down move between rows; both show only once the list has cards. -->
       <control type="label" id="$PARAM[title]">
         <left>8</left><width>1500</width><height>50</height>
-        <font>arc-row</font><textcolor>fg</textcolor>
+        <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
       <control type="list" id="$PARAM[list]">
@@ -491,7 +498,7 @@
            Down move between rows; both show only once the list has cards. -->
       <control type="label" id="$PARAM[title]">
         <left>8</left><width>1500</width><height>50</height>
-        <font>arc-row</font><textcolor>fg</textcolor>
+        <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
       <control type="list" id="$PARAM[list]">
@@ -520,7 +527,7 @@
            Down move between rows; both show only once the list has cards. -->
       <control type="label" id="$PARAM[title]">
         <left>8</left><width>1500</width><height>50</height>
-        <font>arc-row</font><textcolor>fg</textcolor>
+        <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
       <control type="list" id="$PARAM[list]">
@@ -530,8 +537,8 @@
         <scrolltime tween="cubic" easing="out">220</scrolltime>
         <preloaditems>2</preloaditems>
         <onleft>$PARAM[onleft]</onleft>
-        <itemlayout width="512" height="450"><include>BackdropCard</include></itemlayout>
-        <focusedlayout width="512" height="450">
+        <itemlayout width="424" height="450"><include>BackdropCard</include></itemlayout>
+        <focusedlayout width="424" height="450">
           <include content="BackdropCard"><param name="focused" value="Control.HasFocus($PARAM[list])"/><param name="labelcolor" value="fg"/></include>
         </focusedlayout>
       </control>
@@ -545,59 +552,61 @@
     <param name="labelcolor" default="muted"/>
     <definition>
       <control type="image">
-        <left>8</left><top>8</top><width>488</width><height>366</height>
+        <left>8</left><top>8</top><width>400</width><height>300</height>
         <texture>arc-mask-backdrop.png</texture>
         <colordiffuse>surface</colordiffuse>
       </control>
+      <!-- The 16:9 backdrop at its own shape, centred, through a 16:9 mask with the card's rounded
+           shape in the middle (arc-mask-backdrop-wide.png; tools/make_media.py says why). -->
       <control type="image">
-        <left>8</left><top>8</top><width>488</width><height>366</height>
+        <left>-58</left><top>8</top><width>533</width><height>300</height>
         <aspectratio>scale</aspectratio>
-        <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+        <texture background="true" diffuse="arc-mask-backdrop-wide.png">$INFO[ListItem.Art(thumb)]</texture>
       </control>
       <control type="image">
-        <left>8</left><top>8</top><width>488</width><height>366</height>
+        <left>8</left><top>8</top><width>400</width><height>300</height>
         <texture>arc-fade-backdrop.png</texture>
       </control>
       <control type="image">
-        <left>76</left><top>238</top><width>352</width><height>96</height>
+        <left>64</left><top>206</top><width>288</width><height>78</height>
         <aspectratio align="center" aligny="bottom">keep</aspectratio>
         <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
       </control>
       <control type="label">
-        <left>40</left><top>254</top><width>424</width><height>80</height>
+        <left>30</left><top>214</top><width>356</width><height>70</height>
         <font>arc-label</font><align>center</align><aligny>bottom</aligny><textcolor>white</textcolor>
         <wrapmultiline>true</wrapmultiline><shadowcolor>CC000000</shadowcolor>
         <label>$INFO[ListItem.Property(series)]</label>
         <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
       </control>
       <control type="label">
-        <left>40</left><top>254</top><width>424</width><height>80</height>
+        <left>30</left><top>214</top><width>356</width><height>70</height>
         <font>arc-label</font><align>center</align><aligny>bottom</aligny><textcolor>white</textcolor>
         <wrapmultiline>true</wrapmultiline><shadowcolor>CC000000</shadowcolor>
         <label>$INFO[ListItem.Label]</label>
         <visible>String.IsEmpty(ListItem.Art(clearlogo)) + String.IsEmpty(ListItem.Property(series))</visible>
       </control>
       <control type="image">
-        <left>2</left><top>2</top><width>500</width><height>378</height>
+        <left>2</left><top>2</top><width>412</width><height>312</height>
         <texture>arc-ring-backdrop.png</texture>
         <visible>$PARAM[focused]</visible>
       </control>
       <control type="progress">
-        <left>20</left><top>354</top><width>464</width><height>8</height>
+        <left>20</left><top>288</top><width>376</width><height>8</height>
         <texturebg border="4">arc-bar-bg.png</texturebg>
         <midtexture border="4">arc-bar-fg.png</midtexture>
         <info>ListItem.PercentPlayed</info>
         <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
       </control>
       <control type="label">
-        <left>8</left><top>384</top><width>488</width><height>34</height>
-        <font>arc-small</font><align>center</align>
+        <left>8</left><top>318</top><width>400</width><height>34</height>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align>
         <textcolor>$PARAM[labelcolor]</textcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label">
-        <left>8</left><top>416</top><width>488</width><height>30</height>
-        <font>arc-small</font><align>center</align><textcolor>subtle</textcolor>
+        <left>8</left><top>350</top><width>400</width><height>30</height>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><textcolor>subtle</textcolor>
         <label>$INFO[ListItem.Label2]</label>
       </control>
     </definition>

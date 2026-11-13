@@ -21,6 +21,10 @@
       <aspectratio>scale</aspectratio><fadetime>300</fadetime>
       <texture diffuse="arc-hero-mask.png"></texture>
     </control>
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <texture>arc-title-scrim.png</texture>
+    </control>
 
     <control type="grouplist" id="900">
       <left>112</left><top>0</top><width>1808</width><height>1080</height>
@@ -186,7 +190,7 @@
         </control>
         <control type="label" id="97">
           <left>690</left><top>0</top><width>360</width><height>80</height>
-          <font>arc-small</font><textcolor>muted</textcolor><aligny>center</aligny>
+          <font>arc-small</font><textcolor>fg</textcolor><aligny>center</aligny><shadowcolor>CC000000</shadowcolor>
           <label>$INFO[Window.Property(arc.hint)]</label>
           <visible>Control.HasFocus(101) | Control.HasFocus(102) | Control.HasFocus(103)</visible>
         </control>
@@ -199,8 +203,8 @@
         <orientation>horizontal</orientation><itemgap>12</itemgap>
         <itemlayout width="220" height="76">
           <control type="label"><left>0</left><top>0</top><width>220</width><height>76</height>
-            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>muted</textcolor>
-            <label>$INFO[ListItem.Label]</label></control>
+            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>C8F5F5F7</textcolor>
+            <shadowcolor>CC000000</shadowcolor><label>$INFO[ListItem.Label]</label></control>
         </itemlayout>
         <focusedlayout width="220" height="76">
           <control type="image"><left>0</left><top>0</top><width>220</width><height>76</height>
@@ -211,7 +215,7 @@
             <label>$INFO[ListItem.Label]</label><visible>Control.HasFocus(200)</visible></control>
           <control type="label"><left>0</left><top>0</top><width>220</width><height>76</height>
             <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>fg</textcolor>
-            <label>$INFO[ListItem.Label]</label><visible>!Control.HasFocus(200)</visible></control>
+            <shadowcolor>CC000000</shadowcolor><label>$INFO[ListItem.Label]</label><visible>!Control.HasFocus(200)</visible></control>
         </focusedlayout>
       </control>
       <control type="list" id="201">
@@ -226,7 +230,7 @@
       </control>
       <control type="textbox" id="202">
         <left>8</left><width>1400</width><height>80</height>
-        <font>arc-small</font><textcolor>muted</textcolor>
+        <font>arc-small</font><textcolor>DDF5F5F7</textcolor><shadowcolor>CC000000</shadowcolor>
         <label>$INFO[Container(201).ListItem.Property(overview)]</label>
         <visible>Control.HasFocus(201) + !String.IsEmpty(Container(201).ListItem.Property(overview))</visible>
       </control>
@@ -238,7 +242,7 @@
       <!-- Cast & Crew: round photos, name and part. -->
       <control type="label" id="331">
         <left>8</left><width>1500</width><height>50</height>
-        <font>arc-row</font><textcolor>fg</textcolor>
+        <font>arc-row</font><textcolor>fg</textcolor><shadowcolor>CC000000</shadowcolor>
         <visible>Integer.IsGreater(Container(330).NumItems,0)</visible>
       </control>
       <control type="list" id="330">
