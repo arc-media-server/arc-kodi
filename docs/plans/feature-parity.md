@@ -28,12 +28,13 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Rows as the web arranges them (Continue/Up Next, libraries, watchlist, collections, playlists, seasonal) | Both | Done | Yes | |
 | Continue Watching shows the show's art | Both | Done | Yes | |
 | Remove from Continue Watching | Android | Done | Yes | In the card menu, on Continue Watching. |
+| Menus and questions in Arc's style (card menu, Sort, Filter, pickers, Sign Out) | Both | Done | Yes | One Arc menu; Kodi's keyboard and PIN number pad remain (see Search and PINs). |
 | Watch Together row | Apple | Missing | Yes | With Watch Together. |
 | Library: Recommended / Browse / Collections / Folders pills | Both | Part | Yes | Browse only; no Recommended, Collections or Folders pages. |
 | Library sort and filter (genre, unwatched, decade, resolution...) | Both | Part | Yes | Sort and unwatched only. |
 | Posters: unwatched count tab, progress bar, watched tick, year · length | Both | Part | Yes | No unwatched count tab yet. |
 | Paging large libraries | Both | Done | Yes | |
-| Collection, playlist, person and folder pages | Both | Part | Yes | Playlists and the watchlist use a plain grid; no person, collection or folder pages. |
+| Collection, playlist, person and folder pages | Both | Part | Yes | Playlists, the watchlist, a person (from Cast) and a collection open as a plain grid; no proper person, collection or folder pages yet. |
 | Search as you type; results in rows (films, shows, episodes, people, collections, genres) | Both | Part | Yes | Kodi's keyboard dialog, then one grid of films/shows/episodes. An on-screen keyboard (as PM4K's) gives as-you-type. |
 | Live updates (new titles, watched state from other devices) | Both | Missing | Yes | Arc's event stream (SSE) with urllib; refetch on change. |
 
@@ -87,9 +88,9 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Feature | Apple / Android | Kodi now | Kodi can | Notes |
 |---|---|---|---|---|
 | Direct play of MKV/MP4, HEVC/AV1, TrueHD/DTS | Both (by device) | Done | Yes | Kodi plays more as it is than either app. |
-| Passthrough (AC3, E-AC3, DTS, TrueHD, DTS-HD) | Both | Part | Yes | Read from Kodi's settings; needs checking on hardware. |
-| HDR10 / HLG / HDR10+ | Both | Part | Yes | Read from Kodi's display info (Kodi 20+). Unchecked. |
-| Dolby Vision (profile 5, 7 with FEL, 8) | Both (by device) | Part | Part | Kodi reports DV only where the platform has it. On CoreELEC (Ugoos AM6B+) profiles 5, 7 (FEL) and 8 play; the add-on claims only 8 now, so 5 and 7 would be converted. Needs widening and checking on the AM6B+. |
+| Passthrough (AC3, E-AC3, DTS, TrueHD, DTS-HD) | Both | Yes (Kodi) | Yes | Kodi's own audio output settings (owner, 13 November); not yet checked on hardware. |
+| HDR10 / HLG / HDR10+ | Both | Yes (Kodi) | Yes | The original is sent and Kodi handles HDR output and tone mapping (owner, 13 November); not yet checked on hardware. |
+| Dolby Vision (profile 5, 7 with FEL, 8) | Both (by device) | Yes (Kodi) | Part | The add-on no longer limits DV profiles: the original is sent and Kodi (e.g. CoreELEC on the AM6B+) plays or converts it (owner, 13 November). Not a promise of native DV output; not yet checked on hardware. |
 | Refresh rate / resolution matching | Both | Yes (Kodi) | Yes | Kodi's own "Adjust display refresh rate" setting, as PM4K. |
 
 ## Platform integration
@@ -102,14 +103,14 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 
 ## Suggested order
 
-1. **Real-device checks on the AM6B+** (direct play, passthrough, HDR10, DV) and widening the DV
-   profiles Kodi claims on CoreELEC.
-2. **Title page parity:** About/Details/Crew/Playback cards, cast row, badges as capsules, Play
-   labels, Play from the beginning, extras, collections row, the episode browser.
-3. **Library parity:** Recommended, Collections and Folders pills; filters; the unwatched tab;
-   person, collection and folder pages.
-4. **Player extras:** chapters, timeline thumbnails, the Info/Episodes tabs, speed.
-5. **Settings screen** (Auto-Play, Skip Intros, subtitle mode) and a password sign-in.
-6. **Search** with an on-screen keyboard and rows; **live updates**.
-7. **Watch Together**.
-8. **Distribution:** the zip built on push, then a Kodi repository for updates.
+Done: real-device policy (owner, 13 November: Kodi owns format compatibility, so no per-device
+rules; hardware checks still to do on the AM6B+), title page parity, and Arc's own menus.
+
+1. **Library parity:** Recommended, Collections and Folders pills; filters; the unwatched tab;
+   person, collection and folder pages; Play All / Shuffle.
+2. **Player extras:** chapters, timeline thumbnails, the Info/Episodes tabs, speed.
+3. **Settings screen** (Auto-Play, Skip Intros, subtitle mode), a password sign-in and an Arc
+   PIN pad.
+4. **Search** with an on-screen keyboard and rows; **live updates**.
+5. **Watch Together**.
+6. **Distribution:** the zip built on push, then a Kodi repository for updates.
