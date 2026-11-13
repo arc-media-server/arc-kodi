@@ -19,7 +19,7 @@ FILTER = 103
 COUNT = 104
 EMPTY = 105
 
-PAGE = 60
+PAGE_SIZE = 60
 
 SORTS = [("added", T(30127)), ("title", T(30128)), ("year", T(30129)), ("rating", T(30130))]
 
@@ -69,16 +69,16 @@ class GridWindow(ArcWindow):
             if not self.items:
                 self._show_empty()
             else:
-                self.set_visible(EMPTY, False)
+                self.set_label(EMPTY, "")
                 if offset == 0:
                     self.focus_id(GRID)
-            self.set_label(COUNT, str(self.total or len(self.items)))
+            count = self.total or len(self.items)
+            self.set_label(COUNT, str(count) if count else "")
 
-        self.run_async(lambda: self.loader(offset, PAGE), done)
+        self.run_async(lambda: self.loader(offset, PAGE_SIZE), done)
 
     def _show_empty(self):
-        self.set_text(EMPTY, T(30106))
-        self.set_visible(EMPTY, True)
+        self.set_label(EMPTY, T(30106))
 
     def on_action(self, action, code):
         if code in (xbmcgui.ACTION_MOVE_DOWN, xbmcgui.ACTION_PAGE_DOWN) and self.getFocusId() == GRID:

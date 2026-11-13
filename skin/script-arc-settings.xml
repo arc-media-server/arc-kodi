@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol always="true">102</defaultcontrol>
+  <controls>
+    <include>PageBackground</include>
+    <control type="group">
+      <left>560</left><top>240</top><width>800</width>
+      <control type="label">
+        <left>0</left><top>0</top><width>800</width><height>70</height>
+        <font>arc-hero</font><textcolor>fg</textcolor>
+        <label>$ADDON[script.arc 30084]</label>
+      </control>
+      <control type="label" id="100">
+        <left>0</left><top>100</top><width>800</width><height>40</height>
+        <font>arc-body</font><textcolor>muted</textcolor><label></label>
+      </control>
+      <control type="label" id="101">
+        <left>0</left><top>144</top><width>800</width><height>40</height>
+        <font>arc-body</font><textcolor>muted</textcolor><label></label>
+      </control>
+      <control type="button" id="102">
+        <ondown>103</ondown>
+        <include content="PrimaryButton"><param name="width" value="800"/></include>
+        <top>230</top><label>$ADDON[script.arc 30202]</label>
+      </control>
+      <control type="button" id="103">
+        <onup>102</onup>
+        <include content="PillButton"><param name="width" value="800"/></include>
+        <top>320</top><width>800</width>
+        <label>$ADDON[script.arc 30063]</label>
+      </control>
+      <control type="label" id="104">
+        <left>0</left><top>430</top><width>800</width><height>36</height>
+        <font>arc-small</font><textcolor>subtle</textcolor><align>center</align><label></label>
+      </control>
+    </control>
+  </controls>
+</window>

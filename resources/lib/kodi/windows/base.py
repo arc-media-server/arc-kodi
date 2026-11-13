@@ -11,6 +11,7 @@ from ..log import log
 
 ACTION_BACK = (9, 10, 92)        # Backspace, Escape, Nav Back
 ACTION_CONTEXT = (117,)          # Context menu (C / long OK)
+ACTION_PLAY = (79, 229)          # Play, Play/Pause on a remote
 ACTION_PREVIOUS_MENU = 10
 
 
@@ -45,8 +46,15 @@ class ArcWindow(xbmcgui.WindowXML):
     # Kodi callbacks
 
     def onInit(self):
+        # Kodi calls onInit again whenever the window becomes active again (after the video, or a
+        # window opened over it): the first time builds the screen, later times only refresh it.
+        first = not getattr(self, "_inited", False)
+        self._inited = True
         try:
-            self.on_init()
+            if first:
+                self.on_init()
+            else:
+                self.on_return()
         except Exception as e:
             log.error("%s onInit failed: %s", type(self).__name__, e)
 
@@ -61,6 +69,7 @@ class ArcWindow(xbmcgui.WindowXML):
             self.on_back()
 
     def onClick(self, control_id):
+        log.debug("%s: click on %d", type(self).__name__, control_id)
         try:
             self.on_click(control_id)
         except Exception as e:
@@ -69,6 +78,10 @@ class ArcWindow(xbmcgui.WindowXML):
     # Overridable
 
     def on_init(self):
+        pass
+
+    def on_return(self):
+        """Back on this window after another one (or the video) closed; refresh what may change."""
         pass
 
     def on_click(self, control_id):
@@ -89,10 +102,15 @@ class ArcWindow(xbmcgui.WindowXML):
             pass
 
     def set_text(self, control_id, text):
+        """Sets a textbox's text, or a label's (the windows use both for messages)."""
         try:
-            self.getControl(control_id).setText(text or "")
+            control = self.getControl(control_id)
         except Exception:
-            pass
+            return
+        if hasattr(control, "setText"):
+            control.setText(text or "")
+        else:
+            control.setLabel(text or "")
 
     def set_image(self, control_id, path):
         try:
@@ -114,6 +132,28 @@ class ArcWindow(xbmcgui.WindowXML):
             self.setFocusId(control_id)
         except Exception:
             pass
+
+    def focus_when_visible(self, control_id, timeout=2.0):
+        """Focuses a control whose visibility depends on its content (a row that shows once it has
+        cards). Kodi re-evaluates that on its next frame and refuses focus to a hidden control, so
+        wait until it's visible, then check the focus took."""
+        def run():
+            monitor = xbmc.Monitor()
+            waited = 0.0
+            while waited < timeout and not self._closing:
+                if xbmc.getCondVisibility("Control.IsVisible(%d)" % control_id):
+                    self.focus_id(control_id)
+                    if self.getFocusId() == control_id:
+                        return
+                if monitor.waitForAbort(0.05):
+                    return
+                waited += 0.05
+            log.debug("couldn't focus control %d", control_id)
+
+        threading.Thread(target=run, daemon=True).start()
+
+    def is_visible(self, control_id):
+        return xbmc.getCondVisibility("Control.IsVisible(%d)" % control_id)
 
     def list_control(self, control_id):
         return self.getControl(control_id)

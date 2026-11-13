@@ -40,7 +40,22 @@ def card_list_item(session, card, style, season_posters=False):
     }
     if card.get("new_episodes"):
         props["badge"] = T(30107) % card["new_episodes"]
-    return list_item(label, sub, art=art, props=props)
+    li = list_item(label, sub, art=art, props=props)
+    set_progress(li, item)
+    return li
+
+
+def set_progress(li, item):
+    """Gives a part-watched card Kodi's resume point for display only, so the skin's progress bar
+    can read ListItem.PercentPlayed. Playback ignores Kodi's resume points (Arc's are the truth)."""
+    resume, duration = models.resume_ms(item), models.duration_ms(item)
+    if resume <= 0 or duration <= 0:
+        return
+    try:
+        li.getVideoInfoTag().setResumePoint(resume / 1000.0, duration / 1000.0)  # Kodi 20+
+    except AttributeError:
+        li.setProperty("ResumeTime", str(resume / 1000.0))  # Kodi 19
+        li.setProperty("TotalTime", str(duration / 1000.0))
 
 
 def _subtitle(card):
