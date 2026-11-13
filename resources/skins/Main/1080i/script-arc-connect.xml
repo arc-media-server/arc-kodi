@@ -1,40 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Built by tools/build_skin.py from skin/script-arc-connect.xml: edit that, not this. -->
 <window>
   <defaultcontrol always="true">101</defaultcontrol>
   <controls>
-    <include>PageBackground</include>
+    <control type="image">
+      <left>0</left>
+      <top>0</top>
+      <width>1920</width>
+      <height>1080</height>
+      <texture>arc-wash.png</texture>
+    </control>
     <control type="group">
-      <left>560</left><top>300</top><width>800</width>
+      <left>560</left>
+      <top>300</top>
+      <width>800</width>
       <control type="image">
-        <left>0</left><top>-120</top><width>200</width><height>80</height>
-        <texture>arc-logo.png</texture><aspectratio>keep</aspectratio>
+        <left>300</left>
+        <top>-230</top>
+        <width>200</width>
+        <height>200</height>
+        <texture>arc-logo-stacked.png</texture>
+        <aspectratio>keep</aspectratio>
       </control>
       <control type="label">
-        <left>0</left><top>0</top><width>800</width><height>60</height>
-        <font>arc-title</font><textcolor>fg</textcolor>
+        <left>0</left>
+        <top>0</top>
+        <width>800</width>
+        <height>60</height>
+        <font>font52_title</font>
+        <textcolor>FFF5F5F7</textcolor>
         <label>$ADDON[script.arc 30020]</label>
       </control>
       <control type="label">
-        <left>0</left><top>70</top><width>800</width><height>40</height>
-        <font>arc-body</font><textcolor>muted</textcolor>
+        <left>0</left>
+        <top>70</top>
+        <width>800</width>
+        <height>40</height>
+        <font>font13</font>
+        <textcolor>FFA1A1AD</textcolor>
         <label>$ADDON[script.arc 30021]</label>
       </control>
       <control type="button" id="100">
-        <left>0</left><top>140</top><width>800</width><height>76</height>
-        <font>arc-label</font><textcolor>fg</textcolor>
-        <texturefocus border="8">arc-pill-surface2.png</texturefocus>
-        <texturenofocus border="8">arc-pill-surface.png</texturenofocus>
-        <align>left</align><textoffsetx>24</textoffsetx><aligny>center</aligny>
+        <ondown>101</ondown>
+        <left>0</left>
+        <top>140</top>
+        <width>800</width>
+        <height>76</height>
+        <font>font13</font>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+        <align>left</align>
+        <textoffsetx>24</textoffsetx>
+        <aligny>center</aligny>
         <label>$ADDON[script.arc 30022]</label>
       </control>
       <control type="button" id="101">
-        <include content="PrimaryButton"><param name="width" value="800"/></include>
+        <onup>100</onup>
+        <width>800</width>
+        <height>76</height>
+        <font>font13</font>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <disabledcolor>FF6B6B78</disabledcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+        <aligny>center</aligny>
+        <align>center</align>
         <top>240</top>
         <label>$ADDON[script.arc 30024]</label>
       </control>
       <control type="label" id="102">
-        <left>0</left><top>340</top><width>800</width><height>40</height>
-        <font>arc-small</font><textcolor>muted</textcolor><align>center</align>
+        <left>0</left>
+        <top>340</top>
+        <width>800</width>
+        <height>80</height>
+        <font>font12</font>
+        <textcolor>FFA1A1AD</textcolor>
+        <align>center</align>
+        <wrapmultiline>true</wrapmultiline>
         <label>$ADDON[script.arc 30023]</label>
       </control>
     </control>

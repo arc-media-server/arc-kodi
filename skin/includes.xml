@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Shared pieces for the windows in skin/. tools/build_skin.py expands them into each window,
+     because Kodi only reads includes, colours and fonts from the user's active skin. -->
+<includes>
+  <!-- Arc's colours (web dark tokens; the same as the Apple app's Theme.swift). No UI colour:
+       chosen and main controls are white with black text. The logo is white too (docs/brand). -->
+  <constant name="bg">FF1C1D21</constant>
+  <constant name="surface">FF26272D</constant>
+  <constant name="surface2">FF2F3038</constant>
+  <constant name="fg">FFF5F5F7</constant>
+  <constant name="muted">FFA1A1AD</constant>
+  <constant name="subtle">FF6B6B78</constant>
+  <constant name="white">FFFFFFFF</constant>
+  <constant name="black">FF000000</constant>
+
+  <!-- Fonts: an add-on can't bring its own, so these are the standard names every Kodi skin
+       (Estuary first) defines. Sizes at 1080p in Estuary are in the comments. -->
+  <constant name="arc-small">font12</constant>        <!-- 25 -->
+  <constant name="arc-body">font13</constant>         <!-- 30 -->
+  <constant name="arc-label">font13</constant>        <!-- 30 -->
+  <constant name="arc-row">font32_title</constant>    <!-- 32 bold -->
+  <constant name="arc-title">font52_title</constant>  <!-- 52 bold -->
+  <constant name="arc-hero">font60</constant>         <!-- 60 -->
+  <constant name="arc-code">font60</constant>
+
+  <include name="PageBackground">
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <texture>arc-wash.png</texture>
+    </control>
+  </include>
+
+  <!-- Artwork-led background: the focused title's fanart, darkened toward the foot. -->
+  <include name="HeroBackground">
+    <param name="id" default="60"/>
+    <definition>
+      <control type="image" id="$PARAM[id]">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <aspectratio>scale</aspectratio>
+        <fadetime>300</fadetime>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <texture>arc-scrim.png</texture>
+      </control>
+    </definition>
+  </include>
+
+  <!-- A white, black-text button (the page's main action and chosen place). -->
+  <include name="PrimaryButton">
+    <param name="width" default="320"/>
+    <definition>
+      <width>$PARAM[width]</width><height>76</height>
+      <font>arc-label</font>
+      <textcolor>fg</textcolor>
+      <focusedcolor>black</focusedcolor>
+      <disabledcolor>subtle</disabledcolor>
+      <texturefocus border="38">arc-pill-white.png</texturefocus>
+      <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+      <aligny>center</aligny><align>center</align>
+    </definition>
+  </include>
+
+  <!-- A pill-shaped secondary button (the round actions with words, Sort, Filter). -->
+  <include name="PillButton">
+    <param name="width" default="260"/>
+    <definition>
+      <width>$PARAM[width]</width><height>76</height>
+      <font>arc-label</font>
+      <textcolor>fg</textcolor>
+      <focusedcolor>black</focusedcolor>
+      <texturefocus border="38">arc-pill-white.png</texturefocus>
+      <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+      <aligny>center</aligny><align>center</align>
+      <textoffsetx>28</textoffsetx>
+    </definition>
+  </include>
+
+  <!-- A poster card (rows and grids). `border` is set only in the focused layout. -->
+  <include name="PosterCard">
+    <param name="focused" default="false"/>
+    <param name="labelcolor" default="muted"/>
+    <definition>
+      <control type="image">
+        <left>8</left><top>8</top><width>244</width><height>366</height>
+        <texture border="8">arc-card-bg.png</texture>
+      </control>
+      <control type="image">
+        <left>8</left><top>8</top><width>244</width><height>366</height>
+        <aspectratio>scale</aspectratio>
+        <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+      </control>
+      <control type="image">
+        <left>4</left><top>4</top><width>252</width><height>374</height>
+        <texture border="8">arc-card-border.png</texture>
+        <visible>$PARAM[focused]</visible>
+      </control>
+      <control type="label">
+        <left>20</left><top>20</top><width>220</width><height>340</height>
+        <font>arc-small</font><textcolor>muted</textcolor><align>center</align><aligny>center</aligny>
+        <wrapmultiline>true</wrapmultiline>
+        <label>$INFO[ListItem.Label]</label>
+        <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
+      </control>
+      <control type="image">
+        <left>196</left><top>16</top><width>48</width><height>48</height>
+        <texture>arc-tick.png</texture>
+        <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+      </control>
+      <control type="progress">
+        <left>16</left><top>358</top><width>228</width><height>8</height>
+        <texturebg border="4">arc-bar-bg.png</texturebg>
+        <midtexture border="4">arc-bar-fg.png</midtexture>
+        <info>ListItem.PercentPlayed</info>
+        <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+      </control>
+      <control type="label">
+        <left>8</left><top>384</top><width>244</width><height>34</height>
+        <font>arc-small</font><align>center</align>
+        <textcolor>$PARAM[labelcolor]</textcolor>
+        <label>$INFO[ListItem.Label]</label>
+      </control>
+      <control type="label">
+        <left>8</left><top>416</top><width>244</width><height>30</height>
+        <font>arc-small</font><align>center</align><textcolor>subtle</textcolor>
+        <label>$INFO[ListItem.Label2]</label>
+      </control>
+    </definition>
+  </include>
+
+  <!-- A wide card (Continue Watching, home videos, episodes). -->
+  <include name="ThumbCard">
+    <param name="focused" default="false"/>
+    <param name="labelcolor" default="muted"/>
+    <definition>
+      <control type="image">
+        <left>8</left><top>8</top><width>464</width><height>261</height>
+        <texture border="8">arc-card-bg.png</texture>
+      </control>
+      <control type="image">
+        <left>8</left><top>8</top><width>464</width><height>261</height>
+        <aspectratio>scale</aspectratio>
+        <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+      </control>
+      <control type="image">
+        <left>4</left><top>4</top><width>472</width><height>269</height>
+        <texture border="8">arc-card-border.png</texture>
+        <visible>$PARAM[focused]</visible>
+      </control>
+      <control type="progress">
+        <left>20</left><top>250</top><width>440</width><height>8</height>
+        <texturebg border="4">arc-bar-bg.png</texturebg>
+        <midtexture border="4">arc-bar-fg.png</midtexture>
+        <info>ListItem.PercentPlayed</info>
+        <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+      </control>
+      <control type="label">
+        <left>8</left><top>278</top><width>464</width><height>34</height>
+        <font>arc-small</font><align>center</align>
+        <textcolor>$PARAM[labelcolor]</textcolor>
+        <label>$INFO[ListItem.Label]</label>
+      </control>
+      <control type="label">
+        <left>8</left><top>310</top><width>464</width><height>30</height>
+        <font>arc-small</font><align>center</align><textcolor>subtle</textcolor>
+        <label>$INFO[ListItem.Label2]</label>
+      </control>
+    </definition>
+  </include>
+
+  <!-- The icon sidebar (as the Apple app's): icons always showing; on focus it opens into a
+       glass panel with names, the chosen place white with black text. -->
+  <include name="Sidebar">
+    <control type="group">
+      <control type="image">
+        <left>0</left><top>0</top><width>460</width><height>1080</height>
+        <texture>arc-side-panel.png</texture>
+        <visible>Control.HasFocus(50)</visible>
+        <animation effect="fade" time="150">VisibleChange</animation>
+      </control>
+      <!-- The logo sits on the icons' column: the TV mark is centred on the icons (x 84), and the
+           full logo, shown when the sidebar opens, starts with the same TV at the same place and
+           height, so only the name appears beside it. Both images are cropped to their drawing. -->
+      <control type="image">
+        <left>58</left><top>62</top><width>51</width><height>40</height>
+        <texture>arc-mark.png</texture>
+        <visible>!Control.HasFocus(50)</visible>
+      </control>
+      <control type="image">
+        <left>58</left><top>62</top><width>161</width><height>40</height>
+        <texture>arc-logo.png</texture>
+        <visible>Control.HasFocus(50)</visible>
+      </control>
+      <control type="list" id="50">
+        <left>20</left><top>160</top><width>420</width><height>900</height>
+        <onright>900</onright>
+        <onup>noop</onup><ondown>noop</ondown>
+        <scrolltime>200</scrolltime>
+        <itemlayout width="420" height="84">
+          <control type="image">
+            <left>42</left><top>20</top><width>44</width><height>44</height>
+            <texture>arc-icon-$INFO[ListItem.Property(icon)].png</texture>
+            <colordiffuse>muted</colordiffuse>
+          </control>
+          <control type="label">
+            <left>112</left><top>0</top><width>290</width><height>84</height>
+            <font>arc-label</font><aligny>center</aligny><textcolor>muted</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+            <visible>Control.HasFocus(50)</visible>
+          </control>
+        </itemlayout>
+        <focusedlayout width="420" height="84">
+          <control type="image">
+            <left>0</left><top>4</top><width>400</width><height>76</height>
+            <texture border="38">arc-pill-white.png</texture>
+            <visible>Control.HasFocus(50)</visible>
+          </control>
+          <control type="image">
+            <left>42</left><top>20</top><width>44</width><height>44</height>
+            <texture>arc-icon-$INFO[ListItem.Property(icon)].png</texture>
+            <colordiffuse>black</colordiffuse>
+            <visible>Control.HasFocus(50)</visible>
+          </control>
+          <control type="image">
+            <left>42</left><top>20</top><width>44</width><height>44</height>
+            <texture>arc-icon-$INFO[ListItem.Property(icon)].png</texture>
+            <colordiffuse>fg</colordiffuse>
+            <visible>!Control.HasFocus(50)</visible>
+          </control>
+          <control type="label">
+            <left>112</left><top>0</top><width>290</width><height>84</height>
+            <font>arc-label</font><aligny>center</aligny><textcolor>black</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+            <visible>Control.HasFocus(50)</visible>
+          </control>
+        </focusedlayout>
+      </control>
+    </control>
+  </include>
+
+  <!-- A horizontal row of cards with its title, for Home and the title page. -->
+  <include name="PosterRow">
+    <param name="title"/><param name="list"/><param name="onleft" default=""/>
+    <definition>
+      <!-- Title and list sit directly in the parent grouplist (as Estuary's widgets do), so Up and
+           Down move between rows; both show only once the list has cards. -->
+      <control type="label" id="$PARAM[title]">
+        <left>8</left><width>1500</width><height>50</height>
+        <font>arc-row</font><textcolor>fg</textcolor>
+        <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
+      </control>
+      <control type="list" id="$PARAM[list]">
+        <width>1520</width><height>450</height>
+        <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
+        <orientation>horizontal</orientation><itemgap>8</itemgap>
+        <scrolltime tween="cubic" easing="out">220</scrolltime>
+        <preloaditems>2</preloaditems>
+        <onleft>$PARAM[onleft]</onleft>
+        <itemlayout width="268" height="450"><include>PosterCard</include></itemlayout>
+        <focusedlayout width="268" height="450">
+          <include content="PosterCard"><param name="focused" value="Control.HasFocus($PARAM[list])"/><param name="labelcolor" value="fg"/></include>
+        </focusedlayout>
+      </control>
+    </definition>
+  </include>
+
+  <include name="ThumbRow">
+    <param name="title"/><param name="list"/><param name="onleft" default=""/>
+    <definition>
+      <!-- Title and list sit directly in the parent grouplist (as Estuary's widgets do), so Up and
+           Down move between rows; both show only once the list has cards. -->
+      <control type="label" id="$PARAM[title]">
+        <left>8</left><width>1500</width><height>50</height>
+        <font>arc-row</font><textcolor>fg</textcolor>
+        <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
+      </control>
+      <control type="list" id="$PARAM[list]">
+        <width>1520</width><height>450</height>
+        <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
+        <orientation>horizontal</orientation><itemgap>8</itemgap>
+        <scrolltime tween="cubic" easing="out">220</scrolltime>
+        <preloaditems>2</preloaditems>
+        <onleft>$PARAM[onleft]</onleft>
+        <itemlayout width="488" height="450"><include>ThumbCard</include></itemlayout>
+        <focusedlayout width="488" height="450">
+          <include content="ThumbCard"><param name="focused" value="Control.HasFocus($PARAM[list])"/><param name="labelcolor" value="fg"/></include>
+        </focusedlayout>
+      </control>
+    </definition>
+  </include>
+</includes>

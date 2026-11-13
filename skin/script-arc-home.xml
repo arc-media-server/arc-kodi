@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Home: the icon sidebar, the focused title's artwork and details, and the profile's rows.
+     Each of the 12 row slots exists as posters (3001+) and wide cards (3401+); the Python fills
+     the one the row's style asks for and hides the other. -->
+<window>
+  <defaultcontrol>900</defaultcontrol>
+  <controls>
+    <include>PageBackground</include>
+    <include content="HeroBackground"><param name="id" value="61"/></include>
+
+    <control type="group">
+      <left>200</left><top>90</top><width>1300</width><height>400</height>
+      <control type="image" id="62">
+        <left>0</left><top>0</top><width>640</width><height>220</height>
+        <aspectratio align="left" aligny="bottom">keep</aspectratio>
+        <fadetime>200</fadetime>
+      </control>
+      <control type="label" id="63">
+        <left>0</left><top>120</top><width>1300</width><height>100</height>
+        <font>arc-hero</font><textcolor>fg</textcolor>
+      </control>
+      <control type="label" id="64">
+        <left>2</left><top>236</top><width>1300</width><height>40</height>
+        <font>arc-body</font><textcolor>muted</textcolor>
+      </control>
+      <control type="textbox" id="65">
+        <left>2</left><top>284</top><width>1000</width><height>76</height>
+        <font>arc-body</font><textcolor>fg</textcolor>
+      </control>
+    </control>
+
+    <control type="grouplist" id="900">
+      <left>192</left><top>520</top><width>1728</width><height>560</height>
+      <!-- Every row (title 50 + gap 30 + cards 450 + gap 30) is exactly the 560 that shows, so
+           one row shows at a time and none peeks out under the hero. -->
+      <orientation>vertical</orientation><itemgap>30</itemgap>
+      <scrolltime tween="cubic" easing="out">260</scrolltime>
+      <onleft>50</onleft>
+        <include content="PosterRow"><param name="title" value="3101"/><param name="list" value="3001"/><param name="onleft" value="50"/></include>
+        <include content="ThumbRow"><param name="title" value="3501"/><param name="list" value="3401"/><param name="onleft" value="50"/></include>
+        <include content="PosterRow"><param name="title" value="3102"/><param name="list" value="3002"/><param name="onleft" value="50"/></include>
+        <include content="ThumbRow"><param name="title" value="3502"/><param name="list" value="3402"/><param name="onleft" value="50"/></include>
+        <include content="PosterRow"><param name="title" value="3103"/><param name="list" value="3003"/><param name="onleft" value="50"/></include>
+        <include content="ThumbRow"><param name="title" value="3503"/><param name="list" value="3403"/><param name="onleft" value="50"/></include>
+        <include content="PosterRow"><param name="title" value="3104"/><param name="list" value="3004"/><param name="onleft" value="50"/></include>
+        <include content="ThumbRow"><param name="title" value="3504"/><param name="list" value="3404"/><param name="onleft" value="50"/></include>
+        <include content="PosterRow"><param name="title" value="3105"/><param name="list" value="3005"/><param name="onleft" value="50"/></include>
+        <include content="ThumbRow"><param name="title" value="3505"/><param name="list" value="3405"/><param name="onleft" value="50"/></include>
+        <include content="PosterRow"><param name="title" value="3106"/><param name="list" value="3006"/><param name="onleft" value="50"/></include>
+        <include content="ThumbRow"><param name="title" value="3506"/><param name="list" value="3406"/><param name="onleft" value="50"/></include>
+        <include content="PosterRow"><param name="title" value="3107"/><param name="list" value="3007"/><param name="onleft" value="50"/></include>
+        <include content="ThumbRow"><param name="title" value="3507"/><param name="list" value="3407"/><param name="onleft" value="50"/></include>
+        <include content="PosterRow"><param name="title" value="3108"/><param name="list" value="3008"/><param name="onleft" value="50"/></include>
+        <include content="ThumbRow"><param name="title" value="3508"/><param name="list" value="3408"/><param name="onleft" value="50"/></include>
+        <include content="PosterRow"><param name="title" value="3109"/><param name="list" value="3009"/><param name="onleft" value="50"/></include>
+        <include content="ThumbRow"><param name="title" value="3509"/><param name="list" value="3409"/><param name="onleft" value="50"/></include>
+        <include content="PosterRow"><param name="title" value="3110"/><param name="list" value="3010"/><param name="onleft" value="50"/></include>
+        <include content="ThumbRow"><param name="title" value="3510"/><param name="list" value="3410"/><param name="onleft" value="50"/></include>
+        <include content="PosterRow"><param name="title" value="3111"/><param name="list" value="3011"/><param name="onleft" value="50"/></include>
+        <include content="ThumbRow"><param name="title" value="3511"/><param name="list" value="3411"/><param name="onleft" value="50"/></include>
+        <include content="PosterRow"><param name="title" value="3112"/><param name="list" value="3012"/><param name="onleft" value="50"/></include>
+        <include content="ThumbRow"><param name="title" value="3512"/><param name="list" value="3412"/><param name="onleft" value="50"/></include>
+    </control>
+
+    <include>Sidebar</include>
+  </controls>
+</window>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A title's page: the hero (logo or title, info, badges, overview) over its artwork, then a
+     column that scrolls: Play and the actions, a show's seasons and episodes, Related. -->
+<window>
+  <defaultcontrol>100</defaultcontrol>
+  <controls>
+    <include>PageBackground</include>
+    <include content="HeroBackground"><param name="id" value="115"/></include>
+
+    <control type="group">
+      <left>120</left><top>80</top><width>1200</width><height>520</height>
+      <control type="image" id="110">
+        <left>0</left><top>0</top><width>640</width><height>200</height>
+        <aspectratio align="left" aligny="bottom">keep</aspectratio>
+      </control>
+      <control type="label" id="111">
+        <left>0</left><top>100</top><width>1200</width><height>100</height>
+        <font>arc-hero</font><textcolor>fg</textcolor>
+      </control>
+      <control type="label" id="112">
+        <left>2</left><top>216</top><width>1200</width><height>40</height>
+        <font>arc-body</font><textcolor>muted</textcolor>
+      </control>
+      <control type="label" id="114">
+        <left>2</left><top>260</top><width>1200</width><height>36</height>
+        <font>arc-small</font><textcolor>fg</textcolor>
+      </control>
+      <control type="textbox" id="113">
+        <left>2</left><top>306</top><width>1000</width><height>120</height>
+        <font>arc-body</font><textcolor>fg</textcolor>
+      </control>
+      <control type="textbox" id="116">
+        <left>2</left><top>462</top><width>1000</width><height>60</height>
+        <font>arc-small</font><textcolor>muted</textcolor>
+      </control>
+    </control>
+
+    <control type="grouplist" id="900">
+      <left>112</left><top>620</top><width>1808</width><height>460</height>
+      <onup>noop</onup><ondown>noop</ondown>
+      <orientation>vertical</orientation><itemgap>24</itemgap>
+      <scrolltime tween="cubic" easing="out">260</scrolltime>
+
+      <control type="grouplist" id="99">
+        <left>8</left><width>1700</width><height>80</height>
+        <orientation>horizontal</orientation><itemgap>16</itemgap>
+        <control type="button" id="100">
+          <onup>noop</onup><ondown>200</ondown>
+          <include content="PrimaryButton"><param name="width" value="280"/></include>
+          <label>$ADDON[script.arc 30005]</label>
+        </control>
+        <control type="button" id="101">
+          <onup>noop</onup><ondown>200</ondown>
+          <include content="PillButton"><param name="width" value="320"/></include>
+          <label>$ADDON[script.arc 30150]</label>
+        </control>
+        <control type="button" id="102">
+          <onup>noop</onup><ondown>200</ondown>
+          <include content="PillButton"><param name="width" value="380"/></include>
+          <label>$ADDON[script.arc 30152]</label>
+        </control>
+      </control>
+
+      <control type="list" id="200">
+        <left>8</left><width>1700</width><height>68</height>
+        <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
+        <orientation>horizontal</orientation><itemgap>12</itemgap>
+        <itemlayout width="220" height="68">
+          <control type="label"><left>0</left><top>0</top><width>220</width><height>68</height>
+            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>muted</textcolor>
+            <label>$INFO[ListItem.Label]</label></control>
+        </itemlayout>
+        <focusedlayout width="220" height="68">
+          <control type="image"><left>0</left><top>0</top><width>220</width><height>68</height>
+            <texture border="34">arc-pill-white.png</texture>
+            <visible>Control.HasFocus(200)</visible></control>
+          <control type="label"><left>0</left><top>0</top><width>220</width><height>68</height>
+            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>black</textcolor>
+            <label>$INFO[ListItem.Label]</label><visible>Control.HasFocus(200)</visible></control>
+          <control type="label"><left>0</left><top>0</top><width>220</width><height>68</height>
+            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>fg</textcolor>
+            <label>$INFO[ListItem.Label]</label><visible>!Control.HasFocus(200)</visible></control>
+        </focusedlayout>
+      </control>
+
+      <control type="list" id="201">
+        <width>1808</width><height>350</height>
+        <visible>Integer.IsGreater(Container(201).NumItems,0)</visible>
+        <orientation>horizontal</orientation><itemgap>8</itemgap>
+        <scrolltime tween="cubic" easing="out">220</scrolltime>
+        <itemlayout width="488" height="350"><include>ThumbCard</include></itemlayout>
+        <focusedlayout width="488" height="350">
+          <include content="ThumbCard"><param name="focused" value="Control.HasFocus(201)"/><param name="labelcolor" value="fg"/></include>
+        </focusedlayout>
+      </control>
+      <control type="textbox" id="202">
+        <left>8</left><width>1400</width><height>80</height>
+        <font>arc-small</font><textcolor>muted</textcolor>
+        <label>$INFO[Container(201).ListItem.Property(overview)]</label>
+        <visible>Control.HasFocus(201)</visible>
+      </control>
+
+      <include content="PosterRow"><param name="title" value="311"/><param name="list" value="300"/></include>
+    </control>
+  </controls>
+</window>

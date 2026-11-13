@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Static checks for the add-on, run before every PR (no Kodi needed):
 
-- every skin XML parses;
+- every skin XML parses, and resources/skins/ is what tools/build_skin.py makes from skin/;
+- every control id a window's Python names exists in that window's XML;
 - every string id used in Python (T(30xxx)) and XML ($ADDON[script.arc 30xxx]) is in strings.po;
 - nothing under resources/lib/arc/ imports a Kodi module (that layer must stay testable);
 - addon.xml parses and names default.py.
@@ -38,7 +39,8 @@ def po_ids():
 
 
 def check_xml_parses():
-    for base, _, files in os.walk(SKIN):
+    for folder in (SKIN, os.path.join(ROOT, "skin")):
+      for base, _, files in os.walk(folder):
         for name in files:
             if name.endswith(".xml"):
                 path = os.path.join(base, name)
@@ -91,6 +93,70 @@ def check_addon():
         fail("addon.xml must declare default.py as the script library")
 
 
+def check_skin_built():
+    import subprocess
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "build_skin.py"), "--check"],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        fail("the built skin is stale; run tools/build_skin.py\n    " + r.stdout.strip().replace("\n", "\n    "))
+
+
+def check_control_ids():
+    """Every control id a window's Python names (module constants in windows/*.py) exists in the
+    built XML of the window(s) that module opens."""
+    built = os.path.join(SKIN, "1080i")
+    windows = os.path.join(KODI, "windows")
+    skip = re.compile(r"(BASE|MAX|SIZE|ACTION|ROWS?_?COUNT)")
+    for name in sorted(os.listdir(windows)):
+        if not name.endswith(".py"):
+            continue
+        text = open(os.path.join(windows, name), encoding="utf-8").read()
+        xmls = set(re.findall(r'xml = "(script-arc-[a-z-]+\.xml)"', text))
+        if "GridWindow" in text and "library" in name:
+            xmls.add("script-arc-grid.xml")
+        if not xmls:
+            continue
+        ids = set()
+        for x in xmls:
+            path = os.path.join(built, x)
+            if not os.path.exists(path):
+                fail("%s opens %s, which isn't built" % (name, x))
+                continue
+            ids |= {int(e.get("id")) for e in ET.parse(path).iter() if (e.get("id") or "").isdigit()}
+        for const, value in re.findall(r"^(?:    )?([A-Z][A-Z_0-9]*) = (\d+)\s*(?:#.*)?$", text, re.M):
+            if skip.search(const):
+                continue
+            if int(value) not in ids:
+                fail("windows/%s: %s = %s isn't a control in %s" % (name, const, value, ", ".join(sorted(xmls))))
+    # The player overlay lives outside windows/.
+    path = os.path.join(built, "script-arc-player.xml")
+    text = open(os.path.join(KODI, "player_osd.py"), encoding="utf-8").read()
+    if os.path.exists(path):
+        ids = {int(e.get("id")) for e in ET.parse(path).iter() if (e.get("id") or "").isdigit()}
+        for const, value in re.findall(r"^([A-Z][A-Z_0-9]*) = (\d+)\s*$", text, re.M):
+            if int(value) not in ids:
+                fail("player_osd.py: %s = %s isn't a control in script-arc-player.xml" % (const, value))
+
+
+def check_media():
+    """Every image a built window names exists in the media folder (Kodi shows nothing, silently,
+    for a missing one), and the media folder holds nothing unused."""
+    media = os.path.join(SKIN, "media")
+    have = set(os.listdir(media)) if os.path.isdir(media) else set()
+    used = set()
+    built = os.path.join(SKIN, "1080i")
+    for name in os.listdir(built):
+        text = open(os.path.join(built, name), encoding="utf-8").read()
+        used |= set(re.findall(r"(arc-[a-z0-9-]+\.png)", text))
+    # The sidebar's icons are named from a ListItem property: arc-icon-<name>.png.
+    used |= {n for n in have if n.startswith("arc-icon-")}
+    for n in sorted(used - have):
+        if "$INFO" not in n:
+            fail("a window uses %s, which isn't in resources/skins/Main/media" % n)
+    for n in sorted(have - used):
+        fail("resources/skins/Main/media/%s isn't used by any window" % n)
+
+
 def check_py_compiles():
     import py_compile
     for base, _, files in os.walk(os.path.join(ROOT, "resources", "lib")):
@@ -110,6 +176,9 @@ def check_py_compiles():
 
 def main():
     check_xml_parses()
+    check_skin_built()
+    check_control_ids()
+    check_media()
     check_strings()
     check_arc_pure()
     check_addon()

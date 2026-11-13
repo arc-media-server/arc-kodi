@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Arc's overlay on the video: Skip Intro/Recap/Credits and Up Next, shown by the window
+     properties arc.skip and arc.upnext (a fixed <visible> would override setVisible). It's a modeless dialog with
+     nothing focusable while both are hidden, so the remote goes to Kodi's own full-screen player
+     (its OSD, seeking, play/pause) until Skip or Up Next shows and takes focus. -->
+<window>
+  <defaultcontrol>100</defaultcontrol>
+  <controls>
+    <control type="button" id="100">
+      <left>1520</left><top>880</top><width>340</width><height>76</height>
+      <visible>String.IsEqual(Window.Property(arc.skip),1)</visible>
+      <include content="PrimaryButton"><param name="width" value="340"/></include>
+      <texturenofocus border="38">arc-pill-white.png</texturenofocus>
+      <textcolor>black</textcolor>
+      <label>$ADDON[script.arc 30180]</label>
+      <animation effect="fade" time="200">VisibleChange</animation>
+    </control>
+
+    <control type="group" id="101">
+      <left>1300</left><top>700</top><width>560</width><height>300</height>
+      <visible>String.IsEqual(Window.Property(arc.upnext),1)</visible>
+      <animation effect="slide" start="0,40" time="250" tween="cubic" easing="out">Visible</animation>
+      <control type="image">
+        <left>0</left><top>0</top><width>560</width><height>300</height>
+        <texture border="38">arc-pill-surface.png</texture>
+      </control>
+      <control type="label" id="102">
+        <left>32</left><top>24</top><width>496</width><height>36</height>
+        <font>arc-small</font><textcolor>muted</textcolor>
+        <label>$ADDON[script.arc 30183]</label>
+      </control>
+      <control type="label" id="104">
+        <left>32</left><top>64</top><width>496</width><height>80</height>
+        <font>arc-label</font><textcolor>fg</textcolor><wrapmultiline>true</wrapmultiline>
+      </control>
+      <control type="button" id="103">
+        <left>32</left><top>196</top><width>300</width><height>76</height>
+        <include content="PrimaryButton"><param name="width" value="300"/></include>
+        <label>$ADDON[script.arc 30005]</label>
+        <onright>105</onright>
+      </control>
+      <control type="button" id="105">
+        <left>348</left><top>196</top><width>180</width><height>76</height>
+        <include content="PillButton"><param name="width" value="180"/></include>
+        <textoffsetx>0</textoffsetx>
+        <label>$ADDON[script.arc 30003]</label>
+        <onleft>103</onleft>
+      </control>
+    </control>
+  </controls>
+</window>

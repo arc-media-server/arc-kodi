@@ -17,10 +17,11 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
 - Before a PR, run the checks and list the real results:
   - `python3 -m pytest -q` (the `arc/` package and the player logic, against a stand-in server;
     no Kodi needed);
-  - `python3 tools/check.py` (every skin XML parses, every control id the Python uses exists in
-    its window, every `$ADDON[script.arc N]` and `T(N)` string is in strings.po, and nothing
-    under `resources/lib/arc/` imports a Kodi module);
-  - when the media changed, `python3 tools/make_media.py` and commit the PNGs it writes.
+  - `python3 tools/check.py` (every skin XML parses, the built windows match `skin/`, every
+    control id the Python uses exists in its window, every `$ADDON[script.arc N]` and `T(N)`
+    string is in strings.po, and nothing under `resources/lib/arc/` imports a Kodi module);
+  - after changing `skin/`, `python3 tools/build_skin.py`; after changing the media,
+    `python3 tools/make_media.py`; commit what they write.
 - Record each change in `docs/changes/YYYY-MM-DD-<slug>.md`; commit messages have a summary, a
   body and the Co-Authored-By trailer. Keep working without check-ins; log product decisions on
   arc-media-server#80; stop only for risky or irreversible things.
@@ -38,13 +39,18 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
   cover. `resources/lib/kodi/` is the Kodi side (windows, the player, the artwork proxy,
   settings). Put logic in `arc/` whenever it can be tested without Kodi.
 - **Own interface, PM4K-style:** every screen is a `WindowXML` from `resources/skins/Main/1080i/`
-  (1920x1080, no dependency on the user's skin beyond its font names). Windows are opened from
+  (1920x1080, no dependency on the user's skin beyond its standard font names). Kodi reads
+  includes, colours and fonts only from the user's skin, so windows are written in `skin/` with
+  our shared pieces (`skin/includes.xml`) and `tools/build_skin.py` expands them into the files
+  Kodi loads; never edit `resources/skins/Main/1080i/` by hand. Windows are opened from
   `kodi/app.py`, one at a time, with Back always going back. Never add items to Kodi's video
   library, never write `.strm`/`.nfo` files, never use `plugin://` lists for browsing.
-- **Player:** Kodi's own player (`xbmc.Player`) plays; Arc's player dialog
-  (`kodi/player.py`, `script-arc-player.xml`) stays open over the video for the whole playback,
-  as PM4K's seek dialog does: it owns the controls, seeking (restarting a conversion when a seek
-  leaves what's converted), Skip Intro/Recap/Credits, Up Next, audio and subtitle choices.
+- **Player:** Kodi's own player (`xbmc.Player`) plays, with Kodi's own full-screen OSD for
+  seeking and play/pause. Arc's overlay (`kodi/player_osd.py`, `script-arc-player.xml`) stays
+  over the video for the whole playback but has nothing focusable until Skip Intro/Recap/Credits
+  or Up Next shows, so the remote reaches Kodi's player otherwise (as PM4K's Skip Intro button).
+  `kodi/player.py` restarts a conversion when a seek leaves what's converted. A PM4K-style seek
+  dialog of our own (and audio/subtitle choices in it) is planned, not built.
   Progress goes to Arc on the source file's timeline (`offset_ms` + Kodi's time) every 10 s and
   on pause/stop; conversions are pinged while paused and deleted on stop. Kodi's own resume
   points are ignored: Arc's are the truth.
@@ -55,10 +61,13 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
   token. Never use Kodi's `url|Authorization=...` header suffix with the session token.
 - **Feel:** a TV app driven by a remote: focus always visible (white, as the Apple app), Back
   always works, Context Menu (C or long OK) for the ⋯ actions, Play on a card plays it. Arc's
-  identity through the logo and wordmark. No UI colour (owner, 1 November): chosen and main
-  controls are white with black text; the teal is the logo's alone. Dark only; artwork-led Home
-  (no banner). Colours live only in `resources/skins/Main/1080i/includes.xml` (and the media
-  `tools/make_media.py` draws).
+  identity through the owner's logo (the server's `docs/brand`, copied into `tools/brand/`): the
+  stacked logo on sign-in screens, the full logo in the open sidebar, the TV mark where it's
+  small, on the sidebar's icon column. The sidebar's icons are the web and Android apps' (Lucide,
+  ISC: `tools/brand/icons/`, notice in `resources/LICENSE-lucide.txt`); the Apple app's are SF
+  Symbols, which may only be used on Apple's platforms. No colour anywhere (owner, 1 November; the new logo, 13 November): chosen and main
+  controls are white with black text, and the logo is white. Dark only; artwork-led Home (no
+  banner). Colours live only in `skin/includes.xml` (and the media `tools/make_media.py` draws).
 - **Plex first:** where Arc's apps and PM4K differ on Kodi-specific behaviour (keys, the player,
   refresh-rate switching, passthrough), follow PM4K and Kodi's own settings rather than adding
   options; for product behaviour follow the Apple app and Plex. Settings come from the server
@@ -82,12 +91,14 @@ default.py                      entry point: starts kodi/app.py
 resources/lib/arc/              plain Python (+ tests): api, models, home rows, playback, clock
 resources/lib/kodi/             Kodi side: app (navigation), windows/, player, artwork proxy,
                                 device caps, storage, log, T()
-resources/skins/Main/1080i/     the WindowXML screens and includes.xml (colours, shared pieces)
-resources/skins/Main/media/     PNGs drawn by tools/make_media.py (icons, logo, gradients)
+skin/                           the windows as written, and includes.xml (colours, fonts, pieces)
+resources/skins/Main/1080i/     the windows Kodi loads, built from skin/ by tools/build_skin.py
+resources/skins/Main/media/     PNGs from tools/make_media.py (icons, the brand logos, gradients)
 resources/language/             strings.po
 resources/settings.xml          the few Kodi-only settings
 tests/                          pytest: the arc/ package against a stand-in Arc server
-tools/                          check.py (static checks), make_media.py (draws the media)
+tools/                          check.py (static checks), build_skin.py, make_media.py (+ render_svg.js
+                                and brand/: the owner's logo files), package.py
 docs/changes/                   one note per change
 ```
 
@@ -97,5 +108,19 @@ docs/changes/                   one note per change
   `dist/script.arc-<version>.zip`) and use Kodi's *Add-ons → Install from zip file*.
 - Develop against a scratch Arc (`AMS_LISTEN=127.0.0.1:8199 ams -data <scratch> -config none` in
   the server repo, with its `tools/testmedia` library), never the owner's server.
+- **Checking it in Kodi** (Linux; real Kodi on a virtual display, no hardware): install Kodi and
+  Xvfb (`apt-get install kodi xvfb imagemagick`), build and start a scratch Arc with its test
+  library, then `Xvfb :99 -screen 0 1920x1080x24 &` and
+  `HOME=<scratch> DISPLAY=:99 kodi --windowing=x11 &` with the repository linked as
+  `<scratch>/.kodi/addons/script.arc`. Drive it with `tools/kodi_rpc.py` (remote keys, typing,
+  launching the add-on, screenshots) and read `<scratch>/.kodi/temp/kodi.log`. Approve the
+  sign-in code with `POST /api/v1/auth/link/approve` from the scratch server's admin session.
+  This shows layout, focus, navigation and the API flows, not playback quality: the virtual
+  display has no audio device or GPU (Kodi's clock runs on past a clip's end without one).
+- Kodi gotchas found that way: a control with a fixed `<visible>` ignores `setVisible()` (use a
+  window property in the condition); focusing a control that shows only once it has items fails
+  until Kodi's next frame (`focus_when_visible`); a grouplist rewrites its children's Up/Down, and
+  a button row inside one needs its own `<ondown>`; Kodi calls `onInit` again on every return to
+  a window (`on_return`); never block in a click handler, or Kodi's player events never arrive.
 - Kodi logs to `kodi.log` (`~/.kodi/temp/` on Linux, `%APPDATA%\Kodi\` on Windows); turn on
   Kodi's debug logging to see the add-on's debug lines.
