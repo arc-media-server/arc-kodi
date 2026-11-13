@@ -44,6 +44,11 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
   Kodi loads; never edit `resources/skins/Main/1080i/` by hand. Windows are opened from
   `kodi/app.py`, one at a time, with Back always going back. Never add items to Kodi's video
   library, never write `.strm`/`.nfo` files, never use `plugin://` lists for browsing.
+- **Playback compatibility (owner, 13 November):** prefer original sources and let Kodi's own
+  player/settings handle decoding, software fallback, HDR/Dolby Vision conversion, tone mapping
+  and audio output. Do not infer source restrictions from the display or maintain per-device
+  compatibility rules. Keep selected resolution/quality and server/profile limits, progress,
+  and existing playback-error fallback. This policy does not certify native HDR/Atmos output.
 - **Player:** Kodi's own player (`xbmc.Player`) decodes and shows the stream; Arc's player
   window (`kodi/player_osd.py`, `script-arc-player.xml`) is open, modal, over the video for the
   whole playback and owns the remote: the controls in the Apple/Android layout

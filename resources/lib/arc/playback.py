@@ -3,14 +3,27 @@ caps Kodi can play, which subtitles turn on, the marker on screen, when Up Next 
 clock for a converted stream. Plain Python, so the tests cover it without Kodi.
 """
 
-# Containers, video and audio codecs Kodi plays directly on the common platforms. Kodi's own
-# player handles far more than a browser; Arc only repackages or converts what's left. The real
-# device caps (passthrough, HDR, refresh rates) come from kodi/caps.py at runtime.
+# Source formats delegated to Kodi's player, including its software decoders and local
+# conversion paths. This is a playback policy, not a claim about hardware or native output.
+# Kodi settings own HDR/Dolby Vision handling, tone mapping and audio output.
 BASE_CAPS = {
     "containers": ["mp4", "mkv", "webm"],
     "video": ["h264", "hevc", "vp9", "av1", "mpeg2video", "mpeg4", "vc1"],
     "audio": ["aac", "mp3", "ac3", "eac3", "flac", "opus", "vorbis", "truehd", "dts", "pcm"],
 }
+
+
+def kodi_caps(max_height=2160):
+    """Prefer original sources and let Kodi handle format compatibility.
+
+    Omit HDR/profile/output restrictions: Arc treats omission as unspecified, while [] for
+    hdr_formats explicitly means SDR only. Kodi may handle a source through local conversion.
+    16 is Arc's accepted source bit-depth ceiling; it also avoids its legacy 8-bit H.264 default.
+    The chosen resolution and server/profile/quality limits still apply.
+    """
+    caps = {key: list(values) for key, values in BASE_CAPS.items()}
+    caps.update(max_height=max_height, max_bit_depth=16)
+    return caps
 
 
 def playback_request(caps, start_ms=0, file_id=None, audio_stream=None, max_kbps=None, burn_subtitle=None):
