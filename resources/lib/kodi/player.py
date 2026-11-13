@@ -27,9 +27,6 @@ class ArcPlayer(xbmc.Player):
         xbmc.Player.__init__(self)
         self.pb = playback_session
 
-    def onPlayBackStarted(self):
-        self.pb.on_started()
-
     def onAVStarted(self):
         self.pb.on_started()
 
@@ -69,15 +66,17 @@ class Playback(object):
         self._stop = threading.Event()
         self._paused = False
         self._started = False
+        self._switching = False  # a new stream is replacing this one: ignore the old one's end
         self.duration_ms = models.duration_ms(item)
         self.overlay = None
+        self.next_item = None      # the episode after this one, for Up Next
+        self._start_ms = resume_ms  # the source position the current plan was asked to start at
 
     # MARK: - start
 
     def start(self):
         if not self._request(self.resume_ms):
             return False
-        self._open_overlay()
         self._open_player()
         threading.Thread(target=self._progress_loop, daemon=True).start()
         return True
@@ -88,7 +87,7 @@ class Playback(object):
             self.overlay = PlayerOverlay(self)
             self.overlay.show()
         except Exception as e:
-            log.debug("player overlay not shown (%s)", type(e).__name__)
+            log.warning("player overlay not shown (%s: %s)", type(e).__name__, e)
             self.overlay = None
 
     def skip_to(self, source_ms):
@@ -108,6 +107,7 @@ class Playback(object):
 
     def _request(self, start_ms, failed_method=None):
         caps = playback.fallback_caps(self.caps, failed_method) if failed_method else self.caps
+        self._start_ms = start_ms
         body = playback.playback_request(caps, start_ms=start_ms)
         try:
             plan = self.api.start_playback(self.item_id, body)
@@ -121,7 +121,7 @@ class Playback(object):
         self.plan = plan
         if plan.get("duration_ms"):
             self.duration_ms = plan["duration_ms"]
-        log.info("playing %s: %s", self.item_id, plan.get("method"))
+        log.info("playing a %s: %s", self.item.get("kind", "title"), plan.get("method"))
         return True
 
     def _play_url(self):
@@ -135,7 +135,16 @@ class Playback(object):
     def _open_player(self):
         url = self._play_url()
         li = xbmcgui.ListItem(self.item.get("title", ""))
-        li.setProperty("StartOffset", "0")  # Arc handles the seek; Kodi must not resume on its own
+        # A converted stream already starts at the asked position; a file played as it is starts
+        # at its beginning, so Kodi seeks to the resume point itself. Kodi's own resume points are
+        # never used: Arc's are the truth.
+        start_s = 0.0
+        if self.plan.get("method") == "direct" and self._start_ms > 0:
+            start_s = playback.player_time_ms(self.plan, self._start_ms) / 1000.0
+        li.setProperty("StartOffset", "%.3f" % start_s)
+        li.setContentLookup(False)
+        if self.plan.get("hls"):
+            li.setMimeType("application/vnd.apple.mpegurl")
         info = li.getVideoInfoTag()
         try:
             info.setTitle(self.item.get("title", ""))
@@ -150,9 +159,21 @@ class Playback(object):
         if self._started:
             return
         self._started = True
+        self._switching = False
+        log.debug("playback started (%s)", self.plan.get("method") if self.plan else "-")
         self._report("playing")
+        if self.overlay is None:
+            self._open_overlay()  # over the full-screen video, once it's showing
         if self.overlay:
             self.overlay.on_plan(self.plan)
+        if models.is_episode(self.item) and self.next_item is None:
+            threading.Thread(target=self._fetch_next, daemon=True).start()
+
+    def _fetch_next(self):
+        try:
+            self.next_item = self.api.next_episode(self.item_id)
+        except Exception as e:
+            log.debug("next episode unknown (%s)", type(e).__name__)
 
     def on_pause(self, paused):
         self._paused = paused
@@ -165,6 +186,8 @@ class Playback(object):
             self._restart_at(source_ms)
 
     def on_ended(self, finished):
+        if self._switching:
+            return
         self._stop.set()
         self._report("stopped")
         self._release_session()
@@ -186,8 +209,11 @@ class Playback(object):
     # MARK: - progress
 
     def _progress_loop(self):
+        # One loop per playback: a newer loop (the next episode's) makes this one stop.
+        self._loop_gen = getattr(self, "_loop_gen", 0) + 1
+        gen = self._loop_gen
         last = 0.0
-        while not self._stop.is_set():
+        while not self._stop.is_set() and gen == self._loop_gen:
             if self.monitor.waitForAbort(1):
                 break
             if not self.player.isPlaying():
@@ -200,7 +226,10 @@ class Playback(object):
                 self._report("playing")
                 last = now
             if self.overlay:
-                self.overlay.on_tick(self._source_position(), self.duration_ms, self.plan)
+                try:
+                    self.overlay.on_tick(self._source_position(), self.duration_ms, self.plan)
+                except Exception as e:
+                    log.warning("player overlay failed (%s: %s)", type(e).__name__, e)
 
     def _source_position(self):
         try:
@@ -238,16 +267,20 @@ class Playback(object):
         self._release_session()
         if self._request(source_ms, failed_method=failed_method):
             self._started = False
+            self._switching = True
             self._open_player()
 
     def _should_play_next(self):
         return models.is_episode(self.item) and (self.session.prefs or {}).get("auto_play", True)
 
     def _play_next(self):
-        try:
-            nxt = self.api.next_episode(self.item_id)
-        except Exception:
-            nxt = None
+        nxt = self.next_item
+        if nxt is None:
+            try:
+                nxt = self.api.next_episode(self.item_id)
+            except Exception:
+                nxt = None
+        self.next_item = None
         if nxt and models.playable(nxt):
             self.item = nxt
             self.item_id = nxt.get("id")
@@ -256,6 +289,7 @@ class Playback(object):
             self._started = False
             self._stop.clear()
             if self._request(0):
+                self._switching = True
                 self._open_player()
                 threading.Thread(target=self._progress_loop, daemon=True).start()
                 return

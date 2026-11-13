@@ -11,20 +11,25 @@ from arc import models
 
 from ..compat import T
 from ..log import log
-from .base import ArcWindow, list_item
+from .base import ACTION_CONTEXT, ACTION_PLAY, ArcWindow, list_item
 from .cards import card_list_item
 
 MAX_ROWS = 12
-ROW_BASE = 3000      # row list control ids: 3001..3012
-TITLE_BASE = 3100    # row title label ids:  3101..3112
-GROUP_BASE = 3200    # row group ids:         3201..3212
+# Each row slot exists twice in the skin: as posters and as wide cards. Ids are base + slot (1..12).
+# A slot's title and list show themselves once the list has cards (a skin condition).
+POSTER_LIST_BASE, POSTER_TITLE_BASE = 3000, 3100
+THUMB_LIST_BASE, THUMB_TITLE_BASE = 3400, 3500
 
 SIDEBAR = 50
-BG_PRIMARY = 60
+ROWS = 900
 BG_FANART = 61
 HERO_LOGO = 62
 HERO_TITLE = 63
 HERO_INFO = 64
+HERO_OVERVIEW = 65
+
+MOVE_ACTIONS = (1, 2, 5, 6)  # left, right, page up, page down
+ACTION_UP, ACTION_DOWN = 3, 4
 
 
 class HomeWindow(ArcWindow):
@@ -34,14 +39,17 @@ class HomeWindow(ArcWindow):
         ArcWindow.__init__(self, *args, **kwargs)
         self.rows = []            # resolved row specs with their loaded cards
         self.places = []
+        self._focused_once = False
+        self._refreshing = False
         self.nav = None           # a callback the app sets: nav(kind, payload)
 
     def on_init(self):
         self._build_sidebar()
         self.rows = self.session.home_rows()[:MAX_ROWS]
+        self.list_control(SIDEBAR).selectItem(1)  # Home is the chosen place
         self._layout_rows()
+        # Home starts on its rows: the first row with cards takes focus when it arrives (_fill_row).
         self._load_rows()
-        self.focus_id(ROW_BASE + 1)
 
     # MARK: - sidebar
 
@@ -64,14 +72,31 @@ class HomeWindow(ArcWindow):
 
     # MARK: - rows
 
+    @staticmethod
+    def _wide(row):
+        return row.get("style") in (homerows.THUMB, homerows.BACKDROP)
+
+    def _list_id(self, idx):
+        wide = idx < len(self.rows) and self._wide(self.rows[idx])
+        return (THUMB_LIST_BASE if wide else POSTER_LIST_BASE) + 1 + idx
+
+    def _row_at(self, control_id):
+        """The row index a list control belongs to, or None."""
+        for base in (POSTER_LIST_BASE, THUMB_LIST_BASE):
+            if base < control_id <= base + MAX_ROWS:
+                return control_id - base - 1
+        return None
+
     def _layout_rows(self):
         for i in range(MAX_ROWS):
-            group = GROUP_BASE + 1 + i
             if i < len(self.rows):
-                self.set_label(TITLE_BASE + 1 + i, self._row_title(self.rows[i]))
-                self.set_visible(group, True)
-            else:
-                self.set_visible(group, False)
+                wide = self._wide(self.rows[i])
+                self.set_label((THUMB_TITLE_BASE if wide else POSTER_TITLE_BASE) + 1 + i, self._row_title(self.rows[i]))
+
+    def on_return(self):
+        # Refresh the rows in place (Continue Watching changes after playing), keeping the focus.
+        self._refreshing = True
+        self._load_rows()
 
     def _row_title(self, row):
         source = row["source"]
@@ -128,25 +153,41 @@ class HomeWindow(ArcWindow):
         if idx >= len(self.rows):
             return
         row = self.rows[idx]
-        ctrl = self.list_control(ROW_BASE + 1 + idx)
+        ctrl = self.list_control(self._list_id(idx))
+        keep = ctrl.getSelectedPosition() if self._refreshing else 0
         ctrl.reset()
-        for card in cards or []:
-            ctrl.addItem(card_list_item(self.session, card, row["style"], row.get("season_posters", False)))
-        self.rows[idx]["cards"] = cards or []
-        if not cards:
-            self.set_visible(GROUP_BASE + 1 + idx, False)
+        ctrl.addItems([card_list_item(self.session, card, row["style"], row.get("season_posters", False))
+                       for card in cards or []])
+        row["cards"] = cards or []
+        if keep > 0 and cards:
+            ctrl.selectItem(min(keep, len(cards) - 1))
+        if not self._focused_once:
+            # Rows arrive in any order; the first row (in Home's order) with cards takes focus once
+            # every row above it has answered.
+            for i, r in enumerate(self.rows):
+                if "cards" not in r:
+                    break
+                if r["cards"]:
+                    self._focused_once = True
+                    self.focus_when_visible(self._list_id(i))
+                    self._update_hero(i)
+                    return
+        focused = self._row_at(self.getFocusId())
+        if focused is not None:
+            self._update_hero(focused)
 
     # MARK: - background follows focus
 
     def onFocus(self, control_id):
-        if ROW_BASE < control_id <= ROW_BASE + MAX_ROWS:
-            self._update_hero(control_id - ROW_BASE - 1)
+        idx = self._row_at(control_id)
+        if idx is not None:
+            self._update_hero(idx)
 
     def _update_hero(self, idx):
         if idx >= len(self.rows):
             return
         cards = self.rows[idx].get("cards") or []
-        pos = self.list_control(ROW_BASE + 1 + idx).getSelectedPosition()
+        pos = self.list_control(self._list_id(idx)).getSelectedPosition()
         if not (0 <= pos < len(cards)):
             return
         card = cards[pos]
@@ -154,10 +195,14 @@ class HomeWindow(ArcWindow):
         self.set_image(BG_FANART, self.session.art(card.get("backdrop")))
         self.set_image(HERO_LOGO, self.session.art(card.get("logo")))
         self.set_label(HERO_TITLE, "" if card.get("logo") else (item.get("series_title") or item.get("title", "")))
-        self.set_text(HERO_INFO, self._hero_info(item))
+        self.set_label(HERO_INFO, self._hero_info(item))
+        self.set_text(HERO_OVERVIEW, item.get("overview") or "")
 
     def _hero_info(self, item):
         bits = []
+        if models.is_episode(item):
+            code = models.episode_code(item)
+            bits.append(("%s  %s" % (code, item.get("title", ""))).strip())
         if item.get("year"):
             bits.append(str(item["year"]))
         for g in (item.get("genres") or [])[:3]:
@@ -169,8 +214,8 @@ class HomeWindow(ArcWindow):
     def on_click(self, control_id):
         if control_id == SIDEBAR:
             self._open_place(self.list_control(SIDEBAR).getSelectedPosition())
-        elif ROW_BASE < control_id <= ROW_BASE + MAX_ROWS:
-            self._open_card(control_id - ROW_BASE - 1)
+        elif self._row_at(control_id) is not None:
+            self._open_card(self._row_at(control_id))
 
     def _open_place(self, pos):
         if not (0 <= pos < len(self.places)) or not self.nav:
@@ -178,7 +223,7 @@ class HomeWindow(ArcWindow):
         place = self.places[pos]
         pid = place[0]
         if pid == "home":
-            self.focus_id(ROW_BASE + 1)
+            self.focus_id(ROWS)
         elif pid.startswith("library:"):
             self.nav("library", place[3])
         else:
@@ -187,22 +232,42 @@ class HomeWindow(ArcWindow):
     def _open_card(self, idx):
         if idx >= len(self.rows) or not self.nav:
             return
+        card = self._focused_card(idx)
+        if card:
+            self.nav("card", card)
+
+    def _focused_card(self, idx):
         cards = self.rows[idx].get("cards") or []
-        pos = self.list_control(ROW_BASE + 1 + idx).getSelectedPosition()
-        if 0 <= pos < len(cards):
-            self.nav("card", cards[pos])
+        pos = self.list_control(self._list_id(idx)).getSelectedPosition()
+        return cards[pos] if 0 <= pos < len(cards) else None
 
     def on_action(self, action, code):
-        from .base import ACTION_CONTEXT
-        if code in ACTION_CONTEXT:
-            cid = self.getFocusId()
-            if ROW_BASE < cid <= ROW_BASE + MAX_ROWS and self.nav:
-                idx = cid - ROW_BASE - 1
-                cards = self.rows[idx].get("cards") or []
-                pos = self.list_control(cid).getSelectedPosition()
-                if 0 <= pos < len(cards):
-                    self.nav("context", cards[pos])
-                return True
+        idx = self._row_at(self.getFocusId())
+        if idx is None:
+            return False
+        if code in (ACTION_UP, ACTION_DOWN):
+            # Up and Down go to the nearest row with cards (Kodi's own grouplist navigation
+            # doesn't skip the empty slots reliably); the grouplist scrolls to it.
+            step = 1 if code == ACTION_DOWN else -1
+            i = idx + step
+            while 0 <= i < len(self.rows):
+                if self.rows[i].get("cards"):
+                    self.focus_when_visible(self._list_id(i))
+                    self._update_hero(i)
+                    break
+                i += step
+            return True
+        if code in MOVE_ACTIONS:
+            # Kodi has already moved the focus; the background follows it.
+            self._update_hero(idx)
+            return False
+        card = self._focused_card(idx)
+        if card and self.nav and code in ACTION_CONTEXT:
+            self.nav("context", card)
+            return True
+        if card and self.nav and code in ACTION_PLAY and models.playable(card["item"]):
+            self.nav("play", {"item": card["item"], "resume": models.resume_ms(card["item"])})
+            return True
         return False
 
     def on_back(self):

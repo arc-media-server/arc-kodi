@@ -18,8 +18,9 @@ BG = (28, 29, 33, 255)
 SURFACE = (38, 39, 45, 255)
 SURFACE2 = (47, 48, 56, 255)
 WHITE = (255, 255, 255, 255)
-ACCENT_LIGHT = (127, 220, 205)
-ACCENT_DARK = (11, 125, 114)
+
+
+S = 4  # supersampling for smooth edges
 
 
 def _rounded(size, radius, fill):
@@ -34,18 +35,27 @@ def pill(name, fill):
     _rounded((80, 80), 40, fill).save(os.path.join(MEDIA, name))
 
 
-def round_button(name, fill):
-    img = Image.new("RGBA", (80, 80), (0, 0, 0, 0))
-    ImageDraw.Draw(img).ellipse([0, 0, 79, 79], fill=fill)
-    img.save(os.path.join(MEDIA, name))
+def hero_scrim():
+    """Darkens artwork behind text: strongest at the left and the foot, as the Apple app's hero."""
+    w, h = 384, 216
+    img = Image.new("RGBA", (w, h))
+    px = img.load()
+    for y in range(h):
+        fy = y / (h - 1.0)
+        for x in range(w):
+            fx = x / (w - 1.0)
+            left = max(0.0, 1.0 - fx / 0.7) ** 1.4      # fades out by 70% across
+            foot = max(0.0, (fy - 0.35) / 0.65) ** 1.2  # builds from a third down
+            a = 0.30 + 0.55 * left + 0.65 * foot
+            px[x, y] = (18, 19, 22, int(255 * min(0.97, a)))
+    img.save(os.path.join(MEDIA, "arc-scrim.png"))
 
 
 def card_border():
-    img = Image.new("RGBA", (24, 24), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
-    for i in range(3):
-        d.rounded_rectangle([i, i, 23 - i, 23 - i], radius=6 - i, outline=WHITE)
-    img.save(os.path.join(MEDIA, "arc-card-border.png"))
+    """The white focus ring around a card: a nine-slice outline, 4 px thick, round corners."""
+    img = Image.new("RGBA", (32 * S, 32 * S), (0, 0, 0, 0))
+    ImageDraw.Draw(img).rounded_rectangle([0, 0, 32 * S - 1, 32 * S - 1], radius=10 * S, outline=WHITE, width=4 * S)
+    img.resize((32, 32), Image.LANCZOS).save(os.path.join(MEDIA, "arc-card-border.png"))
 
 
 def wash():
@@ -61,61 +71,126 @@ def wash():
     img.save(os.path.join(MEDIA, "arc-wash.png"))
 
 
-def scrim(name, top_alpha, bottom_alpha, left_bias=False):
-    w, h = 16, 256
-    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+def _canvas(size):
+    return Image.new("RGBA", (size * S, size * S), (0, 0, 0, 0))
+
+
+def _save_small(img, name, size):
+    img.resize((size, size), Image.LANCZOS).save(os.path.join(MEDIA, name))
+
+
+def icons():
+    """The sidebar's icons, white on clear (tinted in the skin), 96x96."""
+    n = 96
+    w = 7 * S  # stroke
+
+    def draw(name, fn):
+        img = _canvas(n)
+        fn(ImageDraw.Draw(img), n * S)
+        _save_small(img, "arc-icon-%s.png" % name, n)
+
+    def search(d, z):
+        d.ellipse([z * .16, z * .16, z * .62, z * .62], outline=WHITE, width=w)
+        d.line([z * .56, z * .56, z * .84, z * .84], fill=WHITE, width=w + 2 * S)
+
+    def home(d, z):
+        d.line([z * .14, z * .48, z * .5, z * .16, z * .86, z * .48], fill=WHITE, width=w, joint="curve")
+        d.rectangle([z * .24, z * .44, z * .76, z * .84], outline=WHITE, width=w)
+
+    def film(d, z):
+        d.rounded_rectangle([z * .18, z * .14, z * .82, z * .86], radius=z * .06, outline=WHITE, width=w)
+        for y in (.26, .42, .58, .74):
+            d.rectangle([z * .25, z * y - S * 4, z * .31, z * y + S * 4], fill=WHITE)
+            d.rectangle([z * .69, z * y - S * 4, z * .75, z * y + S * 4], fill=WHITE)
+
+    def tv(d, z):
+        d.rounded_rectangle([z * .12, z * .2, z * .88, z * .72], radius=z * .06, outline=WHITE, width=w)
+        d.line([z * .34, z * .84, z * .66, z * .84], fill=WHITE, width=w)
+
+    def video(d, z):
+        d.rounded_rectangle([z * .1, z * .28, z * .64, z * .72], radius=z * .06, outline=WHITE, width=w)
+        d.polygon([(z * .68, z * .5), (z * .9, z * .32), (z * .9, z * .68)], fill=WHITE)
+
+    def bookmark(d, z):
+        d.line([z * .28, z * .86, z * .28, z * .14, z * .72, z * .14, z * .72, z * .86, z * .5, z * .66, z * .28, z * .86],
+               fill=WHITE, width=w, joint="curve")
+
+    def lst(d, z):
+        for y in (.28, .5, .72):
+            d.ellipse([z * .14, z * y - S * 6, z * .14 + S * 12, z * y + S * 6], fill=WHITE)
+            d.line([z * .32, z * y, z * .86, z * y], fill=WHITE, width=w)
+
+    def settings(d, z):
+        import math
+        c = z / 2
+        for k in range(8):
+            a = k * math.pi / 4
+            d.line([c + math.cos(a) * z * .2, c + math.sin(a) * z * .2, c + math.cos(a) * z * .4, c + math.sin(a) * z * .4],
+                   fill=WHITE, width=w + 4 * S)
+        d.ellipse([c - z * .27, c - z * .27, c + z * .27, c + z * .27], fill=WHITE)
+        d.ellipse([c - z * .11, c - z * .11, c + z * .11, c + z * .11], fill=(0, 0, 0, 0))
+
+    for name, fn in (("search", search), ("home", home), ("film", film), ("tv", tv), ("video", video),
+                     ("bookmark", bookmark), ("list", lst), ("settings", settings)):
+        draw(name, fn)
+
+
+def tick():
+    n = 48
+    img = _canvas(n)
+    d = ImageDraw.Draw(img)
+    z = n * S
+    d.ellipse([0, 0, z - 1, z - 1], fill=WHITE)
+    d.line([z * .27, z * .52, z * .44, z * .68, z * .74, z * .34], fill=(0, 0, 0, 255), width=5 * S, joint="curve")
+    _save_small(img, "arc-tick.png", n)
+
+
+def circle_and_ring():
+    n = 256
+    img = _canvas(n)
+    ImageDraw.Draw(img).ellipse([0, 0, n * S - 1, n * S - 1], fill=WHITE)
+    _save_small(img, "arc-circle.png", n)
+    img = _canvas(n)
+    ImageDraw.Draw(img).ellipse([0, 0, n * S - 1, n * S - 1], outline=WHITE, width=8 * S)
+    _save_small(img, "arc-ring.png", n)
+
+
+def bars():
+    _rounded((16, 8), 4, (255, 255, 255, 70)).save(os.path.join(MEDIA, "arc-bar-bg.png"))
+    _rounded((16, 8), 4, WHITE).save(os.path.join(MEDIA, "arc-bar-fg.png"))
+
+
+def side_panel():
+    # The open sidebar's glass: dark, fading out to the right.
+    w, h = 460, 16
+    img = Image.new("RGBA", (w, h))
     px = img.load()
-    for y in range(h):
-        a = int(top_alpha + (bottom_alpha - top_alpha) * (y / (h - 1)))
-        for x in range(w):
-            px[x, y] = (0, 0, 0, a)
-    img.save(os.path.join(MEDIA, name))
+    for x in range(w):
+        a = 235 if x < 400 else int(235 * (1 - (x - 400) / 60.0))
+        for y in range(h):
+            px[x, y] = (24, 25, 29, a)
+    img.save(os.path.join(MEDIA, "arc-side-panel.png"))
 
 
-def side_focus():
-    img = _rounded((360, 88), 16, SURFACE2)
-    img.save(os.path.join(MEDIA, "arc-side-focus.png"))
+BRAND = os.path.join(ROOT, "tools", "brand")
 
 
-def progress_scrim():
-    # A faint dark band across the foot of a poster that's part-watched.
-    w, h = 244, 366
-    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
-    d.rectangle([0, h - 10, w, h], fill=(0, 0, 0, 160))
-    d.rectangle([0, h - 6, int(w * 0.45), h - 2], fill=(*WHITE[:3], 255))
-    img.save(os.path.join(MEDIA, "arc-progress-scrim.png"))
+def brand_renders():
+    """The owner's logo files (arc-media-server docs/brand, copied into tools/brand/) as PNGs,
+    rendered by Chromium (tools/render_svg.js) so the lettering is exact. Needs Node with
+    Playwright's Chromium (dev only)."""
+    import subprocess
 
-
-def logo(path, size=(512, 512), mark_only=False):
-    # The Arc mark: an arc stroke with a dot, in the logo gradient (#7fdccd -> #0b7d72).
-    img = Image.new("RGBA", size, (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
-    w, h = size
-    grad = Image.new("RGBA", size, (0, 0, 0, 0))
-    gpx = grad.load()
-    for y in range(h):
-        for x in range(w):
-            t = (x / w + y / h) / 2
-            gpx[x, y] = tuple(int(ACCENT_LIGHT[i] + (ACCENT_DARK[i] - ACCENT_LIGHT[i]) * t) for i in range(3)) + (255,)
-    mask = Image.new("L", size, 0)
-    md = ImageDraw.Draw(mask)
-    cx, cy, r = w // 2, int(h * 0.62), int(w * 0.32)
-    sw = max(8, int(w * 0.09))
-    md.arc([cx - r, cy - r, cx + r, cy + r], start=200, end=340, fill=255, width=sw)
-    md.ellipse([cx - sw // 2, cy - sw // 2, cx + sw // 2, cy + sw // 2], fill=255)
-    img = Image.composite(grad, img, mask)
-    img.save(path)
-
-
-def icon():
-    img = Image.new("RGBA", (512, 512), BG)
-    logo_img = Image.new("RGBA", (512, 512), (0, 0, 0, 0))
-    logo(os.path.join(MEDIA, "_tmp_logo.png"))
-    mark = Image.open(os.path.join(MEDIA, "_tmp_logo.png"))
-    img.alpha_composite(mark)
-    img.convert("RGB").save(os.path.join(RES, "icon.png"))
-    os.remove(os.path.join(MEDIA, "_tmp_logo.png"))
+    jobs = [  # (svg, png, width in pixels)
+        ("arc-logo-stacked-white.svg", os.path.join(MEDIA, "arc-logo-stacked.png"), 600),
+        ("arc-logo-white.svg", os.path.join(MEDIA, "arc-logo.png"), 900),
+        ("arc-mark-white.svg", os.path.join(MEDIA, "arc-mark.png"), 192),
+        ("arc-icon-square.svg", os.path.join(RES, "icon.png"), 512),
+    ]
+    args = []
+    for svg, out, width in jobs:
+        args += [os.path.join(BRAND, svg), out, str(width)]
+    subprocess.run(["node", os.path.join(ROOT, "tools", "render_svg.js")] + args, check=True)
 
 
 def fanart():
@@ -130,18 +205,21 @@ def fanart():
 
 def main():
     os.makedirs(MEDIA, exist_ok=True)
+    for name in os.listdir(MEDIA):
+        if name.endswith(".png"):
+            os.remove(os.path.join(MEDIA, name))
     pill("arc-pill-white.png", WHITE)
     pill("arc-pill-surface.png", SURFACE)
-    pill("arc-pill-surface2.png", SURFACE2)
-    round_button("arc-round-white.png", WHITE)
-    round_button("arc-round-surface.png", SURFACE)
     card_border()
+    _rounded((24, 24), 8, SURFACE).save(os.path.join(MEDIA, "arc-card-bg.png"))
     wash()
-    scrim("arc-scrim.png", 40, 230)
-    side_focus()
-    progress_scrim()
-    logo(os.path.join(MEDIA, "arc-logo.png"), (512, 200))
-    icon()
+    hero_scrim()
+    icons()
+    tick()
+    circle_and_ring()
+    bars()
+    side_panel()
+    brand_renders()
     fanart()
     print("media written to", MEDIA)
 

@@ -7,7 +7,7 @@ than Kodi's library. It signs in to your Arc server with a code and uses only Ar
 `/api/v1`. It never changes your Kodi library — no scraping, no `.strm` files, no sync.
 
 The look follows the [Apple app](https://github.com/arc-media-server/arc-apple) (artwork-led,
-dark, white focus, an icon sidebar); how it behaves inside Kodi (windows, the player, the remote)
+dark, white focus, an icon sidebar) with Arc's logo; how it behaves inside Kodi (windows, the player, the remote)
 follows PM4K and Kodi's own settings.
 
 Status: just started — a first version with sign-in, Home, library browsing, title pages and
@@ -29,7 +29,10 @@ Kodi 19 (Matrix) or newer. No extra Python packages are needed.
   playback logic) against a stand-in server — no Kodi required.
 - `python3 tools/check.py` checks the skin XML, the string ids, and that the `arc/` layer stays
   free of Kodi imports.
-- `python3 tools/make_media.py` redraws the skin's PNGs (needs Pillow, dev only).
+- Windows are written in `skin/`; `python3 tools/build_skin.py` builds the files Kodi loads
+  (Kodi won't read an add-on's own includes, colours or fonts).
+- `python3 tools/make_media.py` redraws the skin's PNGs and renders the logo files in
+  `tools/brand/` (needs Pillow, and Node with Playwright's Chromium; dev only).
 - Develop against a scratch Arc, never the owner's server. See `CLAUDE.md`.
 
 ## Licence

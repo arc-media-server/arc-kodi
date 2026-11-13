@@ -5,12 +5,13 @@ Cast. Follows the Apple app's title page; the player opens from Play."""
 import xbmc
 import xbmcgui
 
+from arc import home as homerows
 from arc import models
 
 from ..compat import T
 from ..log import log
 from .base import ArcWindow, list_item
-from .cards import item_list_item, item_art
+from .cards import item_art, item_list_item, set_progress
 
 PLAY = 100
 WATCHED = 101
@@ -26,7 +27,9 @@ META = 116
 SEASONS = 200
 EPISODES = 201
 RELATED = 300
-CAST = 301
+RELATED_TITLE = 311
+
+MOVE_ACTIONS = (1, 2)  # left, right
 
 
 class DetailsWindow(ArcWindow):
@@ -39,12 +42,25 @@ class DetailsWindow(ArcWindow):
         self.item = None
         self.seasons = []
         self.season_index = 0
+        self.related = []
         self.nav = None
 
     def on_init(self):
+        self.set_label(RELATED_TITLE, T(30143))
         if self.initial:
             self._render_hero(self.initial)
         self.run_async(lambda: self.session.api.item(self.item_id), self._loaded)
+
+    def on_return(self):
+        # Watched state and the resume point may have changed while playing.
+        self.run_async(lambda: self.session.api.item(self.item_id), self._refreshed)
+        if self.item and models.is_series(self.item):
+            self._load_seasons()
+
+    def _refreshed(self, item, error):
+        if error is None and item:
+            self.item = item
+            self._render_actions()
 
     def _loaded(self, item, error):
         if error is not None or not item:
@@ -113,9 +129,15 @@ class DetailsWindow(ArcWindow):
         for s in self.seasons:
             name = s.get("name") or (T(30155) % s.get("season_number", 0))
             ctrl.addItem(list_item(name, props={"season": s.get("season_number")}))
-        self.set_visible(SEASONS, bool(self.seasons))
         if self.seasons:
-            self._show_episodes(0)
+            # Open on the season of the first episode left to watch, as Plex does.
+            start = 0
+            for i, s in enumerate(self.seasons):
+                if any(e.get("available", True) and not models.watched(e) for e in s.get("episodes") or []):
+                    start = i
+                    break
+            ctrl.selectItem(start)
+            self._show_episodes(start)
 
     def _show_episodes(self, index):
         if not (0 <= index < len(self.seasons)):
@@ -123,8 +145,12 @@ class DetailsWindow(ArcWindow):
         self.season_index = index
         ctrl = self.list_control(EPISODES)
         ctrl.reset()
-        for ep in self.seasons[index].get("episodes") or []:
-            ctrl.addItem(self._episode_item(ep))
+        episodes = self.seasons[index].get("episodes") or []
+        ctrl.addItems([self._episode_item(ep) for ep in episodes])
+        for i, ep in enumerate(episodes):
+            if ep.get("available", True) and not models.watched(ep):
+                ctrl.selectItem(i)
+                break
 
     def _episode_item(self, ep):
         art = item_art(self.session, ep)
@@ -134,10 +160,14 @@ class DetailsWindow(ArcWindow):
                  "watched": "true" if models.watched(ep) else "",
                  "progress": "" if models.progress(ep) is None else str(int(models.progress(ep) * 100))}
         if release:
-            props["releases"] = T(30154) % release.strftime("%-d %b")
+            props["releases"] = T(30154) % ("%d %s" % (release.day, release.strftime("%b")))
         label = "%d. %s" % (ep.get("episode_number") or 0, ep.get("title", ""))
-        li = list_item(label, sub, art={"thumb": art.get("thumb")}, props=props)
+        if release:
+            sub = props["releases"]
+        thumb = models.images(ep).get("primary")
+        li = list_item(label, sub, art={"thumb": self.session.art(thumb) if thumb else art.get("thumb")}, props=props)
         li.setProperty("overview", ep.get("overview") or "")
+        set_progress(li, ep)
         return li
 
     # MARK: - related
@@ -148,11 +178,10 @@ class DetailsWindow(ArcWindow):
     def _show_related(self, items, error):
         if error is not None or not items:
             return
+        self.related = items
         ctrl = self.list_control(RELATED)
         ctrl.reset()
-        for it in items:
-            ctrl.addItem(item_list_item(self.session, it, "poster"))
-        self.set_visible(RELATED, True)
+        ctrl.addItems([item_list_item(self.session, it, "poster") for it in items])
 
     # MARK: - input
 
@@ -169,15 +198,17 @@ class DetailsWindow(ArcWindow):
             if 0 <= pos < len(eps) and eps[pos].get("available", True):
                 self._play(eps[pos])
         elif control_id == RELATED and self.nav:
-            items = getattr(self, "_related", None)
             pos = self.list_control(RELATED).getSelectedPosition()
-            self.nav("open_id", None)  # handled by app via focused item props
+            if 0 <= pos < len(self.related):
+                self.nav("card", homerows.card(self.related[pos]))
 
-    def onFocus(self, control_id):
-        if control_id == SEASONS:
+    def on_action(self, action, code):
+        # Moving along the season tabs shows that season (no Select needed), as the Apple app does.
+        if code in MOVE_ACTIONS and self.getFocusId() == SEASONS:
             pos = self.list_control(SEASONS).getSelectedPosition()
             if pos != self.season_index:
                 self._show_episodes(pos)
+        return False
 
     def _play(self, item):
         if not item or not models.playable(item):

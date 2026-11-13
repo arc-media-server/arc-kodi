@@ -1,37 +1,232 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Built by tools/build_skin.py from skin/script-arc-grid.xml: edit that, not this. -->
 <window>
-  <defaultcontrol always="true">100</defaultcontrol>
+  <defaultcontrol>100</defaultcontrol>
   <controls>
-    <include>PageBackground</include>
+    <control type="image">
+      <left>0</left>
+      <top>0</top>
+      <width>1920</width>
+      <height>1080</height>
+      <texture>arc-wash.png</texture>
+    </control>
     <control type="label" id="101">
-      <left>80</left><top>48</top><width>1200</width><height>60</height>
-      <font>arc-title</font><textcolor>fg</textcolor><label></label>
+      <left>80</left>
+      <top>48</top>
+      <width>1200</width>
+      <height>60</height>
+      <font>font52_title</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <label />
     </control>
     <control type="label" id="104">
-      <left>80</left><top>112</top><width>400</width><height>36</height>
-      <font>arc-small</font><textcolor>muted</textcolor><label></label>
+      <left>80</left>
+      <top>112</top>
+      <width>400</width>
+      <height>36</height>
+      <font>font12</font>
+      <textcolor>FFA1A1AD</textcolor>
+      <label />
     </control>
     <control type="button" id="102">
-      <include content="PrimaryButton"><param name="width" value="300"/></include>
-      <left>1300</left><top>56</top><visible>true</visible>
+      <width>420</width>
+      <height>76</height>
+      <font>font13</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <focusedcolor>FF000000</focusedcolor>
+      <texturefocus border="38">arc-pill-white.png</texturefocus>
+      <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+      <aligny>center</aligny>
+      <align>center</align>
+      <textoffsetx>28</textoffsetx>
+      <left>1180</left>
+      <top>56</top>
       <label>$ADDON[script.arc 30123]</label>
     </control>
     <control type="button" id="103">
-      <include content="PrimaryButton"><param name="width" value="260"/></include>
-      <left>1620</left><top>56</top><width>260</width><visible>true</visible>
+      <height>76</height>
+      <font>font13</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <focusedcolor>FF000000</focusedcolor>
+      <texturefocus border="38">arc-pill-white.png</texturefocus>
+      <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+      <aligny>center</aligny>
+      <align>center</align>
+      <textoffsetx>28</textoffsetx>
+      <left>1620</left>
+      <top>56</top>
+      <width>260</width>
       <label>$ADDON[script.arc 30124]</label>
     </control>
     <control type="panel" id="100">
-      <left>72</left><top>170</top><width>1800</width><height>880</height>
+      <left>72</left>
+      <top>170</top>
+      <width>1800</width>
+      <height>880</height>
       <onup>102</onup>
       <orientation>vertical</orientation>
-      <itemlayout width="288" height="470"><include>PosterItemLayout</include></itemlayout>
-      <focusedlayout width="288" height="470"><include>PosterItemLayout</include></focusedlayout>
+      <itemlayout width="292" height="460">
+        <control type="image">
+          <left>8</left>
+          <top>8</top>
+          <width>244</width>
+          <height>366</height>
+          <texture border="8">arc-card-bg.png</texture>
+        </control>
+        <control type="image">
+          <left>8</left>
+          <top>8</top>
+          <width>244</width>
+          <height>366</height>
+          <aspectratio>scale</aspectratio>
+          <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+        </control>
+        <control type="image">
+          <left>4</left>
+          <top>4</top>
+          <width>252</width>
+          <height>374</height>
+          <texture border="8">arc-card-border.png</texture>
+          <visible>false</visible>
+        </control>
+        <control type="label">
+          <left>20</left>
+          <top>20</top>
+          <width>220</width>
+          <height>340</height>
+          <font>font12</font>
+          <textcolor>FFA1A1AD</textcolor>
+          <align>center</align>
+          <aligny>center</aligny>
+          <wrapmultiline>true</wrapmultiline>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
+        </control>
+        <control type="image">
+          <left>196</left>
+          <top>16</top>
+          <width>48</width>
+          <height>48</height>
+          <texture>arc-tick.png</texture>
+          <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="progress">
+          <left>16</left>
+          <top>358</top>
+          <width>228</width>
+          <height>8</height>
+          <texturebg border="4">arc-bar-bg.png</texturebg>
+          <midtexture border="4">arc-bar-fg.png</midtexture>
+          <info>ListItem.PercentPlayed</info>
+          <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+        </control>
+        <control type="label">
+          <left>8</left>
+          <top>384</top>
+          <width>244</width>
+          <height>34</height>
+          <font>font12</font>
+          <align>center</align>
+          <textcolor>FFA1A1AD</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+        </control>
+        <control type="label">
+          <left>8</left>
+          <top>416</top>
+          <width>244</width>
+          <height>30</height>
+          <font>font12</font>
+          <align>center</align>
+          <textcolor>FF6B6B78</textcolor>
+          <label>$INFO[ListItem.Label2]</label>
+        </control>
+      </itemlayout>
+      <focusedlayout width="292" height="460">
+        <control type="image">
+          <left>8</left>
+          <top>8</top>
+          <width>244</width>
+          <height>366</height>
+          <texture border="8">arc-card-bg.png</texture>
+        </control>
+        <control type="image">
+          <left>8</left>
+          <top>8</top>
+          <width>244</width>
+          <height>366</height>
+          <aspectratio>scale</aspectratio>
+          <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+        </control>
+        <control type="image">
+          <left>4</left>
+          <top>4</top>
+          <width>252</width>
+          <height>374</height>
+          <texture border="8">arc-card-border.png</texture>
+          <visible>Control.HasFocus(100)</visible>
+        </control>
+        <control type="label">
+          <left>20</left>
+          <top>20</top>
+          <width>220</width>
+          <height>340</height>
+          <font>font12</font>
+          <textcolor>FFA1A1AD</textcolor>
+          <align>center</align>
+          <aligny>center</aligny>
+          <wrapmultiline>true</wrapmultiline>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
+        </control>
+        <control type="image">
+          <left>196</left>
+          <top>16</top>
+          <width>48</width>
+          <height>48</height>
+          <texture>arc-tick.png</texture>
+          <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="progress">
+          <left>16</left>
+          <top>358</top>
+          <width>228</width>
+          <height>8</height>
+          <texturebg border="4">arc-bar-bg.png</texturebg>
+          <midtexture border="4">arc-bar-fg.png</midtexture>
+          <info>ListItem.PercentPlayed</info>
+          <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+        </control>
+        <control type="label">
+          <left>8</left>
+          <top>384</top>
+          <width>244</width>
+          <height>34</height>
+          <font>font12</font>
+          <align>center</align>
+          <textcolor>FFF5F5F7</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+        </control>
+        <control type="label">
+          <left>8</left>
+          <top>416</top>
+          <width>244</width>
+          <height>30</height>
+          <font>font12</font>
+          <align>center</align>
+          <textcolor>FF6B6B78</textcolor>
+          <label>$INFO[ListItem.Label2]</label>
+        </control>
+      </focusedlayout>
     </control>
     <control type="label" id="105">
-      <left>80</left><top>500</top><width>1760</width><height>60</height>
-      <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
-      <visible>false</visible><label></label>
+      <left>80</left>
+      <top>500</top>
+      <width>1760</width>
+      <height>60</height>
+      <font>font13</font>
+      <textcolor>FFA1A1AD</textcolor>
+      <align>center</align>
+      <label />
     </control>
   </controls>
 </window>
