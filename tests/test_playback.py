@@ -81,3 +81,50 @@ def test_runtime_and_clock():
     assert models.runtime_text(45 * 60000) == "45m"
     assert models.clock(3723000) == "1:02:03"
     assert models.clock(123000) == "2:03"
+
+
+PLAN = {
+    "method": "direct", "file_id": 7, "source_kbps": 9000,
+    "audio_tracks": [{"index": 3, "language": "jpn"}, {"index": 1, "language": "eng"}],
+    "subtitle_tracks": [{"id": "s4", "language": "eng"}, {"id": "ext-9", "external": True},
+                        {"id": "s5", "language": "fre"}],
+}
+
+
+def test_kodi_audio_index_follows_file_order():
+    assert playback.kodi_audio_index(PLAN, 1) == 0
+    assert playback.kodi_audio_index(PLAN, 3) == 1
+    assert playback.kodi_audio_index(PLAN, 99) is None
+
+
+def test_kodi_subtitle_index_skips_external():
+    assert playback.kodi_subtitle_index(PLAN, "s4") == 0
+    assert playback.kodi_subtitle_index(PLAN, "s5") == 1
+    assert playback.kodi_subtitle_index(PLAN, "ext-9") is None
+
+
+def test_subtitle_vtt_path_shifts_for_conversion():
+    assert playback.subtitle_vtt_path("i1", "s4", 7) == "/api/items/i1/subtitles/s4/vtt?file=7"
+    assert playback.subtitle_vtt_path("i1", "s4", 7, 60000).endswith("&shift_ms=-60000")
+
+
+def test_quality_options_below_source():
+    assert playback.quality_options(PLAN) == [None, 8000, 4000, 3000, 2000, 1500, 720]
+    assert playback.quality_options({})[1] == 20000
+
+
+def test_clamp_seek_and_converted():
+    assert playback.clamp_seek(-5, 100000) == 0
+    assert playback.clamp_seek(200000, 100000) == 99000
+    assert playback.converted({"method": "transcode", "session_id": "s"})
+    assert not playback.converted({"method": "direct"})
+
+
+def test_default_audio_and_retry_with_default():
+    preview = {"method": "remux", "audio_stream": 3,
+               "audio_tracks": [{"index": 1, "default": True}, {"index": 3}]}
+    assert playback.default_audio_index(preview) == 1
+    assert playback.needs_default_audio_try(preview) is True
+    assert playback.needs_default_audio_try(dict(preview, method="direct")) is False
+    assert playback.needs_default_audio_try(dict(preview, audio_stream=1)) is False
+    assert playback.default_audio_index({"audio_tracks": [{"index": 4}, {"index": 2}]}) == 2

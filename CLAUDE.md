@@ -44,15 +44,18 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
   Kodi loads; never edit `resources/skins/Main/1080i/` by hand. Windows are opened from
   `kodi/app.py`, one at a time, with Back always going back. Never add items to Kodi's video
   library, never write `.strm`/`.nfo` files, never use `plugin://` lists for browsing.
-- **Player:** Kodi's own player (`xbmc.Player`) plays, with Kodi's own full-screen OSD for
-  seeking and play/pause. Arc's overlay (`kodi/player_osd.py`, `script-arc-player.xml`) stays
-  over the video for the whole playback but has nothing focusable until Skip Intro/Recap/Credits
-  or Up Next shows, so the remote reaches Kodi's player otherwise.
-  `kodi/player.py` restarts a conversion when a seek leaves what's converted. A seek
-  dialog of our own (and audio/subtitle choices in it) is planned, not built.
-  Progress goes to Arc on the source file's timeline (`offset_ms` + Kodi's time) every 10 s and
-  on pause/stop; conversions are pinged while paused and deleted on stop. Kodi's own resume
-  points are ignored: Arc's are the truth.
+- **Player:** Kodi's own player (`xbmc.Player`) decodes and shows the stream; Arc's player
+  window (`kodi/player_osd.py`, `script-arc-player.xml`) is open, modal, over the video for the
+  whole playback and owns the remote: the controls in the Apple/Android layout
+  (title, Playback/Audio/Subtitles buttons, timeline), seeking, Skip Intro/Recap/Credits, Up Next,
+  the menus. Keep it modal: a modeless window lets keys fall through to Kodi's own full-screen
+  player and OSD. Kodi pauses and stops by itself for Play/Pause and Stop; don't repeat those.
+  `kodi/player.py` holds the playback: progress on the source file's timeline (`offset_ms` +
+  Kodi's time) every 10 s and on pause/stop, conversions pinged while paused and deleted on stop,
+  a seek outside what's converted restarting the conversion there. In a file played as it is Kodi
+  switches audio and subtitle tracks itself (Arc would otherwise repackage for a non-default audio
+  track); in a converted stream audio and picture subtitles ask Arc again and text subtitles come
+  as Arc's WebVTT through a cast link. Kodi's own resume points are ignored: Arc's are the truth.
 - **Credentials:** the device token lives in the add-on's profile folder (`addon_data`), never in
   Kodi's settings UI, a URL, a log line or Kodi's databases. Kodi fetches artwork through a small
   local proxy (`kodi/artwork.py`, 127.0.0.1 only, GET image routes only) that adds the Bearer

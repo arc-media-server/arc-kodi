@@ -133,3 +133,82 @@ def shows_up_next(markers, position_ms, duration_ms):
     if credits:
         return position_ms >= (credits.get("start_ms") or 0)
     return position_ms >= duration_ms - 30000
+
+
+# MARK: - tracks and choices in the player (Kodi's own player plays; Arc names the tracks)
+
+def audio_tracks(plan):
+    """The plan's audio tracks in file order (by stream index), as Kodi lists them."""
+    return sorted(plan.get("audio_tracks") or [], key=lambda t: t.get("index", 0))
+
+
+def kodi_audio_index(plan, arc_index):
+    """Kodi's number for an Arc audio track in a file played as it is: its place among the
+    file's audio tracks. None when Arc doesn't list it."""
+    for i, t in enumerate(audio_tracks(plan)):
+        if t.get("index") == arc_index:
+            return i
+    return None
+
+
+def kodi_subtitle_index(plan, track_id):
+    """Kodi's number for a subtitle track inside a file played as it is: its place among the
+    file's own (not external) tracks, which Kodi lists first. None for external tracks, which
+    Kodi only gets when the add-on gives it the file."""
+    inside = [t for t in plan.get("subtitle_tracks") or [] if not t.get("external")]
+    for i, t in enumerate(inside):
+        if t.get("id") == track_id:
+            return i
+    return None
+
+
+def converted(plan):
+    return bool(plan.get("session_id")) or plan.get("method") not in (None, "direct")
+
+
+def subtitle_vtt_path(item_id, track_id, file_id, offset_ms=0):
+    """Arc's WebVTT link for a text subtitle track (GET /items/{id}/subtitles/{track}/vtt), on the
+    stream's own clock: a converted stream starts at offset_ms, so the cues move back by it.
+    Unversioned /api/ as Arc's cast links expect."""
+    path = "/api/items/%s/subtitles/%s/vtt?file=%s" % (item_id, track_id, file_id)
+    if offset_ms:
+        path += "&shift_ms=%d" % -int(offset_ms)
+    return path
+
+
+QUALITY_STEPS = [20000, 12000, 8000, 4000, 3000, 2000, 1500, 720]
+
+
+def quality_options(plan):
+    """The qualities worth offering (kbit/s), best first, after the original (None): only below
+    the file's own bitrate, as the web and Android players offer them."""
+    source = int(plan.get("source_kbps") or 0)
+    return [None] + [q for q in QUALITY_STEPS if not source or q < source]
+
+
+def clamp_seek(ms, duration_ms):
+    """A seek target inside the title: not before the start, not in the last second."""
+    if duration_ms > 0:
+        ms = min(ms, duration_ms - 1000)
+    return max(0, int(ms))
+
+
+def default_audio_index(plan):
+    """The file's default audio track (the one a player picks by itself): marked default, else
+    the first. None when there's no audio."""
+    tracks = audio_tracks(plan)
+    for t in tracks:
+        if t.get("default"):
+            return t.get("index")
+    return tracks[0].get("index") if tracks else None
+
+
+def needs_default_audio_try(preview):
+    """Arc converts whenever the profile's audio language picks a track other than the file's
+    default, as a browser can't switch tracks. Kodi can: when that's the only reason, the file
+    can be played as it is with the default track and Kodi switched to the preferred one.
+    True when a preview with the default track is worth asking for."""
+    if not preview or preview.get("method") == "direct":
+        return False
+    preferred, default = preview.get("audio_stream"), default_audio_index(preview)
+    return default is not None and preferred is not None and preferred >= 0 and preferred != default

@@ -15,12 +15,11 @@
       <top>300</top>
       <width>800</width>
       <control type="image">
-        <left>300</left>
+        <left>310</left>
         <top>-230</top>
-        <width>200</width>
-        <height>200</height>
+        <width>180</width>
+        <height>190</height>
         <texture>arc-logo-stacked.png</texture>
-        <aspectratio>keep</aspectratio>
       </control>
       <control type="label">
         <left>0</left>
