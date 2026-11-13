@@ -128,3 +128,39 @@ def test_default_audio_and_retry_with_default():
     assert playback.needs_default_audio_try(dict(preview, method="direct")) is False
     assert playback.needs_default_audio_try(dict(preview, audio_stream=1)) is False
     assert playback.default_audio_index({"audio_tracks": [{"index": 4}, {"index": 2}]}) == 2
+
+
+def test_kodi_caps_delegate_output_handling_and_preserve_source_depth():
+    caps = playback.kodi_caps()
+    assert "hevc" in caps["video"] and "truehd" in caps["audio"]
+    assert caps["max_bit_depth"] == 16  # avoid Arc's browser-oriented H.264 Hi10 restriction
+    for key in ("hdr_formats", "dolby_vision_profiles", "video_profiles", "audio_passthrough", "max_audio_channels"):
+        assert key not in caps  # unspecified source handling, not an SDR-only declaration
+    caps["video"].clear()
+    assert "hevc" in playback.kodi_caps()["video"]
+
+
+def test_kodi_requests_keep_limits_and_choices_during_fallback():
+    from arc.api import ArcAPI
+    from fake_server import FakeServer
+
+    server = FakeServer({("POST", "items/i1/playback"): (200, {"method": "direct"})})
+    api = ArcAPI("http://arc:8099", token="fixture-token", opener=server)
+    for height in (720, 1080, 2160):
+        caps = playback.kodi_caps(height)
+        for method in (None, "direct", "remux"):
+            attempt = playback.fallback_caps(caps, method) if method else caps
+            body = playback.playback_request(attempt, start_ms=42000, file_id=7,
+                                             audio_stream=2, max_kbps=4000)
+            api.start_playback("i1", body)
+            sent = server.requests[-1]["body"]
+            assert sent["caps"]["max_height"] == height
+            assert sent["max_kbps"] == 4000 and sent["start_ms"] == 42000
+            assert sent["file_id"] == 7 and sent["audio_stream"] == 2
+            assert "hdr_formats" not in sent["caps"] and "dolby_vision_profiles" not in sent["caps"]
+            if method:
+                assert sent["caps"]["failed_method"] == method
+                assert sent["caps"]["containers"] == []
+            if method == "remux":
+                assert sent["caps"]["video"] == []
+        assert "mkv" in caps["containers"] and "hevc" in caps["video"]
