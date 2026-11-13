@@ -42,19 +42,19 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Feature | Apple / Android | Kodi now | Kodi can | Notes |
 |---|---|---|---|---|
 | Hero: logo, info line, overview | Both | Done | Yes | |
-| Background in the artwork's four colours (palette) | Apple | Missing | Part | Kodi has no mesh gradient; four tinted corner gradients come close. |
-| Quality badges as capsules (4K, DV, HDR10, Atmos, 5.1) | Both | Part | Yes | Plain text now. |
-| Play label says what plays (Resume 1:02:03, Play S1 E4) | Both | Part | Yes | Says Play/Resume only. |
-| Play from the beginning on the page | Both | Missing | Yes | It's in the player's Playback menu now. |
-| Watched, Watchlist buttons | Both | Done | Yes | Words, not round icon buttons yet. |
+| Background in the artwork's four colours (palette) | Apple | Done | Part | Kodi has no mesh gradient; four tinted corner glows under the artwork. |
+| Quality badges as capsules (4K, DV, HDR10, Atmos, 5.1) | Both | Done | Yes | |
+| Play label says what plays (Resume 1:02:03, Play S1 E4) | Both | Done | Yes | |
+| Play from the beginning on the page | Both | Done | Yes | Round button beside Play. |
+| Watched, Watchlist buttons | Both | Done | Yes | Round icon buttons; the focused one's name shows beside them. |
 | Seasons and episodes; opens on the next to watch | Both | Done | Yes | |
-| Episode browser rises over the hero (reference look) | Apple | Missing | Yes | |
-| Upcoming episodes dimmed with "Releases 8 Nov" | Apple | Part | Yes | Label done; no dimming. |
-| About, Details, Crew and Playback cards | Both | Missing | Yes | |
-| Cast & Crew row (opens the person) | Both | Missing | Yes | |
+| Episode browser rises over the hero (reference look) | Apple | Part | Yes | The page scrolls the hero up as focus moves down; no separate sheet. |
+| Upcoming episodes dimmed with "Releases 8 Nov" | Apple | Done | Yes | |
+| About, Details, Crew and Playback cards | Both | Done | Yes | |
+| Cast & Crew row (opens the person) | Both | Done | Yes | The person opens as a grid of their titles; a proper person page comes with library parity. |
 | Related / More like this | Both | Done | Yes | |
-| Collections row | Both | Missing | Yes | |
-| Trailers & Extras | Both | Missing | Yes | Cast links cover extras. |
+| Collections row | Both | Done | Yes | |
+| Trailers & Extras | Both | Done | Yes | Played through Arc's player, without progress. Not yet seen with real extras (the test library has none). |
 | Versions (editions) choice before playing | Android | Missing | Yes | In the player's Playback menu now. |
 | Play All / Shuffle (play queues) | Android | Missing | Yes | Arc's play-queues API. |
 | Context menu on any card (Play, watched, watchlist, go to show) | Both | Part | Yes | Kodi's context menu now; an Arc-styled one would match. |

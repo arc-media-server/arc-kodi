@@ -1,66 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- A title's page: the hero (logo or title, info, badges, overview) over its artwork, then a
-     column that scrolls: Play and the actions, a show's seasons and episodes, Related. -->
+<!-- A title's page, as the Apple app's: the artwork over the title's own four colours (Kodi tints
+     the corner glows with the palette), fading into them at the left and the foot. One column
+     scrolls: the hero (logo, info, badges, overview, Starring), Play and the round buttons, a
+     show's seasons and episodes, Related, Cast, Collections, Trailers & Extras, and the About,
+     Details, Crew and Playback cards. Up/Down is Kodi's own grouplist navigation. -->
 <window>
   <defaultcontrol>100</defaultcontrol>
   <controls>
     <include>PageBackground</include>
-    <include content="HeroBackground"><param name="id" value="115"/></include>
-
-    <control type="group">
-      <left>120</left><top>80</top><width>1200</width><height>520</height>
-      <control type="image" id="110">
-        <left>0</left><top>0</top><width>640</width><height>200</height>
-        <aspectratio align="left" aligny="bottom">keep</aspectratio>
-      </control>
-      <control type="label" id="111">
-        <left>0</left><top>100</top><width>1200</width><height>100</height>
-        <font>arc-hero</font><textcolor>fg</textcolor>
-      </control>
-      <control type="label" id="112">
-        <left>2</left><top>216</top><width>1200</width><height>40</height>
-        <font>arc-body</font><textcolor>muted</textcolor>
-      </control>
-      <control type="label" id="114">
-        <left>2</left><top>260</top><width>1200</width><height>36</height>
-        <font>arc-small</font><textcolor>fg</textcolor>
-      </control>
-      <control type="textbox" id="113">
-        <left>2</left><top>306</top><width>1000</width><height>120</height>
-        <font>arc-body</font><textcolor>fg</textcolor>
-      </control>
-      <control type="textbox" id="116">
-        <left>2</left><top>462</top><width>1000</width><height>60</height>
-        <font>arc-small</font><textcolor>muted</textcolor>
-      </control>
+    <control type="image" id="120"><left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <texture>arc-glow-tl.png</texture><colordiffuse>00000000</colordiffuse><fadetime>400</fadetime></control>
+    <control type="image" id="121"><left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <texture>arc-glow-tr.png</texture><colordiffuse>00000000</colordiffuse><fadetime>400</fadetime></control>
+    <control type="image" id="122"><left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <texture>arc-glow-bl.png</texture><colordiffuse>00000000</colordiffuse><fadetime>400</fadetime></control>
+    <control type="image" id="123"><left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <texture>arc-glow-br.png</texture><colordiffuse>00000000</colordiffuse><fadetime>400</fadetime></control>
+    <control type="image" id="115">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <aspectratio>scale</aspectratio><fadetime>300</fadetime>
+      <texture diffuse="arc-hero-mask.png"></texture>
     </control>
 
     <control type="grouplist" id="900">
-      <left>112</left><top>620</top><width>1808</width><height>460</height>
-      <onup>noop</onup><ondown>noop</ondown>
+      <left>112</left><top>0</top><width>1808</width><height>1080</height>
       <orientation>vertical</orientation><itemgap>24</itemgap>
-      <scrolltime tween="cubic" easing="out">260</scrolltime>
+      <scrolltime tween="cubic" easing="out">300</scrolltime>
+      <onup>noop</onup><ondown>noop</ondown>
 
-      <control type="grouplist" id="99">
-        <left>8</left><width>1700</width><height>80</height>
-        <orientation>horizontal</orientation><itemgap>16</itemgap>
-        <control type="button" id="100">
-          <onup>noop</onup><ondown>200</ondown>
-          <include content="PrimaryButton"><param name="width" value="280"/></include>
-          <label>$ADDON[script.arc 30005]</label>
+      <!-- The hero: not focusable; it scrolls away as the page moves down. -->
+      <control type="group" id="130">
+        <width>1808</width><height>620</height>
+        <control type="image" id="110">
+          <left>8</left><top>110</top><width>640</width><height>200</height>
+          <aspectratio align="left" aligny="bottom">keep</aspectratio>
         </control>
-        <control type="button" id="101">
-          <onup>noop</onup><ondown>200</ondown>
-          <include content="PillButton"><param name="width" value="320"/></include>
-          <label>$ADDON[script.arc 30150]</label>
+        <control type="label" id="111">
+          <shadowcolor>CC000000</shadowcolor>
+          <left>8</left><top>210</top><width>1100</width><height>100</height>
+          <font>arc-hero</font><textcolor>fg</textcolor>
         </control>
-        <control type="button" id="102">
-          <onup>noop</onup><ondown>200</ondown>
-          <include content="PillButton"><param name="width" value="380"/></include>
-          <label>$ADDON[script.arc 30152]</label>
+        <control type="label" id="112">
+          <shadowcolor>CC000000</shadowcolor>
+          <left>10</left><top>326</top><width>1150</width><height>40</height>
+          <font>arc-body</font><textcolor>muted</textcolor>
+        </control>
+        <control type="list" id="114">
+          <left>8</left><top>374</top><width>1150</width><height>40</height>
+          <orientation>horizontal</orientation><itemgap>10</itemgap>
+          <enable>false</enable>
+          <itemlayout width="110" height="40">
+            <control type="image"><left>0</left><top>0</top><width>100</width><height>40</height>
+              <texture border="20">arc-badge-fill.png</texture>
+              <visible>String.IsEqual(ListItem.Property(filled),1)</visible></control>
+            <control type="image"><left>0</left><top>0</top><width>100</width><height>40</height>
+              <texture border="20">arc-badge-line.png</texture>
+              <visible>!String.IsEqual(ListItem.Property(filled),1)</visible></control>
+            <control type="label"><left>0</left><top>0</top><width>100</width><height>40</height>
+              <font>arc-small</font><align>center</align><aligny>center</aligny><textcolor>black</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>String.IsEqual(ListItem.Property(filled),1)</visible></control>
+            <control type="label"><left>0</left><top>0</top><width>100</width><height>40</height>
+              <font>arc-small</font><align>center</align><aligny>center</aligny><textcolor>fg</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>!String.IsEqual(ListItem.Property(filled),1)</visible></control>
+          </itemlayout>
+          <focusedlayout width="110" height="40">
+            <control type="image"><left>0</left><top>0</top><width>100</width><height>40</height>
+              <texture border="20">arc-badge-fill.png</texture>
+              <visible>String.IsEqual(ListItem.Property(filled),1)</visible></control>
+            <control type="image"><left>0</left><top>0</top><width>100</width><height>40</height>
+              <texture border="20">arc-badge-line.png</texture>
+              <visible>!String.IsEqual(ListItem.Property(filled),1)</visible></control>
+            <control type="label"><left>0</left><top>0</top><width>100</width><height>40</height>
+              <font>arc-small</font><align>center</align><aligny>center</aligny><textcolor>black</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>String.IsEqual(ListItem.Property(filled),1)</visible></control>
+            <control type="label"><left>0</left><top>0</top><width>100</width><height>40</height>
+              <font>arc-small</font><align>center</align><aligny>center</aligny><textcolor>fg</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>!String.IsEqual(ListItem.Property(filled),1)</visible></control>
+          </focusedlayout>
+        </control>
+        <control type="textbox" id="113">
+          <shadowcolor>CC000000</shadowcolor>
+          <left>10</left><top>432</top><width>1000</width><height>122</height>
+          <font>arc-body</font><textcolor>fg</textcolor>
+        </control>
+        <control type="image">
+          <left>1140</left><top>230</top><width>760</width><height>420</height>
+          <texture>arc-shade.png</texture><colordiffuse>A6000000</colordiffuse>
+        </control>
+        <control type="textbox" id="116">
+          <shadowcolor>CC000000</shadowcolor>
+          <left>1260</left><top>326</top><width>500</width><height>230</height>
+          <font>arc-small</font><textcolor>DDF5F5F7</textcolor>
         </control>
       </control>
 
+      <!-- Play, then round buttons; the focused one's name shows beside the row. -->
+      <control type="group" id="98">
+        <width>1808</width><height>80</height>
+        <control type="grouplist" id="99">
+          <left>8</left><top>0</top><width>1300</width><height>80</height>
+          <orientation>horizontal</orientation><itemgap>16</itemgap>
+          <onup>noop</onup><ondown>200</ondown>
+          <control type="button" id="100">
+            <include content="PrimaryButton"><param name="width" value="380"/></include>
+            <onup>noop</onup><ondown>200</ondown><onleft>noop</onleft><onright>101</onright>
+            <label>$ADDON[script.arc 30005]</label>
+          </control>
+          <include content="RoundIconButton"><param name="id" value="101"/><param name="icon" value="arc-osd-rotate-ccw.png"/><param name="left" value="100"/><param name="right" value="102"/></include>
+          <include content="RoundIconButton"><param name="id" value="102"/><param name="icon" value="$INFO[Window.Property(arc.watchedicon)]"/><param name="left" value="101"/><param name="right" value="103"/></include>
+          <include content="RoundIconButton"><param name="id" value="103"/><param name="icon" value="$INFO[Window.Property(arc.watchlisticon)]"/><param name="left" value="102"/><param name="right" value="noop"/></include>
+        </control>
+        <control type="label" id="97">
+          <left>720</left><top>0</top><width>700</width><height>80</height>
+          <font>arc-small</font><textcolor>muted</textcolor><aligny>center</aligny>
+          <label>$INFO[Window.Property(arc.hint)]</label>
+          <visible>Control.HasFocus(101) | Control.HasFocus(102) | Control.HasFocus(103)</visible>
+        </control>
+      </control>
+
+      <!-- A show's seasons and episodes. -->
       <control type="list" id="200">
         <left>8</left><width>1700</width><height>76</height>
         <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
@@ -82,7 +144,6 @@
             <label>$INFO[ListItem.Label]</label><visible>!Control.HasFocus(200)</visible></control>
         </focusedlayout>
       </control>
-
       <control type="list" id="201">
         <width>1808</width><height>350</height>
         <visible>Integer.IsGreater(Container(201).NumItems,0)</visible>
@@ -97,10 +158,42 @@
         <left>8</left><width>1400</width><height>80</height>
         <font>arc-small</font><textcolor>muted</textcolor>
         <label>$INFO[Container(201).ListItem.Property(overview)]</label>
-        <visible>Control.HasFocus(201)</visible>
+        <visible>Control.HasFocus(201) + !String.IsEmpty(Container(201).ListItem.Property(overview))</visible>
       </control>
 
       <include content="PosterRow"><param name="title" value="311"/><param name="list" value="300"/><param name="width" value="1808"/></include>
+
+      <!-- Cast & Crew: round photos, name and part. -->
+      <control type="label" id="331">
+        <left>8</left><width>1500</width><height>50</height>
+        <font>arc-row</font><textcolor>fg</textcolor>
+        <visible>Integer.IsGreater(Container(330).NumItems,0)</visible>
+      </control>
+      <control type="list" id="330">
+        <width>1808</width><height>290</height>
+        <visible>Integer.IsGreater(Container(330).NumItems,0)</visible>
+        <orientation>horizontal</orientation><itemgap>12</itemgap>
+        <scrolltime tween="cubic" easing="out">220</scrolltime>
+        <itemlayout width="200" height="290"><include>FaceCard</include></itemlayout>
+        <focusedlayout width="200" height="290">
+          <include content="FaceCard"><param name="focused" value="Control.HasFocus(330)"/><param name="labelcolor" value="fg"/></include>
+        </focusedlayout>
+      </control>
+
+      <include content="PosterRow"><param name="title" value="341"/><param name="list" value="340"/><param name="width" value="1808"/></include>
+      <include content="ThumbRow"><param name="title" value="351"/><param name="list" value="350"/><param name="width" value="1808"/></include>
+
+      <!-- About, Details, Crew, Playback. -->
+      <control type="list" id="360">
+        <width>1808</width><height>380</height>
+        <visible>Integer.IsGreater(Container(360).NumItems,0)</visible>
+        <orientation>horizontal</orientation><itemgap>20</itemgap>
+        <itemlayout width="430" height="380"><include>InfoCard</include></itemlayout>
+        <focusedlayout width="430" height="380">
+          <include content="InfoCard"><param name="focused" value="Control.HasFocus(360)"/></include>
+        </focusedlayout>
+      </control>
+      <control type="group"><height>40</height></control>
     </control>
   </controls>
 </window>

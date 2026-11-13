@@ -26,7 +26,8 @@ S = 4  # supersampling for smooth edges
 SIDEBAR_LOGO_H = 40
 SIDEBAR_ICON = 44
 LOGO_STACKED_H = 190
-OSD_ICONS = {"sliders-horizontal": 34, "volume-2": 34, "captions": 34, "check": 30, "play": 26, "pause": 26}
+OSD_ICONS = {"sliders-horizontal": 34, "volume-2": 34, "captions": 34, "check": 30, "play": 26, "pause": 26,
+             "rotate-ccw": 34, "circle-check": 34, "bookmark": 34, "bookmark-check": 34, "circle-check-filled": 34}
 
 
 def _rounded(size, radius, fill=None, outline=None, width=0):
@@ -193,6 +194,51 @@ def player():
     _rounded((8, 32), 4, fill=WHITE).save(os.path.join(MEDIA, "arc-tl-marker.png"))
 
 
+def title_page():
+    """The title page (skin/script-arc-details.xml): four corner glows Kodi tints with the
+    artwork's toned colours, the mask that fades the artwork into them at the left and the foot
+    (as the Apple app's), a circle for cast photos, badge capsules and the cards' panels."""
+    w, h = 192, 108
+    for name, (cx, cy) in {"tl": (0, 0), "tr": (w, 0), "bl": (0, h), "br": (w, h)}.items():
+        img = Image.new("RGBA", (w, h))
+        px = img.load()
+        for y in range(h):
+            for x in range(w):
+                d = (((x - cx) / float(w)) ** 2 + ((y - cy) / float(h)) ** 2) ** 0.5
+                a = max(0.0, 1.0 - d / 1.1) ** 1.3
+                px[x, y] = (255, 255, 255, int(255 * a))
+        img.save(os.path.join(MEDIA, "arc-glow-%s.png" % name))
+    w, h = 384, 216
+    img = Image.new("RGBA", (w, h))
+    px = img.load()
+    for y in range(h):
+        fy = y / (h - 1.0)
+        for x in range(w):
+            fx = x / (w - 1.0)
+            left = min(1.0, max(0.0, (fx - 0.12) / 0.45))   # gone at the left, whole from 57%
+            foot = min(1.0, max(0.0, (0.95 - fy) / 0.45))   # gone at the foot, whole above half
+            px[x, y] = (255, 255, 255, int(255 * (left * foot) ** 1.2))
+    img.save(os.path.join(MEDIA, "arc-hero-mask.png"))
+    # A soft dark area behind text over bright artwork (the hero's Starring column).
+    w, h = 160, 120
+    img = Image.new("RGBA", (w, h))
+    px = img.load()
+    for y in range(h):
+        for x in range(w):
+            d = (((x - w / 2.0) / (w / 2.0)) ** 2 + ((y - h / 2.0) / (h / 2.0)) ** 2) ** 0.5
+            px[x, y] = (255, 255, 255, int(255 * max(0.0, 1.0 - d) ** 0.8))
+    img.save(os.path.join(MEDIA, "arc-shade.png"))
+    _rounded((160, 160), 80, fill=WHITE).save(os.path.join(MEDIA, "arc-mask-face.png"))
+    face = Image.new("RGBA", (160, 240), (0, 0, 0, 0))
+    face.paste(_rounded((160, 160), 80, fill=WHITE), (0, 0))
+    face.save(os.path.join(MEDIA, "arc-mask-face-portrait.png"))
+    _rounded((172, 172), 86, outline=WHITE, width=4).save(os.path.join(MEDIA, "arc-ring-face.png"))
+    _rounded((40, 40), 20, fill=WHITE).save(os.path.join(MEDIA, "arc-badge-fill.png"))
+    _rounded((40, 40), 20, outline=(255, 255, 255, 170), width=2).save(os.path.join(MEDIA, "arc-badge-line.png"))
+    _rounded((64, 64), 24, fill=(255, 255, 255, 30)).save(os.path.join(MEDIA, "arc-panel.png"))
+    _rounded((64, 64), 26, outline=WHITE, width=4).save(os.path.join(MEDIA, "arc-panel-ring.png"))
+
+
 def fanart():
     img = Image.new("RGB", (1280, 720))
     px = img.load()
@@ -218,6 +264,7 @@ def main():
     bars()
     side_panel()
     player()
+    title_page()
     brand_renders()
     fanart()
     print("media written to", MEDIA)

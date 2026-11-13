@@ -145,6 +145,11 @@
         <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
       </control>
       <control type="image">
+        <left>8</left><top>8</top><width>464</width><height>261</height>
+        <texture>arc-mask-thumb.png</texture><colordiffuse>B3000000</colordiffuse>
+        <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+      </control>
+      <control type="image">
         <left>2</left><top>2</top><width>476</width><height>273</height>
         <texture>arc-ring-thumb.png</texture>
         <visible>$PARAM[focused]</visible>
@@ -238,6 +243,99 @@
         </focusedlayout>
       </control>
     </control>
+  </include>
+
+  <!-- A round button showing only an icon (the title page's), white with a black icon when
+       focused. Its name shows beside the row (Window.Property(arc.hint)). -->
+  <include name="RoundIconButton">
+    <param name="id"/><param name="icon"/><param name="left"/><param name="right"/>
+    <definition>
+      <control type="group">
+        <width>76</width><height>76</height>
+        <control type="button" id="$PARAM[id]">
+          <left>0</left><top>0</top><width>76</width><height>76</height>
+          <texturefocus border="38">arc-pill-white.png</texturefocus>
+          <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+          <onup>noop</onup><ondown>200</ondown>
+          <onleft>$PARAM[left]</onleft><onright>$PARAM[right]</onright>
+        </control>
+        <control type="image">
+          <left>21</left><top>21</top><width>34</width><height>34</height>
+          <texture>$PARAM[icon]</texture><colordiffuse>white</colordiffuse>
+          <visible>!Control.HasFocus($PARAM[id])</visible>
+        </control>
+        <control type="image">
+          <left>21</left><top>21</top><width>34</width><height>34</height>
+          <texture>$PARAM[icon]</texture><colordiffuse>black</colordiffuse>
+          <visible>Control.HasFocus($PARAM[id])</visible>
+        </control>
+      </control>
+    </definition>
+  </include>
+
+  <!-- A person on a Cast row: a round photo (or their initials), name and part. -->
+  <include name="FaceCard">
+    <param name="focused" default="false"/>
+    <param name="labelcolor" default="muted"/>
+    <definition>
+      <control type="image">
+        <left>20</left><top>10</top><width>160</width><height>160</height>
+        <texture>arc-mask-face.png</texture><colordiffuse>surface</colordiffuse>
+      </control>
+      <control type="label">
+        <left>20</left><top>10</top><width>160</width><height>160</height>
+        <font>arc-title</font><align>center</align><aligny>center</aligny><textcolor>muted</textcolor>
+        <label>$INFO[ListItem.Property(initials)]</label>
+      </control>
+      <!-- Photos are portrait (2:3): drawn 160x240 with a mask whose circle is the top 160, so
+           the circle stays round (a square mask on a cropped photo is stretched into an oval). -->
+      <control type="image">
+        <left>20</left><top>10</top><width>160</width><height>240</height>
+        <aspectratio>scale</aspectratio>
+        <texture background="true" diffuse="arc-mask-face-portrait.png">$INFO[ListItem.Art(thumb)]</texture>
+      </control>
+      <control type="image">
+        <left>14</left><top>4</top><width>172</width><height>172</height>
+        <texture>arc-ring-face.png</texture>
+        <visible>$PARAM[focused]</visible>
+      </control>
+      <control type="label">
+        <left>0</left><top>186</top><width>200</width><height>34</height>
+        <font>arc-small</font><align>center</align><textcolor>$PARAM[labelcolor]</textcolor>
+        <label>$INFO[ListItem.Label]</label>
+      </control>
+      <control type="label">
+        <left>0</left><top>218</top><width>200</width><height>30</height>
+        <font>arc-small</font><align>center</align><textcolor>subtle</textcolor>
+        <label>$INFO[ListItem.Label2]</label>
+      </control>
+    </definition>
+  </include>
+
+  <!-- An About / Details / Crew / Playback card: a heading and lines of text. -->
+  <include name="InfoCard">
+    <param name="focused" default="false"/>
+    <definition>
+      <control type="image">
+        <left>0</left><top>0</top><width>430</width><height>360</height>
+        <texture border="24">arc-panel.png</texture>
+      </control>
+      <control type="image">
+        <left>-6</left><top>-6</top><width>442</width><height>372</height>
+        <texture border="26">arc-panel-ring.png</texture>
+        <visible>$PARAM[focused]</visible>
+      </control>
+      <control type="label">
+        <left>28</left><top>22</top><width>374</width><height>40</height>
+        <font>arc-label</font><textcolor>fg</textcolor>
+        <label>$INFO[ListItem.Label]</label>
+      </control>
+      <control type="textbox">
+        <left>28</left><top>70</top><width>374</width><height>270</height>
+        <font>arc-small</font><textcolor>muted</textcolor>
+        <label>$INFO[ListItem.Property(body)]</label>
+      </control>
+    </definition>
   </include>
 
   <!-- A horizontal row of cards with its title, for Home and the title page. -->

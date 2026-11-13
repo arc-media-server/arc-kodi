@@ -279,6 +279,15 @@
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+          </control>
+          <control type="image">
             <left>2</left>
             <top>2</top>
             <width>476</width>
@@ -333,6 +342,15 @@
             <height>261</height>
             <aspectratio>scale</aspectratio>
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
           </control>
           <control type="image">
             <left>2</left>
@@ -581,6 +599,15 @@
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+          </control>
+          <control type="image">
             <left>2</left>
             <top>2</top>
             <width>476</width>
@@ -635,6 +662,15 @@
             <height>261</height>
             <aspectratio>scale</aspectratio>
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
           </control>
           <control type="image">
             <left>2</left>
@@ -883,6 +919,15 @@
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+          </control>
+          <control type="image">
             <left>2</left>
             <top>2</top>
             <width>476</width>
@@ -937,6 +982,15 @@
             <height>261</height>
             <aspectratio>scale</aspectratio>
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
           </control>
           <control type="image">
             <left>2</left>
@@ -1185,6 +1239,15 @@
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+          </control>
+          <control type="image">
             <left>2</left>
             <top>2</top>
             <width>476</width>
@@ -1239,6 +1302,15 @@
             <height>261</height>
             <aspectratio>scale</aspectratio>
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
           </control>
           <control type="image">
             <left>2</left>
@@ -1487,6 +1559,15 @@
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+          </control>
+          <control type="image">
             <left>2</left>
             <top>2</top>
             <width>476</width>
@@ -1541,6 +1622,15 @@
             <height>261</height>
             <aspectratio>scale</aspectratio>
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
           </control>
           <control type="image">
             <left>2</left>
@@ -1789,6 +1879,15 @@
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+          </control>
+          <control type="image">
             <left>2</left>
             <top>2</top>
             <width>476</width>
@@ -1843,6 +1942,15 @@
             <height>261</height>
             <aspectratio>scale</aspectratio>
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
           </control>
           <control type="image">
             <left>2</left>
@@ -2091,6 +2199,15 @@
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+          </control>
+          <control type="image">
             <left>2</left>
             <top>2</top>
             <width>476</width>
@@ -2145,6 +2262,15 @@
             <height>261</height>
             <aspectratio>scale</aspectratio>
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
           </control>
           <control type="image">
             <left>2</left>
@@ -2393,6 +2519,15 @@
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+          </control>
+          <control type="image">
             <left>2</left>
             <top>2</top>
             <width>476</width>
@@ -2447,6 +2582,15 @@
             <height>261</height>
             <aspectratio>scale</aspectratio>
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
           </control>
           <control type="image">
             <left>2</left>
@@ -2695,6 +2839,15 @@
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+          </control>
+          <control type="image">
             <left>2</left>
             <top>2</top>
             <width>476</width>
@@ -2749,6 +2902,15 @@
             <height>261</height>
             <aspectratio>scale</aspectratio>
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
           </control>
           <control type="image">
             <left>2</left>
@@ -2997,6 +3159,15 @@
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+          </control>
+          <control type="image">
             <left>2</left>
             <top>2</top>
             <width>476</width>
@@ -3051,6 +3222,15 @@
             <height>261</height>
             <aspectratio>scale</aspectratio>
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
           </control>
           <control type="image">
             <left>2</left>
@@ -3299,6 +3479,15 @@
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+          </control>
+          <control type="image">
             <left>2</left>
             <top>2</top>
             <width>476</width>
@@ -3353,6 +3542,15 @@
             <height>261</height>
             <aspectratio>scale</aspectratio>
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
           </control>
           <control type="image">
             <left>2</left>
@@ -3601,6 +3799,15 @@
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
           </control>
           <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+          </control>
+          <control type="image">
             <left>2</left>
             <top>2</top>
             <width>476</width>
@@ -3655,6 +3862,15 @@
             <height>261</height>
             <aspectratio>scale</aspectratio>
             <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+          </control>
+          <control type="image">
+            <left>8</left>
+            <top>8</top>
+            <width>464</width>
+            <height>261</height>
+            <texture>arc-mask-thumb.png</texture>
+            <colordiffuse>B3000000</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
           </control>
           <control type="image">
             <left>2</left>

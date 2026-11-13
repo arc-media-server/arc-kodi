@@ -114,6 +114,49 @@ class App(object):
             self._open_playlists()
         elif kind == "settings":
             self._open_settings()
+        elif kind == "person":
+            self._open_person(payload)
+        elif kind == "collection":
+            self._open_collection(payload)
+        elif kind == "extra":
+            self._play_extra(payload)
+
+    def _open_person(self, credit):
+        person_id = credit.get("person_id") or credit.get("id")
+
+        def load(offset, limit):
+            data = self.session.api.person(person_id) or {}
+            items, seen = [], set()
+            for c in data.get("credits") or []:
+                it = c.get("item") or {}
+                if it.get("id") and it["id"] not in seen:
+                    seen.add(it["id"])
+                    items.append(it)
+            return items, len(items)
+
+        self._open_grid(credit.get("name", ""), load)
+
+    def _open_collection(self, ref):
+        def load(offset, limit):
+            data = self.session.api.collection(ref.get("id")) or {}
+            items = data.get("items") or []
+            return items, len(items)
+
+        self._open_grid(ref.get("title", ""), load)
+
+    def _play_extra(self, extra):
+        from .player import ExtraPlayback
+        if self.playback is not None:
+            self.playback.stop()
+
+        def finished():
+            if self.playback is pb:
+                self.playback = None
+
+        pb = ExtraPlayback(self.session, extra, on_finished=finished)
+        self.playback = pb
+        if not pb.start():
+            self.playback = None
 
     def _open(self, window_cls, **kwargs):
         w = window_cls(window_cls.xml, self._path(), "Main", "1080i", session=self.session, **kwargs)

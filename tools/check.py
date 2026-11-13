@@ -148,13 +148,19 @@ def check_media():
     for name in os.listdir(built):
         text = open(os.path.join(built, name), encoding="utf-8").read()
         used |= set(re.findall(r"(arc-[a-z0-9-]+\.png)", text))
+    # Images the Python names (through window properties, e.g. the title page's watched icon).
+    for base, _, files in os.walk(KODI):
+        for name in files:
+            if name.endswith(".py"):
+                text = open(os.path.join(base, name), encoding="utf-8").read()
+                used |= set(re.findall(r"(arc-[a-z0-9-]+\.png)", text))
     # The sidebar's icons are named from a ListItem property: arc-icon-<name>.png.
     used |= {n for n in have if n.startswith("arc-icon-")}
     for n in sorted(used - have):
         if "$INFO" not in n:
             fail("a window uses %s, which isn't in resources/skins/Main/media" % n)
     for n in sorted(have - used):
-        fail("resources/skins/Main/media/%s isn't used by any window" % n)
+        fail("resources/skins/Main/media/%s isn't used by any window or the Python" % n)
 
 
 def check_py_compiles():

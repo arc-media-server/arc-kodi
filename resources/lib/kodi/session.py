@@ -22,6 +22,7 @@ class Session(object):
         self.prefs = {}
         self.libraries = []
         self.identity_name = saved.get("server_name", "")
+        self.local = None
         self.api = ArcAPI(self.base_url or "", token=lambda: self._token,
                           user_agent="Arc for Kodi/%s" % ADDON_VERSION)
         self.artwork = ArtworkProxy(self.api)
@@ -75,6 +76,10 @@ class Session(object):
         if ident and ident.get("name"):
             self.identity_name = ident["name"]
             storage.update(server_name=self.identity_name)
+        try:
+            self.local = (self.api.auth_status() or {}).get("local")  # on the server's home network
+        except Exception:
+            self.local = None
         self.prefs = self.api.prefs() or {}
         self.libraries = self.api.libraries() or []
         log.info("loaded %d libraries", len(self.libraries))
