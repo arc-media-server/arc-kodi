@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol always="true">100</defaultcontrol>
+  <controls>
+    <include>PageBackground</include>
+    <include content="HeroBackground"><param name="id" value="115"/></include>
+
+    <control type="group">
+      <left>120</left><top>140</top><width>1100</width>
+      <control type="image" id="110">
+        <left>0</left><top>0</top><width>620</width><height>200</height>
+        <aspectratio align="left" aligny="top">keep</aspectratio>
+      </control>
+      <control type="label" id="111">
+        <left>0</left><top>0</top><width>1100</width><height>90</height>
+        <font>arc-hero</font><textcolor>fg</textcolor><label></label>
+      </control>
+      <control type="label" id="112">
+        <left>2</left><top>220</top><width>1100</width><height>40</height>
+        <font>arc-body</font><textcolor>muted</textcolor><label></label>
+      </control>
+      <control type="label" id="114">
+        <left>2</left><top>266</top><width>1100</width><height>36</height>
+        <font>arc-small</font><textcolor>fg</textcolor><label></label>
+      </control>
+      <control type="textbox" id="113">
+        <left>2</left><top>320</top><width>980</width><height>170</height>
+        <font>arc-body</font><textcolor>fg</textcolor>
+      </control>
+      <control type="textbox" id="116">
+        <left>2</left><top>500</top><width>980</width><height>80</height>
+        <font>arc-small</font><textcolor>muted</textcolor>
+      </control>
+
+      <control type="button" id="100">
+        <include content="PrimaryButton"><param name="width" value="260"/></include>
+        <top>610</top>
+        <label>$ADDON[script.arc 30005]</label>
+      </control>
+      <control type="button" id="101">
+        <include content="RoundButton"/><left>284</left><top>610</top>
+        <label>$ADDON[script.arc 30150]</label>
+      </control>
+      <control type="button" id="102">
+        <include content="RoundButton"/><left>372</left><top>610</top>
+        <label>$ADDON[script.arc 30152]</label>
+      </control>
+    </control>
+
+    <!-- show: season tabs + episodes -->
+    <control type="list" id="200">
+      <left>120</left><top>720</top><width>1680</width><height>70</height>
+      <visible>false</visible>
+      <orientation>horizontal</orientation><itemgap>12</itemgap>
+      <ondown>201</ondown>
+      <itemlayout width="200" height="64">
+        <control type="label"><left>0</left><top>0</top><width>200</width><height>64</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>muted</textcolor>
+          <label>$INFO[ListItem.Label]</label></control>
+      </itemlayout>
+      <focusedlayout width="200" height="64">
+        <control type="image"><left>0</left><top>0</top><width>200</width><height>64</height>
+          <texture border="32">arc-pill-white.png</texture></control>
+        <control type="label"><left>0</left><top>0</top><width>200</width><height>64</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>black</textcolor>
+          <label>$INFO[ListItem.Label]</label></control>
+      </focusedlayout>
+    </control>
+    <control type="list" id="201">
+      <left>112</left><top>800</top><width>1700</width><height>260</height>
+      <visible>false</visible>
+      <orientation>horizontal</orientation><itemgap>16</itemgap>
+      <onup>200</onup>
+      <itemlayout width="420" height="260">
+        <control type="image"><left>8</left><top>8</top><width>404</width><height>228</height>
+          <aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(thumb)]</texture></control>
+        <control type="label"><left>12</left><top>236</top><width>396</width><height>26</height>
+          <font>arc-small</font><textcolor>muted</textcolor><label>$INFO[ListItem.Label]</label></control>
+      </itemlayout>
+      <focusedlayout width="420" height="260">
+        <control type="image"><left>8</left><top>8</top><width>404</width><height>228</height>
+          <aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+          <bordertexture border="3">arc-card-border.png</bordertexture><bordersize>3</bordersize></control>
+        <control type="label"><left>12</left><top>236</top><width>396</width><height>26</height>
+          <font>arc-small</font><textcolor>fg</textcolor><label>$INFO[ListItem.Label]</label></control>
+      </focusedlayout>
+    </control>
+
+    <!-- related -->
+    <control type="list" id="300">
+      <left>112</left><top>800</top><width>1700</width><height>470</height>
+      <visible>false</visible>
+      <orientation>horizontal</orientation><itemgap>16</itemgap>
+      <itemlayout width="260" height="440"><include>PosterItemLayout</include></itemlayout>
+      <focusedlayout width="260" height="440"><include>PosterItemLayout</include></focusedlayout>
+    </control>
+  </controls>
+</window>

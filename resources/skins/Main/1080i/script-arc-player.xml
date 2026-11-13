@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <!-- A dialog over the video: Skip and Up Next. The video is Kodi's own player underneath;
+       seeking, play/pause and the timeline are Kodi's full-screen OSD. -->
+  <defaultcontrol>100</defaultcontrol>
+  <controls>
+    <control type="button" id="100">
+      <left>1500</left><top>820</top><width>340</width><height>76</height>
+      <visible>false</visible>
+      <font>arc-label</font><textcolor>black</textcolor><focusedcolor>black</focusedcolor>
+      <texturefocus border="8">arc-pill-white.png</texturefocus>
+      <texturenofocus border="8">arc-pill-white.png</texturenofocus>
+      <align>center</align><aligny>center</aligny>
+      <label>$ADDON[script.arc 30180]</label>
+    </control>
+    <control type="group" id="101">
+      <left>1360</left><top>760</top><width>480</width><height>200</height>
+      <visible>false</visible>
+      <control type="image">
+        <left>0</left><top>0</top><width>480</width><height>200</height>
+        <texture border="16">arc-pill-surface.png</texture>
+      </control>
+      <control type="label" id="102">
+        <left>24</left><top>24</top><width>432</width><height>40</height>
+        <font>arc-label</font><textcolor>muted</textcolor>
+        <label>$ADDON[script.arc 30183]</label>
+      </control>
+      <control type="button">
+        <left>24</left><top>100</top><width>432</width><height>76</height>
+        <font>arc-label</font><textcolor>black</textcolor><focusedcolor>black</focusedcolor>
+        <texturefocus border="8">arc-pill-white.png</texturefocus>
+        <texturenofocus border="8">arc-pill-white.png</texturenofocus>
+        <align>center</align><aligny>center</aligny>
+        <label>$ADDON[script.arc 30183]</label>
+      </control>
+    </control>
+  </controls>
+</window>
