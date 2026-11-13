@@ -61,7 +61,7 @@ class RecommendedWindow(TabsMixin, home.HomeWindow):
                 return  # keep what's showing
             result = ({}, 0)
         page, took = result
-        if took >= 3000:
+        if took >= 1000:
             # Arc took a while: the server's own log says why (its "recommended rows" line).
             log.info("library recommended took %d ms", took)
         started = time.time()

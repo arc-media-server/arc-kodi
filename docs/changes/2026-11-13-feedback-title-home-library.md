@@ -116,7 +116,7 @@ Checked in Kodi on a virtual display: the Backdrops row (corners close up), Mush
   - It keeps the last rows of each library for the session, so the next visit shows them at
     once and refreshes them behind. The kept rows are dropped with the profile.
   - It logs the time at debug ("library recommended: N rows, fetched in X ms, shown in Y ms").
-    A fetch of 3 s or more is logged at info, so a slow server shows in Kodi's log without
+    A fetch of 1 s or more is logged at info, so a slow server shows in Kodi's log without
     debug logging. The server's own detailed log has a matching "recommended rows … took" line.
 
 ## From the owner's kodi.log (Kodi 22 RC2, Windows 11, Microsoft Store build)
@@ -128,3 +128,10 @@ Checked in Kodi on a virtual display: the Backdrops row (corners close up), Mush
 - `Control 100 ... has been asked to focus, but it can't` on opening a grid: Kodi refuses focus
   to a panel until its first cards are drawn. The grid and search now focus through
   `focus_when_visible`, which tries again until it takes. Kodi still logs its first refusal.
+
+After the server's Recommended fix (arc-media-server#464), the owner still found the tab slow,
+probably because the Unraid container hadn't pulled the new image yet. To tell builds and
+timings apart without debug logging:
+
+- the add-on now logs the server's version when it connects ("loaded N libraries from Arc X");
+- it logs at info any Recommended call taking 1 s or more (it was 3 s).

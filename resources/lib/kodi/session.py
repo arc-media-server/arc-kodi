@@ -86,7 +86,8 @@ class Session(object):
             self.local = None
         self.prefs = self.api.prefs() or {}
         self.libraries = self.api.libraries() or []
-        log.info("loaded %d libraries", len(self.libraries))
+        # The server's version, so a log shows which Arc build answered (e.g. after an update).
+        log.info("loaded %d libraries from Arc %s", len(self.libraries), (ident or {}).get("version") or "?")
 
     def ordered_libraries(self):
         return homerows.ordered_libraries(self.libraries, (self.prefs or {}).get("library_order") or [])
