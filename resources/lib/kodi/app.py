@@ -12,7 +12,7 @@ from .compat import T
 from .log import log
 from .session import Session
 from .player import Playback
-from .windows import signin, home, library, details, search, settings, menu
+from .windows import signin, home, library, details, search, settings, menu, recommended
 
 
 class App(object):
@@ -169,8 +169,10 @@ class App(object):
 
     def _open_card(self, card):
         item = card["item"]
-        if models.is_series(item) or not models.playable(item):
-            self._open(details.DetailsWindow, item_id=item.get("id"), initial=item)
+        if models.is_episode(item) and item.get("parent_id"):
+            # No page of its own: an episode opens its show's page, on its season, focused on it.
+            show = menus.show_ref(item)
+            self._open(details.DetailsWindow, item_id=show["id"], initial=show, focus_episode=item.get("id"))
         else:
             self._open(details.DetailsWindow, item_id=item.get("id"), initial=item)
 
@@ -192,8 +194,7 @@ class App(object):
         if act in ("play", "resume", "from_start"):
             self._play(item, 0 if act == "from_start" else models.resume_ms(item))
         elif act == "go_to_show":
-            show = menus.show_ref(item)
-            self._open(details.DetailsWindow, item_id=show["id"], initial=show)
+            self._open_card({"item": item})
         else:
             self._change(item, act, payload.get("on_changed"))
 
@@ -228,7 +229,26 @@ class App(object):
                 log.error("refresh after %s failed: %s", act, e)
 
     def _open_library(self, lib):
-        self._open(library.LibraryWindow, library=lib)
+        """A library opens on Recommended (Browse for Other videos), as Plex and the Apple app; its
+        tab pills swap the window for another tab's, so Back always returns to where it was
+        opened from."""
+        tab = library.library_tabs(lib)[0][0]
+        while tab:
+            if tab == "recommended":
+                result = self._open(recommended.RecommendedWindow, library=lib)
+            elif tab == "collections":
+                result = self._open(library.GridWindow, title=lib.get("name", ""), library=lib, tab="collections",
+                                    loader=self._collections_loader(lib), style="poster",
+                                    open_item=lambda c: self._open_collection(c))
+            else:
+                result = self._open(library.LibraryWindow, library=lib)
+            tab = result[1] if isinstance(result, tuple) and result[0] == "tab" else None
+
+    def _collections_loader(self, lib):
+        def load(offset, limit):
+            items = self.session.api.library_collections(lib.get("id")) or []
+            return items, len(items)
+        return load
 
     def _open_grid(self, title, loader, style="poster"):
         self._open(library.GridWindow, title=title, loader=loader, style=style, paged=True)

@@ -16,7 +16,9 @@ def test_episode_offers_its_show_but_no_watchlist():
     e = {"id": "e", "kind": "episode", "parent_id": "s", "series_title": "Firefly",
          "user_data": {"played": True}}
     assert menus.card_actions(e) == ["play", "unwatched", "go_to_show"]
-    assert menus.show_ref(e) == {"id": "s", "kind": "series", "title": "Firefly"}
+    assert menus.show_ref(e) == {"id": "s", "kind": "series", "title": "Firefly", "images": {}}
+    e["images"] = {"primary": "/still", "series_backdrop": "/bd", "series_logo": "/logo"}
+    assert menus.show_ref(e)["images"] == {"backdrop": "/bd", "logo": "/logo"}
 
 
 def test_series_watched_and_watchlisted():

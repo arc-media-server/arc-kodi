@@ -501,3 +501,79 @@ msgstr ""
 msgctxt "#30179"
 msgid "Arc couldn't save that change."
 msgstr ""
+
+msgctxt "#30231"
+msgid "Nothing to recommend yet"
+msgstr ""
+
+msgctxt "#30232"
+msgid "Continue Watching"
+msgstr ""
+
+msgctxt "#30233"
+msgid "Recently Released"
+msgstr ""
+
+msgctxt "#30234"
+msgid "Recently Added in %s"
+msgstr ""
+
+msgctxt "#30235"
+msgid "Start Watching"
+msgstr ""
+
+msgctxt "#30236"
+msgid "Because you watched %s"
+msgstr ""
+
+msgctxt "#30237"
+msgid "Top Rated Movies"
+msgstr ""
+
+msgctxt "#30238"
+msgid "Top Rated Shows"
+msgstr ""
+
+msgctxt "#30239"
+msgid "Recently Watched"
+msgstr ""
+
+msgctxt "#30240"
+msgid "Recently Watched Episodes"
+msgstr ""
+
+msgctxt "#30241"
+msgid "Rediscover"
+msgstr ""
+
+msgctxt "#30242"
+msgid "More in %s"
+msgstr ""
+
+msgctxt "#30243"
+msgid "Top Movies in %s"
+msgstr ""
+
+msgctxt "#30244"
+msgid "Top Shows in %s"
+msgstr ""
+
+msgctxt "#30245"
+msgid "Top Movies with %s"
+msgstr ""
+
+msgctxt "#30246"
+msgid "Top Movies by %s"
+msgstr ""
+
+msgctxt "#30247"
+msgid "Top Shows with %s"
+msgstr ""
+
+msgctxt "#30248"
+msgid "Top Shows by %s"
+msgstr ""
+
+msgctxt "#30249"
+msgid "Top Unwatched"
+msgstr ""

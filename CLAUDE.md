@@ -130,6 +130,10 @@ docs/changes/                   one note per change
   window property in the condition); focusing a control that shows only once it has items fails
   until Kodi's next frame (`focus_when_visible`); a grouplist rewrites its children's Up/Down, and
   a button row inside one needs its own `<ondown>`; Kodi calls `onInit` again on every return to
-  a window (`on_return`); never block in a click handler, or Kodi's player events never arrive.
+  a window (`on_return`); never block in a click handler, or Kodi's player events never arrive;
+  a horizontal grouplist takes over its children's Left/Right and can't move into a child group
+  (lay such a row out as a plain group); a grouplist scrolls only until the focused control's
+  foot meets its own, so room under a row has to be inside the row; Kodi won't bottom-align a
+  wrapping label; an auto-width disabled button makes a capsule that fits its text.
 - Kodi logs to `kodi.log` (`~/.kodi/temp/` on Linux, `%APPDATA%\Kodi\` on Windows); turn on
   Kodi's debug logging to see the add-on's debug lines.

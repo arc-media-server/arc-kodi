@@ -27,12 +27,14 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Hero follows the focused card (logo, details, overview) | Both | Done | Yes | |
 | Rows as the web arranges them (Continue/Up Next, libraries, watchlist, collections, playlists, seasonal) | Both | Done | Yes | |
 | Continue Watching shows the show's art | Both | Done | Yes | |
+| Row looks from the server (posters, thumbnails, Backdrops) | Both | Done | Yes | Backdrops are the web's squarer cards with the logo. |
+| An episode's card opens its show, on its season and episode | Apple | Done | Yes | No episode page. |
 | Remove from Continue Watching | Android | Done | Yes | In the card menu, on Continue Watching. |
 | Menus and questions in Arc's style (card menu, Sort, Filter, pickers, Sign Out) | Both | Done | Yes | One Arc menu; Kodi's keyboard and PIN number pad remain (see Search and PINs). |
 | Watch Together row | Apple | Missing | Yes | With Watch Together. |
-| Library: Recommended / Browse / Collections / Folders pills | Both | Part | Yes | Browse only; no Recommended, Collections or Folders pages. |
+| Library: Recommended / Browse / Collections / Folders pills | Both | Part | Yes | Recommended (the server's rows under a hero), Browse and Collections; no Folders (Other videos) yet. |
 | Library sort and filter (genre, unwatched, decade, resolution...) | Both | Part | Yes | Sort and unwatched only. |
-| Posters: unwatched count tab, progress bar, watched tick, year · length | Both | Part | Yes | No unwatched count tab yet. |
+| Posters: unwatched count tab, progress bar, watched tick, year · length | Both | Done | Yes | |
 | Paging large libraries | Both | Done | Yes | |
 | Collection, playlist, person and folder pages | Both | Part | Yes | Playlists, the watchlist, a person (from Cast) and a collection open as a plain grid; no proper person, collection or folder pages yet. |
 | Search as you type; results in rows (films, shows, episodes, people, collections, genres) | Both | Part | Yes | Kodi's keyboard dialog, then one grid of films/shows/episodes. An on-screen keyboard (as PM4K's) gives as-you-type. |

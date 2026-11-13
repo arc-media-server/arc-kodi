@@ -12,6 +12,12 @@
   <constant name="subtle">FF6B6B78</constant>
   <constant name="white">FFFFFFFF</constant>
   <constant name="black">FF000000</constant>
+  <!-- The title page's wash when a title has no palette (the Apple app's ArcColor.wash):
+       top left, top right, bottom left, bottom right. Also in arc/titlepage.py (WASH). -->
+  <constant name="wash-tl">FF25282D</constant>
+  <constant name="wash-tr">FF222429</constant>
+  <constant name="wash-bl">FF1B1B1D</constant>
+  <constant name="wash-br">FF1E1F1E</constant>
 
   <!-- Fonts: an add-on can't bring its own, so these are the standard names every Kodi skin
        (Estuary first) defines. Sizes at 1080p in Estuary are in the comments. -->
@@ -107,6 +113,18 @@
         <left>196</left><top>16</top><width>48</width><height>48</height>
         <texture>arc-tick.png</texture>
         <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+      </control>
+      <!-- A show's episodes still to watch, in a tab at the top right (the Apple app's). -->
+      <control type="image">
+        <left>188</left><top>8</top><width>64</width><height>44</height>
+        <texture>arc-count-tab.png</texture>
+        <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+      </control>
+      <control type="label">
+        <left>188</left><top>8</top><width>64</width><height>44</height>
+        <font>arc-small</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor>
+        <label>$INFO[ListItem.Property(unwatched)]</label>
+        <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
       </control>
       <control type="progress">
         <left>16</left><top>358</top><width>228</width><height>8</height>
@@ -292,11 +310,58 @@
     </definition>
   </include>
 
+  <!-- A library's tabs (Recommended, Browse, Collections), as the Apple app's pill bar: the one
+       showing is outlined white; the focused one is white with black text. Select switches. -->
+  <include name="LibraryTabs">
+    <param name="left" default="80"/><param name="top" default="40"/>
+    <param name="ondown"/><param name="onright" default="noop"/>
+    <definition>
+      <control type="list" id="120">
+        <left>$PARAM[left]</left><top>$PARAM[top]</top><width>1000</width><height>76</height>
+        <visible>Integer.IsGreater(Container(120).NumItems,0)</visible>
+        <orientation>horizontal</orientation><itemgap>12</itemgap>
+        <onup>noop</onup><ondown>$PARAM[ondown]</ondown><onleft>noop</onleft><onright>$PARAM[onright]</onright>
+        <itemlayout width="240" height="76">
+          <control type="image"><left>0</left><top>0</top><width>240</width><height>76</height>
+            <texture border="38">arc-pill-surface.png</texture>
+            <visible>String.IsEqual(ListItem.Property(current),1)</visible></control>
+          <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
+            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>muted</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+            <visible>!String.IsEqual(ListItem.Property(current),1)</visible></control>
+          <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
+            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>fg</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+            <visible>String.IsEqual(ListItem.Property(current),1)</visible></control>
+        </itemlayout>
+        <focusedlayout width="240" height="76">
+          <control type="image"><left>0</left><top>0</top><width>240</width><height>76</height>
+            <texture border="38">arc-pill-white.png</texture>
+            <visible>Control.HasFocus(120)</visible></control>
+          <control type="image"><left>0</left><top>0</top><width>240</width><height>76</height>
+            <texture border="38">arc-pill-surface.png</texture>
+            <visible>!Control.HasFocus(120) + String.IsEqual(ListItem.Property(current),1)</visible></control>
+          <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
+            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>black</textcolor>
+            <label>$INFO[ListItem.Label]</label><visible>Control.HasFocus(120)</visible></control>
+          <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
+            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>fg</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+            <visible>!Control.HasFocus(120) + String.IsEqual(ListItem.Property(current),1)</visible></control>
+          <control type="label"><left>0</left><top>0</top><width>240</width><height>76</height>
+            <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>muted</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+            <visible>!Control.HasFocus(120) + !String.IsEqual(ListItem.Property(current),1)</visible></control>
+        </focusedlayout>
+      </control>
+    </definition>
+  </include>
+
   <include name="RoundIconButton">
-    <param name="id"/><param name="icon"/><param name="left"/><param name="right"/>
+    <param name="id"/><param name="icon"/><param name="left"/><param name="right"/><param name="x" default="0"/>
     <definition>
       <control type="group">
-        <width>76</width><height>76</height>
+        <left>$PARAM[x]</left><width>76</width><height>76</height>
         <control type="button" id="$PARAM[id]">
           <left>0</left><top>0</top><width>76</width><height>76</height>
           <texturefocus border="38">arc-pill-white.png</texturefocus>
@@ -388,6 +453,9 @@
     <param name="title"/><param name="list"/><param name="onleft" default=""/>
     <!-- Rows run to the screen's right edge: width is from the row's left to 1920. -->
     <param name="width" default="1728"/>
+    <!-- Taller than the cards (450) to leave room under their words: Kodi scrolls a row only
+         until its list's foot meets the grouplist's, so the room has to be in the list. -->
+    <param name="height" default="450"/>
     <definition>
       <!-- Title and list sit directly in the parent grouplist (as Estuary's widgets do), so Up and
            Down move between rows; both show only once the list has cards. -->
@@ -397,7 +465,7 @@
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
       <control type="list" id="$PARAM[list]">
-        <width>$PARAM[width]</width><height>450</height>
+        <width>$PARAM[width]</width><height>$PARAM[height]</height>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>8</itemgap>
         <scrolltime tween="cubic" easing="out">220</scrolltime>
@@ -415,6 +483,9 @@
     <param name="title"/><param name="list"/><param name="onleft" default=""/>
     <!-- Rows run to the screen's right edge: width is from the row's left to 1920. -->
     <param name="width" default="1728"/>
+    <!-- Taller than the cards (450) to leave room under their words: Kodi scrolls a row only
+         until its list's foot meets the grouplist's, so the room has to be in the list. -->
+    <param name="height" default="450"/>
     <definition>
       <!-- Title and list sit directly in the parent grouplist (as Estuary's widgets do), so Up and
            Down move between rows; both show only once the list has cards. -->
@@ -424,7 +495,7 @@
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
       <control type="list" id="$PARAM[list]">
-        <width>$PARAM[width]</width><height>450</height>
+        <width>$PARAM[width]</width><height>$PARAM[height]</height>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>8</itemgap>
         <scrolltime tween="cubic" easing="out">220</scrolltime>
@@ -434,6 +505,100 @@
         <focusedlayout width="488" height="450">
           <include content="ThumbCard"><param name="focused" value="Control.HasFocus($PARAM[list])"/><param name="labelcolor" value="fg"/></include>
         </focusedlayout>
+      </control>
+    </definition>
+  </include>
+  <include name="BackdropRow">
+    <param name="title"/><param name="list"/><param name="onleft" default=""/>
+    <!-- Rows run to the screen's right edge: width is from the row's left to 1920. -->
+    <param name="width" default="1728"/>
+    <!-- Taller than the cards (450) to leave room under their words: Kodi scrolls a row only
+         until its list's foot meets the grouplist's, so the room has to be in the list. -->
+    <param name="height" default="450"/>
+    <definition>
+      <!-- Title and list sit directly in the parent grouplist (as Estuary's widgets do), so Up and
+           Down move between rows; both show only once the list has cards. -->
+      <control type="label" id="$PARAM[title]">
+        <left>8</left><width>1500</width><height>50</height>
+        <font>arc-row</font><textcolor>fg</textcolor>
+        <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
+      </control>
+      <control type="list" id="$PARAM[list]">
+        <width>$PARAM[width]</width><height>$PARAM[height]</height>
+        <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
+        <orientation>horizontal</orientation><itemgap>8</itemgap>
+        <scrolltime tween="cubic" easing="out">220</scrolltime>
+        <preloaditems>2</preloaditems>
+        <onleft>$PARAM[onleft]</onleft>
+        <itemlayout width="512" height="450"><include>BackdropCard</include></itemlayout>
+        <focusedlayout width="512" height="450">
+          <include content="BackdropCard"><param name="focused" value="Control.HasFocus($PARAM[list])"/><param name="labelcolor" value="fg"/></include>
+        </focusedlayout>
+      </control>
+    </definition>
+  </include>
+  <!-- A backdrop card (the web's "Backdrops" style, ArcArtwork): a squarer 4:3 card with the
+       title's background art (the show's, for an episode), fading dark at the foot, and its logo
+       there (or its name). -->
+  <include name="BackdropCard">
+    <param name="focused" default="false"/>
+    <param name="labelcolor" default="muted"/>
+    <definition>
+      <control type="image">
+        <left>8</left><top>8</top><width>488</width><height>366</height>
+        <texture>arc-mask-backdrop.png</texture>
+        <colordiffuse>surface</colordiffuse>
+      </control>
+      <control type="image">
+        <left>8</left><top>8</top><width>488</width><height>366</height>
+        <aspectratio>scale</aspectratio>
+        <texture background="true" diffuse="arc-mask-backdrop.png">$INFO[ListItem.Art(thumb)]</texture>
+      </control>
+      <control type="image">
+        <left>8</left><top>8</top><width>488</width><height>366</height>
+        <texture>arc-fade-backdrop.png</texture>
+      </control>
+      <control type="image">
+        <left>76</left><top>238</top><width>352</width><height>96</height>
+        <aspectratio align="center" aligny="bottom">keep</aspectratio>
+        <texture background="true">$INFO[ListItem.Art(clearlogo)]</texture>
+      </control>
+      <control type="label">
+        <left>40</left><top>254</top><width>424</width><height>80</height>
+        <font>arc-label</font><align>center</align><aligny>bottom</aligny><textcolor>white</textcolor>
+        <wrapmultiline>true</wrapmultiline><shadowcolor>CC000000</shadowcolor>
+        <label>$INFO[ListItem.Property(series)]</label>
+        <visible>String.IsEmpty(ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Property(series))</visible>
+      </control>
+      <control type="label">
+        <left>40</left><top>254</top><width>424</width><height>80</height>
+        <font>arc-label</font><align>center</align><aligny>bottom</aligny><textcolor>white</textcolor>
+        <wrapmultiline>true</wrapmultiline><shadowcolor>CC000000</shadowcolor>
+        <label>$INFO[ListItem.Label]</label>
+        <visible>String.IsEmpty(ListItem.Art(clearlogo)) + String.IsEmpty(ListItem.Property(series))</visible>
+      </control>
+      <control type="image">
+        <left>2</left><top>2</top><width>500</width><height>378</height>
+        <texture>arc-ring-backdrop.png</texture>
+        <visible>$PARAM[focused]</visible>
+      </control>
+      <control type="progress">
+        <left>20</left><top>354</top><width>464</width><height>8</height>
+        <texturebg border="4">arc-bar-bg.png</texturebg>
+        <midtexture border="4">arc-bar-fg.png</midtexture>
+        <info>ListItem.PercentPlayed</info>
+        <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+      </control>
+      <control type="label">
+        <left>8</left><top>384</top><width>488</width><height>34</height>
+        <font>arc-small</font><align>center</align>
+        <textcolor>$PARAM[labelcolor]</textcolor>
+        <label>$INFO[ListItem.Label]</label>
+      </control>
+      <control type="label">
+        <left>8</left><top>416</top><width>488</width><height>30</height>
+        <font>arc-small</font><align>center</align><textcolor>subtle</textcolor>
+        <label>$INFO[ListItem.Label2]</label>
       </control>
     </definition>
   </include>

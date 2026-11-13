@@ -18,6 +18,108 @@
       <font>font52_title</font>
       <textcolor>FFF5F5F7</textcolor>
       <label />
+      <visible>!Integer.IsGreater(Container(120).NumItems,0)</visible>
+    </control>
+    <control type="list" id="120">
+      <left>80</left>
+      <top>40</top>
+      <width>1000</width>
+      <height>76</height>
+      <visible>Integer.IsGreater(Container(120).NumItems,0)</visible>
+      <orientation>horizontal</orientation>
+      <itemgap>12</itemgap>
+      <onup>noop</onup>
+      <ondown>100</ondown>
+      <onleft>noop</onleft>
+      <onright>102</onright>
+      <itemlayout width="240" height="76">
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>240</width>
+          <height>76</height>
+          <texture border="38">arc-pill-surface.png</texture>
+          <visible>String.IsEqual(ListItem.Property(current),1)</visible>
+        </control>
+        <control type="label">
+          <left>0</left>
+          <top>0</top>
+          <width>240</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textcolor>FFA1A1AD</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>!String.IsEqual(ListItem.Property(current),1)</visible>
+        </control>
+        <control type="label">
+          <left>0</left>
+          <top>0</top>
+          <width>240</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textcolor>FFF5F5F7</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>String.IsEqual(ListItem.Property(current),1)</visible>
+        </control>
+      </itemlayout>
+      <focusedlayout width="240" height="76">
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>240</width>
+          <height>76</height>
+          <texture border="38">arc-pill-white.png</texture>
+          <visible>Control.HasFocus(120)</visible>
+        </control>
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>240</width>
+          <height>76</height>
+          <texture border="38">arc-pill-surface.png</texture>
+          <visible>!Control.HasFocus(120) + String.IsEqual(ListItem.Property(current),1)</visible>
+        </control>
+        <control type="label">
+          <left>0</left>
+          <top>0</top>
+          <width>240</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textcolor>FF000000</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>Control.HasFocus(120)</visible>
+        </control>
+        <control type="label">
+          <left>0</left>
+          <top>0</top>
+          <width>240</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textcolor>FFF5F5F7</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>!Control.HasFocus(120) + String.IsEqual(ListItem.Property(current),1)</visible>
+        </control>
+        <control type="label">
+          <left>0</left>
+          <top>0</top>
+          <width>240</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textcolor>FFA1A1AD</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>!Control.HasFocus(120) + !String.IsEqual(ListItem.Property(current),1)</visible>
+        </control>
+      </focusedlayout>
     </control>
     <control type="label" id="104">
       <left>80</left>
@@ -43,7 +145,7 @@
       <top>56</top>
       <ondown>100</ondown>
       <onup>noop</onup>
-      <onleft>noop</onleft>
+      <onleft>120</onleft>
       <onright>103</onright>
       <label>$ADDON[script.arc 30123]</label>
     </control>
@@ -71,7 +173,8 @@
       <top>170</top>
       <width>1800</width>
       <height>880</height>
-      <onup>102</onup>
+      <onup condition="Integer.IsGreater(Container(120).NumItems,0)">120</onup>
+      <onup condition="!Integer.IsGreater(Container(120).NumItems,0)">102</onup>
       <orientation>vertical</orientation>
       <itemlayout width="292" height="460">
         <control type="image">
@@ -118,6 +221,26 @@
           <height>48</height>
           <texture>arc-tick.png</texture>
           <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="image">
+          <left>188</left>
+          <top>8</top>
+          <width>64</width>
+          <height>44</height>
+          <texture>arc-count-tab.png</texture>
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="label">
+          <left>188</left>
+          <top>8</top>
+          <width>64</width>
+          <height>44</height>
+          <font>font12</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textcolor>FFFFFFFF</textcolor>
+          <label>$INFO[ListItem.Property(unwatched)]</label>
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
         </control>
         <control type="progress">
           <left>16</left>
@@ -195,6 +318,26 @@
           <height>48</height>
           <texture>arc-tick.png</texture>
           <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="image">
+          <left>188</left>
+          <top>8</top>
+          <width>64</width>
+          <height>44</height>
+          <texture>arc-count-tab.png</texture>
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="label">
+          <left>188</left>
+          <top>8</top>
+          <width>64</width>
+          <height>44</height>
+          <font>font12</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textcolor>FFFFFFFF</textcolor>
+          <label>$INFO[ListItem.Property(unwatched)]</label>
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
         </control>
         <control type="progress">
           <left>16</left>

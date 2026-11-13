@@ -106,7 +106,7 @@ def check_control_ids():
     built XML of the window(s) that module opens."""
     built = os.path.join(SKIN, "1080i")
     windows = os.path.join(KODI, "windows")
-    skip = re.compile(r"(BASE|MAX|SIZE|ACTION|ROWS?_?COUNT)")
+    skip = re.compile(r"(BASE|MAX|SIZE|ACTION|ROWS?_?COUNT|SLOTS)")
     for name in sorted(os.listdir(windows)):
         if not name.endswith(".py"):
             continue

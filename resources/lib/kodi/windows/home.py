@@ -15,10 +15,16 @@ from .base import ACTION_CONTEXT, ACTION_PLAY, ArcWindow, list_item
 from .cards import card_list_item
 
 MAX_ROWS = 12
-# Each row slot exists twice in the skin: as posters and as wide cards. Ids are base + slot (1..12).
-# A slot's title and list show themselves once the list has cards (a skin condition).
+# Each row slot exists three times in the skin: as posters, wide cards and backdrop cards (the
+# web's "Backdrops"). Ids are base + slot (1..12). A slot's title and list show themselves once the
+# list has cards (a skin condition).
 POSTER_LIST_BASE, POSTER_TITLE_BASE = 3000, 3100
 THUMB_LIST_BASE, THUMB_TITLE_BASE = 3400, 3500
+BACKDROP_LIST_BASE, BACKDROP_TITLE_BASE = 3800, 3900
+# A row's style -> its (list, title) bases.
+STYLE_BASES = {homerows.POSTER: (POSTER_LIST_BASE, POSTER_TITLE_BASE),
+               homerows.THUMB: (THUMB_LIST_BASE, THUMB_TITLE_BASE),
+               homerows.BACKDROP: (BACKDROP_LIST_BASE, BACKDROP_TITLE_BASE)}
 
 SIDEBAR = 50
 ROWS = 900
@@ -75,16 +81,16 @@ class HomeWindow(ArcWindow):
     # MARK: - rows
 
     @staticmethod
-    def _wide(row):
-        return row.get("style") in (homerows.THUMB, homerows.BACKDROP)
+    def _bases(row):
+        return STYLE_BASES.get(row.get("style"), STYLE_BASES[homerows.POSTER])
 
     def _list_id(self, idx):
-        wide = idx < len(self.rows) and self._wide(self.rows[idx])
-        return (THUMB_LIST_BASE if wide else POSTER_LIST_BASE) + 1 + idx
+        bases = self._bases(self.rows[idx]) if idx < len(self.rows) else STYLE_BASES[homerows.POSTER]
+        return bases[0] + 1 + idx
 
     def _row_at(self, control_id):
         """The row index a list control belongs to, or None."""
-        for base in (POSTER_LIST_BASE, THUMB_LIST_BASE):
+        for base in (POSTER_LIST_BASE, THUMB_LIST_BASE, BACKDROP_LIST_BASE):
             if base < control_id <= base + MAX_ROWS:
                 return control_id - base - 1
         return None
@@ -92,8 +98,7 @@ class HomeWindow(ArcWindow):
     def _layout_rows(self):
         for i in range(MAX_ROWS):
             if i < len(self.rows):
-                wide = self._wide(self.rows[i])
-                self.set_label((THUMB_TITLE_BASE if wide else POSTER_TITLE_BASE) + 1 + i, self._row_title(self.rows[i]))
+                self.set_label(self._bases(self.rows[i])[1] + 1 + i, self._row_title(self.rows[i]))
 
     def on_return(self):
         # Refresh the rows in place (Continue Watching changes after playing), keeping the focus.
@@ -288,7 +293,9 @@ class HomeWindow(ArcWindow):
             return False
         card = self._focused_card(idx)
         if card and self.nav and code in ACTION_CONTEXT:
-            self.nav("context", {"item": card["item"], "continue_row": self.rows[idx]["source"][0] == "continue",
+            source = self.rows[idx]["source"]
+            continue_row = source[0] == "continue" or source == ("recommended", "continue")
+            self.nav("context", {"item": card["item"], "continue_row": continue_row,
                                  "on_changed": lambda _item, _act: self.on_return()})
             return True
         if card and self.nav and code in ACTION_PLAY and models.playable(card["item"]):

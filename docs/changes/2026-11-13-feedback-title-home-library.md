@@ -1,0 +1,80 @@
+# Owner feedback: the title page, Home and libraries
+
+The owner's second look, from screenshots. Ten points, each fixed and checked in Kodi on a
+virtual display (no hardware).
+
+## Title page
+
+- **Rows in the Apple app's order:** the cast first (owner, 7 November), then Trailers & Extras,
+  Related and Collections, then the cards.
+- **The round buttons beside Play couldn't be reached.** They sat in a horizontal grouplist,
+  which takes over Left/Right and can't move into a child group. The row is now a plain group
+  with fixed positions and explicit Left/Right.
+- **Starring and Director** were dropped in mid-right, on a shaded box. They're now as the Apple
+  app's: bottom right, level with the buttons, right-aligned, one line each with a muted label
+  and the names in bold. A long Starring line wraps above Director; Kodi won't bottom-align a
+  wrapping label, so the Python moves it up when it's long enough to wrap.
+- **The hero follows the Apple app's layout:**
+  - the rating in an outlined capsule, with the genres;
+  - the overview, up to four lines;
+  - the year and length, with the quality capsules.
+- **Quality capsules fit their text.** They were a fixed 100 wide, so HDR10 and DV ran into the
+  edges. Each is now a disabled auto-width button with its padding: the resolution filled, the
+  rest outlined, up to six.
+- **The four colours were mostly grey.** The corner glows faded out long before the middle, and
+  the dark base showed through. The page now has an exact four-corner (bilinear) blend over the
+  whole screen, as the Apple app's MeshGradient. It's four tinted layers whose opacities give the
+  bilinear weights. The artwork mask is now the Apple app's:
+  - bright to 60% down, then 45% at the foot;
+  - half strength at the left.
+
+  A title with no palette gets the Apple app's dark wash, which is also what shows until the
+  palette arrives.
+
+## Home
+
+- **Room under a row's words.** Kodi scrolls a row only until its list's foot meets the
+  grouplist's, so the room is now in the list: Home's lists are 60 taller than their cards. The
+  row stride is 620, and the words end about 75 px above the foot of the screen (from about 30).
+- **Continue Watching's Backdrops style.** The server's row look "arc" (the web's "Backdrops")
+  showed as wide thumbnails. Home now has a third set of row slots with the web's squarer 4:3
+  backdrop card:
+  - the title's (or show's) background art, fading dark at the foot;
+  - its logo there, or its name.
+- **Unwatched episode count:** a show's poster has the Apple app's tab at its top right, with the
+  episodes still to watch, on Home, libraries and grids.
+- **An episode's card opens its show,** on its season, with the episode focused, instead of a page
+  of its own (as the Apple app). Go to Show in the card menu does the same. The show's art comes
+  from the episode, so the page isn't blank while it loads.
+
+## Libraries
+
+- **Recommended, Browse and Collections tabs**, as the Apple app's pill bar. A library opens on
+  Recommended (Browse for Other videos), as Plex.
+  - **Recommended** is Home's window with another skin: the server's Recommended rows under a
+    hero, without the sidebar. The rows are titled from their type in the viewer's language
+    (`arc/recommended.py`, tested; Arc's own title for a type the app doesn't know). Each row
+    uses the row look the server saved, else posters, or wide cards for Continue Watching and a
+    shows library's recently watched episodes.
+  - **Collections** is the library's collections in a grid; one opens its titles.
+  - Choosing a tab replaces the window, so Back always returns to where the library was opened
+    from.
+
+  Folders (Other videos) isn't done yet.
+
+## Checked
+
+- `python3 -m pytest -q`: 57 passed (new `tests/test_recommended.py`; `test_menus.py` covers the
+  show's art).
+- `python3 tools/check.py`: all good. It now skips `*_SLOTS` counts in the control-id check.
+- Kodi 20 on a virtual display against a scratch Arc, with Continue Watching set to Backdrops on
+  the scratch profile:
+  - Inception's, Firefly's and Blade Runner 2049's pages (a purple wash across the whole page),
+    and Right from Play reaching the round buttons;
+  - Home's Backdrops row, poster spacing and unwatched tabs;
+  - Firefly's episode card landing on S1 E7;
+  - Films' Recommended, Collections (and a collection) and Browse tabs, with Back to Home.
+
+## Logging
+
+A failed Recommended load logs a warning naming the error type. Nothing else new.

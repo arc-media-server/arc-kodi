@@ -29,6 +29,10 @@ def toned(hex_colour):
     return "FF%02X%02X%02X" % (round(r * 255), round(g * 255), round(b * 255))
 
 
+# The wash when a title has no palette (the Apple app's ArcColor.wash), as the corners are listed.
+WASH = ["FF25282D", "FF222429", "FF1B1B1D", "FF1E1F1E"]
+
+
 def palette_corners(palette):
     """The four toned corner colours (top left, top right, bottom left, bottom right) from
     GET /items/{id}/artwork/palette, or None when there's no palette."""

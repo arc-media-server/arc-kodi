@@ -78,6 +78,26 @@
           <texture>arc-tick.png</texture>
           <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
         </control>
+        <control type="image">
+          <left>188</left>
+          <top>8</top>
+          <width>64</width>
+          <height>44</height>
+          <texture>arc-count-tab.png</texture>
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="label">
+          <left>188</left>
+          <top>8</top>
+          <width>64</width>
+          <height>44</height>
+          <font>font12</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textcolor>FFFFFFFF</textcolor>
+          <label>$INFO[ListItem.Property(unwatched)]</label>
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
         <control type="progress">
           <left>16</left>
           <top>358</top>
@@ -154,6 +174,26 @@
           <height>48</height>
           <texture>arc-tick.png</texture>
           <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="image">
+          <left>188</left>
+          <top>8</top>
+          <width>64</width>
+          <height>44</height>
+          <texture>arc-count-tab.png</texture>
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="label">
+          <left>188</left>
+          <top>8</top>
+          <width>64</width>
+          <height>44</height>
+          <font>font12</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textcolor>FFFFFFFF</textcolor>
+          <label>$INFO[ListItem.Property(unwatched)]</label>
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
         </control>
         <control type="progress">
           <left>16</left>

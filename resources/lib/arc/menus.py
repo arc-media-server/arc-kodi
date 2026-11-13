@@ -26,6 +26,9 @@ def card_actions(item, continue_row=False, on_page=False, in_show=False):
 
 
 def show_ref(episode):
-    """The series an episode belongs to, as an item to open its page."""
+    """The series an episode belongs to, as an item to open its page with (its art shows at once)."""
+    img = models.images(episode)
+    images = {k: img.get(src) for k, src in (("backdrop", "series_backdrop"), ("logo", "series_logo"),
+                                             ("primary", "series_primary")) if img.get(src)}
     return {"id": episode.get("parent_id"), "kind": "series",
-            "title": episode.get("series_title") or episode.get("title", "")}
+            "title": episode.get("series_title") or episode.get("title", ""), "images": images}

@@ -22,9 +22,13 @@ LOGO = 110
 TITLE = 111
 INFO = 112
 OVERVIEW = 113
-BADGES = 114
 BG = 115
-PEOPLE = 116
+RATING = 141
+GENRES = 142
+CAPSULE_BASE = 160      # six slots, each a filled (160 + 2i) and an outlined (161 + 2i) capsule
+CAPSULE_SLOTS = 6
+STARRING = 95
+DIRECTORS = 96
 GLOWS = (120, 121, 122, 123)
 
 SEASONS = 200
@@ -53,6 +57,9 @@ class DetailsWindow(ArcWindow):
     def __init__(self, *args, **kwargs):
         self.item_id = kwargs.pop("item_id")
         self.initial = kwargs.pop("initial", None)
+        # An episode to land on (a show opened from an episode's card): its season shows and it
+        # takes the focus, once, as the Apple app opens an episode on its show's page.
+        self.focus_episode = kwargs.pop("focus_episode", None)
         ArcWindow.__init__(self, *args, **kwargs)
         self.item = None
         self.seasons = []
@@ -98,15 +105,16 @@ class DetailsWindow(ArcWindow):
         if models.is_series(item):
             self._load_seasons()
         self._load_related()
-        self.focus_id(PLAY)
+        if not self.focus_episode:
+            self.focus_id(PLAY)
 
     # MARK: - background and hero
 
     def _show_palette(self, palette, error):
         corners = titlepage.palette_corners(palette) if error is None else None
-        for control_id, colour in zip(GLOWS, corners or [None] * 4):
+        for control_id, colour in zip(GLOWS, corners or titlepage.WASH):
             try:
-                self.getControl(control_id).setColorDiffuse(colour or "00000000")
+                self.getControl(control_id).setColorDiffuse(colour)
             except Exception:
                 pass
 
@@ -115,27 +123,47 @@ class DetailsWindow(ArcWindow):
         self.set_image(BG, art.get("fanart") or art.get("thumb"))
         self.set_image(LOGO, art.get("clearlogo"))
         self.set_label(TITLE, "" if art.get("clearlogo") else item.get("title", ""))
-        self.set_label(INFO, self._info_line(item))
+        rating = item.get("content_rating") or ""
+        self.setProperty("arc.rating", rating)
+        self.set_label(RATING, rating)
+        self.set_label(GENRES, "  ·  ".join((item.get("genres") or [])[:3]))
         self.set_text(OVERVIEW, item.get("overview") or item.get("tagline") or "")
-        badges = models.quality_badges(item)
-        try:
-            ctrl = self.list_control(BADGES)
-            ctrl.reset()
-            # The resolution is filled, the rest outlined, as the reference's capsules.
-            ctrl.addItems([list_item(b, props={"filled": "1" if i == 0 and b in ("4K", "1080p", "720p", "SD") else ""})
-                           for i, b in enumerate(badges)])
-        except Exception:
-            pass
+        self.set_label(INFO, self._facts(item))
+        # The quality capsules: the resolution filled, the rest outlined, as the reference's.
+        # Each sizes to its text (an auto-width button).
+        badges = models.quality_badges(item)[:CAPSULE_SLOTS]
+        for i in range(CAPSULE_SLOTS):
+            text = badges[i] if i < len(badges) else ""
+            filled = i == 0 and text in ("4K", "1080p", "720p", "SD")
+            self.set_label(CAPSULE_BASE + 2 * i + (0 if filled else 1), text)
+            self.setProperty("arc.cap%d" % i, ("f" if filled else "o") if text else "")
+        # Starring and Director, one line each at the right, as the Apple app's: the label muted,
+        # the names bold. The lower line is filled first, so the text sits level with the buttons.
         lines = []
         stars = titlepage.starring(item)
         if stars:
-            lines.append("[COLOR FFF5F5F7]%s[/COLOR]\n%s" % (T(30158), ", ".join(stars)))
+            lines.append(self._labelled(T(30158), stars))
         directors = titlepage.people(item, ("director",), 2)
         if directors:
-            lines.append("[COLOR FFF5F5F7]%s[/COLOR]\n%s" % (T(30147), ", ".join(directors)))
-        self.set_text(PEOPLE, "\n\n".join(lines))
+            lines.append(self._labelled(T(30147), directors))
+        wraps = bool(stars) and len(T(30158)) + 1 + len(", ".join(stars)) > 42
+        lines = [""] * (2 - len(lines)) + lines
+        self.set_label(STARRING, lines[0])
+        self.set_label(DIRECTORS, lines[1])
+        # Kodi won't bottom-align a wrapping label, so a Starring line long enough to wrap (about
+        # 42 characters at this size, allowing for wide letters) moves up a line, just above Director.
+        try:
+            self.getControl(STARRING).setPosition(1120, -36 if directors and wraps else -2)
+            self.getControl(STARRING).setHeight(80 if wraps else 40)
+        except Exception:
+            pass
 
-    def _info_line(self, item):
+    @staticmethod
+    def _labelled(label, names):
+        return "[COLOR FFA1A1AD]%s[/COLOR] [B]%s[/B]" % (label, ", ".join(names))
+
+    def _facts(self, item):
+        """The year (or an episode's code and year) and the length."""
         bits = []
         if models.is_episode(item):
             code = self._code(item)
@@ -143,13 +171,9 @@ class DetailsWindow(ArcWindow):
                 bits.append(code)
         if item.get("year"):
             bits.append(str(item["year"]))
-        if item.get("content_rating"):
-            bits.append(item["content_rating"])
         rt = models.runtime_text(models.duration_ms(item))
         if rt:
             bits.append(rt)
-        for g in (item.get("genres") or [])[:3]:
-            bits.append(g)
         return "  ·  ".join(bits)
 
     @staticmethod
@@ -203,20 +227,27 @@ class DetailsWindow(ArcWindow):
             name = s.get("name") or (T(30155) % s.get("season_number", 0))
             ctrl.addItem(list_item(name, props={"season": s.get("season_number")}))
         if self.seasons:
-            # Open on the season of the episode Play would play, as Plex does.
+            # Open on the season of the episode Play would play, as Plex does, or of the episode
+            # this page was opened for.
             target = self.action[1] if self.action else None
             target = titlepage.next_to_play(self.seasons) or target
+            landing = self.focus_episode
+            if landing:
+                target = {"id": landing}
             start = 0
             for i, s in enumerate(self.seasons):
                 if target and any(e.get("id") == target.get("id") for e in s.get("episodes") or []):
                     start = i
                     break
             ctrl.selectItem(start)
-            self._show_episodes(start)
+            self._show_episodes(start, landing)
+            if landing:
+                self.focus_episode = None
+                self.focus_when_visible(EPISODES)
         if self.item:
             self._render_actions()
 
-    def _show_episodes(self, index):
+    def _show_episodes(self, index, episode_id=None):
         if not (0 <= index < len(self.seasons)):
             return
         self.season_index = index
@@ -224,7 +255,7 @@ class DetailsWindow(ArcWindow):
         ctrl.reset()
         episodes = self.seasons[index].get("episodes") or []
         ctrl.addItems([self._episode_item(ep) for ep in episodes])
-        target = titlepage.next_to_play([self.seasons[index]])
+        target = {"id": episode_id} if episode_id else titlepage.next_to_play([self.seasons[index]])
         for i, ep in enumerate(episodes):
             if target and ep.get("id") == target.get("id"):
                 ctrl.selectItem(i)
