@@ -40,9 +40,12 @@ def _rounded(size, radius, fill=None, outline=None, width=0):
     return big.resize((w, h), Image.LANCZOS)
 
 
-def pill(name, fill):
-    # A nine-slice pill for 76-high buttons: 76x76, radius 38, used with border="38".
-    _rounded((76, 76), 38, fill).save(os.path.join(MEDIA, name))
+def pill(name, fill, size=76):
+    # A nine-slice pill: size x size with radius size/2, used with border="size/2" on a control
+    # exactly `size` high. A pill drawn for another height loses its round ends (the corner
+    # slices hold only part of the curve), so each height has its own: 76 for buttons, 64 for
+    # menu rows.
+    _rounded((size, size), size // 2, fill).save(os.path.join(MEDIA, name))
 
 
 # Cards are drawn at the exact size the skin shows them (skin/includes.xml), so Kodi never
@@ -257,6 +260,7 @@ def main():
             os.remove(os.path.join(MEDIA, name))
     pill("arc-pill-white.png", WHITE)
     pill("arc-pill-surface.png", SURFACE)
+    pill("arc-pill-white-64.png", WHITE, 64)
     cards()
     wash()
     hero_scrim()
