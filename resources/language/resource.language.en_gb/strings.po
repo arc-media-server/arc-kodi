@@ -1,0 +1,348 @@
+# Arc for Kodi: every user-facing string (ids 30000-30999).
+# Used through T(id) in Python and $ADDON[script.arc id] in XML.
+msgid ""
+msgstr ""
+"Project-Id-Version: script.arc\n"
+"Report-Msgid-Bugs-To: https://github.com/arc-media-server/arc-kodi\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# common
+msgctxt "#30000"
+msgid "OK"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Cancel"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Try Again"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Close"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Arc couldn't be reached. Check the server is running and on the same network."
+msgstr ""
+
+msgctxt "#30005"
+msgid "Play"
+msgstr ""
+
+msgctxt "#30006"
+msgid "Resume"
+msgstr ""
+
+msgctxt "#30007"
+msgid "Loading…"
+msgstr ""
+
+# server
+msgctxt "#30020"
+msgid "Connect to your Arc server"
+msgstr ""
+
+msgctxt "#30021"
+msgid "Enter the address you use to open Arc in a browser."
+msgstr ""
+
+msgctxt "#30022"
+msgid "e.g. 192.168.1.20 or arc.example.com"
+msgstr ""
+
+msgctxt "#30023"
+msgid "Port 8099 is used unless you type another. Add https:// for an address away from home."
+msgstr ""
+
+msgctxt "#30024"
+msgid "Connect"
+msgstr ""
+
+msgctxt "#30025"
+msgid "Connecting…"
+msgstr ""
+
+msgctxt "#30026"
+msgid "That doesn't look like an address. Try something like 192.168.1.20."
+msgstr ""
+
+msgctxt "#30027"
+msgid "That address answered, but it isn't an Arc server."
+msgstr ""
+
+msgctxt "#30028"
+msgid "Nothing answered at that address. Check it, and that this device is on the same network."
+msgstr ""
+
+# sign-in
+msgctxt "#30040"
+msgid "Sign in to Arc"
+msgstr ""
+
+msgctxt "#30041"
+msgid "On your phone or computer, open Arc and choose Link a Device in the profile menu."
+msgstr ""
+
+msgctxt "#30042"
+msgid "Enter this code:"
+msgstr ""
+
+msgctxt "#30043"
+msgid "Waiting for you to enter the code…"
+msgstr ""
+
+msgctxt "#30044"
+msgid "That code ran out, so here's a new one."
+msgstr ""
+
+msgctxt "#30045"
+msgid "Get a New Code"
+msgstr ""
+
+msgctxt "#30046"
+msgid "Use Another Server"
+msgstr ""
+
+msgctxt "#30047"
+msgid "Signing in didn't work. Try a new code."
+msgstr ""
+
+# profiles
+msgctxt "#30060"
+msgid "Who's watching?"
+msgstr ""
+
+msgctxt "#30061"
+msgid "Enter %s's PIN"
+msgstr ""
+
+msgctxt "#30062"
+msgid "That PIN wasn't right."
+msgstr ""
+
+msgctxt "#30063"
+msgid "Sign Out"
+msgstr ""
+
+# tabs
+msgctxt "#30080"
+msgid "Search"
+msgstr ""
+
+msgctxt "#30081"
+msgid "Home"
+msgstr ""
+
+msgctxt "#30082"
+msgid "Watchlist"
+msgstr ""
+
+msgctxt "#30083"
+msgid "Playlists"
+msgstr ""
+
+msgctxt "#30084"
+msgid "Settings"
+msgstr ""
+
+# home / rows
+msgctxt "#30100"
+msgid "Continue Watching"
+msgstr ""
+
+msgctxt "#30101"
+msgid "Up Next"
+msgstr ""
+
+msgctxt "#30102"
+msgid "Recently Added in %s"
+msgstr ""
+
+msgctxt "#30103"
+msgid "Romance"
+msgstr ""
+
+msgctxt "#30104"
+msgid "Something Scary"
+msgstr ""
+
+msgctxt "#30105"
+msgid "Christmas Films"
+msgstr ""
+
+msgctxt "#30106"
+msgid "Nothing here yet."
+msgstr ""
+
+msgctxt "#30107"
+msgid "%d new"
+msgstr ""
+
+# library
+msgctxt "#30120"
+msgid "Recommended"
+msgstr ""
+
+msgctxt "#30121"
+msgid "Browse"
+msgstr ""
+
+msgctxt "#30122"
+msgid "Collections"
+msgstr ""
+
+msgctxt "#30123"
+msgid "Sort"
+msgstr ""
+
+msgctxt "#30124"
+msgid "Filter"
+msgstr ""
+
+msgctxt "#30125"
+msgid "All"
+msgstr ""
+
+msgctxt "#30126"
+msgid "Unwatched"
+msgstr ""
+
+msgctxt "#30127"
+msgid "Recently Added"
+msgstr ""
+
+msgctxt "#30128"
+msgid "Title"
+msgstr ""
+
+msgctxt "#30129"
+msgid "Year"
+msgstr ""
+
+msgctxt "#30130"
+msgid "Rating"
+msgstr ""
+
+# title page
+msgctxt "#30140"
+msgid "About"
+msgstr ""
+
+msgctxt "#30141"
+msgid "Details"
+msgstr ""
+
+msgctxt "#30142"
+msgid "Cast & Crew"
+msgstr ""
+
+msgctxt "#30143"
+msgid "Related"
+msgstr ""
+
+msgctxt "#30144"
+msgid "Playback"
+msgstr ""
+
+msgctxt "#30145"
+msgid "Released"
+msgstr ""
+
+msgctxt "#30146"
+msgid "Runtime"
+msgstr ""
+
+msgctxt "#30147"
+msgid "Directed by"
+msgstr ""
+
+msgctxt "#30148"
+msgid "Studios"
+msgstr ""
+
+msgctxt "#30149"
+msgid "Trailers & Extras"
+msgstr ""
+
+msgctxt "#30150"
+msgid "Mark Watched"
+msgstr ""
+
+msgctxt "#30151"
+msgid "Mark Unwatched"
+msgstr ""
+
+msgctxt "#30152"
+msgid "Add to Watchlist"
+msgstr ""
+
+msgctxt "#30153"
+msgid "Remove from Watchlist"
+msgstr ""
+
+msgctxt "#30154"
+msgid "Releases %s"
+msgstr ""
+
+msgctxt "#30155"
+msgid "Season %d"
+msgstr ""
+
+# player
+msgctxt "#30180"
+msgid "Skip Intro"
+msgstr ""
+
+msgctxt "#30181"
+msgid "Skip Recap"
+msgstr ""
+
+msgctxt "#30182"
+msgid "Skip Credits"
+msgstr ""
+
+msgctxt "#30183"
+msgid "Up Next"
+msgstr ""
+
+msgctxt "#30184"
+msgid "Audio"
+msgstr ""
+
+msgctxt "#30185"
+msgid "Subtitles"
+msgstr ""
+
+msgctxt "#30186"
+msgid "Off"
+msgstr ""
+
+msgctxt "#30187"
+msgid "Playing on %s"
+msgstr ""
+
+msgctxt "#30188"
+msgid "This title couldn't be played."
+msgstr ""
+
+# settings
+msgctxt "#30200"
+msgid "Server: %s"
+msgstr ""
+
+msgctxt "#30201"
+msgid "Signed in as %s"
+msgstr ""
+
+msgctxt "#30202"
+msgid "Switch Profile"
+msgstr ""
+
+msgctxt "#30203"
+msgid "Version %s"
+msgstr ""

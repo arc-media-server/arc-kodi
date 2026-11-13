@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <defaultcontrol always="true">101</defaultcontrol>
+  <controls>
+    <include>PageBackground</include>
+    <control type="group">
+      <left>560</left><top>300</top><width>800</width>
+      <control type="image">
+        <left>0</left><top>-120</top><width>200</width><height>80</height>
+        <texture>arc-logo.png</texture><aspectratio>keep</aspectratio>
+      </control>
+      <control type="label">
+        <left>0</left><top>0</top><width>800</width><height>60</height>
+        <font>arc-title</font><textcolor>fg</textcolor>
+        <label>$ADDON[script.arc 30020]</label>
+      </control>
+      <control type="label">
+        <left>0</left><top>70</top><width>800</width><height>40</height>
+        <font>arc-body</font><textcolor>muted</textcolor>
+        <label>$ADDON[script.arc 30021]</label>
+      </control>
+      <control type="button" id="100">
+        <left>0</left><top>140</top><width>800</width><height>76</height>
+        <font>arc-label</font><textcolor>fg</textcolor>
+        <texturefocus border="8">arc-pill-surface2.png</texturefocus>
+        <texturenofocus border="8">arc-pill-surface.png</texturenofocus>
+        <align>left</align><textoffsetx>24</textoffsetx><aligny>center</aligny>
+        <label>$ADDON[script.arc 30022]</label>
+      </control>
+      <control type="button" id="101">
+        <include content="PrimaryButton"><param name="width" value="800"/></include>
+        <top>240</top>
+        <label>$ADDON[script.arc 30024]</label>
+      </control>
+      <control type="label" id="102">
+        <left>0</left><top>340</top><width>800</width><height>40</height>
+        <font>arc-small</font><textcolor>muted</textcolor><align>center</align>
+        <label>$ADDON[script.arc 30023]</label>
+      </control>
+    </control>
+  </controls>
+</window>
