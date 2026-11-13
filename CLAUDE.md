@@ -63,7 +63,9 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
   always works, Context Menu (C or long OK) for the ⋯ actions, Play on a card plays it. Arc's
   identity through the owner's logo (the server's `docs/brand`, copied into `tools/brand/`): the
   stacked logo on sign-in screens, the full logo in the open sidebar, the TV mark where it's
-  small. No colour anywhere (owner, 1 November; the new logo, 13 November): chosen and main
+  small, on the sidebar's icon column. The sidebar's icons are the web and Android apps' (Lucide,
+  ISC: `tools/brand/icons/`, notice in `resources/LICENSE-lucide.txt`); the Apple app's are SF
+  Symbols, which may only be used on Apple's platforms. No colour anywhere (owner, 1 November; the new logo, 13 November): chosen and main
   controls are white with black text, and the logo is white. Dark only; artwork-led Home (no
   banner). Colours live only in `skin/includes.xml` (and the media `tools/make_media.py` draws).
 - **Plex first:** where Arc's apps and PM4K differ on Kodi-specific behaviour (keys, the player,

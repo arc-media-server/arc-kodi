@@ -59,11 +59,12 @@ class HomeWindow(ArcWindow):
         places = [("search", T(30080), "search"), ("home", T(30081), "home")]
         middle = []
         for lib in libs:
-            icon = {"shows": "tv", "videos": "video"}.get(lib.get("kind"), "film")
+            # The web and Android apps' icons (Lucide): film, tv, clapperboard for other videos.
+            icon = {"shows": "tv", "videos": "clapperboard"}.get(lib.get("kind"), "film")
             middle.append(("library:%s" % lib.get("id"), lib.get("name", ""), icon, lib))
         middle.insert(watchlist_at, ("watchlist", T(30082), "bookmark", None))
         places += middle
-        places += [("playlists", T(30083), "list"), ("settings", T(30084), "settings")]
+        places += [("playlists", T(30083), "list-video"), ("settings", T(30084), "settings")]
         self.places = places
         ctrl = self.list_control(SIDEBAR)
         ctrl.reset()

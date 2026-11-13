@@ -79,62 +79,6 @@ def _save_small(img, name, size):
     img.resize((size, size), Image.LANCZOS).save(os.path.join(MEDIA, name))
 
 
-def icons():
-    """The sidebar's icons, white on clear (tinted in the skin), 96x96."""
-    n = 96
-    w = 7 * S  # stroke
-
-    def draw(name, fn):
-        img = _canvas(n)
-        fn(ImageDraw.Draw(img), n * S)
-        _save_small(img, "arc-icon-%s.png" % name, n)
-
-    def search(d, z):
-        d.ellipse([z * .16, z * .16, z * .62, z * .62], outline=WHITE, width=w)
-        d.line([z * .56, z * .56, z * .84, z * .84], fill=WHITE, width=w + 2 * S)
-
-    def home(d, z):
-        d.line([z * .14, z * .48, z * .5, z * .16, z * .86, z * .48], fill=WHITE, width=w, joint="curve")
-        d.rectangle([z * .24, z * .44, z * .76, z * .84], outline=WHITE, width=w)
-
-    def film(d, z):
-        d.rounded_rectangle([z * .18, z * .14, z * .82, z * .86], radius=z * .06, outline=WHITE, width=w)
-        for y in (.26, .42, .58, .74):
-            d.rectangle([z * .25, z * y - S * 4, z * .31, z * y + S * 4], fill=WHITE)
-            d.rectangle([z * .69, z * y - S * 4, z * .75, z * y + S * 4], fill=WHITE)
-
-    def tv(d, z):
-        d.rounded_rectangle([z * .12, z * .2, z * .88, z * .72], radius=z * .06, outline=WHITE, width=w)
-        d.line([z * .34, z * .84, z * .66, z * .84], fill=WHITE, width=w)
-
-    def video(d, z):
-        d.rounded_rectangle([z * .1, z * .28, z * .64, z * .72], radius=z * .06, outline=WHITE, width=w)
-        d.polygon([(z * .68, z * .5), (z * .9, z * .32), (z * .9, z * .68)], fill=WHITE)
-
-    def bookmark(d, z):
-        d.line([z * .28, z * .86, z * .28, z * .14, z * .72, z * .14, z * .72, z * .86, z * .5, z * .66, z * .28, z * .86],
-               fill=WHITE, width=w, joint="curve")
-
-    def lst(d, z):
-        for y in (.28, .5, .72):
-            d.ellipse([z * .14, z * y - S * 6, z * .14 + S * 12, z * y + S * 6], fill=WHITE)
-            d.line([z * .32, z * y, z * .86, z * y], fill=WHITE, width=w)
-
-    def settings(d, z):
-        import math
-        c = z / 2
-        for k in range(8):
-            a = k * math.pi / 4
-            d.line([c + math.cos(a) * z * .2, c + math.sin(a) * z * .2, c + math.cos(a) * z * .4, c + math.sin(a) * z * .4],
-                   fill=WHITE, width=w + 4 * S)
-        d.ellipse([c - z * .27, c - z * .27, c + z * .27, c + z * .27], fill=WHITE)
-        d.ellipse([c - z * .11, c - z * .11, c + z * .11, c + z * .11], fill=(0, 0, 0, 0))
-
-    for name, fn in (("search", search), ("home", home), ("film", film), ("tv", tv), ("video", video),
-                     ("bookmark", bookmark), ("list", lst), ("settings", settings)):
-        draw(name, fn)
-
-
 def tick():
     n = 48
     img = _canvas(n)
@@ -187,10 +131,20 @@ def brand_renders():
         ("arc-mark-white.svg", os.path.join(MEDIA, "arc-mark.png"), 192),
         ("arc-icon-square.svg", os.path.join(RES, "icon.png"), 512),
     ]
+    # The sidebar's icons: Lucide's, as Arc's web and Android apps draw them (tools/brand/icons).
+    for name in sorted(os.listdir(os.path.join(BRAND, "icons"))):
+        if name.endswith(".svg"):
+            jobs.append((os.path.join("icons", name), os.path.join(MEDIA, "arc-icon-%s.png" % name[:-4]), 96))
     args = []
     for svg, out, width in jobs:
         args += [os.path.join(BRAND, svg), out, str(width)]
     subprocess.run(["node", os.path.join(ROOT, "tools", "render_svg.js")] + args, check=True)
+    # The mark and the full logo are cropped to their drawing, so the skin can place them by
+    # their real edges: the sidebar lines the TV up with the icons below it.
+    for name in ("arc-mark.png", "arc-logo.png"):
+        path = os.path.join(MEDIA, name)
+        img = Image.open(path)
+        img.crop(img.getbbox()).save(path)
 
 
 def fanart():
@@ -214,7 +168,6 @@ def main():
     _rounded((24, 24), 8, SURFACE).save(os.path.join(MEDIA, "arc-card-bg.png"))
     wash()
     hero_scrim()
-    icons()
     tick()
     circle_and_ring()
     bars()

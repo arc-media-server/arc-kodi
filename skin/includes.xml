@@ -178,14 +178,17 @@
         <visible>Control.HasFocus(50)</visible>
         <animation effect="fade" time="150">VisibleChange</animation>
       </control>
+      <!-- The logo sits on the icons' column: the TV mark is centred on the icons (x 84), and the
+           full logo, shown when the sidebar opens, starts with the same TV at the same place and
+           height, so only the name appears beside it. Both images are cropped to their drawing. -->
       <control type="image">
-        <left>40</left><top>56</top><width>64</width><height>52</height>
-        <texture>arc-mark.png</texture><aspectratio>keep</aspectratio>
+        <left>58</left><top>62</top><width>51</width><height>40</height>
+        <texture>arc-mark.png</texture>
         <visible>!Control.HasFocus(50)</visible>
       </control>
       <control type="image">
-        <left>40</left><top>52</top><width>240</width><height>64</height>
-        <texture>arc-logo.png</texture><aspectratio align="left">keep</aspectratio>
+        <left>58</left><top>62</top><width>161</width><height>40</height>
+        <texture>arc-logo.png</texture>
         <visible>Control.HasFocus(50)</visible>
       </control>
       <control type="list" id="50">
