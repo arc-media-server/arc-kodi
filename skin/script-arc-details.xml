@@ -62,22 +62,22 @@
       </control>
 
       <control type="list" id="200">
-        <left>8</left><width>1700</width><height>68</height>
+        <left>8</left><width>1700</width><height>76</height>
         <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>12</itemgap>
-        <itemlayout width="220" height="68">
-          <control type="label"><left>0</left><top>0</top><width>220</width><height>68</height>
+        <itemlayout width="220" height="76">
+          <control type="label"><left>0</left><top>0</top><width>220</width><height>76</height>
             <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>muted</textcolor>
             <label>$INFO[ListItem.Label]</label></control>
         </itemlayout>
-        <focusedlayout width="220" height="68">
-          <control type="image"><left>0</left><top>0</top><width>220</width><height>68</height>
-            <texture border="34">arc-pill-white.png</texture>
+        <focusedlayout width="220" height="76">
+          <control type="image"><left>0</left><top>0</top><width>220</width><height>76</height>
+            <texture border="38">arc-pill-white.png</texture>
             <visible>Control.HasFocus(200)</visible></control>
-          <control type="label"><left>0</left><top>0</top><width>220</width><height>68</height>
+          <control type="label"><left>0</left><top>0</top><width>220</width><height>76</height>
             <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>black</textcolor>
             <label>$INFO[ListItem.Label]</label><visible>Control.HasFocus(200)</visible></control>
-          <control type="label"><left>0</left><top>0</top><width>220</width><height>68</height>
+          <control type="label"><left>0</left><top>0</top><width>220</width><height>76</height>
             <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>fg</textcolor>
             <label>$INFO[ListItem.Label]</label><visible>!Control.HasFocus(200)</visible></control>
         </focusedlayout>
@@ -100,7 +100,7 @@
         <visible>Control.HasFocus(201)</visible>
       </control>
 
-      <include content="PosterRow"><param name="title" value="311"/><param name="list" value="300"/></include>
+      <include content="PosterRow"><param name="title" value="311"/><param name="list" value="300"/><param name="width" value="1808"/></include>
     </control>
   </controls>
 </window>

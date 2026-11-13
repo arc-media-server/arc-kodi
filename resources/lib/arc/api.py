@@ -224,6 +224,10 @@ class ArcAPI(object):
     def start_playback(self, item_id, body):
         return self.send("POST", "items/" + _q(item_id) + "/playback", body, route="items/{id}/playback")
 
+    def playback_preview(self, item_id, body):
+        """The decision a playback request would get, without starting anything (read-only)."""
+        return self.send("POST", "items/" + _q(item_id) + "/playback-preview", body, route="items/{id}/playback-preview")
+
     def cast_link(self, stream_path):
         """A stream, subtitle or extra link Arc gave, as a link carrying its own scoped token, so
         Kodi's player can open it without the session token (POST /cast)."""
