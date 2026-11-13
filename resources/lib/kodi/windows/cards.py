@@ -45,6 +45,20 @@ def card_list_item(session, card, style, season_posters=False):
     return li
 
 
+def update_list_item(li, item):
+    """Shows a changed watched state on a card already in a list (after its menu marked it)."""
+    if li is None:
+        return
+    li.setProperty("watched", "true" if models.watched(item) else "")
+    li.setProperty("unwatched", str(item.get("unwatched_count") or ""))
+    if models.resume_ms(item) <= 0:
+        li.setProperty("progress", "")
+        try:
+            li.getVideoInfoTag().setResumePoint(0, 0)
+        except AttributeError:
+            li.setProperty("ResumeTime", "0")
+
+
 def set_progress(li, item):
     """Gives a part-watched card Kodi's resume point for display only, so the skin's progress bar
     can read ListItem.PercentPlayed. Playback ignores Kodi's resume points (Arc's are the truth)."""

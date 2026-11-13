@@ -485,3 +485,19 @@ msgctxt "#30175"
 msgid "Extra"
 msgstr ""
 
+
+msgctxt "#30176"
+msgid "Go to Show"
+msgstr ""
+
+msgctxt "#30177"
+msgid "Remove from Continue Watching"
+msgstr ""
+
+msgctxt "#30178"
+msgid "Sign out of %s?"
+msgstr ""
+
+msgctxt "#30179"
+msgid "Arc couldn't save that change."
+msgstr ""

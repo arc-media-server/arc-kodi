@@ -243,7 +243,7 @@
           <control type="label">
             <left>62</left>
             <top>0</top>
-            <width>440</width>
+            <width>470</width>
             <height>64</height>
             <font>font13</font>
             <aligny>center</aligny>
@@ -282,7 +282,7 @@
           <control type="label">
             <left>62</left>
             <top>0</top>
-            <width>440</width>
+            <width>470</width>
             <height>64</height>
             <font>font13</font>
             <aligny>center</aligny>

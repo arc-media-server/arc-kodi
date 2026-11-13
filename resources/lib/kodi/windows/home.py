@@ -157,12 +157,25 @@ class HomeWindow(ArcWindow):
         row = self.rows[idx]
         ctrl = self.list_control(self._list_id(idx))
         keep = ctrl.getSelectedPosition() if self._refreshing else 0
+        had_focus = self._refreshing and self._focused_once and self._row == idx
         ctrl.reset()
         ctrl.addItems([card_list_item(self.session, card, row["style"], row.get("season_posters", False))
                        for card in cards or []])
         row["cards"] = cards or []
         if keep > 0 and cards:
             ctrl.selectItem(min(keep, len(cards) - 1))
+        if had_focus:
+            # Kodi drops the focus from a list while it's emptied and refilled (it hides when
+            # empty): give it back, or, if the row is now empty (its last card was removed from
+            # Continue Watching), to the nearest row with cards.
+            order = [idx] + [j for d in range(1, len(self.rows)) for j in (idx + d, idx - d)
+                             if 0 <= j < len(self.rows)]
+            for j in order:
+                if self.rows[j].get("cards"):
+                    self._row = j
+                    self.focus_when_visible(self._list_id(j))
+                    self._update_hero(j)
+                    return
         if not self._focused_once:
             # Rows arrive in any order; the first row (in Home's order) with cards takes focus once
             # every row above it has answered.
@@ -275,7 +288,8 @@ class HomeWindow(ArcWindow):
             return False
         card = self._focused_card(idx)
         if card and self.nav and code in ACTION_CONTEXT:
-            self.nav("context", card)
+            self.nav("context", {"item": card["item"], "continue_row": self.rows[idx]["source"][0] == "continue",
+                                 "on_changed": lambda _item, _act: self.on_return()})
             return True
         if card and self.nav and code in ACTION_PLAY and models.playable(card["item"]):
             self.nav("play", {"item": card["item"], "resume": models.resume_ms(card["item"])})

@@ -369,13 +369,51 @@ class DetailsWindow(ArcWindow):
             pos = self.list_control(SEASONS).getSelectedPosition()
             if pos != self.season_index:
                 self._show_episodes(pos)
-        from .base import ACTION_PLAY
+        from .base import ACTION_CONTEXT, ACTION_PLAY
+        if code in ACTION_CONTEXT and self.nav:
+            return self._card_menu()
+        if code in ACTION_PLAY and self.getFocusId() == RELATED and self.nav:
+            pos = self.list_control(RELATED).getSelectedPosition()
+            if 0 <= pos < len(self.related) and models.playable(self.related[pos]):
+                it = self.related[pos]
+                self.nav("play", {"item": it, "resume": models.resume_ms(it)})
+                return True
         if code in ACTION_PLAY and self.getFocusId() == EPISODES:
             pos = self.list_control(EPISODES).getSelectedPosition()
             eps = self.seasons[self.season_index].get("episodes") if self.seasons else []
             if 0 <= pos < len(eps) and eps[pos].get("available", True) and self.nav:
                 self.nav("play", {"item": eps[pos], "resume": models.resume_ms(eps[pos])})
                 return True
+        return False
+
+    def _card_menu(self):
+        """Context Menu: the focused episode's or related title's menu, or, elsewhere on the page,
+        the title's own (Play and the like are the page's buttons, so it has the rest)."""
+        focus = self.getFocusId()
+        if focus == EPISODES:
+            pos = self.list_control(EPISODES).getSelectedPosition()
+            eps = self.seasons[self.season_index].get("episodes") if self.seasons else []
+            if 0 <= pos < len(eps):
+                self.nav("context", {"item": eps[pos], "in_show": True,
+                                     "on_changed": lambda _it, _act: self._load_seasons()})
+                return True
+            return False
+        if focus == RELATED:
+            ctrl = self.list_control(RELATED)
+            pos = ctrl.getSelectedPosition()
+            if 0 <= pos < len(self.related):
+                from .cards import update_list_item
+                self.nav("context", {"item": self.related[pos],
+                                     "on_changed": lambda it, _act: update_list_item(ctrl.getListItem(pos), it)})
+                return True
+            return False
+        if self.item:
+            def changed(_it, _act):
+                if models.is_series(self.item):
+                    self._load_seasons()
+                self._render_actions()
+            self.nav("context", {"item": self.item, "on_page": True, "on_changed": changed})
+            return True
         return False
 
     def _play(self, from_start):

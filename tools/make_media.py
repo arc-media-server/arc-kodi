@@ -237,6 +237,7 @@ def title_page():
     _rounded((40, 40), 20, outline=(255, 255, 255, 170), width=2).save(os.path.join(MEDIA, "arc-badge-line.png"))
     _rounded((64, 64), 24, fill=(255, 255, 255, 30)).save(os.path.join(MEDIA, "arc-panel.png"))
     _rounded((64, 64), 26, outline=WHITE, width=4).save(os.path.join(MEDIA, "arc-panel-ring.png"))
+    Image.new("RGBA", (8, 8), WHITE).save(os.path.join(MEDIA, "arc-white.png"))  # dims behind Arc's menu
 
 
 def fanart():

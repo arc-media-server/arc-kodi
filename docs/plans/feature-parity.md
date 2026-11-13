@@ -27,7 +27,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Hero follows the focused card (logo, details, overview) | Both | Done | Yes | |
 | Rows as the web arranges them (Continue/Up Next, libraries, watchlist, collections, playlists, seasonal) | Both | Done | Yes | |
 | Continue Watching shows the show's art | Both | Done | Yes | |
-| Remove from Continue Watching | Android | Missing | Yes | Context menu. |
+| Remove from Continue Watching | Android | Done | Yes | In the card menu, on Continue Watching. |
 | Watch Together row | Apple | Missing | Yes | With Watch Together. |
 | Library: Recommended / Browse / Collections / Folders pills | Both | Part | Yes | Browse only; no Recommended, Collections or Folders pages. |
 | Library sort and filter (genre, unwatched, decade, resolution...) | Both | Part | Yes | Sort and unwatched only. |
@@ -57,7 +57,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Trailers & Extras | Both | Done | Yes | Played through Arc's player, without progress. Not yet seen with real extras (the test library has none). |
 | Versions (editions) choice before playing | Android | Missing | Yes | In the player's Playback menu now. |
 | Play All / Shuffle (play queues) | Android | Missing | Yes | Arc's play-queues API. |
-| Context menu on any card (Play, watched, watchlist, go to show) | Both | Part | Yes | Kodi's context menu now; an Arc-styled one would match. |
+| Context menu on any card (Play, watched, watchlist, go to show) | Both | Done | Yes | Arc's own menu on Home, grids, search and the title page. |
 
 ## Player
 

@@ -4,7 +4,7 @@ and route navigation between the windows. Opened from default.py.
 
 import xbmcgui
 
-from arc import models
+from arc import menus, models
 from arc.api import APIError, Unreachable
 
 from . import log as logmod
@@ -12,7 +12,7 @@ from .compat import T
 from .log import log
 from .session import Session
 from .player import Playback
-from .windows import signin, home, library, details, search, settings
+from .windows import signin, home, library, details, search, settings, menu
 
 
 class App(object):
@@ -174,23 +174,58 @@ class App(object):
         else:
             self._open(details.DetailsWindow, item_id=item.get("id"), initial=item)
 
-    def _context(self, card):
-        item = card["item"]
-        options = [T(30005), T(30151) if models.watched(item) else T(30150),
-                   T(30153) if models.watchlisted(item) else T(30152)]
-        choice = xbmcgui.Dialog().contextmenu(options)
-        if choice == 0:
-            self._play(item, models.resume_ms(item)) if models.playable(item) else self._open_card(card)
-        elif choice == 1:
+    def _context(self, payload):
+        """A card's menu (Context Menu on any card): Arc's own menu with the Apple app's actions.
+        `payload` has the item and, from the window, `continue_row`, `on_page` and `on_changed`
+        (called with the item and the action once Arc has saved a change)."""
+        item = payload.get("item") or {}
+        actions = menus.card_actions(item, continue_row=payload.get("continue_row", False),
+                                     on_page=payload.get("on_page", False),
+                                     in_show=payload.get("in_show", False))
+        labels = {"play": T(30005), "resume": T(30006), "from_start": T(30213),
+                  "watched": T(30150), "unwatched": T(30151), "watchlist_add": T(30152),
+                  "watchlist_remove": T(30153), "go_to_show": T(30176), "remove_continue": T(30177)}
+        choice = menu.choose(item.get("title", ""), [labels[a] for a in actions])
+        if choice < 0:
+            return
+        act = actions[choice]
+        if act in ("play", "resume", "from_start"):
+            self._play(item, 0 if act == "from_start" else models.resume_ms(item))
+        elif act == "go_to_show":
+            show = menus.show_ref(item)
+            self._open(details.DetailsWindow, item_id=show["id"], initial=show)
+        else:
+            self._change(item, act, payload.get("on_changed"))
+
+    def _change(self, item, act, on_changed=None):
+        """Saves a card's watched, watchlist or Continue Watching change to Arc, then updates the
+        item in place and tells the window."""
+        api = self.session.api
+        try:
+            if act in ("watched", "unwatched"):
+                api.set_played(item.get("id"), act == "watched")
+            elif act in ("watchlist_add", "watchlist_remove"):
+                api.set_watchlist(item.get("id"), act == "watchlist_add")
+            elif act == "remove_continue":
+                api.remove_from_continue(item.get("id"))
+        except Exception as e:
+            log.warning("card action %s failed: %s", act, type(e).__name__)
+            xbmcgui.Dialog().notification("Arc", T(30179))
+            return
+        log.debug("card action done: %s", act)
+        ud = item.setdefault("user_data", {})
+        if act in ("watched", "unwatched"):
+            ud["played"] = act == "watched"
+            ud["position_ms"] = 0
+            if models.is_series(item):
+                item["unwatched_count"] = 0 if act == "watched" else max(1, item.get("unwatched_count") or 1)
+        elif act in ("watchlist_add", "watchlist_remove"):
+            ud["watchlisted"] = act == "watchlist_add"
+        if on_changed:
             try:
-                self.session.api.set_played(item.get("id"), not models.watched(item))
-            except Exception:
-                pass
-        elif choice == 2:
-            try:
-                self.session.api.set_watchlist(item.get("id"), not models.watchlisted(item))
-            except Exception:
-                pass
+                on_changed(item, act)
+            except Exception as e:
+                log.error("refresh after %s failed: %s", act, e)
 
     def _open_library(self, lib):
         self._open(library.LibraryWindow, library=lib)
@@ -214,7 +249,7 @@ class App(object):
             xbmcgui.Dialog().notification("Arc", T(30106))
             return
         names = [p.get("title") or p.get("name", "") for p in playlists]
-        choice = xbmcgui.Dialog().select(T(30083), names)
+        choice = menu.choose(T(30083), names)
         if choice >= 0:
             pid = playlists[choice].get("id")
             self._open_grid(names[choice], self._playlist_loader(pid))

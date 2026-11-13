@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Built by tools/build_skin.py from skin/script-arc-menu.xml: edit that, not this. -->
+<window>
+  <defaultcontrol always="true">602</defaultcontrol>
+  <controls>
+    <control type="image">
+      <left>0</left>
+      <top>0</top>
+      <width>1920</width>
+      <height>1080</height>
+      <texture>arc-white.png</texture>
+      <colordiffuse>99000000</colordiffuse>
+    </control>
+    <control type="group" id="600">
+      <left>670</left>
+      <top>300</top>
+      <width>580</width>
+      <height>520</height>
+      <animation effect="fade" time="150">WindowOpen</animation>
+      <animation effect="fade" time="120">WindowClose</animation>
+      <control type="image" id="603">
+        <left>0</left>
+        <top>0</top>
+        <width>580</width>
+        <height>520</height>
+        <texture border="38" colordiffuse="F2FFFFFF">arc-pill-surface.png</texture>
+      </control>
+      <control type="label" id="601">
+        <left>32</left>
+        <top>20</top>
+        <width>516</width>
+        <height>50</height>
+        <font>font13</font>
+        <textcolor>FFA1A1AD</textcolor>
+      </control>
+      <control type="textbox" id="604">
+        <left>32</left>
+        <top>76</top>
+        <width>516</width>
+        <height>0</height>
+        <font>font13</font>
+        <textcolor>FFF5F5F7</textcolor>
+      </control>
+      <control type="list" id="602">
+        <left>16</left>
+        <top>76</top>
+        <width>548</width>
+        <height>428</height>
+        <onup>noop</onup>
+        <ondown>noop</ondown>
+        <onleft>noop</onleft>
+        <onright>noop</onright>
+        <scrolltime>150</scrolltime>
+        <itemlayout width="548" height="64">
+          <control type="image">
+            <left>16</left>
+            <top>17</top>
+            <width>30</width>
+            <height>30</height>
+            <texture>arc-osd-check.png</texture>
+            <colordiffuse>FFFFFFFF</colordiffuse>
+            <visible>String.IsEqual(ListItem.Property(selected),1)</visible>
+          </control>
+          <control type="label">
+            <left>62</left>
+            <top>0</top>
+            <width>470</width>
+            <height>64</height>
+            <font>font13</font>
+            <aligny>center</aligny>
+            <textcolor>FFF5F5F7</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>300</left>
+            <top>0</top>
+            <width>228</width>
+            <height>64</height>
+            <font>font12</font>
+            <aligny>center</aligny>
+            <align>right</align>
+            <textcolor>FFA1A1AD</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+          </control>
+        </itemlayout>
+        <focusedlayout width="548" height="64">
+          <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>548</width>
+            <height>64</height>
+            <texture border="32">arc-pill-white.png</texture>
+          </control>
+          <control type="image">
+            <left>16</left>
+            <top>17</top>
+            <width>30</width>
+            <height>30</height>
+            <texture>arc-osd-check.png</texture>
+            <colordiffuse>FF000000</colordiffuse>
+            <visible>String.IsEqual(ListItem.Property(selected),1)</visible>
+          </control>
+          <control type="label">
+            <left>62</left>
+            <top>0</top>
+            <width>470</width>
+            <height>64</height>
+            <font>font13</font>
+            <aligny>center</aligny>
+            <textcolor>FF000000</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>300</left>
+            <top>0</top>
+            <width>228</width>
+            <height>64</height>
+            <font>font12</font>
+            <aligny>center</aligny>
+            <align>right</align>
+            <textcolor>FF3A3A40</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+          </control>
+        </focusedlayout>
+      </control>
+    </control>
+  </controls>
+</window>

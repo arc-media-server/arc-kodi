@@ -247,6 +247,51 @@
 
   <!-- A round button showing only an icon (the title page's), white with a black icon when
        focused. Its name shows beside the row (Window.Property(arc.hint)). -->
+  <!-- A menu's rows (the player's menus and Arc's own menu dialog): a tick for the chosen one,
+       the name, a detail at the right; the focused row is white with black text. 548 wide. -->
+  <include name="MenuLayouts">
+    <definition>
+        <itemlayout width="548" height="64">
+          <control type="image">
+            <left>16</left><top>17</top><width>30</width><height>30</height>
+            <texture>arc-osd-check.png</texture><colordiffuse>white</colordiffuse>
+            <visible>String.IsEqual(ListItem.Property(selected),1)</visible>
+          </control>
+          <control type="label">
+            <left>62</left><top>0</top><width>470</width><height>64</height>
+            <font>arc-label</font><aligny>center</aligny><textcolor>fg</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>300</left><top>0</top><width>228</width><height>64</height>
+            <font>arc-small</font><aligny>center</aligny><align>right</align><textcolor>muted</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+          </control>
+        </itemlayout>
+        <focusedlayout width="548" height="64">
+          <control type="image">
+            <left>0</left><top>0</top><width>548</width><height>64</height>
+            <texture border="32">arc-pill-white.png</texture>
+          </control>
+          <control type="image">
+            <left>16</left><top>17</top><width>30</width><height>30</height>
+            <texture>arc-osd-check.png</texture><colordiffuse>black</colordiffuse>
+            <visible>String.IsEqual(ListItem.Property(selected),1)</visible>
+          </control>
+          <control type="label">
+            <left>62</left><top>0</top><width>470</width><height>64</height>
+            <font>arc-label</font><aligny>center</aligny><textcolor>black</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>300</left><top>0</top><width>228</width><height>64</height>
+            <font>arc-small</font><aligny>center</aligny><align>right</align><textcolor>FF3A3A40</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+          </control>
+        </focusedlayout>
+    </definition>
+  </include>
+
   <include name="RoundIconButton">
     <param name="id"/><param name="icon"/><param name="left"/><param name="right"/>
     <definition>

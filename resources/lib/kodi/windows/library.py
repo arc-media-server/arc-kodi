@@ -2,15 +2,16 @@
 Filter are dialogs; paging loads more as you reach the end. Collections, a playlist, a person's
 titles and search results reuse GridWindow with a loader."""
 
-import xbmc
 import xbmcgui
 
 from arc import home as homerows
+from arc import models
 
 from ..compat import T
 from ..log import log
-from .base import ArcWindow
-from .cards import item_list_item
+from . import menu
+from .base import ACTION_CONTEXT, ACTION_PLAY, ArcWindow
+from .cards import item_list_item, update_list_item
 
 GRID = 100
 TITLE = 101
@@ -85,6 +86,18 @@ class GridWindow(ArcWindow):
             pos = self.list_control(GRID).getSelectedPosition()
             if self.total is not None and len(self.items) < self.total and pos >= len(self.items) - 12:
                 self._load_more()
+        if self.getFocusId() == GRID and self.nav and (code in ACTION_CONTEXT or code in ACTION_PLAY):
+            ctrl = self.list_control(GRID)
+            pos = ctrl.getSelectedPosition()
+            if 0 <= pos < len(self.items):
+                item = self.items[pos]
+                if code in ACTION_CONTEXT:
+                    self.nav("context", {"item": item,
+                                         "on_changed": lambda it, _act: update_list_item(ctrl.getListItem(pos), it)})
+                    return True
+                if models.playable(item):
+                    self.nav("play", {"item": item, "resume": models.resume_ms(item)})
+                    return True
         return False
 
     def on_click(self, control_id):
@@ -133,13 +146,14 @@ class LibraryWindow(GridWindow):
 
     def on_click(self, control_id):
         if control_id == SORT:
-            choice = xbmcgui.Dialog().select(T(30123), [name for _, name in SORTS])
+            current = [key for key, _ in SORTS].index(self.sort) if self.sort in dict(SORTS) else -1
+            choice = menu.choose(T(30123), [name for _, name in SORTS], selected=current)
             if choice >= 0:
                 self.sort = SORTS[choice][0]
                 self._refresh_pills()
                 self._reset()
         elif control_id == FILTER:
-            choice = xbmcgui.Dialog().select(T(30124), [T(30125), T(30126)])
+            choice = menu.choose(T(30124), [T(30125), T(30126)], selected=1 if self.filter.get("unwatched") else 0)
             if choice >= 0:
                 self.filter = {} if choice == 0 else {"unwatched": True}
                 self._refresh_pills()
