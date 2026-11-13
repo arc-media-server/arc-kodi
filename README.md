@@ -23,6 +23,17 @@ playback. See `docs/changes/` for what's built and why.
 
 Kodi 19 (Matrix) or newer. No extra Python packages are needed.
 
+## Playback
+
+Arc sends original files to Kodi when the selected quality and server limits allow it. Kodi
+handles decoding, HDR/Dolby Vision compatibility, tone mapping and audio output using its own
+settings. The add-on does not maintain device-specific format restrictions or certify native
+HDR/Atmos output. What works depends on your Kodi build, hardware and configuration.
+
+The add-on's maximum-resolution setting and Arc's profile/server streaming limits still apply.
+You can choose a lower playback quality, and existing remux/conversion retries remain available
+after a playback error.
+
 ## For developers
 
 - `python3 -m pytest -q` runs the `resources/lib/arc/` tests (the API client, Home rows and
