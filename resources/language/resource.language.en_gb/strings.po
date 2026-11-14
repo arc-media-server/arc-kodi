@@ -745,3 +745,7 @@ msgstr ""
 msgctxt "#30291"
 msgid "Chapter %d"
 msgstr ""
+
+msgctxt "#30292"
+msgid "Episodes"
+msgstr ""

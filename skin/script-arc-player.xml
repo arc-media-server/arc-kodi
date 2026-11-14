@@ -25,6 +25,12 @@
         <texture>arc-osd-scrim.png</texture>
       </control>
 
+      <!-- Paused, the title's overview shows above it (as Plex's player). -->
+      <control type="textbox" id="203">
+        <left>100</left><top>712</top><width>1300</width><height>78</height>
+        <font>arc-small</font><textcolor>DDFFFFFF</textcolor><shadowcolor>CC000000</shadowcolor>
+        <visible>String.IsEqual(Window.Property(arc.paused),1) + String.IsEmpty(Window.Property(arc.thumb))</visible>
+      </control>
       <control type="label" id="201">
         <left>100</left><top>800</top><width>1300</width><height>40</height>
         <font>arc-body</font><textcolor>CCFFFFFF</textcolor>

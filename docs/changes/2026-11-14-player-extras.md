@@ -31,3 +31,24 @@ jumping to 1:30.
 
 Checked in Kodi on a virtual display with thumbnails turned on for the scratch Films library: the
 frame for 0:55 above the marker while skipping.
+
+## Episodes and the overview
+
+- **An episode's Playback menu has Episodes** ("Season 1"): this season's episodes with their
+  lengths, the one playing ticked. Choosing one plays it in the same player, from where the
+  profile left it, as the Apple player's Episodes tab. The season comes from the show's seasons
+  (`GET /series/{id}/seasons`), fetched as the episode starts. A season list's episodes don't
+  carry their show's name and pictures, so they take the playing episode's.
+- **Paused, the title's overview shows above it**, two lines, as Plex's player. It hides while a
+  skip thumbnail shows.
+- The player's next-episode path is now one function (`_switch_to`), used by Up Next, a play
+  queue and the Episodes list.
+
+The Apple player's Info, Chapters, Cast and Episodes tabs are a panel under the controls. Here
+Chapters and Episodes are lists in the Playback menu, and Info is the overview when paused. Cast
+isn't in the player (it's on the title page).
+
+Checked in Kodi on a virtual display, with two Firefly episodes made 3 minutes long: the overview
+when paused; Playback → Episodes listing Season 1 with Ariel ticked; choosing Safe switched to it.
+The show's name carrying over was fixed after that run and not seen on screen: the scratch
+Continue Watching had moved on to 3-second clips.

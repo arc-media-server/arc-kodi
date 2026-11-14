@@ -87,6 +87,7 @@ class Playback(object):
         self.queue = queue         # an arc.queues.PlayQueue (Play All, Shuffle): it says what's next
         self.done = False          # finished: Kodi's later events are for another playback
         self.thumbs = None         # the playing file's timeline thumbnails: {file, interval_ms, count}
+        self.season_episodes = []  # an episode's season, for the player's Episodes list
         self._start_ms = resume_ms  # the source position the current plan was asked to start at
         self._last_ms = None        # where Kodi last said it was playing (source timeline)
         # The viewer's choices, sent with every request to Arc (a restart keeps them).
@@ -154,7 +155,7 @@ class Playback(object):
             self._fetch_thumbs(plan["file_id"])
         if self.audio_index is None and (plan.get("audio_stream") or -1) >= 0:
             self.audio_index = plan["audio_stream"]
-        log.info("playing a %s: %s", self.item.get("kind", "title"), plan.get("method"))
+        log.info("playing %s: %s", self.item.get("kind", "title"), plan.get("method"))
         return True
 
     def _play_url(self):
@@ -209,6 +210,8 @@ class Playback(object):
             self.controls.on_plan(self.plan)
         if self.queue is not None:
             self.next_item = self.queue.peek_next()
+            if models.is_episode(self.item) and not self.season_episodes:
+                threading.Thread(target=self._fetch_season, daemon=True).start()
         elif models.is_episode(self.item) and self.next_item is None:
             threading.Thread(target=self._fetch_next, daemon=True).start()
 
@@ -256,6 +259,23 @@ class Playback(object):
             self.next_item = self.api.next_episode(self.item_id)
         except Exception as e:
             log.debug("next episode unknown (%s)", type(e).__name__)
+        self._fetch_season()
+
+    def _fetch_season(self):
+        """This episode's season (for the player's Episodes list), from its show's seasons."""
+        show = self.item.get("parent_id")
+        if not show:
+            return
+        try:
+            data = self.api.seasons(show) or {}
+        except Exception as e:
+            log.debug("season unknown (%s)", type(e).__name__)
+            return
+        for season in data.get("seasons") or []:
+            episodes = season.get("episodes") or []
+            if any(e.get("id") == self.item_id for e in episodes):
+                self.season_episodes = episodes
+                return
 
     def on_pause(self, paused):
         self.paused = paused
@@ -503,10 +523,37 @@ class Playback(object):
             except Exception:
                 nxt = None
         self.next_item = None
+        if not self._switch_to(nxt):
+            self._finish()
+
+    def play_episode(self, episode):
+        """Plays another episode in place of this one (the player's Episodes list)."""
+        if not episode or episode.get("id") == self.item_id:
+            return
+        # A season list's episodes don't carry their show's name and pictures: they're this one's.
+        episode = dict(episode)
+        for key in ("series_title", "parent_id", "library_id"):
+            if not episode.get(key) and self.item.get(key):
+                episode[key] = self.item[key]
+        images = {k: v for k, v in models.images(self.item).items() if k.startswith("series_")}
+        images.update(models.images(episode))
+        episode["images"] = images
+        self._stop.set()
+        self._report("stopped")
+        self._release_session()
+        self.next_item = None
+        if not self._switch_to(episode, models.resume_ms(episode)):
+            self._finish()
+
+    def _switch_to(self, nxt, resume_ms=0):
+        """Plays `nxt` in this playback (the same player window), from `resume_ms`; False if it
+        can't."""
         if nxt and models.playable(nxt):
             self.item = nxt
             self.item_id = nxt.get("id")
-            self.resume_ms = 0
+            self.resume_ms = resume_ms
+            self.thumbs = None
+            self.season_episodes = []
             self.duration_ms = models.duration_ms(nxt)
             self.file_id = None
             self.audio_index = None
@@ -514,12 +561,12 @@ class Playback(object):
             self._subtitle_chosen = False
             self._started = False
             self._stop.clear()
-            if self._request(0):
+            if self._request(resume_ms):
                 self._switching = True
                 self._open_player()
                 threading.Thread(target=self._progress_loop, daemon=True).start()
-                return
-        self._finish()
+                return True
+        return False
 
     def _fail(self):
         xbmcgui.Dialog().notification("Arc", T(30188))

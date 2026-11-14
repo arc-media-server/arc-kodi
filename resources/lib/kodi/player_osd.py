@@ -28,7 +28,7 @@ from .log import log
 
 CATCHER = 90
 SKIP, UP_NEXT, UP_NEXT_TITLE, UP_NEXT_PLAY, UP_NEXT_CLOSE, UP_NEXT_COUNT = 100, 101, 104, 103, 105, 106
-EPISODE_LINE, TITLE = 201, 202
+EPISODE_LINE, TITLE, OVERVIEW = 201, 202, 203
 PLAYBACK_BUTTON, AUDIO_BUTTON, SUBTITLES_BUTTON = 301, 302, 303
 BUTTONS = (PLAYBACK_BUTTON, AUDIO_BUTTON, SUBTITLES_BUTTON)
 TIMELINE, TIMELINE_BAR, MARKER, TIME_GROUP, TIME_PLAYED, TIME_LEFT = 400, 401, 402, 403, 404, 405
@@ -291,6 +291,10 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
 
     def _titles(self):
         item = self.pb.item
+        try:
+            self.getControl(OVERVIEW).setText(item.get("overview") or "")
+        except Exception:
+            pass
         if models.is_episode(item):
             self._label(EPISODE_LINE, T(30222) % (item.get("season_number") or 0, item.get("episode_number") or 0,
                                                  item.get("title", "")))
@@ -383,6 +387,9 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
                 current = next((v for v in plan["versions"] if v.get("file_id") == self.pb.file_id), {})
                 options.append((T(30212), self._version_name(current), False,
                                 lambda: self._open_submenu("version"), True))
+            if models.is_episode(self.pb.item) and self.pb.season_episodes:
+                options.append((T(30292), T(30155) % (self.pb.item.get("season_number") or 0), False,
+                                lambda: self._open_submenu("episodes"), True))
             if self.chapters:
                 at = playback.chapter_at(self.chapters, self.pb.position_ms())
                 options.append((T(30290), self._chapter_name(at) if at >= 0 else "", False,
@@ -399,6 +406,16 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             options = [(quality_label(q), "", q == self.pb.max_kbps, lambda q=q: self.pb.choose_quality(q))
                        for q in playback.quality_options(plan)]
             self._fill_menu(T(30210), options)
+        elif kind == "episodes":
+            # This season's episodes, the one playing ticked; choosing one plays it (from where the
+            # profile left it), as the Apple player's Episodes tab.
+            options = []
+            for e in self.pb.season_episodes:
+                name = "%s. %s" % (e.get("episode_number") or "", e.get("title", ""))
+                detail = models.runtime_text(models.duration_ms(e)) or ""
+                options.append((name, detail, e.get("id") == self.pb.item_id,
+                                lambda e=e: self.pb.play_episode(e)))
+            self._fill_menu(T(30292), options)
         elif kind == "chapters":
             at = playback.chapter_at(self.chapters, self.pb.position_ms())
             options = [(self._chapter_name(i), models.clock(c.get("start_ms") or 0), i == at,
