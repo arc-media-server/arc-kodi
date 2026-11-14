@@ -54,7 +54,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Episode browser rises over the hero (reference look) | Apple | Part | Yes | The page scrolls the hero up as focus moves down; no separate sheet. |
 | Upcoming episodes dimmed with "Releases 8 Nov" | Apple | Done | Yes | |
 | About, Details, Crew and Playback cards | Both | Done | Yes | |
-| Cast & Crew row (opens the person) | Both | Done | Yes | The person opens as a grid of their titles; a proper person page comes with library parity. |
+| Cast & Crew row (opens the person) | Both | Done | Yes | Opens their page. |
 | Related / More like this | Both | Done | Yes | |
 | Collections row | Both | Done | Yes | |
 | Trailers & Extras | Both | Done | Yes | Played through Arc's player, without progress. Not yet seen with real extras (the test library has none). |
