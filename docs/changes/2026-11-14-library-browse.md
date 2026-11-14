@@ -81,3 +81,33 @@ into Holidays and Back out.
 
 Checked in Kodi: Leonardo DiCaprio's page from Inception's cast; the Blade Runner Collection from
 Films → Collections.
+
+## Play All and Shuffle
+
+- **A collection's page and a playlist have Play All and Shuffle.** They make an Arc play queue
+  (`POST /play-queues` with the titles, in the order shown, or the playlist's id), shuffle it on
+  the server for Shuffle, and play its first title. As each title ends, the player asks the
+  queue for the next (`PATCH … advance`), so Up Next shows it and auto-play follows the
+  profile's setting, as with a show's next episode. Entries Arc can't play are passed over. The
+  logic is `arc/queues.py`, tested against the stand-in server.
+- Arc keeps one queue per device and profile. Making a new one when one exists answers 409, so
+  the add-on reads the current queue and replaces it (`replace_id` and `revision`).
+- On the collection page the pills sit right of the name (cut short if it's long), with Sort in
+  Filter's place.
+
+## Fixed along the way: an old playback acting on the next one's events
+
+Kodi sends its player events to every `xbmc.Player` the add-on has made. A playback that had
+already finished (stopped, or ended) still heard the next title's start and end. It reported
+progress again and could act on the end: advance its old queue (the 404 seen while testing) or
+start an episode after it. A playback now ignores Kodi's events once it has finished.
+
+Checked in Kodi on a virtual display: Play All on the Blade Runner Collection played both films
+in turn (one "playback started" each, no warnings); Shuffle made a shuffled queue, replacing the
+last one. While testing, seeking through Kodi's JSON-RPC crashed Kodi 20 inside its own
+JSON-RPC server (`CTCPServer::Announce`): a Kodi bug hit by the test tool, not the add-on.
+
+## Logging
+
+- "playing a queue of N (in order|shuffled)" (info) when Play All or Shuffle starts.
+- Warnings when a queue can't be made or doesn't advance, naming the error type.

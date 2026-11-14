@@ -147,7 +147,25 @@ class App(object):
         self._open(person.PersonWindow, person=credit)
 
     def _open_collection(self, ref):
-        self._open(library.CollectionWindow, collection_id=ref.get("id"), title=ref.get("title", ""))
+        self._open(library.CollectionWindow, collection_id=ref.get("id"), title=ref.get("title", ""),
+                   play=lambda shuffle, ids: self._play_queue(item_ids=ids, shuffle=shuffle))
+
+    def _play_queue(self, item_ids=None, playlist_id=None, shuffle=False):
+        """Play All / Shuffle: a play queue on Arc, then its first title; the player asks the queue
+        for each next one."""
+        from arc.queues import PlayQueue
+        try:
+            queue = PlayQueue.create(self.session.api, item_ids=item_ids, playlist_id=playlist_id, shuffle=shuffle)
+        except Exception as e:
+            log.warning("play queue failed: %s", type(e).__name__)
+            xbmcgui.Dialog().notification("Arc", T(30289))
+            return
+        first = queue.current_item()
+        if not first:
+            xbmcgui.Dialog().notification("Arc", T(30289))
+            return
+        log.info("playing a queue of %d (%s)", len(queue.entries), "shuffled" if shuffle else "in order")
+        self._play(first, 0, queue=queue)
 
     def _play_extra(self, extra):
         from .player import ExtraPlayback
@@ -279,7 +297,8 @@ class App(object):
         choice = menu.choose(T(30083), names)
         if choice >= 0:
             pid = playlists[choice].get("id")
-            self._open_grid(names[choice], self._playlist_loader(pid))
+            self._open(library.GridWindow, title=names[choice], loader=self._playlist_loader(pid), style="poster",
+                       paged=True, play=lambda shuffle, _ids: self._play_queue(playlist_id=pid, shuffle=shuffle))
 
     # MARK: - loaders
 
@@ -298,7 +317,7 @@ class App(object):
 
     # MARK: - playback
 
-    def _play(self, item, resume_ms):
+    def _play(self, item, resume_ms, queue=None):
         """Starts playback and returns at once. Kodi delivers the player's events (started, paused,
         ended) on this thread through the open window's loop, so it must not be held here waiting;
         the Playback reports progress and cleans up on its own threads."""
@@ -309,7 +328,7 @@ class App(object):
             if self.playback is pb:
                 self.playback = None
 
-        pb = Playback(self.session, item, resume_ms=resume_ms, on_finished=finished)
+        pb = Playback(self.session, item, resume_ms=resume_ms, on_finished=finished, queue=queue)
         self.playback = pb
         if not pb.start():
             self.playback = None

@@ -32,11 +32,11 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Remove from Continue Watching | Android | Done | Yes | In the card menu, on Continue Watching. |
 | Menus and questions in Arc's style (card menu, Sort, Filter, pickers, Sign Out) | Both | Done | Yes | One Arc menu; Kodi's keyboard and PIN number pad remain (see Search and PINs). |
 | Watch Together row | Apple | Missing | Yes | With Watch Together. |
-| Library: Recommended / Browse / Collections / Folders pills | Both | Part | Yes | Recommended (the server's rows under a hero), Browse and Collections; no Folders (Other videos) yet. |
-| Library sort and filter (genre, unwatched, decade, resolution...) | Both | Part | Yes | Sort and unwatched only. |
+| Library: Recommended / Browse / Collections / Folders pills | Both | Done | Yes | Folders for Other videos libraries, which show as wide cards. |
+| Library sort and filter (genre, unwatched, decade, resolution...) | Both | Done | Yes | Seven reversible sorts; Unwatched, Genre, Decade, Resolution (films) from the facets. |
 | Posters: unwatched count tab, progress bar, watched tick, year · length | Both | Done | Yes | |
 | Paging large libraries | Both | Done | Yes | |
-| Collection, playlist, person and folder pages | Both | Part | Yes | Playlists, the watchlist, a person (from Cast) and a collection open as a plain grid; no proper person, collection or folder pages yet. |
+| Collection, playlist, person and folder pages | Both | Done | Yes | Person (photo, part, rows) and collection (overview, sort) pages; folders in the Folders tab. Playlists are a grid with Play All / Shuffle. |
 | Search as you type; results in rows (films, shows, episodes, people, collections, genres) | Both | Part | Yes | Kodi's keyboard dialog, then one grid of films/shows/episodes. An on-screen keyboard (as PM4K's) gives as-you-type. |
 | Live updates (new titles, watched state from other devices) | Both | Missing | Yes | Arc's event stream (SSE) with urllib; refetch on change. |
 
@@ -59,7 +59,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Collections row | Both | Done | Yes | |
 | Trailers & Extras | Both | Done | Yes | Played through Arc's player, without progress. Not yet seen with real extras (the test library has none). |
 | Versions (editions) choice before playing | Android | Missing | Yes | In the player's Playback menu now. |
-| Play All / Shuffle (play queues) | Android | Missing | Yes | Arc's play-queues API. |
+| Play All / Shuffle (play queues) | Android | Done | Yes | Collections and playlists, through Arc's play queues. |
 | Context menu on any card (Play, watched, watchlist, go to show) | Both | Done | Yes | Arc's own menu on Home, grids, search and the title page. |
 
 ## Player
@@ -106,13 +106,12 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 ## Suggested order
 
 Done: real-device policy (owner, 13 November: Kodi owns format compatibility, so no per-device
-rules; hardware checks still to do on the AM6B+), title page parity, and Arc's own menus.
+rules; hardware checks still to do on the AM6B+), title page parity, Arc's own menus, and library
+parity (tabs, sort and filters, folders, person and collection pages, Play All / Shuffle).
 
-1. **Library parity:** Recommended, Collections and Folders pills; filters; the unwatched tab;
-   person, collection and folder pages; Play All / Shuffle.
-2. **Player extras:** chapters, timeline thumbnails, the Info/Episodes tabs, speed.
-3. **Settings screen** (Auto-Play, Skip Intros, subtitle mode), a password sign-in and an Arc
+1. **Player extras:** chapters, timeline thumbnails, the Info/Episodes tabs, speed.
+2. **Settings screen** (Auto-Play, Skip Intros, subtitle mode), a password sign-in and an Arc
    PIN pad.
-4. **Search** with an on-screen keyboard and rows; **live updates**.
-5. **Watch Together**.
-6. **Distribution:** the zip built on push, then a Kodi repository for updates.
+3. **Search** with an on-screen keyboard and rows; **live updates**.
+4. **Watch Together**.
+5. **Distribution:** the zip built on push, then a Kodi repository for updates.

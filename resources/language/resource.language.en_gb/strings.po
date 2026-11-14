@@ -725,3 +725,15 @@ msgstr ""
 msgctxt "#30286"
 msgid "This collection has nothing you can watch yet."
 msgstr ""
+
+msgctxt "#30287"
+msgid "Play All"
+msgstr ""
+
+msgctxt "#30288"
+msgid "Shuffle"
+msgstr ""
+
+msgctxt "#30289"
+msgid "Arc couldn't start that."
+msgstr ""

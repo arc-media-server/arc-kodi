@@ -26,33 +26,47 @@ REPORT_EVERY = 10.0
 
 
 class ArcPlayer(xbmc.Player):
+    """Kodi's player events for one Playback. Kodi sends every event to every xbmc.Player the
+    add-on has made, so once its playback has finished this one passes nothing on (an earlier
+    title's playback would otherwise act on the next one's end: advance its old queue, play an
+    episode after it, report progress again)."""
+
     def __init__(self, playback_session):
         xbmc.Player.__init__(self)
         self.pb = playback_session
 
+    def _live(self):
+        return not self.pb.done
+
     def onAVStarted(self):
-        self.pb.on_started()
+        if self._live():
+            self.pb.on_started()
 
     def onPlayBackPaused(self):
-        self.pb.on_pause(True)
+        if self._live():
+            self.pb.on_pause(True)
 
     def onPlayBackResumed(self):
-        self.pb.on_pause(False)
+        if self._live():
+            self.pb.on_pause(False)
 
     def onPlayBackEnded(self):
-        self.pb.on_ended(finished=True)
+        if self._live():
+            self.pb.on_ended(finished=True)
 
     def onPlayBackStopped(self):
-        self.pb.on_ended(finished=False)
+        if self._live():
+            self.pb.on_ended(finished=False)
 
     def onPlayBackError(self):
-        self.pb.on_error()
+        if self._live():
+            self.pb.on_error()
 
 
 class Playback(object):
     """One title's playback: start, keep progress, the choices made in the player, clean up."""
 
-    def __init__(self, session, item, resume_ms=0, on_finished=None):
+    def __init__(self, session, item, resume_ms=0, on_finished=None, queue=None):
         self.session = session
         self.api = session.api
         self.item = item
@@ -70,6 +84,8 @@ class Playback(object):
         self.duration_ms = models.duration_ms(item)
         self.controls = None
         self.next_item = None      # the episode after this one, for Up Next
+        self.queue = queue         # an arc.queues.PlayQueue (Play All, Shuffle): it says what's next
+        self.done = False          # finished: Kodi's later events are for another playback
         self._start_ms = resume_ms  # the source position the current plan was asked to start at
         self._last_ms = None        # where Kodi last said it was playing (source timeline)
         # The viewer's choices, sent with every request to Arc (a restart keeps them).
@@ -189,7 +205,9 @@ class Playback(object):
             self._open_controls()  # over the full-screen video, once it's showing
         if self.controls:
             self.controls.on_plan(self.plan)
-        if models.is_episode(self.item) and self.next_item is None:
+        if self.queue is not None:
+            self.next_item = self.queue.peek_next()
+        elif models.is_episode(self.item) and self.next_item is None:
             threading.Thread(target=self._fetch_next, daemon=True).start()
 
     def _open_controls(self):
@@ -437,11 +455,20 @@ class Playback(object):
             self._open_player()
 
     def _should_play_next(self):
-        return models.is_episode(self.item) and (self.session.prefs or {}).get("auto_play", True)
+        auto = (self.session.prefs or {}).get("auto_play", True)
+        if self.queue is not None:
+            return auto and self.queue.peek_next() is not None
+        return models.is_episode(self.item) and auto
 
     def _play_next(self):
         nxt = self.next_item
-        if nxt is None:
+        if self.queue is not None:
+            try:
+                nxt = self.queue.advance()   # the queue moves on with the player
+            except Exception as e:
+                log.warning("play queue didn't advance: %s", type(e).__name__)
+                nxt = None
+        elif nxt is None:
             try:
                 nxt = self.api.next_episode(self.item_id)
             except Exception:
@@ -471,6 +498,7 @@ class Playback(object):
         self._finish()
 
     def _finish(self):
+        self.done = True
         if self.controls is not None:
             try:
                 self.controls.finish()

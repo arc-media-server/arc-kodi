@@ -18,10 +18,26 @@
       <left>80</left><top>112</top><width>400</width><height>36</height>
       <font>arc-small</font><textcolor>muted</textcolor><label></label>
     </control>
+    <!-- Play All and Shuffle, for a collection or a playlist (hidden elsewhere). -->
+    <control type="button" id="108">
+      <include content="PillButton"><param name="width" value="220"/></include>
+      <left>980</left><top>40</top>
+      <ondown>100</ondown><onup>noop</onup><onleft>noop</onleft><onright>109</onright>
+      <label>$ADDON[script.arc 30287]</label>
+    </control>
+    <control type="button" id="109">
+      <include content="PillButton"><param name="width" value="220"/></include>
+      <left>1212</left><top>40</top>
+      <ondown>100</ondown><onup>noop</onup><onleft>108</onleft>
+      <onright condition="Control.IsVisible(102)">102</onright><onright condition="!Control.IsVisible(102)">noop</onright>
+      <label>$ADDON[script.arc 30288]</label>
+    </control>
     <control type="button" id="102">
       <include content="PillButton"><param name="width" value="420"/></include>
       <left>1180</left><top>40</top>
-      <ondown>100</ondown><onup>noop</onup><onleft>120</onleft><onright>103</onright>
+      <ondown>100</ondown><onup>noop</onup>
+      <onleft condition="Control.IsVisible(109)">109</onleft><onleft condition="!Control.IsVisible(109)">120</onleft>
+      <onright>103</onright>
       <label>$ADDON[script.arc 30123]</label>
     </control>
     <control type="button" id="103">
@@ -33,7 +49,8 @@
     <control type="panel" id="100">
       <left>72</left><top>170</top><width>1800</width><height>880</height>
       <onup condition="!String.IsEmpty(Window.Property(arc.tab0))">120</onup>
-      <onup condition="String.IsEmpty(Window.Property(arc.tab0))">102</onup>
+      <onup condition="String.IsEmpty(Window.Property(arc.tab0)) + Control.IsVisible(108)">108</onup>
+      <onup condition="String.IsEmpty(Window.Property(arc.tab0)) + !Control.IsVisible(108)">102</onup>
       <orientation>vertical</orientation>
       <!-- Posters, or wide cards for Other videos (their pictures are stills): the window property
            arc.style says which. -->

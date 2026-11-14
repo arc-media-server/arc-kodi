@@ -23,6 +23,8 @@ FILTER = 103
 COUNT = 104
 EMPTY = 105
 OVERVIEW = 107
+PLAY_ALL = 108
+SHUFFLE = 109
 TABS = 120
 TAB_BASE = 121          # slot i: "current" button 121 + 2i, "other" button 122 + 2i
 TAB_SLOTS = 3
@@ -102,6 +104,9 @@ class GridWindow(TabsMixin, ArcWindow):
         self.library = kwargs.pop("library", None)
         self.tab = kwargs.pop("tab", None)
         self.open_item = kwargs.pop("open_item", None)  # for cards that aren't titles (collections)
+        # Play All and Shuffle: play(shuffle, item_ids) plays the grid's titles, in the order
+        # shown, through a play queue.
+        self.play = kwargs.pop("play", None)
         ArcWindow.__init__(self, *args, **kwargs)
         self.items = []
         self.total = None
@@ -114,6 +119,8 @@ class GridWindow(TabsMixin, ArcWindow):
         self.set_label(TITLE, self.title)
         self.set_visible(SORT, False)
         self.set_visible(FILTER, False)
+        self.set_visible(PLAY_ALL, False)
+        self.set_visible(SHUFFLE, False)
         if self.library is not None:
             self.show_tabs()
         self._load_more()
@@ -159,7 +166,13 @@ class GridWindow(TabsMixin, ArcWindow):
 
     def page_loaded(self, offset):
         """Called on the UI side once a page of the grid has arrived (for a page's header)."""
-        pass
+        if offset == 0 and self.play and self.items:
+            self.set_visible(PLAY_ALL, True)
+            self.set_visible(SHUFFLE, True)
+            try:
+                self.getControl(TITLE).setWidth(880)  # the name stops short of the pills
+            except Exception:
+                pass
 
     def on_action(self, action, code):
         if code in (xbmcgui.ACTION_MOVE_DOWN, xbmcgui.ACTION_PAGE_DOWN) and self.getFocusId() == GRID:
@@ -185,7 +198,9 @@ class GridWindow(TabsMixin, ArcWindow):
             self.tab_focused(control_id)
 
     def on_click(self, control_id):
-        if self.tab_at(control_id):
+        if control_id in (PLAY_ALL, SHUFFLE) and self.play:
+            self.play(control_id == SHUFFLE, [it.get("id") for it in self.items if it.get("id")])
+        elif self.tab_at(control_id):
             self.tab_clicked(control_id)
         elif control_id == GRID and self.nav:
             pos = self.list_control(GRID).getSelectedPosition()
@@ -376,6 +391,7 @@ class CollectionWindow(GridWindow):
         return items, len(items)
 
     def page_loaded(self, offset):
+        GridWindow.page_loaded(self, offset)
         if offset == 0:
             self._show_header()
 
@@ -387,6 +403,11 @@ class CollectionWindow(GridWindow):
                 # Room for the overview: the grid starts under it.
                 self.getControl(GRID).setPosition(72, 250)
                 self.getControl(GRID).setHeight(800)
+            except Exception:
+                pass
+        if len(self.loaded) > 1:
+            try:
+                self.getControl(SORT).setPosition(1460, 40)  # in Filter's place, right of Shuffle
             except Exception:
                 pass
         self.set_visible(SORT, len(self.loaded) > 1)

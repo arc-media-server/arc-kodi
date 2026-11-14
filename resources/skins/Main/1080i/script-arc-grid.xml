@@ -127,6 +127,45 @@
       <textcolor>FFA1A1AD</textcolor>
       <label />
     </control>
+    <control type="button" id="108">
+      <width>220</width>
+      <height>76</height>
+      <font>font13</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <focusedcolor>FF000000</focusedcolor>
+      <texturefocus border="38">arc-pill-white.png</texturefocus>
+      <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+      <aligny>center</aligny>
+      <align>center</align>
+      <textoffsetx>28</textoffsetx>
+      <left>980</left>
+      <top>40</top>
+      <ondown>100</ondown>
+      <onup>noop</onup>
+      <onleft>noop</onleft>
+      <onright>109</onright>
+      <label>$ADDON[script.arc 30287]</label>
+    </control>
+    <control type="button" id="109">
+      <width>220</width>
+      <height>76</height>
+      <font>font13</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <focusedcolor>FF000000</focusedcolor>
+      <texturefocus border="38">arc-pill-white.png</texturefocus>
+      <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+      <aligny>center</aligny>
+      <align>center</align>
+      <textoffsetx>28</textoffsetx>
+      <left>1212</left>
+      <top>40</top>
+      <ondown>100</ondown>
+      <onup>noop</onup>
+      <onleft>108</onleft>
+      <onright condition="Control.IsVisible(102)">102</onright>
+      <onright condition="!Control.IsVisible(102)">noop</onright>
+      <label>$ADDON[script.arc 30288]</label>
+    </control>
     <control type="button" id="102">
       <width>420</width>
       <height>76</height>
@@ -142,7 +181,8 @@
       <top>40</top>
       <ondown>100</ondown>
       <onup>noop</onup>
-      <onleft>120</onleft>
+      <onleft condition="Control.IsVisible(109)">109</onleft>
+      <onleft condition="!Control.IsVisible(109)">120</onleft>
       <onright>103</onright>
       <label>$ADDON[script.arc 30123]</label>
     </control>
@@ -171,7 +211,8 @@
       <width>1800</width>
       <height>880</height>
       <onup condition="!String.IsEmpty(Window.Property(arc.tab0))">120</onup>
-      <onup condition="String.IsEmpty(Window.Property(arc.tab0))">102</onup>
+      <onup condition="String.IsEmpty(Window.Property(arc.tab0)) + Control.IsVisible(108)">108</onup>
+      <onup condition="String.IsEmpty(Window.Property(arc.tab0)) + !Control.IsVisible(108)">102</onup>
       <orientation>vertical</orientation>
       <itemlayout width="292" height="460" condition="!String.IsEqual(Window.Property(arc.style),thumb)">
         <control type="image">
