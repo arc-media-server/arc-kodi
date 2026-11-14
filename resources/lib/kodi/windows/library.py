@@ -22,6 +22,7 @@ SORT = 102
 FILTER = 103
 COUNT = 104
 EMPTY = 105
+OVERVIEW = 107
 TABS = 120
 TAB_BASE = 121          # slot i: "current" button 121 + 2i, "other" button 122 + 2i
 TAB_SLOTS = 3
@@ -144,6 +145,7 @@ class GridWindow(TabsMixin, ArcWindow):
                     # The first page takes the focus, unless it's on the pills (a new sort or
                     # filter keeps it there). Kodi refuses focus until the cards are drawn.
                     self.focus_when_visible(GRID)
+            self.page_loaded(offset)
             count = self.total or len(self.items)
             text = str(count) if count else ""
             if self.library is not None:
@@ -154,6 +156,10 @@ class GridWindow(TabsMixin, ArcWindow):
 
     def _show_empty(self):
         self.set_label(EMPTY, T(30106))
+
+    def page_loaded(self, offset):
+        """Called on the UI side once a page of the grid has arrived (for a page's header)."""
+        pass
 
     def on_action(self, action, code):
         if code in (xbmcgui.ACTION_MOVE_DOWN, xbmcgui.ACTION_PAGE_DOWN) and self.getFocusId() == GRID:
@@ -339,3 +345,66 @@ class FolderWindow(GridWindow):
                 self.nav("folder", {"library": self.folder_library, "path": folder["path"], "title": folder["title"]})
                 return
         GridWindow.on_click(self, control_id)
+
+
+class CollectionWindow(GridWindow):
+    """A collection's page, as the Apple app's: its name, its overview, and its titles in release
+    order or by title (the Sort pill)."""
+
+    def __init__(self, *args, **kwargs):
+        self.collection_id = kwargs.pop("collection_id")
+        self.by_title = False
+        self.overview = ""
+        self.loaded = None      # the collection's titles, in the server's (release) order
+        kwargs["paged"] = False
+        GridWindow.__init__(self, *args, loader=self._items, **kwargs)
+
+    def on_init(self):
+        GridWindow.on_init(self)
+        self._refresh_sort()
+
+    def _items(self, offset, limit):
+        if self.loaded is None:
+            page = self.session.api.collection(self.collection_id) or {}
+            self.loaded = list(page.get("items") or [])
+            info = page.get("collection") or {}
+            self.overview = info.get("overview") or ""
+            if info.get("title"):
+                self.title = info["title"]
+        items = sorted(self.loaded, key=lambda it: (it.get("sort_title") or it.get("title") or "").lower()) \
+            if self.by_title else list(self.loaded)
+        return items, len(items)
+
+    def page_loaded(self, offset):
+        if offset == 0:
+            self._show_header()
+
+    def _show_header(self):
+        self.set_label(TITLE, self.title)
+        if self.overview:
+            self.set_text(OVERVIEW, self.overview)
+            try:
+                # Room for the overview: the grid starts under it.
+                self.getControl(GRID).setPosition(72, 250)
+                self.getControl(GRID).setHeight(800)
+            except Exception:
+                pass
+        self.set_visible(SORT, len(self.loaded) > 1)
+
+    def _show_empty(self):
+        self.set_label(EMPTY, T(30286))
+
+    def _refresh_sort(self):
+        self.set_label(SORT, "%s: %s" % (T(30123), T(30128) if self.by_title else T(30251)))
+
+    def on_click(self, control_id):
+        if control_id == SORT:
+            choice = menu.choose(T(30123), [T(30251), T(30128)], selected=1 if self.by_title else 0)
+            if choice >= 0 and (choice == 1) != self.by_title:
+                self.by_title = choice == 1
+                self._refresh_sort()
+                self.items, self.total, self.offset = [], None, 0
+                self.list_control(GRID).reset()
+                GridWindow._load_more(self)
+        else:
+            GridWindow.on_click(self, control_id)

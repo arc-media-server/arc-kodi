@@ -681,3 +681,47 @@ msgstr ""
 msgctxt "#30275"
 msgid "1 video"
 msgstr ""
+
+msgctxt "#30276"
+msgid "1 title in your libraries"
+msgstr ""
+
+msgctxt "#30277"
+msgid "%d titles in your libraries"
+msgstr ""
+
+msgctxt "#30278"
+msgid "as %s"
+msgstr ""
+
+msgctxt "#30279"
+msgid "Movies"
+msgstr ""
+
+msgctxt "#30280"
+msgid "TV Shows"
+msgstr ""
+
+msgctxt "#30281"
+msgid "Behind the Camera"
+msgstr ""
+
+msgctxt "#30282"
+msgid "Director"
+msgstr ""
+
+msgctxt "#30283"
+msgid "Writer"
+msgstr ""
+
+msgctxt "#30284"
+msgid "Producer"
+msgstr ""
+
+msgctxt "#30285"
+msgid "Nothing in your libraries has them in it."
+msgstr ""
+
+msgctxt "#30286"
+msgid "This collection has nothing you can watch yet."
+msgstr ""

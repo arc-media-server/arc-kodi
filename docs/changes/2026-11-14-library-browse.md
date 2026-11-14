@@ -62,3 +62,22 @@ A failed facets load logs at debug; the grid works without filters.
 Checked in Kodi with a scratch Other videos library (subfolders Holidays/Summer 2024,
 Holidays/Christmas 2023, Concerts and a loose video): Browse as wide cards, Folders with counts,
 into Holidays and Back out.
+
+## Person and collection pages
+
+- **A person's page** (from a title's Cast row), as the Apple app's PersonView:
+  - their round photo (or initials), name, and "Acting · 14 titles in your libraries";
+  - their part in the focused title ("Inception (2010) · as Dom Cobb", or "· Director" behind
+    the camera), over that title's background;
+  - rows of the Movies and TV Shows they act in, then Behind the Camera, newest first.
+
+  It's Home's window with its own skin (`script-arc-person.xml`, the same control ids), so its
+  rows, card menus and Play work as Home's. The grouping is `arc/people.py`, with tests.
+- **A collection's page** (from a title's Collections row or a library's Collections tab): its
+  name, its overview (the grid moves down under it), and its titles in release order or by
+  title from a Sort pill. "This collection has nothing you can watch yet" when it's empty. The
+  grid now has a hook for when a page arrives (`page_loaded`), which the collection uses for its
+  header.
+
+Checked in Kodi: Leonardo DiCaprio's page from Inception's cast; the Blade Runner Collection from
+Films → Collections.

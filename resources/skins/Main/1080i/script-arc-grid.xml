@@ -110,6 +110,14 @@
         <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
       </control>
     </control>
+    <control type="textbox" id="107">
+      <left>80</left>
+      <top>150</top>
+      <width>1300</width>
+      <height>76</height>
+      <font>font12</font>
+      <textcolor>FFA1A1AD</textcolor>
+    </control>
     <control type="label" id="104">
       <left>80</left>
       <top>112</top>

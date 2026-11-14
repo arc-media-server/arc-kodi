@@ -9,6 +9,11 @@
       <visible>String.IsEmpty(Window.Property(arc.tab0))</visible>
     </control>
     <include content="LibraryTabs"><param name="ondown" value="100"/><param name="onright" value="102"/></include>
+    <!-- A collection's overview (empty elsewhere); the Python moves the grid down under it. -->
+    <control type="textbox" id="107">
+      <left>80</left><top>150</top><width>1300</width><height>76</height>
+      <font>arc-small</font><textcolor>muted</textcolor>
+    </control>
     <control type="label" id="104">
       <left>80</left><top>112</top><width>400</width><height>36</height>
       <font>arc-small</font><textcolor>muted</textcolor><label></label>

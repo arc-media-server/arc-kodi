@@ -12,7 +12,7 @@ from .compat import T
 from .log import log
 from .session import Session
 from .player import Playback
-from .windows import signin, home, library, details, search, settings, menu, recommended
+from .windows import signin, home, library, details, search, settings, menu, recommended, person
 
 
 class App(object):
@@ -144,27 +144,10 @@ class App(object):
                        title=payload.get("title", ""))
 
     def _open_person(self, credit):
-        person_id = credit.get("person_id") or credit.get("id")
-
-        def load(offset, limit):
-            data = self.session.api.person(person_id) or {}
-            items, seen = [], set()
-            for c in data.get("credits") or []:
-                it = c.get("item") or {}
-                if it.get("id") and it["id"] not in seen:
-                    seen.add(it["id"])
-                    items.append(it)
-            return items, len(items)
-
-        self._open_grid(credit.get("name", ""), load)
+        self._open(person.PersonWindow, person=credit)
 
     def _open_collection(self, ref):
-        def load(offset, limit):
-            data = self.session.api.collection(ref.get("id")) or {}
-            items = data.get("items") or []
-            return items, len(items)
-
-        self._open_grid(ref.get("title", ""), load)
+        self._open(library.CollectionWindow, collection_id=ref.get("id"), title=ref.get("title", ""))
 
     def _play_extra(self, extra):
         from .player import ExtraPlayback
