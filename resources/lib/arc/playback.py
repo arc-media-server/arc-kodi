@@ -225,3 +225,29 @@ def needs_default_audio_try(preview):
         return False
     preferred, default = preview.get("audio_stream"), default_audio_index(preview)
     return default is not None and preferred is not None and preferred >= 0 and preferred != default
+
+
+# MARK: - chapters
+
+def chapters(plan):
+    """The plan's chapters in order, each with a start (ms); ones without a start are left out."""
+    out = [c for c in (plan or {}).get("chapters") or [] if c.get("start_ms") is not None]
+    return sorted(out, key=lambda c: c.get("start_ms") or 0)
+
+
+def chapter_at(chaps, position_ms):
+    """The index of the chapter playing at `position_ms`, or -1 before the first."""
+    at = -1
+    for i, c in enumerate(chaps):
+        if (c.get("start_ms") or 0) <= position_ms:
+            at = i
+    return at
+
+
+def chapter_marks(chaps, duration_ms, limit=40):
+    """Where to mark chapters on the timeline, as fractions of the length: every chapter but one
+    starting at the very beginning (there's nothing to mark there), at most `limit` of them."""
+    if duration_ms <= 0:
+        return []
+    marks = [float(c.get("start_ms") or 0) / duration_ms for c in chaps if (c.get("start_ms") or 0) > 1000]
+    return [m for m in marks if 0 < m < 1][:limit]

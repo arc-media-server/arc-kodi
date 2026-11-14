@@ -164,3 +164,17 @@ def test_kodi_requests_keep_limits_and_choices_during_fallback():
             if method == "remux":
                 assert sent["caps"]["video"] == []
         assert "mkv" in caps["containers"] and "hevc" in caps["video"]
+
+
+def test_chapters_marks_and_position():
+    plan = {"chapters": [{"title": "B", "start_ms": 60000, "end_ms": 120000},
+                         {"title": "A", "start_ms": 0, "end_ms": 60000},
+                         {"title": "C", "start_ms": 120000},
+                         {"title": "no start"}]}
+    chaps = playback.chapters(plan)
+    assert [c["title"] for c in chaps] == ["A", "B", "C"]
+    assert playback.chapter_at(chaps, 0) == 0
+    assert playback.chapter_at(chaps, 90000) == 1
+    assert playback.chapter_at([], 5) == -1
+    assert playback.chapter_marks(chaps, 240000) == [0.25, 0.5]
+    assert playback.chapter_marks(chaps, 0) == []

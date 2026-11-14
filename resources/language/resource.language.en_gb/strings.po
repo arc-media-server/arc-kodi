@@ -737,3 +737,11 @@ msgstr ""
 msgctxt "#30289"
 msgid "Arc couldn't start that."
 msgstr ""
+
+msgctxt "#30290"
+msgid "Chapters"
+msgstr ""
+
+msgctxt "#30291"
+msgid "Chapter %d"
+msgstr ""

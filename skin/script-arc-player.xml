@@ -95,6 +95,48 @@
         <texturebg border="6">arc-tl-bg.png</texturebg>
         <midtexture border="6">arc-tl-fg.png</midtexture>
       </control>
+      <!-- Chapter marks: small gaps in the bar where chapters start (placed and shown by the
+           Python, 410-449). -->
+      <control type="image" id="410"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="411"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="412"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="413"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="414"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="415"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="416"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="417"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="418"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="419"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="420"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="421"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="422"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="423"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="424"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="425"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="426"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="427"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="428"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="429"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="430"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="431"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="432"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="433"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="434"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="435"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="436"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="437"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="438"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="439"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="440"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="441"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="442"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="443"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="444"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="445"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="446"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="447"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="448"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+      <control type="image" id="449"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
       <control type="image" id="402">
         <left>100</left><top>934</top><width>8</width><height>32</height>
         <texture border="4">arc-tl-marker.png</texture>

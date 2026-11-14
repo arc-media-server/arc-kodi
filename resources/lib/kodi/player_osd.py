@@ -32,6 +32,7 @@ EPISODE_LINE, TITLE = 201, 202
 PLAYBACK_BUTTON, AUDIO_BUTTON, SUBTITLES_BUTTON = 301, 302, 303
 BUTTONS = (PLAYBACK_BUTTON, AUDIO_BUTTON, SUBTITLES_BUTTON)
 TIMELINE, TIMELINE_BAR, MARKER, TIME_GROUP, TIME_PLAYED, TIME_LEFT = 400, 401, 402, 403, 404, 405
+CHAPTER_MARK_BASE, CHAPTER_MARKS = 410, 40   # the timeline's chapter marks, 410-449
 MENU_TITLE, MENU_LIST, MENU_BACK = 601, 602, 603
 MENU_ROW, MENU_ROWS, MENU_BOTTOM = 64, 7, 816  # rows 64 high, up to 7 showing, ending above the buttons
 CONTROLS, MENU = 200, 600
@@ -111,6 +112,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         xbmcgui.WindowXMLDialog.__init__(self)
         self.pb = pb
         self.markers = []
+        self.chapters = []
         self.auto_skip = bool((pb.session.prefs or {}).get("auto_skip"))
         self.auto_play = (pb.session.prefs or {}).get("auto_play", True) is not False
         self._skipped = set()
@@ -137,6 +139,8 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
 
     def on_plan(self, plan):
         self.markers = plan.get("markers") or []
+        self.chapters = playback.chapters(plan)
+        self._draw_chapters()
         self._skipped.clear()
         self._dismissed.clear()
         self._up_next_closed = False
@@ -221,6 +225,23 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         self._label(TIME_PLAYED, models.clock(position))
         self._label(TIME_LEFT, "-" + models.clock(max(0, duration - position)) if duration > 0 else "")
 
+    def _draw_chapters(self):
+        """Marks where chapters start on the timeline (a small dark gap in the bar)."""
+        marks = playback.chapter_marks(self.chapters, self.pb.duration_ms, CHAPTER_MARKS)
+        for i in range(CHAPTER_MARKS):
+            try:
+                ctrl = self.getControl(CHAPTER_MARK_BASE + i)
+                if i < len(marks):
+                    ctrl.setPosition(int(TL_X + marks[i] * TL_W) - 2, 944)
+                    ctrl.setVisible(True)
+                else:
+                    ctrl.setVisible(False)
+            except Exception:
+                pass
+
+    def _chapter_name(self, i):
+        return (self.chapters[i].get("title") or "").strip() or T(30291) % (i + 1)
+
     # MARK: - showing things
 
     def _label(self, control_id, text):
@@ -257,6 +278,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             self._label(TITLE, item.get("title", ""))
 
     def _show(self, focus=TIMELINE):
+        self._draw_chapters()  # the length may only be known once it's playing
         self._osd = True
         self.setProperty("arc.osd", "1")
         self._draw_timeline(self.pb.position_ms() if self._pending is None else self._pending, self.pb.duration_ms)
@@ -339,6 +361,10 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
                 current = next((v for v in plan["versions"] if v.get("file_id") == self.pb.file_id), {})
                 options.append((T(30212), self._version_name(current), False,
                                 lambda: self._open_submenu("version"), True))
+            if self.chapters:
+                at = playback.chapter_at(self.chapters, self.pb.position_ms())
+                options.append((T(30290), self._chapter_name(at) if at >= 0 else "", False,
+                                lambda: self._open_submenu("chapters"), True))
             options.append((T(30213), "", False, lambda: self.pb.seek_to(0)))
         else:
             return
@@ -351,6 +377,11 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             options = [(quality_label(q), "", q == self.pb.max_kbps, lambda q=q: self.pb.choose_quality(q))
                        for q in playback.quality_options(plan)]
             self._fill_menu(T(30210), options)
+        elif kind == "chapters":
+            at = playback.chapter_at(self.chapters, self.pb.position_ms())
+            options = [(self._chapter_name(i), models.clock(c.get("start_ms") or 0), i == at,
+                        lambda c=c: self.pb.seek_to(c.get("start_ms") or 0)) for i, c in enumerate(self.chapters)]
+            self._fill_menu(T(30290), options)
         elif kind == "version":
             options = [(self._version_name(v), "", v.get("file_id") == self.pb.file_id,
                         lambda v=v: self.pb.choose_version(v.get("file_id"))) for v in plan.get("versions") or []]
