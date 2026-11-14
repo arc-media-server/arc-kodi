@@ -164,6 +164,22 @@ class ArcAPI(object):
     def recent_shows(self, library_id):
         return self.get("libraries/%d/recent-shows" % int(library_id), route="libraries/{id}/recent-shows") or []
 
+    def trickplay(self, item_id, file_id):
+        """A file's timeline thumbnails: {"bif", "info": {interval_ms, count, width, height}}, or
+        None until Arc has made them (404)."""
+        try:
+            return self.get("items/%s/trickplay?file=%s" % (_q(item_id), _q(str(file_id))), route="items/{id}/trickplay")
+        except APIError as e:
+            if e.status == 404:
+                return None
+            raise
+
+    def bif(self, item_id, file_id):
+        """The file's thumbnails as one BIF file (bytes), or None."""
+        status, data, _ = self.raw("GET", "items/%s/trickplay/%s/bif" % (_q(item_id), _q(str(file_id))),
+                                   route="items/{id}/trickplay/{file}/bif")
+        return data if status == 200 else None
+
     def facets(self, library_id):
         return self.get("libraries/%d/facets" % int(library_id), route="libraries/{id}/facets") or {}
 

@@ -33,6 +33,7 @@ PLAYBACK_BUTTON, AUDIO_BUTTON, SUBTITLES_BUTTON = 301, 302, 303
 BUTTONS = (PLAYBACK_BUTTON, AUDIO_BUTTON, SUBTITLES_BUTTON)
 TIMELINE, TIMELINE_BAR, MARKER, TIME_GROUP, TIME_PLAYED, TIME_LEFT = 400, 401, 402, 403, 404, 405
 CHAPTER_MARK_BASE, CHAPTER_MARKS = 410, 40   # the timeline's chapter marks, 410-449
+THUMB_GROUP, THUMB_IMAGE, THUMB_W = 460, 461, 328   # the thumbnail's group, image and width
 MENU_TITLE, MENU_LIST, MENU_BACK = 601, 602, 603
 MENU_ROW, MENU_ROWS, MENU_BOTTOM = 64, 7, 816  # rows 64 high, up to 7 showing, ending above the buttons
 CONTROLS, MENU = 200, 600
@@ -176,6 +177,8 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         self.setProperty("arc.paused", "1" if self.pb.paused else "")
         if self._osd or now < self._shown_until:
             self._draw_timeline(position, duration)
+        elif self._pending is None and self.getProperty("arc.thumb"):
+            self.setProperty("arc.thumb", "")
         if self._osd and not self.pb.paused and self._menu is None and now - self._last_key > HIDE_AFTER \
                 and self.getFocusId() in (TIMELINE, CATCHER):
             self._hide()
@@ -222,6 +225,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             self.getControl(TIME_GROUP).setPosition(min(max(x - 30, TL_X), TL_X + TL_W - 420), 976)
         except Exception:
             pass
+        self._draw_thumb(position)
         self._label(TIME_PLAYED, models.clock(position))
         self._label(TIME_LEFT, "-" + models.clock(max(0, duration - position)) if duration > 0 else "")
 
@@ -241,6 +245,24 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
 
     def _chapter_name(self, i):
         return (self.chapters[i].get("title") or "").strip() or T(30291) % (i + 1)
+
+    def _draw_thumb(self, position):
+        """While Left/Right builds up a skip, the thumbnail of where it will land, above the marker
+        (as the Apple and Android players); gone once it seeks."""
+        url = self.pb.thumb_url(position) if self._pending is not None else None
+        if not url:
+            if self.getProperty("arc.thumb"):
+                self.setProperty("arc.thumb", "")
+            return
+        duration = self.pb.duration_ms
+        frac = min(1.0, max(0.0, float(position) / duration)) if duration > 0 else 0.0
+        x = int(TL_X + frac * TL_W) - THUMB_W // 2
+        try:
+            self.getControl(THUMB_GROUP).setPosition(min(max(x, TL_X), TL_X + TL_W - THUMB_W), 740)
+            self.getControl(THUMB_IMAGE).setImage(url, False)
+        except Exception:
+            pass
+        self.setProperty("arc.thumb", "1")
 
     # MARK: - showing things
 

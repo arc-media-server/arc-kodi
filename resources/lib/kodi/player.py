@@ -86,6 +86,7 @@ class Playback(object):
         self.next_item = None      # the episode after this one, for Up Next
         self.queue = queue         # an arc.queues.PlayQueue (Play All, Shuffle): it says what's next
         self.done = False          # finished: Kodi's later events are for another playback
+        self.thumbs = None         # the playing file's timeline thumbnails: {file, interval_ms, count}
         self._start_ms = resume_ms  # the source position the current plan was asked to start at
         self._last_ms = None        # where Kodi last said it was playing (source timeline)
         # The viewer's choices, sent with every request to Arc (a restart keeps them).
@@ -150,6 +151,7 @@ class Playback(object):
             self.duration_ms = plan["duration_ms"]
         if plan.get("file_id"):
             self.file_id = plan["file_id"]
+            self._fetch_thumbs(plan["file_id"])
         if self.audio_index is None and (plan.get("audio_stream") or -1) >= 0:
             self.audio_index = plan["audio_stream"]
         log.info("playing a %s: %s", self.item.get("kind", "title"), plan.get("method"))
@@ -221,6 +223,33 @@ class Playback(object):
         except Exception as e:
             log.warning("player controls not shown (%s: %s)", type(e).__name__, e)
             self.controls = None
+
+    def _fetch_thumbs(self, file_id):
+        """Asks Arc for the file's timeline thumbnails, once per file, off the player's thread."""
+        if self.thumbs and self.thumbs.get("file") == file_id:
+            return
+
+        def run():
+            try:
+                tp = self.api.trickplay(self.item_id, file_id)
+            except Exception as e:
+                log.debug("timeline thumbnails unknown (%s)", type(e).__name__)
+                return
+            info = (tp or {}).get("info") or {}
+            if tp and tp.get("bif") and info.get("interval_ms") and info.get("count"):
+                self.thumbs = {"file": file_id, "interval_ms": int(info["interval_ms"]), "count": int(info["count"])}
+            else:
+                self.thumbs = None
+
+        threading.Thread(target=run, daemon=True).start()
+
+    def thumb_url(self, position_ms):
+        """A local URL of the timeline thumbnail at `position_ms`, or None."""
+        t = self.thumbs
+        if not t:
+            return None
+        index = min(t["count"] - 1, max(0, int(position_ms // t["interval_ms"])))
+        return self.session.artwork.bif_url(self.item_id, t["file"], index)
 
     def _fetch_next(self):
         try:

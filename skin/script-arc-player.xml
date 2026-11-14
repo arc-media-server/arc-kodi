@@ -165,6 +165,21 @@
       </control>
     </control>
 
+    <!-- The timeline thumbnail while Left/Right builds up a skip (arc.thumb), above the marker; the
+         Python moves group 460 along with the marker and sets image 461. -->
+    <control type="group" id="460">
+      <left>100</left><top>740</top><width>328</width><height>188</height>
+      <visible>String.IsEqual(Window.Property(arc.thumb),1)</visible>
+      <control type="image">
+        <left>0</left><top>0</top><width>328</width><height>188</height>
+        <texture>arc-white.png</texture><colordiffuse>E6FFFFFF</colordiffuse>
+      </control>
+      <control type="image" id="461">
+        <left>4</left><top>4</top><width>320</width><height>180</height>
+        <aspectratio>scale</aspectratio>
+      </control>
+    </control>
+
     <!-- A menu: Playback (and its Quality and Version), Audio or Subtitles. -->
     <control type="group" id="600">
       <left>1240</left><top>290</top><width>580</width><height>520</height>
