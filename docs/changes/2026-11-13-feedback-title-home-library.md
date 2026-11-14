@@ -135,3 +135,10 @@ timings apart without debug logging:
 
 - the add-on now logs the server's version when it connects ("loaded N libraries from Arc X");
 - it logs at info any Recommended call taking 1 s or more (it was 3 s).
+
+From the owner's second kodi.log: after leaving the add-on, Kodi logged "waiting on thread", and
+at Kodi's exit "script didn't stop in 5 seconds - let's kill it". The artwork proxy's server
+thread was never stopped, and Kodi waits for every thread an add-on started. `App.run` now ends
+playback and stops the proxy when it returns, and logs "closed". Checked in Kodi: leaving the
+add-on now ends it at once ("script successfully run"). The same log still showed Recommended at
+3.3–4.5 s at 23:07, before the owner's server had the fix.

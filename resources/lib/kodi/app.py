@@ -24,13 +24,32 @@ class App(object):
         self.session.start_proxy()
 
     def run(self):
-        if not self._ensure_signed_in():
-            return
-        if not self._ensure_profile():
-            return
-        if not self._load():
-            return
-        self._home()
+        try:
+            if not self._ensure_signed_in():
+                return
+            if not self._ensure_profile():
+                return
+            if not self._load():
+                return
+            self._home()
+        finally:
+            self._shut_down()
+
+    def _shut_down(self):
+        """Ends what still runs when the add-on closes: playback, then the artwork proxy's server.
+        Kodi waits for an add-on's threads before it ends it, so the proxy left running kept the
+        add-on alive after Back, and Kodi killed it at exit."""
+        if self.playback is not None:
+            try:
+                self.playback.stop()
+            except Exception:
+                pass
+            self.playback = None
+        try:
+            self.session.artwork.stop()
+        except Exception as e:
+            log.warning("stopping the artwork proxy failed: %s", type(e).__name__)
+        log.info("closed")
 
     # MARK: - sign-in flow
 

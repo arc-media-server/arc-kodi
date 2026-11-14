@@ -90,6 +90,9 @@ class ArtworkProxy(object):
         return "http://127.0.0.1:%d%s" % (self.port, path)
 
     def stop(self):
+        """Stops the server and its thread. Kodi waits for every thread an add-on started before
+        it lets the add-on end (and kills it after 5 s at Kodi's exit), so this must run."""
         if self._server is not None:
             self._server.shutdown()
+            self._server.server_close()
             self._server = None
