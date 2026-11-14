@@ -178,3 +178,9 @@ def test_chapters_marks_and_position():
     assert playback.chapter_at([], 5) == -1
     assert playback.chapter_marks(chaps, 240000) == [0.25, 0.5]
     assert playback.chapter_marks(chaps, 0) == []
+
+
+def test_speed_steps():
+    assert playback.speed_steps(1.0, 1.5) == 5
+    assert playback.speed_steps(1.2, 0.8) == -4
+    assert playback.speed_steps(1.0, 1.0) == 0

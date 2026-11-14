@@ -52,3 +52,23 @@ Checked in Kodi on a virtual display, with two Firefly episodes made 3 minutes l
 when paused; Playback → Episodes listing Season 1 with Ariel ticked; choosing Safe switched to it.
 The show's name carrying over was fixed after that run and not seen on screen: the scratch
 Continue Watching had moved on to 3-second clips.
+
+## Speed
+
+- **The Playback menu has Speed** (Normal, or e.g. 1.2x) where Kodi can change it. It opens
+  0.8x to 1.5x, the current one ticked. The add-on steps Kodi's tempo there
+  (`PlayerControl(TempoUp|TempoDown)`, 0.1 a step) and reads back `Player.PlaySpeed` after each
+  step, stopping if Kodi doesn't move.
+- Kodi changes speed through its audio, so it offers tempo only when it can: not with audio
+  passthrough, without an audio device, or with "Sync playback to display". The add-on asks Kodi
+  (`Player.TempoEnabled`) and shows Speed only then, following Kodi's own settings (PM4K's way)
+  rather than adding one.
+- **Not checked:** the virtual display has no audio device, so Kodi reports tempo as unavailable
+  there and Speed doesn't show. The menu was checked to open as before without it. Speed needs
+  trying on real hardware.
+
+## Logging (whole change)
+
+- "speed stayed at N" (info) when Kodi doesn't change its tempo.
+- Timeline thumbnail and season lookups log at debug.
+- "playing <kind>: <method>" (was "playing a <kind>").

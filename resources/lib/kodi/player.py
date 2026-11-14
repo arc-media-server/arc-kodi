@@ -246,6 +246,35 @@ class Playback(object):
 
         threading.Thread(target=run, daemon=True).start()
 
+    # MARK: - speed (Kodi's tempo)
+
+    @staticmethod
+    def speed_available():
+        """Whether Kodi can change the speed now: it does it through its audio, so not with
+        passthrough, without an audio device, or with "sync playback to display"."""
+        return bool(xbmc.getCondVisibility("Player.TempoEnabled"))
+
+    @staticmethod
+    def speed():
+        try:
+            return float(xbmc.getInfoLabel("Player.PlaySpeed") or 1.0)
+        except ValueError:
+            return 1.0
+
+    def set_speed(self, target):
+        """Steps Kodi's tempo to `target` (0.1 a step), checking where it got to after each."""
+        for _ in range(10):
+            steps = playback.speed_steps(self.speed(), target)
+            if steps == 0:
+                break
+            before = self.speed()
+            xbmc.executebuiltin("PlayerControl(TempoUp)" if steps > 0 else "PlayerControl(TempoDown)")
+            xbmc.sleep(150)
+            if self.speed() == before:
+                log.info("speed stayed at %.1f (Kodi didn't change its tempo)", before)
+                break
+        log.debug("speed now %.1f", self.speed())
+
     def thumb_url(self, position_ms):
         """A local URL of the timeline thumbnail at `position_ms`, or None."""
         t = self.thumbs

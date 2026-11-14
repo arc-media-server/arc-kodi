@@ -68,14 +68,14 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 |---|---|---|---|---|
 | Arc's own controls: title, round buttons, timeline | Both | Done | Yes | This change. |
 | Left/Right skip 10 s, presses add up | Both | Done | Yes | |
-| Chapters marked on the timeline; Chapters list | Both | Missing | Yes | |
-| Timeline thumbnails while skipping | Both | Missing | Part | Arc's BIF files hold single JPEGs: the add-on can unpack them; Kodi can't crop a sprite sheet. |
-| Tabs: Info, Chapters, Cast, Episodes | Apple | Missing | Yes | |
+| Chapters marked on the timeline; Chapters list | Both | Done | Yes | Marks in the bar; a list in the Playback menu. |
+| Timeline thumbnails while skipping | Both | Done | Yes | From Arc's BIF, served frame by frame by the local proxy. |
+| Tabs: Info, Chapters, Cast, Episodes | Apple | Part | Yes | Chapters and Episodes are lists in the Playback menu; the overview shows when paused; no Cast in the player. |
 | Audio menu | Both | Done | Yes | Kodi switches tracks itself in a file played as it is. |
 | Subtitles menu (in the file, beside it, picture subtitles burnt in when converted) | Both | Done | Yes | |
 | Subtitles chosen by the profile's mode and language | Both | Done | Yes | |
 | Quality and Version menus | Both | Done | Yes | |
-| Playback speed | Android | Missing | Part | Kodi 20+ has tempo (0.8–1.5×) where the platform supports it. |
+| Playback speed | Android | Done | Part | Kodi's tempo, 0.8x to 1.5x, shown where Kodi allows it; not yet tried on hardware. |
 | Subtitle style (size, colour, background) | Both | Missing | Part | Kodi draws subtitles with its own style settings; follow Kodi's (PM4K does). |
 | Audio and subtitle delay | — | Missing | Yes | Kodi's own; not in the other apps either. |
 | Skip Intro / Recap / Credits; skip by itself | Both | Done | Yes | Not yet seen with real markers (the test library has none). |
@@ -107,11 +107,11 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 
 Done: real-device policy (owner, 13 November: Kodi owns format compatibility, so no per-device
 rules; hardware checks still to do on the AM6B+), title page parity, Arc's own menus, and library
-parity (tabs, sort and filters, folders, person and collection pages, Play All / Shuffle).
+parity (tabs, sort and filters, folders, person and collection pages, Play All / Shuffle), and
+player extras (chapters, thumbnails, episodes, speed).
 
-1. **Player extras:** chapters, timeline thumbnails, the Info/Episodes tabs, speed.
-2. **Settings screen** (Auto-Play, Skip Intros, subtitle mode), a password sign-in and an Arc
+1. **Settings screen** (Auto-Play, Skip Intros, subtitle mode), a password sign-in and an Arc
    PIN pad.
-3. **Search** with an on-screen keyboard and rows; **live updates**.
-4. **Watch Together**.
-5. **Distribution:** the zip built on push, then a Kodi repository for updates.
+2. **Search** with an on-screen keyboard and rows; **live updates**.
+3. **Watch Together**.
+4. **Distribution:** the zip built on push, then a Kodi repository for updates.

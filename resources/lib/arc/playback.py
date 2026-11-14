@@ -251,3 +251,14 @@ def chapter_marks(chaps, duration_ms, limit=40):
         return []
     marks = [float(c.get("start_ms") or 0) / duration_ms for c in chaps if (c.get("start_ms") or 0) > 1000]
     return [m for m in marks if 0 < m < 1][:limit]
+
+
+# MARK: - speed
+
+# The speeds offered, as Kodi's tempo steps them (0.1 at a time, 0.8x to 1.5x).
+SPEEDS = [0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5]
+
+
+def speed_steps(current, target):
+    """How many tempo steps (positive up, negative down) take `current` to `target`."""
+    return int(round((target - current) * 10))

@@ -394,6 +394,9 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
                 at = playback.chapter_at(self.chapters, self.pb.position_ms())
                 options.append((T(30290), self._chapter_name(at) if at >= 0 else "", False,
                                 lambda: self._open_submenu("chapters"), True))
+            if self.pb.speed_available():
+                options.append((T(30293), self._speed_name(self.pb.speed()), False,
+                                lambda: self._open_submenu("speed"), True))
             options.append((T(30213), "", False, lambda: self.pb.seek_to(0)))
         else:
             return
@@ -416,6 +419,11 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
                 options.append((name, detail, e.get("id") == self.pb.item_id,
                                 lambda e=e: self.pb.play_episode(e)))
             self._fill_menu(T(30292), options)
+        elif kind == "speed":
+            now = self.pb.speed()
+            options = [(self._speed_name(v), "", abs(v - now) < 0.05, lambda v=v: self.pb.set_speed(v))
+                       for v in playback.SPEEDS]
+            self._fill_menu(T(30293), options)
         elif kind == "chapters":
             at = playback.chapter_at(self.chapters, self.pb.position_ms())
             options = [(self._chapter_name(i), models.clock(c.get("start_ms") or 0), i == at,
@@ -425,6 +433,10 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             options = [(self._version_name(v), "", v.get("file_id") == self.pb.file_id,
                         lambda v=v: self.pb.choose_version(v.get("file_id"))) for v in plan.get("versions") or []]
             self._fill_menu(T(30212), options)
+
+    @staticmethod
+    def _speed_name(v):
+        return T(30294) if abs(v - 1.0) < 0.05 else T(30295) % ("%.1f" % v)
 
     @staticmethod
     def _version_name(v):

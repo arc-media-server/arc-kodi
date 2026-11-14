@@ -749,3 +749,15 @@ msgstr ""
 msgctxt "#30292"
 msgid "Episodes"
 msgstr ""
+
+msgctxt "#30293"
+msgid "Speed"
+msgstr ""
+
+msgctxt "#30294"
+msgid "Normal"
+msgstr ""
+
+msgctxt "#30295"
+msgid "%sx"
+msgstr ""
