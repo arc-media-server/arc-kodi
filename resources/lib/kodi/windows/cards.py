@@ -74,6 +74,9 @@ def set_progress(li, item):
 
 def _subtitle(card):
     item = card["item"]
+    if item.get("kind") == "folder":
+        n = int(item.get("count") or 0)
+        return T(30275) if n == 1 else T(30274) % n
     if card.get("season_number") is not None:
         return T(30155) % card["season_number"]
     if models.is_episode(item):

@@ -46,3 +46,19 @@ The rest of feature-parity item 2, starting with a library's Browse grid, as the
 ## Logging
 
 A failed facets load logs at debug; the grid works without filters.
+
+## Folders (Other videos)
+
+- **An Other videos library has a Folders tab** (Browse, Collections, Folders; no Recommended, as
+  the Apple app). It shows a folder's subfolders, each with its cover and how many videos it
+  holds, then the videos loose in it (`GET /libraries/{id}/folders?path=`).
+  - A folder opens in a window of its own with its name, so Back goes up a level, keeping the
+    place.
+  - The folder's `path` is passed back as the server gave it (e.g. `0/Holidays`).
+- **Other videos show as wide cards** in Browse, Collections and Folders: their pictures are
+  stills, which a poster would crop to a sliver. The grid has both layouts and picks one by a
+  window property (`arc.style`).
+
+Checked in Kodi with a scratch Other videos library (subfolders Holidays/Summer 2024,
+Holidays/Christmas 2023, Concerts and a loose video): Browse as wide cards, Folders with counts,
+into Holidays and Back out.

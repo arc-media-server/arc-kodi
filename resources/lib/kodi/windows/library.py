@@ -36,9 +36,17 @@ DIRECTION_NAMES = {"a_to_z": 30263, "z_to_a": 30264, "newest": 30265, "oldest": 
 
 
 def library_tabs(library):
-    """A library's tabs, as the Apple app's: Recommended (not for Other videos), Browse, Collections."""
-    tabs = [] if library.get("kind") == "videos" else [("recommended", T(30120))]
-    return tabs + [("browse", T(30121)), ("collections", T(30122))]
+    """A library's tabs, as the Apple app's: Recommended (not for Other videos), Browse, Collections,
+    and for Other videos, Folders."""
+    videos = library.get("kind") == "videos"
+    tabs = [] if videos else [("recommended", T(30120))]
+    tabs += [("browse", T(30121)), ("collections", T(30122))]
+    return tabs + ([("folders", T(30273))] if videos else [])
+
+
+def library_style(library):
+    """Other videos show as wide cards (their pictures are stills), the rest as posters."""
+    return "thumb" if library.get("kind") == "videos" else "poster"
 
 
 class TabsMixin(object):
@@ -101,6 +109,7 @@ class GridWindow(TabsMixin, ArcWindow):
         self.nav = None
 
     def on_init(self):
+        self.setProperty("arc.style", self.style)
         self.set_label(TITLE, self.title)
         self.set_visible(SORT, False)
         self.set_visible(FILTER, False)
@@ -194,9 +203,11 @@ class LibraryWindow(GridWindow):
         kwargs["title"] = kwargs["library"].get("name", "")
         kwargs["paged"] = True
         kwargs["tab"] = "browse"
+        kwargs["style"] = library_style(kwargs["library"])
         GridWindow.__init__(self, *args, loader=self._items, **kwargs)
 
     def on_init(self):
+        self.setProperty("arc.style", self.style)
         self.set_label(TITLE, self.library.get("name", ""))
         self.show_tabs()
         self._refresh_pills()
@@ -291,3 +302,40 @@ class LibraryWindow(GridWindow):
             self._filter_menu()
         else:
             GridWindow.on_click(self, control_id)
+
+
+class FolderWindow(GridWindow):
+    """An Other videos library's folders, as the Apple app's Folders tab: a folder's subfolders,
+    then its videos. At the top it's the library's Folders tab, with the tab pills; a folder
+    opens in a window of its own, so Back goes up a level."""
+
+    def __init__(self, *args, **kwargs):
+        self.path = kwargs.pop("path", "")
+        library = kwargs["library"]
+        kwargs.setdefault("title", library.get("name", ""))
+        kwargs["style"] = "thumb"
+        if self.path:
+            kwargs["library"] = None  # inside a folder: its name, no tabs
+            self.folder_library = library
+        else:
+            kwargs["tab"] = "folders"
+            self.folder_library = library
+        GridWindow.__init__(self, *args, loader=self._items, **kwargs)
+
+    def _items(self, offset, limit):
+        page = self.session.api.folders(self.folder_library.get("id"), self.path)
+        folders = [{"id": "folder:" + (f.get("path") or ""), "kind": "folder", "title": f.get("name", ""),
+                    "count": f.get("count") or 0, "path": f.get("path") or "",
+                    "images": {"primary": f.get("cover")} if f.get("cover") else {}}
+                   for f in page.get("folders") or []]
+        items = folders + list(page.get("items") or [])
+        return items, len(items)
+
+    def on_click(self, control_id):
+        if control_id == GRID and self.nav:
+            pos = self.list_control(GRID).getSelectedPosition()
+            if 0 <= pos < len(self.items) and self.items[pos].get("kind") == "folder":
+                folder = self.items[pos]
+                self.nav("folder", {"library": self.folder_library, "path": folder["path"], "title": folder["title"]})
+                return
+        GridWindow.on_click(self, control_id)

@@ -167,6 +167,12 @@ class ArcAPI(object):
     def facets(self, library_id):
         return self.get("libraries/%d/facets" % int(library_id), route="libraries/{id}/facets") or {}
 
+    def folders(self, library_id, path=""):
+        """An Other videos library's folder at `path` (as a folder's own "path"; "" for the top):
+        {"path", "folders": [{name, path, count, cover}], "items": [...]}."""
+        query = ("?path=" + _q(path)) if path else ""
+        return self.get("libraries/%d/folders%s" % (int(library_id), query), route="libraries/{id}/folders") or {}
+
     def recommended(self, library_id):
         return self.get("libraries/%d/recommended" % int(library_id), route="libraries/{id}/recommended") or {}
 

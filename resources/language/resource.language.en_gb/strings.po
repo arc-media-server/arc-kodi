@@ -669,3 +669,15 @@ msgstr ""
 msgctxt "#30272"
 msgid "Least recent first"
 msgstr ""
+
+msgctxt "#30273"
+msgid "Folders"
+msgstr ""
+
+msgctxt "#30274"
+msgid "%d videos"
+msgstr ""
+
+msgctxt "#30275"
+msgid "1 video"
+msgstr ""

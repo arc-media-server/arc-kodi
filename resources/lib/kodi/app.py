@@ -139,6 +139,9 @@ class App(object):
             self._open_collection(payload)
         elif kind == "extra":
             self._play_extra(payload)
+        elif kind == "folder":
+            self._open(library.FolderWindow, library=payload["library"], path=payload["path"],
+                       title=payload.get("title", ""))
 
     def _open_person(self, credit):
         person_id = credit.get("person_id") or credit.get("id")
@@ -255,9 +258,11 @@ class App(object):
         while tab:
             if tab == "recommended":
                 result = self._open(recommended.RecommendedWindow, library=lib)
+            elif tab == "folders":
+                result = self._open(library.FolderWindow, library=lib)
             elif tab == "collections":
                 result = self._open(library.GridWindow, title=lib.get("name", ""), library=lib, tab="collections",
-                                    loader=self._collections_loader(lib), style="poster",
+                                    loader=self._collections_loader(lib), style=library.library_style(lib),
                                     open_item=lambda c: self._open_collection(c))
             else:
                 result = self._open(library.LibraryWindow, library=lib)
