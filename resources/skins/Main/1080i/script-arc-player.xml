@@ -224,7 +224,7 @@
         <left>16</left>
         <top>76</top>
         <width>548</width>
-        <height>428</height>
+        <height>448</height>
         <onup>noop</onup>
         <ondown>noop</ondown>
         <onleft>noop</onleft>

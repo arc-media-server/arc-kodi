@@ -143,3 +143,36 @@ def playback_lines(item, server_name="", local=None, profile_name=""):
 
 def starring(item, limit=3):
     return people(item, ("actor", ""), limit)
+
+
+# MARK: - fitting words
+
+_NARROW, _MID, _WIDE = set("ijlI.,:;'|!tf "), set("rsz-"), set("mwMW")
+
+
+def text_width(label, names, size=25):
+    """Roughly how wide "<label> <names, in bold>" draws in Kodi's standard font at `size` px:
+    Kodi can't measure a label for an add-on, and won't bottom-align one that wraps, so the title
+    page places Starring by this. Calibrated on Kodi's Noto Sans against lines seen to fit or wrap
+    in 620 px."""
+    def width(text, bold):
+        total = 0.0
+        for c in text:
+            if c in _NARROW:
+                em = 0.27
+            elif c in _MID:
+                em = 0.42
+            elif c in _WIDE:
+                em = 0.85
+            elif c.isupper():
+                em = 0.64
+            else:
+                em = 0.55
+            total += em * (1.07 if bold else 1.0)
+        return total * size
+    return width(label + " ", False) + width(names, True)
+
+
+def wraps(label, names, room=605):
+    """Whether "<label> <names>" needs a second line in a 620-wide label (605 leaves a margin)."""
+    return text_width(label, names) > room

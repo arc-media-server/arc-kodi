@@ -48,8 +48,9 @@ class MenuDialog(xbmcgui.WindowXMLDialog):
             li = xbmcgui.ListItem(label, detail)
             li.setProperty("selected", "1" if i == self.selected else "")
             items.append(li)
-        ctrl.addItems(items)
-        # The panel fits the message and the rows, centred on the screen.
+        # The panel fits the message and the rows, centred on the screen. The list is sized
+        # before it's filled: filled first, Kodi lays the rows out for the old height and scrolls
+        # the first one away.
         msg_h = 0
         if self.message:
             lines = max(1, sum(-(-max(1, len(p)) // 34) for p in self.message.split("\n")))
@@ -61,6 +62,7 @@ class MenuDialog(xbmcgui.WindowXMLDialog):
         height = top + rows * ROW + 16
         ctrl.setPosition(16, top)
         ctrl.setHeight(rows * ROW)
+        ctrl.addItems(items)
         self.getControl(BACKGROUND).setHeight(height)
         self.getControl(PANEL).setPosition((1920 - PANEL_WIDTH) // 2, (1080 - height) // 2)
         focus = self.focus if self.focus is not None else max(self.selected, 0)

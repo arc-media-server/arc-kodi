@@ -577,3 +577,95 @@ msgstr ""
 msgctxt "#30249"
 msgid "Top Unwatched"
 msgstr ""
+
+msgctxt "#30250"
+msgid "Date Added"
+msgstr ""
+
+msgctxt "#30251"
+msgid "Release Date"
+msgstr ""
+
+msgctxt "#30252"
+msgid "Duration"
+msgstr ""
+
+msgctxt "#30253"
+msgid "Last Watched"
+msgstr ""
+
+msgctxt "#30254"
+msgid "Unwatched Only"
+msgstr ""
+
+msgctxt "#30255"
+msgid "Genre"
+msgstr ""
+
+msgctxt "#30256"
+msgid "Decade"
+msgstr ""
+
+msgctxt "#30257"
+msgid "%ss"
+msgstr ""
+
+msgctxt "#30258"
+msgid "Resolution"
+msgstr ""
+
+msgctxt "#30259"
+msgid "Any"
+msgstr ""
+
+msgctxt "#30260"
+msgid "Clear Filters"
+msgstr ""
+
+msgctxt "#30261"
+msgid "Filtered"
+msgstr ""
+
+msgctxt "#30262"
+msgid "Nothing matches these filters."
+msgstr ""
+
+msgctxt "#30263"
+msgid "A to Z"
+msgstr ""
+
+msgctxt "#30264"
+msgid "Z to A"
+msgstr ""
+
+msgctxt "#30265"
+msgid "Newest first"
+msgstr ""
+
+msgctxt "#30266"
+msgid "Oldest first"
+msgstr ""
+
+msgctxt "#30267"
+msgid "Highest first"
+msgstr ""
+
+msgctxt "#30268"
+msgid "Lowest first"
+msgstr ""
+
+msgctxt "#30269"
+msgid "Longest first"
+msgstr ""
+
+msgctxt "#30270"
+msgid "Shortest first"
+msgstr ""
+
+msgctxt "#30271"
+msgid "Most recent first"
+msgstr ""
+
+msgctxt "#30272"
+msgid "Least recent first"
+msgstr ""

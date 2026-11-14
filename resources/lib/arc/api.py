@@ -164,6 +164,9 @@ class ArcAPI(object):
     def recent_shows(self, library_id):
         return self.get("libraries/%d/recent-shows" % int(library_id), route="libraries/{id}/recent-shows") or []
 
+    def facets(self, library_id):
+        return self.get("libraries/%d/facets" % int(library_id), route="libraries/{id}/facets") or {}
+
     def recommended(self, library_id):
         return self.get("libraries/%d/recommended" % int(library_id), route="libraries/{id}/recommended") or {}
 

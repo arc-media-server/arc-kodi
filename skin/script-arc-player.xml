@@ -137,7 +137,7 @@
         <font>arc-label</font><textcolor>muted</textcolor>
       </control>
       <control type="list" id="602">
-        <left>16</left><top>76</top><width>548</width><height>428</height>
+        <left>16</left><top>76</top><width>548</width><height>448</height>
         <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
         <scrolltime>150</scrolltime>
         <include>MenuLayouts</include>

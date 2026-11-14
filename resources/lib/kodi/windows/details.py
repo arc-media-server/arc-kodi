@@ -145,8 +145,8 @@ class DetailsWindow(ArcWindow):
         self.set_label(STARRING, self._labelled(T(30158), stars) if stars else "")
         self.set_label(DIRECTORS, self._labelled(T(30147), directors) if directors else "")
         # Kodi won't bottom-align a wrapping label, so the Python places Starring by how many
-        # lines it takes (it wraps from about 42 characters at this size, allowing for wide letters).
-        wraps = bool(stars) and len(T(30158)) + 1 + len(", ".join(stars)) > 42
+        # lines it takes (titlepage.wraps estimates it from the letters' widths).
+        wraps = bool(stars) and titlepage.wraps(T(30158), ", ".join(stars))
         bottom = 36 if directors else 76      # where Starring's last line must end, in the row
         lines = 2 if wraps else 1
         try:
