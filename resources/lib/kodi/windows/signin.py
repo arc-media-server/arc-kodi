@@ -11,6 +11,7 @@ from arc.api import ArcAPI, APIError, Unreachable, normalise_address
 
 from ..compat import T
 from ..log import log
+from . import pin as pin_pad
 from .base import ArcWindow, list_item
 
 
@@ -82,6 +83,7 @@ class SignInWindow(ArcWindow):
     STATUS = 101
     NEW_CODE = 102
     CHANGE_SERVER = 103
+    PASSWORD = 104
 
     def __init__(self, *args, **kwargs):
         ArcWindow.__init__(self, *args, **kwargs)
@@ -133,6 +135,30 @@ class SignInWindow(ArcWindow):
             self._stop.set()
             self.result = "change_server"
             self.close()
+        elif control_id == self.PASSWORD:
+            self._password()
+
+    def _password(self):
+        """Signs in with the household password (POST /auth/login), for a keyboard; the code
+        keeps working meanwhile. The password goes to Arc and nowhere else: not stored or logged."""
+        password = xbmcgui.Dialog().input(T(30312), option=xbmcgui.ALPHANUM_HIDE_INPUT)
+        if not password:
+            return
+        self.set_text(self.STATUS, T(30314))
+
+        def done(token, error):
+            if error is None and token:
+                log.info("signed in with the password")
+                self._stop.set()
+                self.session.set_token(token)
+                self.result = "signed_in"
+                self.close()
+                return
+            wrong = isinstance(error, APIError) and error.status in (401, 403)
+            log.info("password sign-in failed (%s)", "wrong password" if wrong else type(error).__name__)
+            self.set_text(self.STATUS, T(30313) if wrong else T(30004))
+
+        self.run_async(lambda: self.session.api.login(password, "Kodi"), done)
 
     def on_back(self):
         self._stop.set()
@@ -192,7 +218,13 @@ class ProfilesWindow(ArcWindow):
             if 0 <= pos < len(self._profiles):
                 self._choose(self._profiles[pos])
 
-    def _choose(self, profile, pin=None):
+    def _choose(self, profile, pin=None, wrong=False):
+        if profile.get("has_pin") and pin is None:
+            # Arc's PIN pad first, rather than a request Arc will refuse.
+            pin = pin_pad.ask(T(30061) % profile.get("name", ""), T(30062) if wrong else "")
+            if not pin:
+                return
+
         def work():
             return self.session.api.choose_profile(profile.get("id"), pin=pin)
 
@@ -203,11 +235,8 @@ class ProfilesWindow(ArcWindow):
                 self.close()
                 return
             if isinstance(error, APIError) and error.needs == "pin":
-                entered = xbmcgui.Dialog().input(T(30061) % profile.get("name", ""),
-                                                 type=xbmcgui.INPUT_NUMERIC,
-                                                 option=xbmcgui.ALPHANUM_HIDE_INPUT)
-                if entered:
-                    self._choose(profile, pin=entered)
+                # No PIN sent, or the wrong one: the pad again, saying so if one was typed.
+                self._choose(dict(profile, has_pin=True), wrong=pin is not None)
                 return
             xbmcgui.Dialog().notification("Arc", getattr(error, "message", T(30004)))
 

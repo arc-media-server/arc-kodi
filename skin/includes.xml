@@ -12,6 +12,8 @@
   <constant name="subtle">FF6B6B78</constant>
   <constant name="white">FFFFFFFF</constant>
   <constant name="black">FF000000</constant>
+  <!-- Second line of words on a white (focused) row. -->
+  <constant name="on-white-muted">FF3A3A40</constant>
   <!-- The title page's wash when a title has no palette (the Apple app's ArcColor.wash):
        top left, top right, bottom left, bottom right. Also in arc/titlepage.py (WASH). -->
   <constant name="wash-tl">FF25282D</constant>
@@ -63,6 +65,18 @@
       <disabledcolor>subtle</disabledcolor>
       <texturefocus border="38">arc-pill-white.png</texturefocus>
       <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+      <aligny>center</aligny><align>center</align>
+    </definition>
+  </include>
+
+  <!-- A key on Arc's on-screen keyboard (search): a rounded key, white when focused. -->
+  <include name="KeyLook">
+    <definition>
+      <font>arc-label</font>
+      <textcolor>fg</textcolor>
+      <focusedcolor>black</focusedcolor>
+      <texturefocus border="28">arc-pill-white-56.png</texturefocus>
+      <texturenofocus border="28" colordiffuse="surface2">arc-pill-white-56.png</texturenofocus>
       <aligny>center</aligny><align>center</align>
     </definition>
   </include>
@@ -166,6 +180,18 @@
         <left>8</left><top>8</top><width>464</width><height>261</height>
         <texture>arc-mask-thumb.png</texture><colordiffuse>B3000000</colordiffuse>
         <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+      </control>
+      <!-- A word on the picture (Watch Together's "Watching now"). -->
+      <control type="image">
+        <left>20</left><top>20</top><width>230</width><height>44</height>
+        <texture border="22">arc-pill-white-56.png</texture><colordiffuse>A6000000</colordiffuse>
+        <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+      </control>
+      <control type="label">
+        <left>20</left><top>20</top><width>230</width><height>44</height>
+        <font>arc-small</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+        <label>$INFO[ListItem.Property(tag)]</label>
+        <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
       </control>
       <control type="image">
         <left>2</left><top>2</top><width>476</width><height>273</height>
@@ -303,7 +329,7 @@
           </control>
           <control type="label">
             <left>300</left><top>0</top><width>228</width><height>64</height>
-            <font>arc-small</font><aligny>center</aligny><align>right</align><textcolor>FF3A3A40</textcolor>
+            <font>arc-small</font><aligny>center</aligny><align>right</align><textcolor>on-white-muted</textcolor>
             <label>$INFO[ListItem.Label2]</label>
           </control>
         </focusedlayout>

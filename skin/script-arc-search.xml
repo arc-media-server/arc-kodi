@@ -1,27 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Search, as the Apple app's, with PM4K's keyboard: what's typed and a grid of keys at the left,
+     the matches in rows at the right (Movies, TV Shows, Episodes, Collections, People, Genres),
+     each showing only when it has matches. -->
 <window>
-  <defaultcontrol>100</defaultcontrol>
+  <defaultcontrol>200</defaultcontrol>
   <controls>
     <include>PageBackground</include>
-    <control type="button" id="100">
-      <left>80</left><top>48</top><width>1760</width><height>76</height>
+
+    <!-- The search box: a Kodi text field, so a keyboard types straight into it while it has
+         focus (Up from the keys), OK opens Kodi's keyboard, and phone remotes type into it. -->
+    <control type="edit" id="100">
+      <left>80</left><top>60</top><width>554</width><height>76</height>
       <font>arc-label</font><textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
+      <disabledcolor>subtle</disabledcolor>
       <texturefocus border="38">arc-pill-white.png</texturefocus>
       <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
-      <align>left</align><textoffsetx>28</textoffsetx><aligny>center</aligny>
-      <label>$ADDON[script.arc 30080]</label>
+      <textoffsetx>76</textoffsetx><aligny>center</aligny>
+      <hinttext>$ADDON[script.arc 30080]</hinttext>
+      <label></label>
+      <ondown>200</ondown><onright>300</onright>
     </control>
-    <control type="panel" id="101">
-      <left>72</left><top>160</top><width>1800</width><height>890</height>
-      <onup>100</onup>
+    <control type="image">
+      <left>104</left><top>80</top><width>36</width><height>36</height>
+      <texture>arc-icon-search.png</texture><colordiffuse>muted</colordiffuse>
+      <visible>!Control.HasFocus(100)</visible>
+    </control>
+    <control type="image">
+      <left>104</left><top>80</top><width>36</width><height>36</height>
+      <texture>arc-icon-search.png</texture><colordiffuse>black</colordiffuse>
+      <visible>Control.HasFocus(100)</visible>
+    </control>
+
+    <!-- The keys: a-z and 1-0, six across. -->
+    <control type="panel" id="200">
+      <left>80</left><top>168</top><width>564</width><height>456</height>
       <orientation>vertical</orientation>
-      <itemlayout width="292" height="460"><include>PosterCard</include></itemlayout>
-      <focusedlayout width="292" height="460"><include content="PosterCard"><param name="focused" value="Control.HasFocus(101)"/><param name="labelcolor" value="fg"/></include></focusedlayout>
+      <onright>300</onright>
+      <onup>100</onup>
+      <ondown>210</ondown>
+      <scrolltime>0</scrolltime>
+      <itemlayout width="94" height="76">
+        <control type="image">
+          <left>0</left><top>0</top><width>84</width><height>66</height>
+          <texture border="28">arc-pill-white-56.png</texture><colordiffuse>surface2</colordiffuse>
+        </control>
+        <control type="label">
+          <left>0</left><top>0</top><width>84</width><height>66</height>
+          <font>arc-label</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+          <label>$INFO[ListItem.Label]</label>
+        </control>
+      </itemlayout>
+      <focusedlayout width="94" height="76">
+        <control type="image">
+          <left>0</left><top>0</top><width>84</width><height>66</height>
+          <texture border="28">arc-pill-white-56.png</texture><colordiffuse>surface2</colordiffuse>
+          <visible>!Control.HasFocus(200)</visible>
+        </control>
+        <control type="image">
+          <left>0</left><top>0</top><width>84</width><height>66</height>
+          <texture border="28">arc-pill-white-56.png</texture>
+          <visible>Control.HasFocus(200)</visible>
+        </control>
+        <control type="label">
+          <left>0</left><top>0</top><width>84</width><height>66</height>
+          <font>arc-label</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>!Control.HasFocus(200)</visible>
+        </control>
+        <control type="label">
+          <left>0</left><top>0</top><width>84</width><height>66</height>
+          <font>arc-label</font><textcolor>black</textcolor><align>center</align><aligny>center</aligny>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>Control.HasFocus(200)</visible>
+        </control>
+      </focusedlayout>
     </control>
+
+    <!-- Space, Delete, Clear. -->
+    <control type="group">
+      <left>80</left><top>624</top>
+      <control type="button" id="210">
+        <left>0</left><top>0</top><width>178</width><height>66</height>
+        <include content="KeyLook"/>
+        <label>$ADDON[script.arc 30316]</label>
+        <onup>200</onup><onright>211</onright>
+      </control>
+      <control type="button" id="211">
+        <left>188</left><top>0</top><width>178</width><height>66</height>
+        <include content="KeyLook"/>
+        <label>$ADDON[script.arc 30310]</label>
+        <onup>200</onup><onleft>210</onleft><onright>212</onright>
+      </control>
+      <control type="button" id="212">
+        <left>376</left><top>0</top><width>178</width><height>66</height>
+        <include content="KeyLook"/>
+        <label>$ADDON[script.arc 30317]</label>
+        <onup>200</onup><onleft>211</onleft><onright>300</onright>
+      </control>
+    </control>
+
+    <!-- "No matches for ..." or the error. -->
     <control type="label" id="102">
-      <left>80</left><top>500</top><width>1760</width><height>60</height>
+      <left>720</left><top>500</top><width>1120</width><height>60</height>
       <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
       <label></label>
+    </control>
+
+    <!-- The matches. -->
+    <control type="grouplist" id="300">
+      <left>712</left><top>40</top><width>1208</width><height>1040</height>
+      <orientation>vertical</orientation><itemgap>0</itemgap>
+      <scrolltime tween="cubic" easing="out">220</scrolltime>
+      <onleft>200</onleft><onup>noop</onup><ondown>noop</ondown>
+      <include content="PosterRow"><param name="title" value="311"/><param name="list" value="310"/><param name="width" value="1208"/><param name="onleft" value="200"/></include>
+      <include content="PosterRow"><param name="title" value="321"/><param name="list" value="320"/><param name="width" value="1208"/><param name="onleft" value="200"/></include>
+      <include content="ThumbRow"><param name="title" value="331"/><param name="list" value="330"/><param name="width" value="1208"/><param name="height" value="350"/><param name="onleft" value="200"/></include>
+      <include content="PosterRow"><param name="title" value="341"/><param name="list" value="340"/><param name="width" value="1208"/><param name="onleft" value="200"/></include>
+      <control type="label" id="351">
+        <left>8</left><width>1100</width><height>50</height>
+        <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
+        <visible>Integer.IsGreater(Container(350).NumItems,0)</visible>
+      </control>
+      <control type="list" id="350">
+        <width>1208</width><height>290</height>
+        <visible>Integer.IsGreater(Container(350).NumItems,0)</visible>
+        <orientation>horizontal</orientation><itemgap>12</itemgap>
+        <scrolltime tween="cubic" easing="out">220</scrolltime>
+        <onleft>200</onleft>
+        <itemlayout width="200" height="290"><include>FaceCard</include></itemlayout>
+        <focusedlayout width="200" height="290">
+          <include content="FaceCard"><param name="focused" value="Control.HasFocus(350)"/><param name="labelcolor" value="fg"/></include>
+        </focusedlayout>
+      </control>
+      <control type="label" id="361">
+        <left>8</left><width>1100</width><height>50</height>
+        <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
+        <visible>Integer.IsGreater(Container(360).NumItems,0)</visible>
+      </control>
+      <control type="list" id="360">
+        <width>1208</width><height>140</height>
+        <visible>Integer.IsGreater(Container(360).NumItems,0)</visible>
+        <orientation>horizontal</orientation><itemgap>0</itemgap>
+        <scrolltime tween="cubic" easing="out">220</scrolltime>
+        <onleft>200</onleft>
+        <itemlayout width="300" height="140">
+          <control type="image">
+            <left>8</left><top>10</top><width>280</width><height>96</height>
+            <texture border="24">arc-panel.png</texture>
+          </control>
+          <control type="label">
+            <left>32</left><top>18</top><width>232</width><height>44</height>
+            <font>arc-label</font><textcolor>fg</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>32</left><top>60</top><width>232</width><height>34</height>
+            <font>arc-small</font><textcolor>muted</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+          </control>
+        </itemlayout>
+        <focusedlayout width="300" height="140">
+          <control type="image">
+            <left>8</left><top>10</top><width>280</width><height>96</height>
+            <texture border="24">arc-panel.png</texture>
+            <visible>!Control.HasFocus(360)</visible>
+          </control>
+          <control type="image">
+            <left>8</left><top>10</top><width>280</width><height>96</height>
+            <texture border="28">arc-pill-white-56.png</texture>
+            <visible>Control.HasFocus(360)</visible>
+          </control>
+          <control type="label">
+            <left>32</left><top>18</top><width>232</width><height>44</height>
+            <font>arc-label</font><textcolor>fg</textcolor><focusedcolor>fg</focusedcolor>
+            <label>$INFO[ListItem.Label]</label>
+            <visible>!Control.HasFocus(360)</visible>
+          </control>
+          <control type="label">
+            <left>32</left><top>18</top><width>232</width><height>44</height>
+            <font>arc-label</font><textcolor>black</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+            <visible>Control.HasFocus(360)</visible>
+          </control>
+          <control type="label">
+            <left>32</left><top>60</top><width>232</width><height>34</height>
+            <font>arc-small</font><textcolor>muted</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+            <visible>!Control.HasFocus(360)</visible>
+          </control>
+          <control type="label">
+            <left>32</left><top>60</top><width>232</width><height>34</height>
+            <font>arc-small</font><textcolor>on-white-muted</textcolor>
+            <label>$INFO[ListItem.Label2]</label>
+            <visible>Control.HasFocus(360)</visible>
+          </control>
+        </focusedlayout>
+      </control>
+      <control type="group"><height>40</height></control>
     </control>
   </controls>
 </window>

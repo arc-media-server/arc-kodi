@@ -85,6 +85,11 @@ class ArcWindow(xbmcgui.WindowXML):
         """Back on this window after another one (or the video) closed; refresh what may change."""
         pass
 
+    def on_live(self, change):
+        """Something this window may show changed on Arc (an arc.events.Change, from the live
+        updates thread): refresh it in place, keeping the focus. Most windows do nothing."""
+        pass
+
     def on_click(self, control_id):
         pass
 
