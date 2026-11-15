@@ -24,8 +24,8 @@ def card_list_item(session, card, style, season_posters=False):
     picture = homerows.card_art(card, style, season_posters)
     art = {"thumb": session.art(picture), "poster": session.art(card.get("poster")),
            "fanart": session.art(card.get("backdrop")), "clearlogo": session.art(card.get("logo"))}
-    label = item.get("title", "")
-    sub = _subtitle(card)
+    label = card.get("label") or item.get("title", "")
+    sub = card["subtitle"] if card.get("subtitle") is not None else _subtitle(card)
     props = {
         "id": card["id"],
         "item_id": item.get("id"),
@@ -40,6 +40,8 @@ def card_list_item(session, card, style, season_posters=False):
     }
     if card.get("new_episodes"):
         props["badge"] = T(30107) % card["new_episodes"]
+    if card.get("tag"):
+        props["tag"] = card["tag"]   # a word on a wide card's picture (Watch Together)
     li = list_item(label, sub, art=art, props=props)
     set_progress(li, item)
     return li
@@ -74,6 +76,9 @@ def set_progress(li, item):
 
 def _subtitle(card):
     item = card["item"]
+    if item.get("kind") == "folder":
+        n = int(item.get("count") or 0)
+        return T(30275) if n == 1 else T(30274) % n
     if card.get("season_number") is not None:
         return T(30155) % card["season_number"]
     if models.is_episode(item):

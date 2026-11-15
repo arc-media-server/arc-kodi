@@ -35,16 +35,23 @@
         <label>$ADDON[script.arc 30043]</label>
       </control>
       <control type="button" id="102">
-        <onright>103</onright>
+        <onright>103</onright><ondown>104</ondown>
         <include content="PrimaryButton"><param name="width" value="390"/></include>
         <top>430</top>
         <label>$ADDON[script.arc 30045]</label>
       </control>
       <control type="button" id="103">
-        <onleft>102</onleft>
+        <onleft>102</onleft><ondown>104</ondown>
         <include content="PillButton"><param name="width" value="390"/></include>
         <left>410</left><top>430</top><width>390</width>
         <label>$ADDON[script.arc 30046]</label>
+      </control>
+      <!-- For a keyboard (Kodi on a PC): the household password instead of a code. -->
+      <control type="button" id="104">
+        <onup>102</onup>
+        <include content="PillButton"><param name="width" value="800"/></include>
+        <top>526</top><width>800</width>
+        <label>$ADDON[script.arc 30311]</label>
       </control>
     </control>
   </controls>

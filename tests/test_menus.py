@@ -34,3 +34,11 @@ def test_on_page_leaves_out_play_and_show():
 def test_episode_on_its_show_page():
     e = {"id": "e", "kind": "episode", "parent_id": "s"}
     assert menus.card_actions(e, in_show=True) == ["play", "watched"]
+
+
+def test_watch_together_offered_for_films_and_episodes():
+    m = {"id": "m", "kind": "movie", "playable": True}
+    assert menus.card_actions(m, together=True)[-1] == "watch_together"
+    assert "watch_together" not in menus.card_actions(m)
+    s = {"id": "s", "kind": "series"}
+    assert "watch_together" not in menus.card_actions(s, together=True)

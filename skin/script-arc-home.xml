@@ -36,7 +36,9 @@
            its cards, so their words keep clear of the foot of the screen. -->
       <orientation>vertical</orientation><itemgap>30</itemgap>
       <scrolltime tween="cubic" easing="out">260</scrolltime>
-      <onleft>50</onleft>
+      <!-- Up on the first row and Down on the last stay put: a grouplist otherwise wraps round,
+           and a held key would cycle through every row. -->
+      <onleft>50</onleft><onup>noop</onup><ondown>noop</ondown>
         <include content="PosterRow"><param name="title" value="3101"/><param name="list" value="3001"/><param name="onleft" value="50"/><param name="height" value="510"/></include>
         <include content="ThumbRow"><param name="title" value="3501"/><param name="list" value="3401"/><param name="onleft" value="50"/><param name="height" value="510"/></include>
         <include content="BackdropRow"><param name="title" value="3901"/><param name="list" value="3801"/><param name="onleft" value="50"/><param name="height" value="510"/></include>

@@ -8,6 +8,7 @@ import xbmcgui
 
 from arc import home as homerows
 from arc import models
+from arc import together as wt
 
 from ..compat import T
 from ..log import log
@@ -34,6 +35,9 @@ HERO_TITLE = 63
 HERO_INFO = 64
 HERO_OVERVIEW = 65
 
+# Watch Together's row, first while there are rooms (it shows only once it has cards).
+TOGETHER_ROW = {"id": "together", "source": ("together",), "style": homerows.THUMB, "season_posters": False}
+
 MOVE_ACTIONS = (1, 2, 5, 6)  # left, right, page up, page down
 ACTION_UP, ACTION_DOWN = 3, 4
 
@@ -52,7 +56,8 @@ class HomeWindow(ArcWindow):
 
     def on_init(self):
         self._build_sidebar()
-        self.rows = self.session.home_rows()[:MAX_ROWS]
+        self.rows = self._wanted_rows()
+        self.layout = self._layout_key()
         self.list_control(SIDEBAR).selectItem(1)  # Home is the chosen place
         self._layout_rows()
         # Home starts on its rows: the first row with cards takes focus when it arrives (_fill_row).
@@ -114,10 +119,34 @@ class HomeWindow(ArcWindow):
         self._refreshing = True
         self._load_rows()
 
+    def on_live(self, change):
+        """A live update: the rows load again in place, keeping the focus. If the profile's Home
+        itself changed (its rows or libraries, from another app), Home closes and the app opens
+        it again, built afresh."""
+        if not change.touches():
+            return
+        if self._layout_key() != self.layout:
+            log.info("home changed on Arc: rebuilding")
+            self.result = "reload"
+            self.close()
+            return
+        self.on_return()
+
+    def _wanted_rows(self):
+        rows = self.session.home_rows()
+        if self.session.together.available:
+            rows = [dict(TOGETHER_ROW)] + rows
+        return rows[:MAX_ROWS]
+
+    def _layout_key(self):
+        rows = [(r.get("id"), r.get("style")) for r in self._wanted_rows()]
+        libs = [(l.get("id"), l.get("name"), l.get("kind")) for l in self.session.ordered_libraries()]
+        return rows, libs, (self.session.prefs or {}).get("watchlist_position")
+
     def _row_title(self, row):
         source = row["source"]
         kind = source[0]
-        titles = {"continue": T(30100), "next-up": T(30101), "watchlist": T(30082)}
+        titles = {"continue": T(30100), "next-up": T(30101), "watchlist": T(30082), "together": T(30330)}
         if kind in titles:
             return titles[kind]
         if kind == "recent":
@@ -136,6 +165,8 @@ class HomeWindow(ArcWindow):
         api = self.session.api
         kind = row["source"]
         name = kind[0]
+        if name == "together":
+            return self._room_cards()
         if name == "continue":
             return [homerows.with_show_art(homerows.card(it)) for it in api.continue_watching(with_up_next=kind[1])]
         if name == "next-up":
@@ -161,6 +192,29 @@ class HomeWindow(ArcWindow):
             data = api.playlist(kind[1]) or {}
             return [homerows.card(entry.get("item", {})) for entry in data.get("entries", [])]
         return []
+
+    def _room_cards(self):
+        """Watch Together's row: a card per room (the title's picture, who's hosting), then
+        Join with a Code."""
+        api = self.session.api
+        cards = []
+        for room in self.session.together.refresh_rooms():
+            summary = room.get("item") or {}
+            try:
+                item = api.item(summary.get("id")) or summary
+            except Exception:
+                item = summary
+            card = homerows.card(item, card_id="room:%s" % room.get("id"))
+            card["room"] = room
+            card["label"] = item.get("series_title") or summary.get("title") or item.get("title", "")
+            card["subtitle"] = T(30337) if room.get("hosting") else T(30338) % (room.get("host_name") or "")
+            card["tag"] = T(30332) if wt.is_playing(room) else T(30330)
+            card["progress"] = None
+            cards.append(card)
+        if cards:
+            cards.append({"id": "join-code", "item": {"id": "", "title": T(30342), "kind": "action"},
+                          "join_code": True, "label": T(30342), "subtitle": "", "progress": None})
+        return cards
 
     def _fill_row(self, idx, cards, error):
         if error is not None:
@@ -301,6 +355,10 @@ class HomeWindow(ArcWindow):
             self._update_hero(idx)
             return False
         card = self._focused_card(idx)
+        if card and self.nav and (card.get("room") or card.get("join_code")) and \
+                (code in ACTION_CONTEXT or code in ACTION_PLAY):
+            self.nav("together_card", {"card": card, "menu": code in ACTION_CONTEXT})
+            return True
         if card and self.nav and code in ACTION_CONTEXT:
             source = self.rows[idx]["source"]
             continue_row = source[0] == "continue" or source == ("recommended", "continue")

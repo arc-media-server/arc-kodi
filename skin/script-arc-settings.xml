@@ -1,38 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Settings, as the Apple app's: the profile and server at the left; at the right the profile's
+     playback choices (saved to Arc, so every app follows them), then Switch Profile, Sign Out and
+     Change Server, then About. Each row names its value at its right. -->
 <window>
-  <defaultcontrol always="true">102</defaultcontrol>
+  <defaultcontrol always="true">110</defaultcontrol>
   <controls>
     <include>PageBackground</include>
     <control type="group">
-      <left>560</left><top>240</top><width>800</width>
+      <left>160</left><top>200</top><width>600</width>
       <control type="label">
-        <left>0</left><top>0</top><width>800</width><height>70</height>
+        <left>0</left><top>0</top><width>600</width><height>80</height>
         <font>arc-hero</font><textcolor>fg</textcolor>
         <label>$ADDON[script.arc 30084]</label>
       </control>
-      <control type="label" id="100">
-        <left>0</left><top>100</top><width>800</width><height>40</height>
-        <font>arc-body</font><textcolor>muted</textcolor><label></label>
-      </control>
       <control type="label" id="101">
-        <left>0</left><top>144</top><width>800</width><height>40</height>
-        <font>arc-body</font><textcolor>muted</textcolor><label></label>
+        <left>0</left><top>120</top><width>560</width><height>60</height>
+        <font>arc-title</font><textcolor>fg</textcolor>
       </control>
-      <control type="button" id="102">
-        <ondown>103</ondown>
-        <include content="PrimaryButton"><param name="width" value="800"/></include>
-        <top>230</top><label>$ADDON[script.arc 30202]</label>
+      <control type="label" id="100">
+        <left>2</left><top>186</top><width>560</width><height>40</height>
+        <font>arc-body</font><textcolor>muted</textcolor>
       </control>
-      <control type="button" id="103">
-        <onup>102</onup>
-        <include content="PillButton"><param name="width" value="800"/></include>
-        <top>320</top><width>800</width>
-        <label>$ADDON[script.arc 30063]</label>
+      <control type="textbox" id="104">
+        <left>2</left><top>560</top><width>520</width><height>120</height>
+        <font>arc-small</font><textcolor>subtle</textcolor>
       </control>
-      <control type="label" id="104">
-        <left>0</left><top>430</top><width>800</width><height>36</height>
-        <font>arc-small</font><textcolor>subtle</textcolor><align>center</align><label></label>
-      </control>
+    </control>
+    <control type="list" id="110">
+      <left>800</left><top>200</top><width>980</width><height>616</height>
+      <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+      <scrolltime>150</scrolltime>
+      <itemlayout width="980" height="88">
+        <control type="label">
+          <left>0</left><top>0</top><width>980</width><height>30</height>
+          <font>arc-small</font><textcolor>muted</textcolor>
+          <label>$INFO[ListItem.Property(section)]</label>
+        </control>
+        <control type="label">
+          <left>36</left><top>30</top><width>600</width><height>56</height>
+          <font>arc-label</font><aligny>center</aligny><textcolor>fg</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+        </control>
+        <control type="label">
+          <left>500</left><top>30</top><width>444</width><height>56</height>
+          <font>arc-label</font><aligny>center</aligny><align>right</align><textcolor>muted</textcolor>
+          <label>$INFO[ListItem.Label2]</label>
+        </control>
+      </itemlayout>
+      <focusedlayout width="980" height="88">
+        <control type="label">
+          <left>0</left><top>0</top><width>980</width><height>30</height>
+          <font>arc-small</font><textcolor>muted</textcolor>
+          <label>$INFO[ListItem.Property(section)]</label>
+        </control>
+        <control type="image">
+          <left>0</left><top>30</top><width>980</width><height>56</height>
+          <texture border="28">arc-pill-white-56.png</texture>
+        </control>
+        <control type="label">
+          <left>36</left><top>30</top><width>600</width><height>56</height>
+          <font>arc-label</font><aligny>center</aligny><textcolor>black</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+        </control>
+        <control type="label">
+          <left>500</left><top>30</top><width>444</width><height>56</height>
+          <font>arc-label</font><aligny>center</aligny><align>right</align><textcolor>FF3A3A40</textcolor>
+          <label>$INFO[ListItem.Label2]</label>
+        </control>
+      </focusedlayout>
     </control>
   </controls>
 </window>
