@@ -15,10 +15,16 @@ from .base import ACTION_CONTEXT, ACTION_PLAY, ArcWindow, list_item
 from .cards import card_list_item
 
 MAX_ROWS = 12
-# Each row slot exists twice in the skin: as posters and as wide cards. Ids are base + slot (1..12).
-# A slot's title and list show themselves once the list has cards (a skin condition).
+# Each row slot exists three times in the skin: as posters, wide cards and backdrop cards (the
+# web's "Backdrops"). Ids are base + slot (1..12). A slot's title and list show themselves once the
+# list has cards (a skin condition).
 POSTER_LIST_BASE, POSTER_TITLE_BASE = 3000, 3100
 THUMB_LIST_BASE, THUMB_TITLE_BASE = 3400, 3500
+BACKDROP_LIST_BASE, BACKDROP_TITLE_BASE = 3800, 3900
+# A row's style -> its (list, title) bases.
+STYLE_BASES = {homerows.POSTER: (POSTER_LIST_BASE, POSTER_TITLE_BASE),
+               homerows.THUMB: (THUMB_LIST_BASE, THUMB_TITLE_BASE),
+               homerows.BACKDROP: (BACKDROP_LIST_BASE, BACKDROP_TITLE_BASE)}
 
 SIDEBAR = 50
 ROWS = 900
@@ -75,16 +81,16 @@ class HomeWindow(ArcWindow):
     # MARK: - rows
 
     @staticmethod
-    def _wide(row):
-        return row.get("style") in (homerows.THUMB, homerows.BACKDROP)
+    def _bases(row):
+        return STYLE_BASES.get(row.get("style"), STYLE_BASES[homerows.POSTER])
 
     def _list_id(self, idx):
-        wide = idx < len(self.rows) and self._wide(self.rows[idx])
-        return (THUMB_LIST_BASE if wide else POSTER_LIST_BASE) + 1 + idx
+        bases = self._bases(self.rows[idx]) if idx < len(self.rows) else STYLE_BASES[homerows.POSTER]
+        return bases[0] + 1 + idx
 
     def _row_at(self, control_id):
         """The row index a list control belongs to, or None."""
-        for base in (POSTER_LIST_BASE, THUMB_LIST_BASE):
+        for base in (POSTER_LIST_BASE, THUMB_LIST_BASE, BACKDROP_LIST_BASE):
             if base < control_id <= base + MAX_ROWS:
                 return control_id - base - 1
         return None
@@ -92,8 +98,16 @@ class HomeWindow(ArcWindow):
     def _layout_rows(self):
         for i in range(MAX_ROWS):
             if i < len(self.rows):
-                wide = self._wide(self.rows[i])
-                self.set_label((THUMB_TITLE_BASE if wide else POSTER_TITLE_BASE) + 1 + i, self._row_title(self.rows[i]))
+                self.set_label(self._bases(self.rows[i])[1] + 1 + i, self._row_title(self.rows[i]))
+
+    def _clear_slot(self, idx, keep=None):
+        """Empties row slot `idx` in every style but `keep` (its title and list hide themselves)."""
+        for list_base, _ in STYLE_BASES.values():
+            if list_base != keep:
+                try:
+                    self.list_control(list_base + 1 + idx).reset()
+                except Exception:
+                    pass
 
     def on_return(self):
         # Refresh the rows in place (Continue Watching changes after playing), keeping the focus.
@@ -157,12 +171,25 @@ class HomeWindow(ArcWindow):
         row = self.rows[idx]
         ctrl = self.list_control(self._list_id(idx))
         keep = ctrl.getSelectedPosition() if self._refreshing else 0
+        had_focus = self._refreshing and self._focused_once and self._row == idx
         ctrl.reset()
         ctrl.addItems([card_list_item(self.session, card, row["style"], row.get("season_posters", False))
                        for card in cards or []])
         row["cards"] = cards or []
         if keep > 0 and cards:
             ctrl.selectItem(min(keep, len(cards) - 1))
+        if had_focus:
+            # Kodi drops the focus from a list while it's emptied and refilled (it hides when
+            # empty): give it back, or, if the row is now empty (its last card was removed from
+            # Continue Watching), to the nearest row with cards.
+            order = [idx] + [j for d in range(1, len(self.rows)) for j in (idx + d, idx - d)
+                             if 0 <= j < len(self.rows)]
+            for j in order:
+                if self.rows[j].get("cards"):
+                    self._row = j
+                    self.focus_when_visible(self._list_id(j))
+                    self._update_hero(j)
+                    return
         if not self._focused_once:
             # Rows arrive in any order; the first row (in Home's order) with cards takes focus once
             # every row above it has answered.
@@ -275,7 +302,10 @@ class HomeWindow(ArcWindow):
             return False
         card = self._focused_card(idx)
         if card and self.nav and code in ACTION_CONTEXT:
-            self.nav("context", card)
+            source = self.rows[idx]["source"]
+            continue_row = source[0] == "continue" or source == ("recommended", "continue")
+            self.nav("context", {"item": card["item"], "continue_row": continue_row,
+                                 "on_changed": lambda _item, _act: self.on_return()})
             return True
         if card and self.nav and code in ACTION_PLAY and models.playable(card["item"]):
             self.nav("play", {"item": card["item"], "resume": models.resume_ms(card["item"])})

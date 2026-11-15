@@ -403,3 +403,177 @@ msgstr ""
 msgctxt "#30223"
 msgid "External"
 msgstr ""
+
+# title page (more)
+msgctxt "#30156"
+msgid "Play %s"
+msgstr ""
+
+msgctxt "#30157"
+msgid "Resume %s"
+msgstr ""
+
+msgctxt "#30158"
+msgid "Starring"
+msgstr ""
+
+msgctxt "#30159"
+msgid "Written by"
+msgstr ""
+
+msgctxt "#30160"
+msgid "Rated"
+msgstr ""
+
+msgctxt "#30161"
+msgid "Genres"
+msgstr ""
+
+msgctxt "#30162"
+msgid "Server"
+msgstr ""
+
+msgctxt "#30163"
+msgid "Connection"
+msgstr ""
+
+msgctxt "#30164"
+msgid "Home network"
+msgstr ""
+
+msgctxt "#30165"
+msgid "Away from home"
+msgstr ""
+
+msgctxt "#30166"
+msgid "Profile"
+msgstr ""
+
+msgctxt "#30167"
+msgid "Quality"
+msgstr ""
+
+msgctxt "#30168"
+msgid "Bitrate"
+msgstr ""
+
+msgctxt "#30169"
+msgid "Size"
+msgstr ""
+
+msgctxt "#30170"
+msgid "File"
+msgstr ""
+
+msgctxt "#30171"
+msgid "Cast"
+msgstr ""
+
+msgctxt "#30172"
+msgid "S%d · E%d"
+msgstr ""
+
+msgctxt "#30173"
+msgid "Trailer"
+msgstr ""
+
+msgctxt "#30174"
+msgid "Behind the Scenes"
+msgstr ""
+
+msgctxt "#30175"
+msgid "Extra"
+msgstr ""
+
+
+msgctxt "#30176"
+msgid "Go to Show"
+msgstr ""
+
+msgctxt "#30177"
+msgid "Remove from Continue Watching"
+msgstr ""
+
+msgctxt "#30178"
+msgid "Sign out of %s?"
+msgstr ""
+
+msgctxt "#30179"
+msgid "Arc couldn't save that change."
+msgstr ""
+
+msgctxt "#30231"
+msgid "Nothing to recommend yet"
+msgstr ""
+
+msgctxt "#30232"
+msgid "Continue Watching"
+msgstr ""
+
+msgctxt "#30233"
+msgid "Recently Released"
+msgstr ""
+
+msgctxt "#30234"
+msgid "Recently Added in %s"
+msgstr ""
+
+msgctxt "#30235"
+msgid "Start Watching"
+msgstr ""
+
+msgctxt "#30236"
+msgid "Because you watched %s"
+msgstr ""
+
+msgctxt "#30237"
+msgid "Top Rated Movies"
+msgstr ""
+
+msgctxt "#30238"
+msgid "Top Rated Shows"
+msgstr ""
+
+msgctxt "#30239"
+msgid "Recently Watched"
+msgstr ""
+
+msgctxt "#30240"
+msgid "Recently Watched Episodes"
+msgstr ""
+
+msgctxt "#30241"
+msgid "Rediscover"
+msgstr ""
+
+msgctxt "#30242"
+msgid "More in %s"
+msgstr ""
+
+msgctxt "#30243"
+msgid "Top Movies in %s"
+msgstr ""
+
+msgctxt "#30244"
+msgid "Top Shows in %s"
+msgstr ""
+
+msgctxt "#30245"
+msgid "Top Movies with %s"
+msgstr ""
+
+msgctxt "#30246"
+msgid "Top Movies by %s"
+msgstr ""
+
+msgctxt "#30247"
+msgid "Top Shows with %s"
+msgstr ""
+
+msgctxt "#30248"
+msgid "Top Shows by %s"
+msgstr ""
+
+msgctxt "#30249"
+msgid "Top Unwatched"
+msgstr ""

@@ -18,6 +18,97 @@
       <font>font52_title</font>
       <textcolor>FFF5F5F7</textcolor>
       <label />
+      <visible>String.IsEmpty(Window.Property(arc.tab0))</visible>
+    </control>
+    <control type="grouplist" id="120">
+      <left>80</left>
+      <top>40</top>
+      <width>1000</width>
+      <height>76</height>
+      <orientation>horizontal</orientation>
+      <itemgap>12</itemgap>
+      <onup>noop</onup>
+      <ondown>100</ondown>
+      <onleft>noop</onleft>
+      <onright>102</onright>
+      <control type="button" id="121">
+        <width>auto</width>
+        <height>76</height>
+        <font>font13</font>
+        <align>center</align>
+        <aligny>center</aligny>
+        <textoffsetx>36</textoffsetx>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+        <visible>String.IsEqual(Window.Property(arc.tab0),current)</visible>
+      </control>
+      <control type="button" id="122">
+        <width>auto</width>
+        <height>76</height>
+        <font>font13</font>
+        <align>center</align>
+        <aligny>center</aligny>
+        <textoffsetx>36</textoffsetx>
+        <textcolor>C8F5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+        <visible>String.IsEqual(Window.Property(arc.tab0),other)</visible>
+      </control>
+      <control type="button" id="123">
+        <width>auto</width>
+        <height>76</height>
+        <font>font13</font>
+        <align>center</align>
+        <aligny>center</aligny>
+        <textoffsetx>36</textoffsetx>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+        <visible>String.IsEqual(Window.Property(arc.tab1),current)</visible>
+      </control>
+      <control type="button" id="124">
+        <width>auto</width>
+        <height>76</height>
+        <font>font13</font>
+        <align>center</align>
+        <aligny>center</aligny>
+        <textoffsetx>36</textoffsetx>
+        <textcolor>C8F5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+        <visible>String.IsEqual(Window.Property(arc.tab1),other)</visible>
+      </control>
+      <control type="button" id="125">
+        <width>auto</width>
+        <height>76</height>
+        <font>font13</font>
+        <align>center</align>
+        <aligny>center</aligny>
+        <textoffsetx>36</textoffsetx>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+        <visible>String.IsEqual(Window.Property(arc.tab2),current)</visible>
+      </control>
+      <control type="button" id="126">
+        <width>auto</width>
+        <height>76</height>
+        <font>font13</font>
+        <align>center</align>
+        <aligny>center</aligny>
+        <textoffsetx>36</textoffsetx>
+        <textcolor>C8F5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+        <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
+      </control>
     </control>
     <control type="label" id="104">
       <left>80</left>
@@ -40,7 +131,11 @@
       <align>center</align>
       <textoffsetx>28</textoffsetx>
       <left>1180</left>
-      <top>56</top>
+      <top>40</top>
+      <ondown>100</ondown>
+      <onup>noop</onup>
+      <onleft>120</onleft>
+      <onright>103</onright>
       <label>$ADDON[script.arc 30123]</label>
     </control>
     <control type="button" id="103">
@@ -54,8 +149,12 @@
       <align>center</align>
       <textoffsetx>28</textoffsetx>
       <left>1620</left>
-      <top>56</top>
+      <top>40</top>
       <width>260</width>
+      <ondown>100</ondown>
+      <onup>noop</onup>
+      <onleft>102</onleft>
+      <onright>noop</onright>
       <label>$ADDON[script.arc 30124]</label>
     </control>
     <control type="panel" id="100">
@@ -63,7 +162,8 @@
       <top>170</top>
       <width>1800</width>
       <height>880</height>
-      <onup>102</onup>
+      <onup condition="!String.IsEmpty(Window.Property(arc.tab0))">120</onup>
+      <onup condition="String.IsEmpty(Window.Property(arc.tab0))">102</onup>
       <orientation>vertical</orientation>
       <itemlayout width="292" height="460">
         <control type="image">
@@ -96,6 +196,7 @@
           <width>220</width>
           <height>340</height>
           <font>font12</font>
+          <shadowcolor>99000000</shadowcolor>
           <textcolor>FFA1A1AD</textcolor>
           <align>center</align>
           <aligny>center</aligny>
@@ -110,6 +211,27 @@
           <height>48</height>
           <texture>arc-tick.png</texture>
           <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="image">
+          <left>188</left>
+          <top>8</top>
+          <width>64</width>
+          <height>44</height>
+          <texture>arc-count-tab.png</texture>
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="label">
+          <left>188</left>
+          <top>8</top>
+          <width>64</width>
+          <height>44</height>
+          <font>font12</font>
+          <shadowcolor>99000000</shadowcolor>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textcolor>FFFFFFFF</textcolor>
+          <label>$INFO[ListItem.Property(unwatched)]</label>
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
         </control>
         <control type="progress">
           <left>16</left>
@@ -127,6 +249,7 @@
           <width>244</width>
           <height>34</height>
           <font>font12</font>
+          <shadowcolor>99000000</shadowcolor>
           <align>center</align>
           <textcolor>FFA1A1AD</textcolor>
           <label>$INFO[ListItem.Label]</label>
@@ -137,6 +260,7 @@
           <width>244</width>
           <height>30</height>
           <font>font12</font>
+          <shadowcolor>99000000</shadowcolor>
           <align>center</align>
           <textcolor>FF6B6B78</textcolor>
           <label>$INFO[ListItem.Label2]</label>
@@ -173,6 +297,7 @@
           <width>220</width>
           <height>340</height>
           <font>font12</font>
+          <shadowcolor>99000000</shadowcolor>
           <textcolor>FFA1A1AD</textcolor>
           <align>center</align>
           <aligny>center</aligny>
@@ -187,6 +312,27 @@
           <height>48</height>
           <texture>arc-tick.png</texture>
           <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="image">
+          <left>188</left>
+          <top>8</top>
+          <width>64</width>
+          <height>44</height>
+          <texture>arc-count-tab.png</texture>
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="label">
+          <left>188</left>
+          <top>8</top>
+          <width>64</width>
+          <height>44</height>
+          <font>font12</font>
+          <shadowcolor>99000000</shadowcolor>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textcolor>FFFFFFFF</textcolor>
+          <label>$INFO[ListItem.Property(unwatched)]</label>
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
         </control>
         <control type="progress">
           <left>16</left>
@@ -204,6 +350,7 @@
           <width>244</width>
           <height>34</height>
           <font>font12</font>
+          <shadowcolor>99000000</shadowcolor>
           <align>center</align>
           <textcolor>FFF5F5F7</textcolor>
           <label>$INFO[ListItem.Label]</label>
@@ -214,6 +361,7 @@
           <width>244</width>
           <height>30</height>
           <font>font12</font>
+          <shadowcolor>99000000</shadowcolor>
           <align>center</align>
           <textcolor>FF6B6B78</textcolor>
           <label>$INFO[ListItem.Label2]</label>

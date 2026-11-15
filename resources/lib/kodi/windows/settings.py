@@ -2,9 +2,8 @@
 (subtitles, audio, auto-play) live on the server (the profile's prefs), set in Arc's own apps;
 this screen is only what Kodi needs."""
 
-import xbmcgui
-
 from ..compat import ADDON_VERSION, T
+from . import menu
 from .base import ArcWindow
 
 SERVER = 100
@@ -31,7 +30,7 @@ class SettingsWindow(ArcWindow):
             self.result = "switch_profile"
             self.close()
         elif control_id == SIGN_OUT:
-            if xbmcgui.Dialog().yesno("Arc", T(30063) + "?"):
+            if menu.confirm(T(30063), T(30178) % (self.session.identity_name or "Arc"), T(30063)):
                 self.result = "sign_out"
                 self.close()
 
