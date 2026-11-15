@@ -4,7 +4,7 @@ and route navigation between the windows. Opened from default.py.
 
 import xbmcgui
 
-from arc import models
+from arc import menus, models
 from arc.api import APIError, Unreachable
 
 from . import log as logmod
@@ -12,7 +12,7 @@ from .compat import T
 from .log import log
 from .session import Session
 from .player import Playback
-from .windows import signin, home, library, details, search, settings
+from .windows import signin, home, library, details, search, settings, menu, recommended
 
 
 class App(object):
@@ -24,13 +24,32 @@ class App(object):
         self.session.start_proxy()
 
     def run(self):
-        if not self._ensure_signed_in():
-            return
-        if not self._ensure_profile():
-            return
-        if not self._load():
-            return
-        self._home()
+        try:
+            if not self._ensure_signed_in():
+                return
+            if not self._ensure_profile():
+                return
+            if not self._load():
+                return
+            self._home()
+        finally:
+            self._shut_down()
+
+    def _shut_down(self):
+        """Ends what still runs when the add-on closes: playback, then the artwork proxy's server.
+        Kodi waits for an add-on's threads before it ends it, so the proxy left running kept the
+        add-on alive after Back, and Kodi killed it at exit."""
+        if self.playback is not None:
+            try:
+                self.playback.stop()
+            except Exception:
+                pass
+            self.playback = None
+        try:
+            self.session.artwork.stop()
+        except Exception as e:
+            log.warning("stopping the artwork proxy failed: %s", type(e).__name__)
+        log.info("closed")
 
     # MARK: - sign-in flow
 
@@ -114,6 +133,49 @@ class App(object):
             self._open_playlists()
         elif kind == "settings":
             self._open_settings()
+        elif kind == "person":
+            self._open_person(payload)
+        elif kind == "collection":
+            self._open_collection(payload)
+        elif kind == "extra":
+            self._play_extra(payload)
+
+    def _open_person(self, credit):
+        person_id = credit.get("person_id") or credit.get("id")
+
+        def load(offset, limit):
+            data = self.session.api.person(person_id) or {}
+            items, seen = [], set()
+            for c in data.get("credits") or []:
+                it = c.get("item") or {}
+                if it.get("id") and it["id"] not in seen:
+                    seen.add(it["id"])
+                    items.append(it)
+            return items, len(items)
+
+        self._open_grid(credit.get("name", ""), load)
+
+    def _open_collection(self, ref):
+        def load(offset, limit):
+            data = self.session.api.collection(ref.get("id")) or {}
+            items = data.get("items") or []
+            return items, len(items)
+
+        self._open_grid(ref.get("title", ""), load)
+
+    def _play_extra(self, extra):
+        from .player import ExtraPlayback
+        if self.playback is not None:
+            self.playback.stop()
+
+        def finished():
+            if self.playback is pb:
+                self.playback = None
+
+        pb = ExtraPlayback(self.session, extra, on_finished=finished)
+        self.playback = pb
+        if not pb.start():
+            self.playback = None
 
     def _open(self, window_cls, **kwargs):
         w = window_cls(window_cls.xml, self._path(), "Main", "1080i", session=self.session, **kwargs)
@@ -126,31 +188,86 @@ class App(object):
 
     def _open_card(self, card):
         item = card["item"]
-        if models.is_series(item) or not models.playable(item):
-            self._open(details.DetailsWindow, item_id=item.get("id"), initial=item)
+        if models.is_episode(item) and item.get("parent_id"):
+            # No page of its own: an episode opens its show's page, on its season, focused on it.
+            show = menus.show_ref(item)
+            self._open(details.DetailsWindow, item_id=show["id"], initial=show, focus_episode=item.get("id"))
         else:
             self._open(details.DetailsWindow, item_id=item.get("id"), initial=item)
 
-    def _context(self, card):
-        item = card["item"]
-        options = [T(30005), T(30151) if models.watched(item) else T(30150),
-                   T(30153) if models.watchlisted(item) else T(30152)]
-        choice = xbmcgui.Dialog().contextmenu(options)
-        if choice == 0:
-            self._play(item, models.resume_ms(item)) if models.playable(item) else self._open_card(card)
-        elif choice == 1:
+    def _context(self, payload):
+        """A card's menu (Context Menu on any card): Arc's own menu with the Apple app's actions.
+        `payload` has the item and, from the window, `continue_row`, `on_page` and `on_changed`
+        (called with the item and the action once Arc has saved a change)."""
+        item = payload.get("item") or {}
+        actions = menus.card_actions(item, continue_row=payload.get("continue_row", False),
+                                     on_page=payload.get("on_page", False),
+                                     in_show=payload.get("in_show", False))
+        labels = {"play": T(30005), "resume": T(30006), "from_start": T(30213),
+                  "watched": T(30150), "unwatched": T(30151), "watchlist_add": T(30152),
+                  "watchlist_remove": T(30153), "go_to_show": T(30176), "remove_continue": T(30177)}
+        choice = menu.choose(item.get("title", ""), [labels[a] for a in actions])
+        if choice < 0:
+            return
+        act = actions[choice]
+        if act in ("play", "resume", "from_start"):
+            self._play(item, 0 if act == "from_start" else models.resume_ms(item))
+        elif act == "go_to_show":
+            self._open_card({"item": item})
+        else:
+            self._change(item, act, payload.get("on_changed"))
+
+    def _change(self, item, act, on_changed=None):
+        """Saves a card's watched, watchlist or Continue Watching change to Arc, then updates the
+        item in place and tells the window."""
+        api = self.session.api
+        try:
+            if act in ("watched", "unwatched"):
+                api.set_played(item.get("id"), act == "watched")
+            elif act in ("watchlist_add", "watchlist_remove"):
+                api.set_watchlist(item.get("id"), act == "watchlist_add")
+            elif act == "remove_continue":
+                api.remove_from_continue(item.get("id"))
+        except Exception as e:
+            log.warning("card action %s failed: %s", act, type(e).__name__)
+            xbmcgui.Dialog().notification("Arc", T(30179))
+            return
+        log.debug("card action done: %s", act)
+        ud = item.setdefault("user_data", {})
+        if act in ("watched", "unwatched"):
+            ud["played"] = act == "watched"
+            ud["position_ms"] = 0
+            if models.is_series(item):
+                item["unwatched_count"] = 0 if act == "watched" else max(1, item.get("unwatched_count") or 1)
+        elif act in ("watchlist_add", "watchlist_remove"):
+            ud["watchlisted"] = act == "watchlist_add"
+        if on_changed:
             try:
-                self.session.api.set_played(item.get("id"), not models.watched(item))
-            except Exception:
-                pass
-        elif choice == 2:
-            try:
-                self.session.api.set_watchlist(item.get("id"), not models.watchlisted(item))
-            except Exception:
-                pass
+                on_changed(item, act)
+            except Exception as e:
+                log.error("refresh after %s failed: %s", act, e)
 
     def _open_library(self, lib):
-        self._open(library.LibraryWindow, library=lib)
+        """A library opens on Recommended (Browse for Other videos), as Plex and the Apple app; its
+        tab pills swap the window for another tab's, so Back always returns to where it was
+        opened from."""
+        tab = library.library_tabs(lib)[0][0]
+        while tab:
+            if tab == "recommended":
+                result = self._open(recommended.RecommendedWindow, library=lib)
+            elif tab == "collections":
+                result = self._open(library.GridWindow, title=lib.get("name", ""), library=lib, tab="collections",
+                                    loader=self._collections_loader(lib), style="poster",
+                                    open_item=lambda c: self._open_collection(c))
+            else:
+                result = self._open(library.LibraryWindow, library=lib)
+            tab = result[1] if isinstance(result, tuple) and result[0] == "tab" else None
+
+    def _collections_loader(self, lib):
+        def load(offset, limit):
+            items = self.session.api.library_collections(lib.get("id")) or []
+            return items, len(items)
+        return load
 
     def _open_grid(self, title, loader, style="poster"):
         self._open(library.GridWindow, title=title, loader=loader, style=style, paged=True)
@@ -171,7 +288,7 @@ class App(object):
             xbmcgui.Dialog().notification("Arc", T(30106))
             return
         names = [p.get("title") or p.get("name", "") for p in playlists]
-        choice = xbmcgui.Dialog().select(T(30083), names)
+        choice = menu.choose(T(30083), names)
         if choice >= 0:
             pid = playlists[choice].get("id")
             self._open_grid(names[choice], self._playlist_loader(pid))

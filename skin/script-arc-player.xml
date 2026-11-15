@@ -140,44 +140,7 @@
         <left>16</left><top>76</top><width>548</width><height>428</height>
         <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
         <scrolltime>150</scrolltime>
-        <itemlayout width="548" height="64">
-          <control type="image">
-            <left>16</left><top>17</top><width>30</width><height>30</height>
-            <texture>arc-osd-check.png</texture><colordiffuse>white</colordiffuse>
-            <visible>String.IsEqual(ListItem.Property(selected),1)</visible>
-          </control>
-          <control type="label">
-            <left>62</left><top>0</top><width>440</width><height>64</height>
-            <font>arc-label</font><aligny>center</aligny><textcolor>fg</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>300</left><top>0</top><width>228</width><height>64</height>
-            <font>arc-small</font><aligny>center</aligny><align>right</align><textcolor>muted</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </itemlayout>
-        <focusedlayout width="548" height="64">
-          <control type="image">
-            <left>0</left><top>0</top><width>548</width><height>64</height>
-            <texture border="32">arc-pill-white.png</texture>
-          </control>
-          <control type="image">
-            <left>16</left><top>17</top><width>30</width><height>30</height>
-            <texture>arc-osd-check.png</texture><colordiffuse>black</colordiffuse>
-            <visible>String.IsEqual(ListItem.Property(selected),1)</visible>
-          </control>
-          <control type="label">
-            <left>62</left><top>0</top><width>440</width><height>64</height>
-            <font>arc-label</font><aligny>center</aligny><textcolor>black</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>300</left><top>0</top><width>228</width><height>64</height>
-            <font>arc-small</font><aligny>center</aligny><align>right</align><textcolor>FF3A3A40</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </focusedlayout>
+        <include>MenuLayouts</include>
       </control>
     </control>
 

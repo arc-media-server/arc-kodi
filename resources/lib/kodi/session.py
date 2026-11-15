@@ -22,6 +22,10 @@ class Session(object):
         self.prefs = {}
         self.libraries = []
         self.identity_name = saved.get("server_name", "")
+        self.local = None
+        # The last Recommended page per library id, shown at once on the next visit while a fresh
+        # one loads (dropped with the profile).
+        self.recommended = {}
         self.api = ArcAPI(self.base_url or "", token=lambda: self._token,
                           user_agent="Arc for Kodi/%s" % ADDON_VERSION)
         self.artwork = ArtworkProxy(self.api)
@@ -54,6 +58,7 @@ class Session(object):
 
     def forget_profile(self):
         self.profile = None
+        self.recommended = {}
         storage.update(profile_id=None, profile_name=None, profile_admin=False)
 
     def sign_out(self):
@@ -75,9 +80,14 @@ class Session(object):
         if ident and ident.get("name"):
             self.identity_name = ident["name"]
             storage.update(server_name=self.identity_name)
+        try:
+            self.local = (self.api.auth_status() or {}).get("local")  # on the server's home network
+        except Exception:
+            self.local = None
         self.prefs = self.api.prefs() or {}
         self.libraries = self.api.libraries() or []
-        log.info("loaded %d libraries", len(self.libraries))
+        # The server's version, so a log shows which Arc build answered (e.g. after an update).
+        log.info("loaded %d libraries from Arc %s", len(self.libraries), (ident or {}).get("version") or "?")
 
     def ordered_libraries(self):
         return homerows.ordered_libraries(self.libraries, (self.prefs or {}).get("library_order") or [])

@@ -68,8 +68,9 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
   header, and media and subtitles through cast links (`POST /cast`), which carry their own scoped
   token. Never use Kodi's `url|Authorization=...` header suffix with the session token.
 - **Feel:** a TV app driven by a remote: focus always visible (white, as the Apple app), Back
-  always works, Context Menu (C or long OK) for the ⋯ actions, Play on a card plays it. Arc's
-  identity through the owner's logo (the server's `docs/brand`, copied into `tools/brand/`): the
+  always works, Context Menu (C or long OK) for the ⋯ actions, Play on a card plays it. Menus and
+  questions are Arc's own (`kodi/windows/menu.py`: `choose`, `confirm`), never Kodi's
+  `contextmenu`, `select` or `yesno`. Arc's identity through the owner's logo (the server's `docs/brand`, copied into `tools/brand/`): the
   stacked logo on sign-in screens, the full logo in the open sidebar, the TV mark where it's
   small, on the sidebar's icon column. The sidebar's icons are the web and Android apps' (Lucide,
   ISC: `tools/brand/icons/`, notice in `resources/LICENSE-lucide.txt`); the Apple app's are SF
@@ -129,6 +130,10 @@ docs/changes/                   one note per change
   window property in the condition); focusing a control that shows only once it has items fails
   until Kodi's next frame (`focus_when_visible`); a grouplist rewrites its children's Up/Down, and
   a button row inside one needs its own `<ondown>`; Kodi calls `onInit` again on every return to
-  a window (`on_return`); never block in a click handler, or Kodi's player events never arrive.
+  a window (`on_return`); never block in a click handler, or Kodi's player events never arrive;
+  a horizontal grouplist takes over its children's Left/Right and can't move into a child group
+  (lay such a row out as a plain group); a grouplist scrolls only until the focused control's
+  foot meets its own, so room under a row has to be inside the row; Kodi won't bottom-align a
+  wrapping label; an auto-width disabled button makes a capsule that fits its text.
 - Kodi logs to `kodi.log` (`~/.kodi/temp/` on Linux, `%APPDATA%\Kodi\` on Windows); turn on
   Kodi's debug logging to see the add-on's debug lines.

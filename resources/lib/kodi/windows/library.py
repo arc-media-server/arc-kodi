@@ -1,16 +1,19 @@
 """A library's grid: its titles in a chosen sort and filter, six posters across (Browse). Sort and
-Filter are dialogs; paging loads more as you reach the end. Collections, a playlist, a person's
-titles and search results reuse GridWindow with a loader."""
+Filter are Arc menus; paging loads more as you reach the end. A library's Collections tab, a
+collection, a playlist and a person's titles reuse GridWindow with a loader. A library's tabs
+(Recommended, Browse, Collections) are a pill row at the top; choosing another closes this window
+with ("tab", name) and the app opens that one in its place."""
 
-import xbmc
 import xbmcgui
 
 from arc import home as homerows
+from arc import models
 
 from ..compat import T
 from ..log import log
-from .base import ArcWindow
-from .cards import item_list_item
+from . import menu
+from .base import ACTION_CONTEXT, ACTION_PLAY, ArcWindow
+from .cards import item_list_item, update_list_item
 
 GRID = 100
 TITLE = 101
@@ -18,14 +21,62 @@ SORT = 102
 FILTER = 103
 COUNT = 104
 EMPTY = 105
+TABS = 120
+TAB_BASE = 121          # slot i: "current" button 121 + 2i, "other" button 122 + 2i
+TAB_SLOTS = 3
 
 PAGE_SIZE = 60
 
 SORTS = [("added", T(30127)), ("title", T(30128)), ("year", T(30129)), ("rating", T(30130))]
 
 
-class GridWindow(ArcWindow):
-    """A grid filled by a `loader(offset, limit) -> (items, total)` callback."""
+def library_tabs(library):
+    """A library's tabs, as the Apple app's: Recommended (not for Other videos), Browse, Collections."""
+    tabs = [] if library.get("kind") == "videos" else [("recommended", T(30120))]
+    return tabs + [("browse", T(30121)), ("collections", T(30122))]
+
+
+class TabsMixin(object):
+    """The tab pills for a window showing one of a library's tabs (`self.library`, `self.tab`)."""
+
+    def show_tabs(self):
+        self.tabs = library_tabs(self.library)
+        for slot in range(TAB_SLOTS):
+            if slot < len(self.tabs):
+                key, name = self.tabs[slot]
+                self.set_label(TAB_BASE + 2 * slot, name)
+                self.set_label(TAB_BASE + 2 * slot + 1, name)
+                self.setProperty("arc.tab%d" % slot, "current" if key == self.tab else "other")
+            else:
+                self.setProperty("arc.tab%d" % slot, "")
+
+    def tab_at(self, control_id):
+        """The tab key a tab button stands for, or None."""
+        slot = (control_id - TAB_BASE) // 2
+        if TAB_BASE <= control_id < TAB_BASE + 2 * TAB_SLOTS and slot < len(getattr(self, "tabs", [])):
+            return self.tabs[slot][0]
+        return None
+
+    def tab_clicked(self, control_id):
+        key = self.tab_at(control_id)
+        if key and key != self.tab:
+            self.result = ("tab", key)
+            self.close()
+
+    def tab_focused(self, control_id):
+        """Coming up into the tabs lands on the one showing, as the Apple app's pill bar."""
+        into = self.tab_at(control_id) is not None
+        if into and not getattr(self, "_in_tabs", False):
+            slot = [k for k, _ in self.tabs].index(self.tab)
+            current = TAB_BASE + 2 * slot
+            if control_id != current:
+                self.focus_id(current)
+        self._in_tabs = into
+
+
+class GridWindow(TabsMixin, ArcWindow):
+    """A grid filled by a `loader(offset, limit) -> (items, total)` callback; with `library` and
+    `tab`, one of that library's tabs (its Collections), with the tab pills."""
 
     xml = "script-arc-grid.xml"
 
@@ -34,6 +85,9 @@ class GridWindow(ArcWindow):
         self.loader = kwargs.pop("loader", None)
         self.style = kwargs.pop("style", "poster")
         self.paged = kwargs.pop("paged", False)
+        self.library = kwargs.pop("library", None)
+        self.tab = kwargs.pop("tab", None)
+        self.open_item = kwargs.pop("open_item", None)  # for cards that aren't titles (collections)
         ArcWindow.__init__(self, *args, **kwargs)
         self.items = []
         self.total = None
@@ -45,6 +99,8 @@ class GridWindow(ArcWindow):
         self.set_label(TITLE, self.title)
         self.set_visible(SORT, False)
         self.set_visible(FILTER, False)
+        if self.library is not None:
+            self.show_tabs()
         self._load_more()
 
     def _load_more(self):
@@ -71,9 +127,12 @@ class GridWindow(ArcWindow):
             else:
                 self.set_label(EMPTY, "")
                 if offset == 0:
-                    self.focus_id(GRID)
+                    self.focus_when_visible(GRID)  # Kodi refuses focus until the cards are drawn
             count = self.total or len(self.items)
-            self.set_label(COUNT, str(count) if count else "")
+            text = str(count) if count else ""
+            if self.library is not None:
+                text = "  ·  ".join(t for t in (self.library.get("name", ""), text) if t)
+            self.set_label(COUNT, text)
 
         self.run_async(lambda: self.loader(offset, PAGE_SIZE), done)
 
@@ -85,13 +144,34 @@ class GridWindow(ArcWindow):
             pos = self.list_control(GRID).getSelectedPosition()
             if self.total is not None and len(self.items) < self.total and pos >= len(self.items) - 12:
                 self._load_more()
+        if self.getFocusId() == GRID and self.nav and (code in ACTION_CONTEXT or code in ACTION_PLAY):
+            ctrl = self.list_control(GRID)
+            pos = ctrl.getSelectedPosition()
+            if 0 <= pos < len(self.items):
+                item = self.items[pos]
+                if code in ACTION_CONTEXT:
+                    self.nav("context", {"item": item,
+                                         "on_changed": lambda it, _act: update_list_item(ctrl.getListItem(pos), it)})
+                    return True
+                if models.playable(item):
+                    self.nav("play", {"item": item, "resume": models.resume_ms(item)})
+                    return True
         return False
 
+    def onFocus(self, control_id):
+        if self.library is not None:
+            self.tab_focused(control_id)
+
     def on_click(self, control_id):
-        if control_id == GRID and self.nav:
+        if self.tab_at(control_id):
+            self.tab_clicked(control_id)
+        elif control_id == GRID and self.nav:
             pos = self.list_control(GRID).getSelectedPosition()
             if 0 <= pos < len(self.items):
-                self.nav("card", homerows.card(self.items[pos]))
+                if self.open_item:
+                    self.open_item(self.items[pos])
+                else:
+                    self.nav("card", homerows.card(self.items[pos]))
 
     def on_back(self):
         self.result = "back"
@@ -102,15 +182,16 @@ class LibraryWindow(GridWindow):
     """A library's Browse grid with Sort and Filter."""
 
     def __init__(self, *args, **kwargs):
-        self.library = kwargs.pop("library")
         self.sort = "added"
         self.filter = {}
-        kwargs["title"] = self.library.get("name", "")
+        kwargs["title"] = kwargs["library"].get("name", "")
         kwargs["paged"] = True
+        kwargs["tab"] = "browse"
         GridWindow.__init__(self, *args, loader=self._items, **kwargs)
 
     def on_init(self):
         self.set_label(TITLE, self.library.get("name", ""))
+        self.show_tabs()
         self._refresh_pills()
         self.set_visible(SORT, True)
         self.set_visible(FILTER, True)
@@ -133,13 +214,14 @@ class LibraryWindow(GridWindow):
 
     def on_click(self, control_id):
         if control_id == SORT:
-            choice = xbmcgui.Dialog().select(T(30123), [name for _, name in SORTS])
+            current = [key for key, _ in SORTS].index(self.sort) if self.sort in dict(SORTS) else -1
+            choice = menu.choose(T(30123), [name for _, name in SORTS], selected=current)
             if choice >= 0:
                 self.sort = SORTS[choice][0]
                 self._refresh_pills()
                 self._reset()
         elif control_id == FILTER:
-            choice = xbmcgui.Dialog().select(T(30124), [T(30125), T(30126)])
+            choice = menu.choose(T(30124), [T(30125), T(30126)], selected=1 if self.filter.get("unwatched") else 0)
             if choice >= 0:
                 self.filter = {} if choice == 0 else {"unwatched": True}
                 self._refresh_pills()
