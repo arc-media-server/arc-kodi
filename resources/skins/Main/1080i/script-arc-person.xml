@@ -95,6 +95,7 @@
       <scrolltime tween="cubic" easing="out">260</scrolltime>
       <onleft>noop</onleft>
       <onup>noop</onup>
+      <ondown>noop</ondown>
       <control type="label" id="3101">
         <left>8</left>
         <width>1500</width>

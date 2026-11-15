@@ -83,5 +83,3 @@ title in place instead, as Up Next does. Recorded in CLAUDE.md's gotchas.
 
 - No gentle catch-up (Kodi's tempo steps are a tenth); a player more than 2 s out jumps.
 - Joining from Home or a code opens the room's title in the player; if Kodi is already playing something else, that stops.
-- Home's Up key wraps from the top row to the bottom (as before; more noticeable now that the
-  Watch Together row is first).

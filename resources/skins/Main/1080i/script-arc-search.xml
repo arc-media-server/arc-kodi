@@ -194,6 +194,8 @@
       <itemgap>0</itemgap>
       <scrolltime tween="cubic" easing="out">220</scrolltime>
       <onleft>200</onleft>
+      <onup>noop</onup>
+      <ondown>noop</ondown>
       <control type="label" id="311">
         <left>8</left>
         <width>1500</width>

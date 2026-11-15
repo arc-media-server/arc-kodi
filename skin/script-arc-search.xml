@@ -111,7 +111,7 @@
       <left>712</left><top>40</top><width>1208</width><height>1040</height>
       <orientation>vertical</orientation><itemgap>0</itemgap>
       <scrolltime tween="cubic" easing="out">220</scrolltime>
-      <onleft>200</onleft>
+      <onleft>200</onleft><onup>noop</onup><ondown>noop</ondown>
       <include content="PosterRow"><param name="title" value="311"/><param name="list" value="310"/><param name="width" value="1208"/><param name="onleft" value="200"/></include>
       <include content="PosterRow"><param name="title" value="321"/><param name="list" value="320"/><param name="width" value="1208"/><param name="onleft" value="200"/></include>
       <include content="ThumbRow"><param name="title" value="331"/><param name="list" value="330"/><param name="width" value="1208"/><param name="height" value="350"/><param name="onleft" value="200"/></include>
