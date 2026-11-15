@@ -87,6 +87,10 @@ class DetailsWindow(ArcWindow):
         if self.item and models.is_series(self.item):
             self._load_seasons()
 
+    def on_live(self, change):
+        if change.touches((self.item or {}).get("library_id")):
+            self.on_return()
+
     def _refreshed(self, item, error):
         if error is None and item:
             self.item = item

@@ -53,6 +53,7 @@ class HomeWindow(ArcWindow):
     def on_init(self):
         self._build_sidebar()
         self.rows = self.session.home_rows()[:MAX_ROWS]
+        self.layout = self._layout_key()
         self.list_control(SIDEBAR).selectItem(1)  # Home is the chosen place
         self._layout_rows()
         # Home starts on its rows: the first row with cards takes focus when it arrives (_fill_row).
@@ -113,6 +114,24 @@ class HomeWindow(ArcWindow):
         # Refresh the rows in place (Continue Watching changes after playing), keeping the focus.
         self._refreshing = True
         self._load_rows()
+
+    def on_live(self, change):
+        """A live update: the rows load again in place, keeping the focus. If the profile's Home
+        itself changed (its rows or libraries, from another app), Home closes and the app opens
+        it again, built afresh."""
+        if not change.touches():
+            return
+        if self._layout_key() != self.layout:
+            log.info("home changed on Arc: rebuilding")
+            self.result = "reload"
+            self.close()
+            return
+        self.on_return()
+
+    def _layout_key(self):
+        rows = [(r.get("id"), r.get("style")) for r in self.session.home_rows()[:MAX_ROWS]]
+        libs = [(l.get("id"), l.get("name"), l.get("kind")) for l in self.session.ordered_libraries()]
+        return rows, libs, (self.session.prefs or {}).get("watchlist_position")
 
     def _row_title(self, row):
         source = row["source"]

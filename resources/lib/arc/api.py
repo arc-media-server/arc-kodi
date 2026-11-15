@@ -293,6 +293,28 @@ class ArcAPI(object):
         token = self._token()
         return {"Authorization": "Bearer " + token} if token else {}
 
+    def open_events(self, last_event_id=None, timeout=45):
+        """Opens Arc's change-hint stream (Server-Sent Events) and returns the open response, to
+        read line by line (arc/events.py). `last_event_id` resumes after a drop. Raises APIError
+        (with retry_after for a 429) or Unreachable."""
+        req = request.Request(self.base_url + "/api/v1/events", method="GET")
+        req.add_header("Accept", "text/event-stream")
+        req.add_header("User-Agent", self.user_agent)
+        if last_event_id:
+            req.add_header("Last-Event-ID", str(last_event_id)[:80])
+        for k, v in self.authorization.items():
+            req.add_header(k, v)
+        try:
+            return self._opener.open(req, timeout=timeout)
+        except urlerror.HTTPError as e:
+            with e:
+                err = self._failure(e.code, e.read(), "events")
+                err.retry_after = _seconds((e.headers or {}).get("Retry-After"))
+                raise err
+        except (urlerror.URLError, socket.timeout, ssl.SSLError, ConnectionError, OSError) as e:
+            log.debug("events: can't reach the server (%s)", type(getattr(e, "reason", e)).__name__)
+            raise Unreachable(str(type(e).__name__))
+
     # MARK: - plumbing
 
     def get(self, path, route=None):
@@ -358,6 +380,13 @@ class ArcAPI(object):
             log.debug("%s answered %d", route, status)
         return APIError(status, message, needs=obj.get("needs"), code=obj.get("code"),
                         request_id=obj.get("request_id"))
+
+
+def _seconds(value):
+    try:
+        return max(1, min(int(value), 300))
+    except (TypeError, ValueError):
+        return None
 
 
 class _NoRedirect(request.HTTPRedirectHandler):

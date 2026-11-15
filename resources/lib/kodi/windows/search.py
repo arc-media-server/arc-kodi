@@ -69,6 +69,11 @@ class SearchWindow(ArcWindow):
         except Exception:
             pass
 
+    def on_live(self, change):
+        # The same search again: watched marks, new titles or ones gone.
+        if self.searched and change.touches():
+            self._search_soon()
+
     def _box_changed(self):
         """What's typed into the search box (a keyboard, Kodi's keyboard, a phone)."""
         try:

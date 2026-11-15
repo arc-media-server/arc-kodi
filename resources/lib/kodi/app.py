@@ -10,6 +10,7 @@ from arc.api import APIError, Unreachable
 from . import log as logmod
 from .compat import T
 from .log import log
+from .live import Live
 from .session import Session
 from .player import Playback
 from .windows import signin, home, library, details, search, settings, menu, recommended, person
@@ -19,9 +20,11 @@ class App(object):
     def __init__(self):
         self.home_window = None
         self.playback = None  # the playing title, kept alive while Kodi plays it
+        self.stack = []       # the open windows, Home first; the last is the one showing
         logmod.install()
         self.session = Session()
         self.session.start_proxy()
+        self.live = Live(self.session, self._live_change)
 
     def run(self):
         try:
@@ -39,6 +42,7 @@ class App(object):
         """Ends what still runs when the add-on closes: playback, then the artwork proxy's server.
         Kodi waits for an add-on's threads before it ends it, so the proxy left running kept the
         add-on alive after Back, and Kodi killed it at exit."""
+        self.live.stop()
         if self.playback is not None:
             try:
                 self.playback.stop()
@@ -95,10 +99,16 @@ class App(object):
             w = home.HomeWindow(home.HomeWindow.xml, self._path(), "Main", "1080i", session=self.session)
             w.nav = self._navigate
             self.home_window = w
+            self.stack = [w]
+            self.live.start()
             w.doModal()
             result = w.result
             self.home_window = None
+            self.stack = []
             del w
+            if result == "reload":
+                continue  # the profile's Home changed on Arc: build it again
+            self.live.stop()
             if result == "exit":
                 return
             if result == "sign_out":
@@ -192,10 +202,35 @@ class App(object):
         w = window_cls(window_cls.xml, self._path(), "Main", "1080i", session=self.session, **kwargs)
         if hasattr(w, "nav"):
             w.nav = self._navigate
-        w.doModal()
+        self.stack.append(w)
+        try:
+            w.doModal()
+        finally:
+            if self.stack and self.stack[-1] is w:
+                self.stack.pop()
         result = getattr(w, "result", None)
         del w
         return result
+
+    def _live_change(self, change):
+        """A change on Arc (live updates): fetch the profile's settings and libraries again if
+        they may have changed, then let the window showing refresh itself. Nothing refreshes
+        under the video: windows refresh when it ends anyway, and progress reports would
+        otherwise refresh them every few seconds."""
+        if self.playback is not None:
+            return
+        api = self.session.api
+        try:
+            if change.personal():
+                self.session.prefs = api.prefs() or self.session.prefs
+            if change.libraries_changed():
+                self.session.libraries = api.libraries() or self.session.libraries
+        except Exception as e:
+            log.debug("live update: refetch failed (%s)", type(e).__name__)
+        top = self.stack[-1] if self.stack else None
+        if top is not None and not getattr(top, "_closing", False):
+            log.debug("live update: refreshing %s", type(top).__name__)
+            top.on_live(change)
 
     def _open_card(self, card):
         item = card["item"]

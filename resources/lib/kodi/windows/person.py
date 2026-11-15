@@ -39,6 +39,9 @@ class PersonWindow(home.HomeWindow):
     def on_return(self):
         pass  # their credits don't change while their page is open
 
+    def on_live(self, change):
+        pass
+
     def _loaded(self, page, error):
         if error is not None or not page:
             log.warning("person failed: %s", type(error).__name__ if error else "empty")

@@ -55,6 +55,11 @@ class SettingsWindow(ArcWindow):
             section = T(SECTIONS[key]) if key in SECTIONS else ""
             ctrl.addItem(list_item(T(NAMES[key]), self._detail(key), props={"section": section}))
 
+    def on_live(self, change):
+        # The app has fetched the profile's prefs again; show them.
+        if change.personal():
+            self._fill()
+
     def on_click(self, control_id):
         if control_id != ROWS:
             return

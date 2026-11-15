@@ -14,7 +14,7 @@ from ..compat import T
 from ..log import log
 from . import menu
 from .base import ACTION_CONTEXT, ACTION_PLAY, ArcWindow
-from .cards import item_list_item, update_list_item
+from .cards import item_list_item, set_progress, update_list_item
 
 GRID = 100
 TITLE = 101
@@ -153,13 +153,86 @@ class GridWindow(TabsMixin, ArcWindow):
                     # filter keeps it there). Kodi refuses focus until the cards are drawn.
                     self.focus_when_visible(GRID)
             self.page_loaded(offset)
-            count = self.total or len(self.items)
-            text = str(count) if count else ""
-            if self.library is not None:
-                text = "  ·  ".join(t for t in (self.library.get("name", ""), text) if t)
-            self.set_label(COUNT, text)
+            self._show_count()
 
         self.run_async(lambda: self.loader(offset, PAGE_SIZE), done)
+
+    def _show_count(self):
+        count = self.total or len(self.items)
+        text = str(count) if count else ""
+        if self.library is not None:
+            text = "  ·  ".join(t for t in (self.library.get("name", ""), text) if t)
+        self.set_label(COUNT, text)
+
+    # MARK: - refreshing
+
+    def on_return(self):
+        # Back from a title or the video: watched state and progress may have changed.
+        self.refresh()
+
+    def on_live(self, change):
+        library = self.library or getattr(self, "folder_library", None)
+        if change.touches((library or {}).get("id")):
+            self.refresh()
+
+    def forget(self):
+        """Drops anything a loader keeps, before a refresh (CollectionWindow keeps its titles)."""
+
+    def refresh(self):
+        """Loads the titles shown again and updates the grid in place, keeping the focus: the same
+        titles get their new state (watched, progress, new episodes); a changed list (a title
+        added or gone) is redrawn on the title that had the focus."""
+        if self.loading or not self.loader or not self.items:
+            return
+        self.loading = True
+        self.forget()
+        wanted = max(len(self.items), PAGE_SIZE)
+
+        def work():
+            if not self.paged:
+                return self.loader(0, PAGE_SIZE)
+            items, total = [], None
+            while len(items) < wanted:
+                page, total = self.loader(len(items), PAGE_SIZE)
+                items += page
+                if not page or (total is not None and len(items) >= total):
+                    break
+            return items, total
+
+        def done(result, error):
+            self.loading = False
+            if error is not None or not result:
+                log.debug("grid refresh failed: %s", type(error).__name__ if error else "empty")
+                return
+            items, total = result
+            ctrl = self.list_control(GRID)
+            old_ids = [it.get("id") for it in self.items]
+            new_ids = [it.get("id") for it in items]
+            if new_ids == old_ids:
+                for i, it in enumerate(items):
+                    li = ctrl.getListItem(i)
+                    update_list_item(li, it)
+                    set_progress(li, it)
+                self.items, self.total = items, total
+                return
+            pos = ctrl.getSelectedPosition()
+            focused = old_ids[pos] if 0 <= pos < len(old_ids) else None
+            had_focus = self.getFocusId() == GRID
+            self.items, self.total, self.offset = items, total, len(items)
+            ctrl.reset()
+            ctrl.addItems([item_list_item(self.session, it, self.style) for it in items])
+            if items:
+                ctrl.selectItem(new_ids.index(focused) if focused in new_ids else min(max(pos, 0), len(items) - 1))
+                self.set_label(EMPTY, "")
+                if had_focus:
+                    # Kodi drops the focus from a list while it's emptied and refilled.
+                    self.focus_when_visible(GRID)
+            else:
+                self._show_empty()
+            self._show_count()
+            log.debug("grid redrawn: %d titles", len(items))
+
+        self.run_async(work, done)
 
     def _show_empty(self):
         self.set_label(EMPTY, T(30106))
@@ -378,6 +451,9 @@ class CollectionWindow(GridWindow):
     def on_init(self):
         GridWindow.on_init(self)
         self._refresh_sort()
+
+    def forget(self):
+        self.loaded = None
 
     def _items(self, offset, limit):
         if self.loaded is None:
