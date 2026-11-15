@@ -857,3 +857,195 @@ msgstr ""
 msgctxt "#30320"
 msgid "%d titles"
 msgstr ""
+
+msgctxt "#30330"
+msgid "Watch Together"
+msgstr ""
+
+msgctxt "#30331"
+msgid "Watch Together…"
+msgstr ""
+
+msgctxt "#30332"
+msgid "Watching now"
+msgstr ""
+
+msgctxt "#30333"
+msgid "Join"
+msgstr ""
+
+msgctxt "#30334"
+msgid "Return"
+msgstr ""
+
+msgctxt "#30335"
+msgid "Decline"
+msgstr ""
+
+msgctxt "#30336"
+msgid "Cancel Room"
+msgstr ""
+
+msgctxt "#30337"
+msgid "You're hosting"
+msgstr ""
+
+msgctxt "#30338"
+msgid "Hosted by %s"
+msgstr ""
+
+msgctxt "#30339"
+msgid "%s is here"
+msgstr ""
+
+msgctxt "#30340"
+msgid "%s are here"
+msgstr ""
+
+msgctxt "#30341"
+msgid "Invited: %s"
+msgstr ""
+
+msgctxt "#30342"
+msgid "Join with a Code"
+msgstr ""
+
+msgctxt "#30343"
+msgid "Choose who to watch %s with. They'll find it on Home under Watch Together."
+msgstr ""
+
+msgctxt "#30344"
+msgid "Invite"
+msgstr ""
+
+msgctxt "#30345"
+msgid "Use a Code Instead"
+msgstr ""
+
+msgctxt "#30346"
+msgid "Can't watch this title"
+msgstr ""
+
+msgctxt "#30347"
+msgid "This title isn't available to you."
+msgstr ""
+
+msgctxt "#30348"
+msgid "You're no longer in the Watch Together room. You're watching on your own."
+msgstr ""
+
+msgctxt "#30349"
+msgid "Watch Together has ended. You're watching on your own."
+msgstr ""
+
+msgctxt "#30350"
+msgid "Paused by %s"
+msgstr ""
+
+msgctxt "#30351"
+msgid "Played by %s"
+msgstr ""
+
+msgctxt "#30352"
+msgid "%s moved the room"
+msgstr ""
+
+msgctxt "#30353"
+msgid "Friend"
+msgstr ""
+
+msgctxt "#30354"
+msgid "There's nobody else to invite yet. You can use a code instead."
+msgstr ""
+
+msgctxt "#30355"
+msgid "Couldn't load who you can invite. Check Arc is running and try again."
+msgstr ""
+
+msgctxt "#30356"
+msgid "You already have rooms waiting. Join or cancel one on Home first."
+msgstr ""
+
+msgctxt "#30357"
+msgid "Couldn't invite them. Check Arc is running and try again."
+msgstr ""
+
+msgctxt "#30358"
+msgid "Your room for %s is ready. It's on Home under Watch Together."
+msgstr ""
+
+msgctxt "#30359"
+msgid "The code the host shared"
+msgstr ""
+
+msgctxt "#30360"
+msgid "That code didn't work. It may have run out: ask the host for a new one."
+msgstr ""
+
+msgctxt "#30361"
+msgid "Too many tries. Wait a minute and try again."
+msgstr ""
+
+msgctxt "#30362"
+msgid "Couldn't join. Check Arc is running and try again."
+msgstr ""
+
+msgctxt "#30363"
+msgid "In the room"
+msgstr ""
+
+msgctxt "#30364"
+msgid "Start"
+msgstr ""
+
+msgctxt "#30365"
+msgid "Invite More People"
+msgstr ""
+
+msgctxt "#30366"
+msgid "Leave"
+msgstr ""
+
+msgctxt "#30367"
+msgid "End for Everyone"
+msgstr ""
+
+msgctxt "#30368"
+msgid "Or share the code %s"
+msgstr ""
+
+msgctxt "#30369"
+msgid "Waiting for %s to start…"
+msgstr ""
+
+msgctxt "#30370"
+msgid "%s (you)"
+msgstr ""
+
+msgctxt "#30371"
+msgid "Host"
+msgstr ""
+
+msgctxt "#30372"
+msgid "Invited"
+msgstr ""
+
+msgctxt "#30373"
+msgid "Loading"
+msgstr ""
+
+msgctxt "#30374"
+msgid "Ready"
+msgstr ""
+
+msgctxt "#30375"
+msgid "Watching"
+msgstr ""
+
+msgctxt "#30376"
+msgid "Can't watch this"
+msgstr ""
+
+msgctxt "#30377"
+msgid "Choose who else to invite. They'll find it on Home under Watch Together."
+msgstr ""

@@ -255,5 +255,129 @@
         <onleft>103</onleft><onright>noop</onright><onup>noop</onup><ondown>noop</ondown>
       </control>
     </control>
+
+    <!-- Watch Together's lobby, until the room first plays (arc.lobby): over the paused, dimmed
+         picture, who's in the room; the host starts it (or invites more people), the others wait. -->
+    <control type="group" id="700">
+      <visible>String.IsEqual(Window.Property(arc.lobby),1)</visible>
+      <animation effect="fade" time="200">VisibleChange</animation>
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>1080</height>
+        <texture>arc-white.png</texture><colordiffuse>8C000000</colordiffuse>
+      </control>
+      <control type="group">
+        <left>510</left><top>230</top>
+        <control type="image">
+          <left>0</left><top>0</top><width>900</width><height>620</height>
+          <texture border="38" colordiffuse="F2FFFFFF">arc-pill-surface.png</texture>
+        </control>
+        <control type="label">
+          <left>48</left><top>40</top><width>804</width><height>56</height>
+          <font>arc-row</font><textcolor>fg</textcolor>
+          <label>$ADDON[script.arc 30330]</label>
+        </control>
+        <control type="label" id="701">
+          <left>48</left><top>96</top><width>804</width><height>40</height>
+          <font>arc-body</font><textcolor>muted</textcolor>
+        </control>
+        <control type="label">
+          <left>48</left><top>160</top><width>804</width><height>36</height>
+          <font>arc-small</font><textcolor>muted</textcolor>
+          <label>$ADDON[script.arc 30363]</label>
+        </control>
+        <!-- One line per person: their name, (you), Host, and how they are. -->
+        <control type="list" id="702">
+          <left>48</left><top>200</top><width>804</width><height>240</height>
+          <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+          <itemlayout width="804" height="48">
+            <control type="image">
+              <left>0</left><top>19</top><width>10</width><height>10</height>
+              <texture>arc-circle.png</texture><colordiffuse>white</colordiffuse>
+              <visible>String.IsEqual(ListItem.Property(ready),1)</visible>
+            </control>
+            <control type="image">
+              <left>0</left><top>19</top><width>10</width><height>10</height>
+              <texture>arc-circle.png</texture><colordiffuse>subtle</colordiffuse>
+              <visible>!String.IsEqual(ListItem.Property(ready),1)</visible>
+            </control>
+            <control type="label">
+              <left>28</left><top>0</top><width>520</width><height>48</height>
+              <font>arc-body</font><textcolor>fg</textcolor><aligny>center</aligny>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>548</left><top>0</top><width>256</width><height>48</height>
+              <font>arc-small</font><textcolor>muted</textcolor><aligny>center</aligny><align>right</align>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </itemlayout>
+          <!-- Kodi draws the chosen row with this even when the list hasn't the focus. -->
+          <focusedlayout width="804" height="48">
+            <control type="image">
+              <left>0</left><top>19</top><width>10</width><height>10</height>
+              <texture>arc-circle.png</texture><colordiffuse>white</colordiffuse>
+              <visible>String.IsEqual(ListItem.Property(ready),1)</visible>
+            </control>
+            <control type="image">
+              <left>0</left><top>19</top><width>10</width><height>10</height>
+              <texture>arc-circle.png</texture><colordiffuse>subtle</colordiffuse>
+              <visible>!String.IsEqual(ListItem.Property(ready),1)</visible>
+            </control>
+            <control type="label">
+              <left>28</left><top>0</top><width>520</width><height>48</height>
+              <font>arc-body</font><textcolor>fg</textcolor><aligny>center</aligny>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>548</left><top>0</top><width>256</width><height>48</height>
+              <font>arc-small</font><textcolor>muted</textcolor><aligny>center</aligny><align>right</align>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </focusedlayout>
+        </control>
+        <control type="label" id="703">
+          <left>48</left><top>456</top><width>804</width><height>40</height>
+          <font>arc-small</font><textcolor>muted</textcolor>
+        </control>
+        <control type="grouplist" id="704">
+          <left>48</left><top>508</top><width>804</width><height>76</height>
+          <orientation>horizontal</orientation><itemgap>20</itemgap>
+          <onup>noop</onup><ondown>noop</ondown>
+          <control type="button" id="710">
+            <include content="PrimaryButton"><param name="width" value="240"/></include>
+            <label>$ADDON[script.arc 30364]</label>
+            <visible>String.IsEqual(Window.Property(arc.host),1)</visible>
+          </control>
+          <control type="button" id="711">
+            <include content="PillButton"><param name="width" value="330"/></include>
+            <textoffsetx>0</textoffsetx>
+            <label>$ADDON[script.arc 30365]</label>
+            <visible>String.IsEqual(Window.Property(arc.host),1)</visible>
+          </control>
+          <control type="button" id="712">
+            <include content="PillButton"><param name="width" value="180"/></include>
+            <textoffsetx>0</textoffsetx>
+            <label>$ADDON[script.arc 30366]</label>
+          </control>
+        </control>
+      </control>
+    </control>
+
+    <!-- A short note at the top ("Paused by Sam"), for a few seconds (arc.notice); below Kodi's
+         own paused bar. -->
+    <control type="group">
+      <left>560</left><top>120</top>
+      <visible>!String.IsEmpty(Window.Property(arc.notice))</visible>
+      <animation effect="fade" time="200">VisibleChange</animation>
+      <control type="image">
+        <left>0</left><top>0</top><width>800</width><height>76</height>
+        <texture border="38" colordiffuse="F2FFFFFF">arc-pill-surface.png</texture>
+      </control>
+      <control type="label">
+        <left>32</left><top>0</top><width>736</width><height>76</height>
+        <font>arc-label</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+        <label>$INFO[Window.Property(arc.notice)]</label>
+      </control>
+    </control>
   </controls>
 </window>

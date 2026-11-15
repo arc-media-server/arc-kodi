@@ -5,7 +5,12 @@ About. Plain Python; the Kodi side words and draws it."""
 # The Subtitles choice: the value Arc stores, as the Apple app offers them.
 SUBTITLE_MODES = ["", "foreign", "always", "manual"]
 
-ROWS = ["auto_play", "auto_skip", "subtitle_mode", "switch_profile", "sign_out", "change_server", "about"]
+ROWS = ["auto_play", "auto_skip", "subtitle_mode", "join_code", "switch_profile", "sign_out", "change_server", "about"]
+
+
+def rows(together=False):
+    """The rows shown: Join with a Code (Watch Together) only where Arc allows Watch Together."""
+    return [r for r in ROWS if r != "join_code" or together]
 
 
 def value(prefs, key):

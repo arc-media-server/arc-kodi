@@ -206,7 +206,8 @@ class RoomStream(object):
                 self._read(resp)
                 failures = 0 if self.clock() - opened >= MIN_LIFE else failures + 1
             except Exception as e:
-                log.debug("room stream dropped (%s)", type(e).__name__)
+                if not self.stopped():  # not one closed on purpose
+                    log.debug("room stream dropped (%s)", type(e).__name__)
                 failures += 1
             finally:
                 self.resp = None

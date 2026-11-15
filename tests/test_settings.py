@@ -15,3 +15,8 @@ def test_changes():
     assert settings.change({"auto_skip": True}, "auto_skip") == {"auto_skip": False}
     assert settings.change({}, "subtitle_mode", "foreign") == {"subtitle_mode": "foreign"}
     assert settings.change({}, "switch_profile") == {}
+
+
+def test_rows_offer_join_code_with_watch_together():
+    assert "join_code" not in settings.rows()
+    assert settings.rows(together=True).index("join_code") == settings.rows(together=True).index("switch_profile") - 1

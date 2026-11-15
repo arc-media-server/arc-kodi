@@ -181,6 +181,18 @@
         <texture>arc-mask-thumb.png</texture><colordiffuse>B3000000</colordiffuse>
         <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
       </control>
+      <!-- A word on the picture (Watch Together's "Watching now"). -->
+      <control type="image">
+        <left>20</left><top>20</top><width>230</width><height>44</height>
+        <texture border="22">arc-pill-white-56.png</texture><colordiffuse>A6000000</colordiffuse>
+        <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+      </control>
+      <control type="label">
+        <left>20</left><top>20</top><width>230</width><height>44</height>
+        <font>arc-small</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+        <label>$INFO[ListItem.Property(tag)]</label>
+        <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+      </control>
       <control type="image">
         <left>2</left><top>2</top><width>476</width><height>273</height>
         <texture>arc-ring-thumb.png</texture>

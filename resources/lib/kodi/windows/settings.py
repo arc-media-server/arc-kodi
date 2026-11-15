@@ -14,9 +14,9 @@ PROFILE = 101
 ABOUT = 104
 ROWS = 110
 
-NAMES = {"auto_play": 30297, "auto_skip": 30298, "subtitle_mode": 30185, "switch_profile": 30202,
-         "sign_out": 30063, "change_server": 30305, "about": 30307}
-SECTIONS = {"auto_play": 30296, "switch_profile": 30308, "about": 30307}
+NAMES = {"auto_play": 30297, "auto_skip": 30298, "subtitle_mode": 30185, "join_code": 30342,
+         "switch_profile": 30202, "sign_out": 30063, "change_server": 30305, "about": 30307}
+SECTIONS = {"auto_play": 30296, "join_code": 30330, "switch_profile": 30308, "about": 30307}
 MODE_NAMES = {"": 30299, "foreign": 30300, "always": 30301, "manual": 30302}
 
 
@@ -24,6 +24,7 @@ class SettingsWindow(ArcWindow):
     xml = "script-arc-settings.xml"
 
     def on_init(self):
+        self.rows = settings.rows(together=self.session.together.available)
         self.set_label(PROFILE, (self.session.profile or {}).get("name", ""))
         self.set_label(SERVER, self.session.identity_name or "")
         self.set_text(ABOUT, T(30309))
@@ -46,12 +47,12 @@ class SettingsWindow(ArcWindow):
         """Fills the rows once; after a change only their values change, in place (refilling the
         list would move the focus and lose a key pressed meanwhile)."""
         ctrl = self.list_control(ROWS)
-        if ctrl.size() == len(settings.ROWS):
-            for i, key in enumerate(settings.ROWS):
+        if ctrl.size() == len(self.rows):
+            for i, key in enumerate(self.rows):
                 ctrl.getListItem(i).setLabel2(self._detail(key))
             return
         ctrl.reset()
-        for key in settings.ROWS:
+        for key in self.rows:
             section = T(SECTIONS[key]) if key in SECTIONS else ""
             ctrl.addItem(list_item(T(NAMES[key]), self._detail(key), props={"section": section}))
 
@@ -64,9 +65,9 @@ class SettingsWindow(ArcWindow):
         if control_id != ROWS:
             return
         pos = self.list_control(ROWS).getSelectedPosition()
-        if not 0 <= pos < len(settings.ROWS):
+        if not 0 <= pos < len(self.rows):
             return
-        key = settings.ROWS[pos]
+        key = self.rows[pos]
         if key in ("auto_play", "auto_skip"):
             self._save(settings.change(self.session.prefs, key))
         elif key == "subtitle_mode":
@@ -75,6 +76,9 @@ class SettingsWindow(ArcWindow):
             choice = menu.choose(T(30185), [T(MODE_NAMES[m]) for m in modes], selected=current)
             if choice >= 0 and choice != current:
                 self._save(settings.change(self.session.prefs, key, modes[choice]))
+        elif key == "join_code":
+            self.result = "join_code"
+            self.close()
         elif key == "switch_profile":
             self.result = "switch_profile"
             self.close()

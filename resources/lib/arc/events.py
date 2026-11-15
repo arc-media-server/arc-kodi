@@ -19,7 +19,7 @@ log = logging.getLogger("arc")
 
 # Topics that change what a profile sees. Others (sessions, activity, maintenance: admin; markers,
 # previews, optimized: read when playback starts) need nothing redrawn.
-PERSONAL = {"profile", "playback"}
+PERSONAL = {"profile", "playback", "watch_together"}  # watch_together: the profile's rooms list
 CATALOG = {"catalog", "library", "artwork"}
 WATCHED = PERSONAL | CATALOG
 
@@ -210,7 +210,8 @@ class EventStream(object):
                 # A stream Arc ends at once is a failure too (or the loop would spin).
                 failures = 0 if self.clock() - opened >= MIN_LIFE else failures + 1
             except Exception as e:  # a dropped connection or a read timeout
-                log.debug("live updates dropped (%s)", type(e).__name__)
+                if not self.stopped():  # not one closed on purpose
+                    log.debug("live updates dropped (%s)", type(e).__name__)
                 failures += 1
             finally:
                 self.resp = None

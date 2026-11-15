@@ -12,6 +12,7 @@ from .compat import T
 from .log import log
 from .live import Live
 from .session import Session
+from .together import Together
 from .player import Playback
 from .windows import signin, home, library, details, search, settings, menu, recommended, person
 
@@ -25,6 +26,10 @@ class App(object):
         self.session = Session()
         self.session.start_proxy()
         self.live = Live(self.session, self._live_change)
+        self.together = Together(self.session)
+        self.together.open_player = lambda item, start_ms: self._play(item, start_ms, together=True)
+        self.together.invite_more = lambda item: self._invite(item, room_id=(self.together.room or {}).get("id"))
+        self.session.together = self.together
 
     def run(self):
         try:
@@ -43,6 +48,7 @@ class App(object):
         Kodi waits for an add-on's threads before it ends it, so the proxy left running kept the
         add-on alive after Back, and Kodi killed it at exit."""
         self.live.stop()
+        self.together.leave()
         if self.playback is not None:
             try:
                 self.playback.stop()
@@ -140,6 +146,8 @@ class App(object):
             self._play(payload["item"], payload.get("resume", 0))
         elif kind == "library":
             self._open_library(payload)
+        elif kind == "together_card":
+            self._together_card(payload["card"], payload.get("menu", False))
         elif kind == "genre":
             self._open_genre(payload)
         elif kind == "search":
@@ -233,6 +241,9 @@ class App(object):
             top.on_live(change)
 
     def _open_card(self, card):
+        if card.get("room") or card.get("join_code"):
+            self._together_card(card)
+            return
         item = card["item"]
         if models.is_episode(item) and item.get("parent_id"):
             # No page of its own: an episode opens its show's page, on its season, focused on it.
@@ -248,10 +259,12 @@ class App(object):
         item = payload.get("item") or {}
         actions = menus.card_actions(item, continue_row=payload.get("continue_row", False),
                                      on_page=payload.get("on_page", False),
-                                     in_show=payload.get("in_show", False))
+                                     in_show=payload.get("in_show", False),
+                                     together=self.together.available)
         labels = {"play": T(30005), "resume": T(30006), "from_start": T(30213),
                   "watched": T(30150), "unwatched": T(30151), "watchlist_add": T(30152),
-                  "watchlist_remove": T(30153), "go_to_show": T(30176), "remove_continue": T(30177)}
+                  "watchlist_remove": T(30153), "go_to_show": T(30176), "remove_continue": T(30177),
+                  "watch_together": T(30331)}
         choice = menu.choose(item.get("title", ""), [labels[a] for a in actions])
         if choice < 0:
             return
@@ -260,6 +273,8 @@ class App(object):
             self._play(item, 0 if act == "from_start" else models.resume_ms(item))
         elif act == "go_to_show":
             self._open_card({"item": item})
+        elif act == "watch_together":
+            self._invite(item)
         else:
             self._change(item, act, payload.get("on_changed"))
 
@@ -329,8 +344,111 @@ class App(object):
     def _open_grid(self, title, loader, style="poster"):
         self._open(library.GridWindow, title=title, loader=loader, style=style, paged=True)
 
+    # MARK: - Watch Together
+
+    def _together_card(self, card, with_menu=False):
+        """A card on Home's Watch Together row: Select joins (or returns to) the room; Context Menu
+        offers Join and Decline (Cancel Room for its maker). The last card joins with a code."""
+        if card.get("join_code"):
+            self._join_code()
+            return
+        room = card["room"]
+        if with_menu:
+            choice = menu.choose(card.get("label", ""), [T(30334) if room.get("joined") else T(30333),
+                                                         T(30336) if room.get("hosting") else T(30335)])
+            if choice < 0:
+                return
+            if choice == 1:
+                self.together.dismiss(room)
+                self._refresh_home()
+                return
+        try:
+            self.together.accept(room)
+        except Exception as e:
+            log.warning("joining a Watch Together room failed (%s)", type(e).__name__)
+            self._tell(T(30362))
+            self._refresh_home()
+
+    def _join_code(self):
+        code = xbmcgui.Dialog().input(T(30359))
+        if not code:
+            return
+        try:
+            self.together.join(code)
+        except APIError as e:
+            log.info("joining with a code refused (%d)", e.status)
+            self._tell(T(30360) if e.status == 404 else T(30361) if e.status == 429 else T(30362))
+        except Exception as e:
+            log.warning("joining with a code failed (%s)", type(e).__name__)
+            self._tell(T(30362))
+
+    def _invite(self, item, room_id=None):
+        """Who to watch with: the people this profile may invite, ticked with Select, then Invite
+        (a room waits on their Home rows) or Use a Code Instead (a room with a code, at once).
+        For a room this device is in (`room_id`), Invite adds them to it."""
+        try:
+            people = self.session.api.watch_people(item.get("id"))
+        except Exception as e:
+            log.warning("who to invite didn't load (%s)", type(e).__name__)
+            self._tell(T(30355))
+            return
+        title = item.get("title", "")
+        message = T(30377) if room_id else T(30343) % title
+        if not people:
+            message = T(30354)
+        chosen, focus = set(), None
+        while True:
+            options = [(p.get("name", ""), T(30346) if p.get("can_watch") is False else T(30353) if p.get("friend") else "")
+                       for p in people]
+            actions = []
+            if people:
+                options.append(T(30344))
+                actions.append("invite")
+            if not room_id:
+                options.append(T(30345))
+                actions.append("code")
+            choice = menu.choose(T(30330), options, selected=chosen, focus=focus, message=message)
+            if choice < 0:
+                return
+            if choice < len(people):
+                focus = choice
+                if people[choice].get("can_watch") is not False:
+                    chosen ^= {choice}
+                continue
+            act = actions[choice - len(people)]
+            if act == "invite" and not chosen:
+                focus = choice
+                continue
+            ids = [people[i].get("id") for i in sorted(chosen)]
+            try:
+                if act == "code":
+                    self.together.start_with_code(item.get("id"))
+                elif room_id:
+                    self.together.invite(ids)
+                else:
+                    self.together.create_room(item.get("id"), ids)
+                    self._tell(T(30358) % title)
+                    self._refresh_home()
+            except APIError as e:
+                log.warning("Watch Together room not made (%d)", e.status)
+                self._tell(T(30356) if e.status == 429 else T(30357))
+            except Exception as e:
+                log.warning("Watch Together room not made (%s)", type(e).__name__)
+                self._tell(T(30357))
+            return
+
+    def _tell(self, message):
+        menu.choose(T(30330), [T(30000)], message=message)
+
+    def _refresh_home(self):
+        if self.home_window is not None:
+            self.home_window.on_return()
+
     def _open_settings(self):
         result = self._open(settings.SettingsWindow)
+        if result == "join_code":
+            self._join_code()
+            return
         if result in ("sign_out", "switch_profile", "change_server") and self.home_window is not None:
             # Home closes and _home() acts on it: a new profile gets a new Home, from scratch.
             self.home_window.result = result
@@ -368,7 +486,7 @@ class App(object):
 
     # MARK: - playback
 
-    def _play(self, item, resume_ms, queue=None):
+    def _play(self, item, resume_ms, queue=None, together=False):
         """Starts playback and returns at once. Kodi delivers the player's events (started, paused,
         ended) on this thread through the open window's loop, so it must not be held here waiting;
         the Playback reports progress and cleans up on its own threads."""
@@ -379,7 +497,8 @@ class App(object):
             if self.playback is pb:
                 self.playback = None
 
-        pb = Playback(self.session, item, resume_ms=resume_ms, on_finished=finished, queue=queue)
+        pb = Playback(self.session, item, resume_ms=resume_ms, on_finished=finished, queue=queue,
+                      together=self.together if together else None)
         self.playback = pb
         if not pb.start():
             self.playback = None

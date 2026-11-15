@@ -13,6 +13,11 @@ owns the remote, as PM4K's does, and behaves as the Apple and Android players:
 
 It reads the Playback (kodi/player.py) for where things are and asks it to seek, pause, change
 tracks and so on; it never talks to Arc itself.
+
+In a Watch Together room it also shows the lobby until the room first plays (who's there; the host
+starts it), notices ("Paused by Sam") at the top, and the room's actions in the Playback menu
+(Invite More People, Leave, End for Everyone). Only the host's Up Next and Auto-Skip move the
+room; the others follow it.
 """
 
 import threading
@@ -22,6 +27,7 @@ import xbmc
 import xbmcgui
 
 from arc import models, playback
+from arc import together as wt
 
 from .compat import ADDON_PATH, T
 from .log import log
@@ -37,9 +43,13 @@ THUMB_GROUP, THUMB_IMAGE, THUMB_W = 460, 461, 328   # the thumbnail's group, ima
 MENU_TITLE, MENU_LIST, MENU_BACK = 601, 602, 603
 MENU_ROW, MENU_ROWS, MENU_BOTTOM = 64, 7, 816  # rows 64 high, up to 7 showing, ending above the buttons
 CONTROLS, MENU = 200, 600
+LOBBY, LOBBY_TITLE, LOBBY_PEOPLE, LOBBY_STATUS = 700, 701, 702, 703
+LOBBY_START, LOBBY_INVITE, LOBBY_LEAVE = 710, 711, 712
+NOTICE_FOR = 3.0                # seconds a notice shows
 # The group each focusable control shows with.
 GROUP_OF = {PLAYBACK_BUTTON: CONTROLS, AUDIO_BUTTON: CONTROLS, SUBTITLES_BUTTON: CONTROLS, TIMELINE: CONTROLS,
-            MENU_LIST: MENU, UP_NEXT_PLAY: UP_NEXT, UP_NEXT_CLOSE: UP_NEXT}
+            MENU_LIST: MENU, UP_NEXT_PLAY: UP_NEXT, UP_NEXT_CLOSE: UP_NEXT,
+            LOBBY_START: LOBBY, LOBBY_INVITE: LOBBY, LOBBY_LEAVE: LOBBY}
 
 TL_X, TL_W = 100, 1720          # the timeline's place (the skin's)
 MARKER_Y, MARKER_Y_FOCUSED = 934, 928
@@ -129,12 +139,20 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         self._pending_at = 0.0
         self._menu = None           # (kind, options) while a menu is open
         self._menu_button = None
+        self._lobby = False         # Watch Together's lobby is showing
+        self._lobby_done = False    # the room has played: no lobby again
+        self._notice_until = 0.0
+        self._room_lock = threading.Lock()   # room updates come from several threads
+        if pb.together is not None:
+            pb.together.notify = self._notice
         self._done = threading.Event()
         threading.Thread(target=self._loop, name="arc-player-ui", daemon=True).start()
 
     def onInit(self):
         self._titles()
         self.setFocusId(CATCHER)
+        if self.pb.together is not None and self.pb.together.room:
+            self.on_room(self.pb.together.room)
 
     # MARK: - from the Playback
 
@@ -151,6 +169,8 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         self._titles()
 
     def finish(self):
+        if self.pb.together is not None and self.pb.together.notify == self._notice:
+            self.pb.together.notify = None
         self._done.set()
         try:
             self.close()
@@ -184,16 +204,22 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             self._hide()
         elif not self._osd and now >= self._shown_until and self.getProperty("arc.osd") == "1":
             self.setProperty("arc.osd", "")
-        if not self.pb._started:
+        if self._notice_until and now >= self._notice_until:
+            self._notice_until = 0.0
+            self.setProperty("arc.notice", "")
+        if not self.pb._started or self._lobby:
             return
-        # Skip Intro/Recap/Credits, or skipping by itself (the profile's Auto-Skip).
+        in_room, host = self.pb.in_room(), self.pb.room_host()
+        # Skip Intro/Recap/Credits, or skipping by itself (the profile's Auto-Skip; in a room only
+        # the host's, which moves everyone).
         marker = playback.active_marker(self.markers, position)
-        if marker and self.auto_skip and marker.get("kind") != "credits" and marker.get("start_ms") not in self._skipped:
+        if marker and self.auto_skip and (host or not in_room) and marker.get("kind") != "credits" \
+                and marker.get("start_ms") not in self._skipped:
             self._skipped.add(marker.get("start_ms"))
             log.debug("skipping the %s by itself", marker.get("kind"))
             self.pb.skip_to(marker.get("end_ms") or 0)
             return
-        nxt = self.pb.next_item
+        nxt = self.pb.next_item if host or not in_room else None  # a room's guests follow the host
         due = bool(nxt) and not self._up_next_closed and playback.shows_up_next(self.markers, position, duration)
         if due and not self._up_next:
             self._show_up_next(nxt)
@@ -361,6 +387,58 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             if self.getFocusId() in (UP_NEXT_PLAY, UP_NEXT_CLOSE):
                 self.setFocusId(CATCHER)
 
+    # MARK: - Watch Together
+
+    def on_room(self, room):
+        """The room changed (or the player opened in one): the lobby until it first plays."""
+        if self.pb.together is None or not room:
+            return
+        with self._room_lock:
+            self._on_room(room)
+
+    def _on_room(self, room):
+        if wt.started(room) or not room.get("available"):
+            self._lobby_done = self._lobby_done or wt.started(room)
+            if self._lobby:
+                self._lobby = False
+                self.setProperty("arc.lobby", "")
+                self.setFocusId(CATCHER)
+            return
+        if self._lobby_done:
+            return
+        host = wt.is_host(room)
+        self.setProperty("arc.host", "1" if host else "")
+        self._label(LOBBY_TITLE, (room.get("item") or {}).get("title") or self.pb.item.get("title", ""))
+        words = {"unavailable": T(30376), "loading": T(30373), "watching": T(30375), "ready": T(30374)}
+        rows = []
+        for p in room.get("participants") or []:
+            name = T(30370) % p.get("name", "") if p.get("id") == room.get("self_id") else p.get("name", "")
+            if p.get("id") == room.get("host_id"):
+                name += "  ·  " + T(30371)
+            li = xbmcgui.ListItem(name, words[wt.participant_status(p)])
+            li.setProperty("ready", "1" if p.get("ready") else "")
+            rows.append(li)
+        rows += [xbmcgui.ListItem(p.get("name", ""), T(30372)) for p in room.get("invited") or []]
+        people = self.getControl(LOBBY_PEOPLE)
+        people.reset()
+        people.addItems(rows)
+        code = self.pb.together.lobby_code()
+        self._label(LOBBY_STATUS, (T(30368) % code if code else "") if host else T(30369) % wt.host_name(room))
+        if not self._lobby:
+            self._lobby = True
+            self._hide()
+            self.setProperty("arc.lobby", "1")
+            self._focus(LOBBY_START if host else LOBBY_LEAVE)
+
+    def _notice(self, text):
+        self.setProperty("arc.notice", text)
+        self._notice_until = time.time() + NOTICE_FOR
+
+    def _invite_more(self):
+        invite = getattr(self.pb.together, "invite_more", None)
+        if invite:
+            threading.Thread(target=invite, args=(self.pb.item,), daemon=True).start()
+
     # MARK: - menus
 
     def _open_menu(self, button):
@@ -398,6 +476,12 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
                 options.append((T(30293), self._speed_name(self.pb.speed()), False,
                                 lambda: self._open_submenu("speed"), True))
             options.append((T(30213), "", False, lambda: self.pb.seek_to(0)))
+            if self.pb.in_room():
+                if self.pb.room_host():
+                    options.append((T(30365), "", False, self._invite_more))
+                options.append((T(30366), T(30330), False, self.pb.stop))
+                if self.pb.room_host():
+                    options.append((T(30367), "", False, self.pb.together.end))
         else:
             return
         self._menu_button = button
@@ -486,7 +570,13 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
 
     def onClick(self, control_id):
         self._last_key = time.time()
-        if control_id == SKIP and self._marker:
+        if control_id == LOBBY_START and self.pb.together is not None:
+            self.pb.together.play()
+        elif control_id == LOBBY_INVITE:
+            self._invite_more()
+        elif control_id == LOBBY_LEAVE:
+            self.pb.stop()
+        elif control_id == SKIP and self._marker:
             end = self._marker.get("end_ms") or 0
             self._skipped.add(self._marker.get("start_ms"))
             self._set_skip(None)
@@ -519,6 +609,10 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         focus = self.getFocusId()
         if code in A_STOP:
             return  # Kodi stops by itself; the Playback hears of it and cleans up
+        if self._lobby:
+            if code in A_BACK:
+                self.pb.stop()   # closing the player leaves the room
+            return               # the lobby's buttons move by themselves; Select is onClick
         if code in A_BACK:
             if self._menu is not None:
                 self._close_menu()

@@ -46,7 +46,8 @@ class MenuDialog(xbmcgui.WindowXMLDialog):
         for i, opt in enumerate(self.options):
             label, detail = (opt, "") if not isinstance(opt, (tuple, list)) else (opt[0], opt[1])
             li = xbmcgui.ListItem(label, detail)
-            li.setProperty("selected", "1" if i == self.selected else "")
+            ticked = i in self.selected if isinstance(self.selected, (set, list, tuple)) else i == self.selected
+            li.setProperty("selected", "1" if ticked else "")
             items.append(li)
         # The panel fits the message and the rows, centred on the screen. The list is sized
         # before it's filled: filled first, Kodi lays the rows out for the old height and scrolls
@@ -65,7 +66,8 @@ class MenuDialog(xbmcgui.WindowXMLDialog):
         ctrl.addItems(items)
         self.getControl(BACKGROUND).setHeight(height)
         self.getControl(PANEL).setPosition((1920 - PANEL_WIDTH) // 2, (1080 - height) // 2)
-        focus = self.focus if self.focus is not None else max(self.selected, 0)
+        first = min(self.selected) if isinstance(self.selected, (set, list, tuple)) and self.selected else self.selected
+        focus = self.focus if self.focus is not None else max(first if isinstance(first, int) else 0, 0)
         if 0 <= focus < len(items):
             ctrl.selectItem(focus)
         self.setFocusId(LIST)
@@ -82,7 +84,7 @@ class MenuDialog(xbmcgui.WindowXMLDialog):
 
 def choose(title, options, selected=-1, focus=None, message=""):
     """Shows a menu and returns the chosen option's index, or -1 for none. Options are labels or
-    (label, detail) pairs; `selected` ticks the current one."""
+    (label, detail) pairs; `selected` ticks the current one (or, as a set, several)."""
     if not options:
         return -1
     w = MenuDialog(MenuDialog.xml, compat.ADDON_PATH, "Main", "1080i", title=title, options=options,

@@ -8,6 +8,10 @@ truth). A seek outside what a conversion has ready restarts it at that source po
 fresh offset, as the web player does. Audio and picture-subtitle changes on a converted stream
 ask Arc again (the conversion carries one audio track); on a file played as it is, Kodi switches
 its own tracks.
+
+In a Watch Together room (`together`, kodi/together.py) the room decides where and whether it
+plays: the viewer's pause, play and seeks go to the room as commands, a follower keeps Kodi in
+step with the room (playing, pausing, jumping), and the player reports itself every two seconds.
 """
 
 import threading
@@ -17,12 +21,16 @@ import xbmc
 import xbmcgui
 
 from arc import models, playback
+from arc import together as wt
 
 from .compat import T
 from .caps import device_caps
 from .log import log
 
 REPORT_EVERY = 10.0
+FOLLOW_EVERY = 0.5        # seconds between looks at where the room is
+ROOM_GRACE = 15.0         # seconds a room's player waits, at its title's end, for the room's next one
+OWN_TOGGLE = 3.0          # seconds in which a pause or play Kodi reports is the follower's own
 
 
 class ArcPlayer(xbmc.Player):
@@ -66,7 +74,7 @@ class ArcPlayer(xbmc.Player):
 class Playback(object):
     """One title's playback: start, keep progress, the choices made in the player, clean up."""
 
-    def __init__(self, session, item, resume_ms=0, on_finished=None, queue=None):
+    def __init__(self, session, item, resume_ms=0, on_finished=None, queue=None, together=None):
         self.session = session
         self.api = session.api
         self.item = item
@@ -99,6 +107,13 @@ class Playback(object):
         self._subtitle_chosen = False  # the viewer chose (so a restart re-applies, not re-guesses)
         self._kodi_audio = None    # the profile's audio track, switched to by Kodi once playing
         self._early_ends = 0       # converted streams that ended before the title's end (retried)
+        # Watch Together: the room this playback follows (kodi/together.py), or None.
+        self.together = together
+        self.follower = wt.Follower()
+        self._own_toggle = None    # (paused, at): a pause/play the follower asked Kodi for
+        self._ended_naturally = False
+        if together is not None:
+            together.player = self
 
     # MARK: - start
 
@@ -107,6 +122,8 @@ class Playback(object):
             return False
         self._open_player()
         threading.Thread(target=self._progress_loop, daemon=True).start()
+        if self.together is not None:
+            threading.Thread(target=self._follow_loop, daemon=True).start()
         return True
 
     def _choose_start_audio(self, caps, start_ms):
@@ -309,6 +326,18 @@ class Playback(object):
     def on_pause(self, paused):
         self.paused = paused
         self._report("paused" if paused else "playing")
+        # In a room, the viewer's pause or play goes to the room; Kodi's own events while a
+        # stream starts or is replaced aren't the viewer's.
+        if self.in_room() and self._started and not self._switching:
+            own = self._own_toggle
+            if own and own[0] == paused and time.time() - own[1] < OWN_TOGGLE:
+                self._own_toggle = None   # the follower's own: not the viewer's
+                return
+            # The viewer paused or played (Kodi does Play/Pause itself): the room follows.
+            if paused:
+                self.together.pause()
+            else:
+                self.together.play()
 
     def on_ended(self, finished):
         if self._switching:
@@ -325,7 +354,10 @@ class Playback(object):
         self._stop.set()
         self._report("stopped")
         self._release_session()
-        if finished and self._should_play_next():
+        self._ended_naturally = finished
+        if finished and self.in_room():
+            self._room_title_ended()
+        elif finished and self._should_play_next():
             self._play_next()
         else:
             self._finish()
@@ -366,10 +398,14 @@ class Playback(object):
     def toggle_pause(self):
         self.player.pause()
 
-    def seek_to(self, source_ms):
+    def seek_to(self, source_ms, from_room=False):
         """Seeks to a source position: within the file (or what's converted) Kodi seeks itself;
-        outside a conversion's ready part Arc starts converting from there."""
+        outside a conversion's ready part Arc starts converting from there. In a room the
+        viewer's seek takes the room there too (`from_room`: the follower's own)."""
         source_ms = playback.clamp_seek(source_ms, self.duration_ms)
+        if not from_room and self.in_room():
+            self.follower.settle(time.time() * 1000)
+            self.together.seek(source_ms)
         if not self._started or not self.player.isPlaying():
             return  # between streams, or already over
         if playback.converted(self.plan):
@@ -388,6 +424,12 @@ class Playback(object):
         self.seek_to(source_ms)
 
     def play_next_now(self):
+        if self.in_room():
+            # The room moves on, and every player in it follows (this one included).
+            if self.next_item:
+                log.info("moving the room to the next episode")
+                self.together.command("change_item", position_ms=0, item_id=self.next_item.get("id"))
+            return
         self._stop.set()
         self._report("stopped")
         self._release_session()
@@ -559,6 +601,9 @@ class Playback(object):
         """Plays another episode in place of this one (the player's Episodes list)."""
         if not episode or episode.get("id") == self.item_id:
             return
+        if self.in_room():
+            self.together.command("change_item", position_ms=0, item_id=episode.get("id"))
+            return
         # A season list's episodes don't carry their show's name and pictures: they're this one's.
         episode = dict(episode)
         for key in ("series_title", "parent_id", "library_id"):
@@ -612,6 +657,90 @@ class Playback(object):
             self.controls = None
         if self.on_finished:
             self.on_finished()
+        if self.together is not None:
+            self.together.player_closed(self, self._ended_naturally)
+
+    # MARK: - Watch Together
+
+    def in_room(self):
+        """Following a room that's playing this title."""
+        room = self.together.room if self.together is not None else None
+        return bool(room) and room.get("item_id") == self.item_id
+
+    def room_host(self):
+        return self.in_room() and wt.is_host(self.together.room)
+
+    def room_report(self):
+        """(file position, playing | paused | waiting, ready) for the room's heartbeat."""
+        if not self.in_room():
+            return None
+        position = self.position_ms()
+        buffering = xbmc.getCondVisibility("Player.Caching")
+        if not self._started or self._switching or buffering:
+            return position, "waiting", False
+        return position, "paused" if self.paused else "playing", True
+
+    def _room_title_ended(self):
+        """The room's title ended here. The host's player moves the room on to the next episode;
+        every player waits a moment for the room's next title (follow_room_title), then closes,
+        leaving the room."""
+        nxt = self.next_item
+        auto = (self.session.prefs or {}).get("auto_play", True) is not False
+        if self.room_host() and nxt and auto:
+            log.info("moving the room to the next episode")
+            self.together.command("change_item", position_ms=0, item_id=nxt.get("id"))
+        item_id = self.item_id
+
+        def wait():
+            if self.monitor.waitForAbort(ROOM_GRACE):
+                return
+            if self.item_id == item_id and not self.done:
+                self._finish()
+
+        threading.Thread(target=wait, daemon=True).start()
+
+    def follow_room_title(self, item_id, start_ms):
+        """The room moved to another title: play it in this playback (the same player and window;
+        a player made on another thread would never hear Kodi's events)."""
+        if item_id == self.item_id or self.done:
+            return
+        try:
+            item = self.api.item(item_id)
+        except Exception as e:
+            log.warning("the room's title didn't load (%s)", type(e).__name__)
+            return
+        log.info("following the room to another title")
+        if not self._stop.is_set():
+            self._stop.set()
+            self._report("stopped")
+            self._release_session()
+        self.next_item = None
+        if not self._switch_to(item, start_ms):
+            self._finish()
+
+    def room_changed(self, room):
+        if self.controls is not None:
+            self.controls.on_room(room)
+
+    def _follow_loop(self):
+        """Keeps Kodi in step with the room: plays and pauses with it, and jumps when it's too far
+        out (Kodi can't play a little faster or slower in small enough steps to catch up)."""
+        while not self.done and not self.monitor.waitForAbort(FOLLOW_EVERY):
+            room = self.together.room if self.together is not None else None
+            if not room or room.get("item_id") != self.item_id or not room.get("available"):
+                continue
+            if not self._started or self._switching or self._stop.is_set():
+                continue
+            for action in self.follower.step(room, self.position_ms(), not self.paused, time.time() * 1000,
+                                             self.together.expected_ms()):
+                if action[0] in ("play", "pause"):
+                    want_paused = action[0] == "pause"
+                    if want_paused != self.paused:
+                        self._own_toggle = (want_paused, time.time())
+                        self.player.pause()  # Kodi's pause toggles
+                elif action[0] == "seek":
+                    log.debug("catching up with the room")
+                    self.seek_to(action[1], from_room=True)
 
     def stop(self):
         """Stops playing (the controls' Stop and Back); on_ended then reports and cleans up."""

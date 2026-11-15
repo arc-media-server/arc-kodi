@@ -31,7 +31,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | An episode's card opens its show, on its season and episode | Apple | Done | Yes | No episode page. |
 | Remove from Continue Watching | Android | Done | Yes | In the card menu, on Continue Watching. |
 | Menus and questions in Arc's style (card menu, Sort, Filter, pickers, Sign Out) | Both | Done | Yes | One Arc menu; Kodi's keyboard and PIN number pad remain (see Search and PINs). |
-| Watch Together row | Apple | Missing | Yes | With Watch Together. |
+| Watch Together row | Apple | Done | Yes | First on Home while there are rooms; then Join with a Code. |
 | Library: Recommended / Browse / Collections / Folders pills | Both | Done | Yes | Folders for Other videos libraries, which show as wide cards. |
 | Library sort and filter (genre, unwatched, decade, resolution...) | Both | Done | Yes | Seven reversible sorts; Unwatched, Genre, Decade, Resolution (films) from the facets. |
 | Posters: unwatched count tab, progress bar, watched tick, year · length | Both | Done | Yes | |
@@ -83,7 +83,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Resume and progress on the source timeline; conversions kept alive and ended | Both | Done | Yes | |
 | Seek outside what's converted restarts there | Both | Done | Yes | |
 | A file Kodi can't play is tried again converted | Both | Done | Yes | |
-| Watch Together | Both | Missing | Yes | Room events (SSE), heartbeats, following the room's position. A larger piece. |
+| Watch Together | Both | Done | Yes | As the Apple app's: invite or a code, the lobby, shared play/pause/seek, the host's Up Next. Kodi jumps to catch up (its speed steps are too coarse to drift back). |
 
 ## Playback technology (Kodi's own player does the work)
 
@@ -109,7 +109,6 @@ Done: real-device policy (owner, 13 November: Kodi owns format compatibility, so
 rules; hardware checks still to do on the AM6B+), title page parity, Arc's own menus, and library
 parity (tabs, sort and filters, folders, person and collection pages, Play All / Shuffle), and
 player extras (chapters, thumbnails, episodes, speed), and settings and sign-in (Settings, password
-sign-in, the PIN pad), search and live updates.
+sign-in, the PIN pad), search and live updates, and Watch Together.
 
-1. **Watch Together**.
-2. **Distribution:** the zip built on push, then a Kodi repository for updates.
+1. **Distribution:** the zip built on push, then a Kodi repository for updates.

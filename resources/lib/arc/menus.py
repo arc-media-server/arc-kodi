@@ -6,9 +6,10 @@ Plain Python: the Kodi side words and draws the menu."""
 from . import models
 
 
-def card_actions(item, continue_row=False, on_page=False, in_show=False):
+def card_actions(item, continue_row=False, on_page=False, in_show=False, together=False):
     """The action keys for a card's menu, in order. `on_page`: the title's own page (its buttons
-    play it); `in_show`: an episode on its show's page (no Go to Show)."""
+    play it); `in_show`: an episode on its show's page (no Go to Show); `together`: Watch Together
+    is offered (Arc allows it), for a film or an episode."""
     item = item or {}
     out = []
     kind = item.get("kind")
@@ -22,6 +23,8 @@ def card_actions(item, continue_row=False, on_page=False, in_show=False):
         out.append("go_to_show")
     if continue_row and models.playable(item):
         out.append("remove_continue")
+    if together and models.playable(item) and kind in ("movie", "episode"):
+        out.append("watch_together")
     return out
 
 

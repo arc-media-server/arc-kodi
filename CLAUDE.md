@@ -136,6 +136,8 @@ docs/changes/                   one note per change
   foot meets its own, so room under a row has to be inside the row; Kodi won't bottom-align a
   wrapping label; an auto-width disabled button makes a capsule that fits its text; a list
   takes how many rows it shows from its height in the skin, not a later `setHeight()`; Kodi's
-  standard font has no arrow characters.
+  standard font has no arrow characters; Kodi sends an `xbmc.Player`'s events only to the thread
+  that made it, so make players on the add-on's main thread (or reuse one) and never in a worker;
+  a list draws its chosen row with its focused layout even when the list isn't focused.
 - Kodi logs to `kodi.log` (`~/.kodi/temp/` on Linux, `%APPDATA%\Kodi\` on Windows); turn on
   Kodi's debug logging to see the add-on's debug lines.
