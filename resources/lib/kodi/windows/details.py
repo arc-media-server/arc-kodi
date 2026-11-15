@@ -62,7 +62,8 @@ class DetailsWindow(ArcWindow):
         self.focus_episode = kwargs.pop("focus_episode", None)
         ArcWindow.__init__(self, *args, **kwargs)
         self.item = None
-        self.seasons = []
+        self.seasons = []       # the order's seasons (Play follows these)
+        self.tabs = []          # the season tabs: the seasons, then Not in This Order
         self.season_index = 0
         self.related = []
         self.cast = []
@@ -180,7 +181,7 @@ class DetailsWindow(ArcWindow):
     @staticmethod
     def _code(item):
         s, e = item.get("season_number"), item.get("episode_number")
-        return T(30172) % (s, e) if s is not None and e is not None else ""
+        return T(30172) % (s, e) if models.placed(item) else ""
 
     # MARK: - Play and the round buttons
 
@@ -221,13 +222,13 @@ class DetailsWindow(ArcWindow):
     def _show_seasons(self, data, error):
         if error is not None or not data:
             return
-        self.seasons = data.get("seasons") or []
+        self.seasons, self.tabs = titlepage.season_tabs(data)
         ctrl = self.list_control(SEASONS)
         ctrl.reset()
-        for s in self.seasons:
-            name = s.get("name") or (T(30155) % s.get("season_number", 0))
-            ctrl.addItem(list_item(name, props={"season": s.get("season_number")}))
-        if self.seasons:
+        for s in self.tabs:
+            name = T(30385) if s.get("unplaced") else s.get("name") or (T(30155) % s.get("season_number", 0))
+            ctrl.addItem(list_item(name, props={"season": "" if s.get("unplaced") else s.get("season_number")}))
+        if self.tabs:
             # Open on the season of the episode Play would play, as Plex does, or of the episode
             # this page was opened for.
             target = self.action[1] if self.action else None
@@ -236,7 +237,7 @@ class DetailsWindow(ArcWindow):
             if landing:
                 target = {"id": landing}
             start = 0
-            for i, s in enumerate(self.seasons):
+            for i, s in enumerate(self.tabs):
                 if target and any(e.get("id") == target.get("id") for e in s.get("episodes") or []):
                     start = i
                     break
@@ -248,21 +249,39 @@ class DetailsWindow(ArcWindow):
         if self.item:
             self._render_actions()
 
+    def _with_show(self, ep):
+        """An episode from the season list, with its show's name and pictures (the list's episodes
+        carry neither), so the player's heading names the show."""
+        ep = dict(ep)
+        show = self.item or {}
+        ep.setdefault("parent_id", show.get("id"))
+        if not ep.get("series_title"):
+            ep["series_title"] = show.get("title", "")
+        images = {"series_" + k: v for k, v in models.images(show).items() if not k.startswith("series_")}
+        images.update(models.images(ep))
+        ep["images"] = images
+        return ep
+
+    def _tab_episodes(self):
+        tab = self.tabs[self.season_index] if 0 <= self.season_index < len(self.tabs) else {}
+        return tab.get("episodes") or []
+
     def _show_episodes(self, index, episode_id=None):
-        if not (0 <= index < len(self.seasons)):
+        if not (0 <= index < len(self.tabs)):
             return
         self.season_index = index
+        tab = self.tabs[index]
         ctrl = self.list_control(EPISODES)
         ctrl.reset()
-        episodes = self.seasons[index].get("episodes") or []
-        ctrl.addItems([self._episode_item(ep) for ep in episodes])
-        target = {"id": episode_id} if episode_id else titlepage.next_to_play([self.seasons[index]])
+        episodes = tab.get("episodes") or []
+        ctrl.addItems([self._episode_item(ep, tab.get("unplaced")) for ep in episodes])
+        target = {"id": episode_id} if episode_id else titlepage.next_to_play([tab])
         for i, ep in enumerate(episodes):
             if target and ep.get("id") == target.get("id"):
                 ctrl.selectItem(i)
                 break
 
-    def _episode_item(self, ep):
+    def _episode_item(self, ep, unplaced=False):
         art = item_art(self.session, ep)
         sub = models.runtime_text(models.duration_ms(ep))
         release = models.upcoming_release(ep)
@@ -272,7 +291,7 @@ class DetailsWindow(ArcWindow):
         if release:
             props["releases"] = T(30154) % ("%d %s" % (release.day, release.strftime("%b")))
             sub = props["releases"]
-        label = "%d. %s" % (ep.get("episode_number") or 0, ep.get("title", ""))
+        label = titlepage.episode_label(ep, unplaced)
         thumb = models.images(ep).get("primary")
         li = list_item(label, sub, art={"thumb": self.session.art(thumb) if thumb else art.get("thumb")}, props=props)
         li.setProperty("overview", ep.get("overview") or "")
@@ -376,9 +395,10 @@ class DetailsWindow(ArcWindow):
             self._toggle_watchlist()
         elif control_id == EPISODES:
             pos = self.list_control(EPISODES).getSelectedPosition()
-            eps = self.seasons[self.season_index].get("episodes") if self.seasons else []
+            eps = self._tab_episodes()
             if 0 <= pos < len(eps) and eps[pos].get("available", True) and self.nav:
-                self.nav("play", {"item": eps[pos], "resume": models.resume_ms(eps[pos])})
+                ep = self._with_show(eps[pos])
+                self.nav("play", {"item": ep, "resume": models.resume_ms(ep)})
         elif control_id == RELATED and self.nav:
             self._open(self.related, RELATED, lambda it: ("card", homerows.card(it)))
         elif control_id == CAST and self.nav:
@@ -412,9 +432,10 @@ class DetailsWindow(ArcWindow):
                 return True
         if code in ACTION_PLAY and self.getFocusId() == EPISODES:
             pos = self.list_control(EPISODES).getSelectedPosition()
-            eps = self.seasons[self.season_index].get("episodes") if self.seasons else []
+            eps = self._tab_episodes()
             if 0 <= pos < len(eps) and eps[pos].get("available", True) and self.nav:
-                self.nav("play", {"item": eps[pos], "resume": models.resume_ms(eps[pos])})
+                ep = self._with_show(eps[pos])
+                self.nav("play", {"item": ep, "resume": models.resume_ms(ep)})
                 return True
         return False
 
@@ -424,7 +445,7 @@ class DetailsWindow(ArcWindow):
         focus = self.getFocusId()
         if focus == EPISODES:
             pos = self.list_control(EPISODES).getSelectedPosition()
-            eps = self.seasons[self.season_index].get("episodes") if self.seasons else []
+            eps = self._tab_episodes()
             if 0 <= pos < len(eps):
                 self.nav("context", {"item": eps[pos], "in_show": True,
                                      "on_changed": lambda _it, _act: self._load_seasons()})

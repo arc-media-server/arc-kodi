@@ -53,6 +53,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Seasons and episodes; opens on the next to watch | Both | Done | Yes | |
 | Episode browser rises over the hero (reference look) | Apple | Part | Yes | The page scrolls the hero up as focus moves down; no separate sheet. |
 | Upcoming episodes dimmed with "Releases 8 Nov" | Apple | Done | Yes | |
+| "Not in This Order": episodes the order doesn't place (`unplaced`), after the seasons, without numbers | Web, Roku, TV | Done | Yes | A last season tab; Play/Resume/Up Next follow the order. |
 | About, Details, Crew and Playback cards | Both | Done | Yes | |
 | Cast & Crew row (opens the person) | Both | Done | Yes | Opens their page. |
 | Related / More like this | Both | Done | Yes | |
