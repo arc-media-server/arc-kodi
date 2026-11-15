@@ -837,3 +837,23 @@ msgstr ""
 msgctxt "#30314"
 msgid "Signing in…"
 msgstr ""
+
+msgctxt "#30315"
+msgid "No matches for “%s”."
+msgstr ""
+
+msgctxt "#30316"
+msgid "Space"
+msgstr ""
+
+msgctxt "#30317"
+msgid "Clear"
+msgstr ""
+
+msgctxt "#30319"
+msgid "People"
+msgstr ""
+
+msgctxt "#30320"
+msgid "%d titles"
+msgstr ""

@@ -37,7 +37,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Posters: unwatched count tab, progress bar, watched tick, year · length | Both | Done | Yes | |
 | Paging large libraries | Both | Done | Yes | |
 | Collection, playlist, person and folder pages | Both | Done | Yes | Person (photo, part, rows) and collection (overview, sort) pages; folders in the Folders tab. Playlists are a grid with Play All / Shuffle. |
-| Search as you type; results in rows (films, shows, episodes, people, collections, genres) | Both | Part | Yes | Kodi's keyboard dialog, then one grid of films/shows/episodes. An on-screen keyboard (as PM4K's) gives as-you-type. |
+| Search as you type; results in rows (films, shows, episodes, people, collections, genres) | Both | Done | Yes | Arc's keys for a remote, and a search box a keyboard or phone types into; rows as the Apple app's. |
 | Live updates (new titles, watched state from other devices) | Both | Missing | Yes | Arc's event stream (SSE) with urllib; refetch on change. |
 
 ## Title page
@@ -109,8 +109,8 @@ Done: real-device policy (owner, 13 November: Kodi owns format compatibility, so
 rules; hardware checks still to do on the AM6B+), title page parity, Arc's own menus, and library
 parity (tabs, sort and filters, folders, person and collection pages, Play All / Shuffle), and
 player extras (chapters, thumbnails, episodes, speed), and settings and sign-in (Settings, password
-sign-in, the PIN pad).
+sign-in, the PIN pad), and search.
 
-1. **Search** with an on-screen keyboard and rows; **live updates**.
+1. **Live updates**.
 2. **Watch Together**.
 3. **Distribution:** the zip built on push, then a Kodi repository for updates.

@@ -220,6 +220,7 @@ class LibraryWindow(GridWindow):
 
     def __init__(self, *args, **kwargs):
         self.query = browse.LibraryQuery()
+        self.query.genre = kwargs.pop("genre", None) or None
         self.facets = {}
         kwargs["title"] = kwargs["library"].get("name", "")
         kwargs["paged"] = True

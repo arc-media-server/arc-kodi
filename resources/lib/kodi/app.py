@@ -130,6 +130,8 @@ class App(object):
             self._play(payload["item"], payload.get("resume", 0))
         elif kind == "library":
             self._open_library(payload)
+        elif kind == "genre":
+            self._open_genre(payload)
         elif kind == "search":
             self._open(search.SearchWindow)
         elif kind == "watchlist":
@@ -256,11 +258,19 @@ class App(object):
             except Exception as e:
                 log.error("refresh after %s failed: %s", act, e)
 
-    def _open_library(self, lib):
+    def _open_genre(self, genre):
+        """A genre from search: its library's Browse tab, filtered to the genre."""
+        lib = next((l for l in self.session.libraries if l.get("id") == genre.get("library_id")), None)
+        if lib is None:
+            log.warning("genre's library isn't visible")
+            return
+        self._open_library(lib, tab="browse", genre=genre.get("name"))
+
+    def _open_library(self, lib, tab=None, genre=None):
         """A library opens on Recommended (Browse for Other videos), as Plex and the Apple app; its
         tab pills swap the window for another tab's, so Back always returns to where it was
-        opened from."""
-        tab = library.library_tabs(lib)[0][0]
+        opened from. `genre` filters the first Browse tab shown (a genre from search)."""
+        tab = tab or library.library_tabs(lib)[0][0]
         while tab:
             if tab == "recommended":
                 result = self._open(recommended.RecommendedWindow, library=lib)
@@ -271,7 +281,8 @@ class App(object):
                                     loader=self._collections_loader(lib), style=library.library_style(lib),
                                     open_item=lambda c: self._open_collection(c))
             else:
-                result = self._open(library.LibraryWindow, library=lib)
+                result = self._open(library.LibraryWindow, library=lib, genre=genre)
+                genre = None
             tab = result[1] if isinstance(result, tuple) and result[0] == "tab" else None
 
     def _collections_loader(self, lib):
