@@ -61,6 +61,12 @@ class Session(object):
         self.recommended = {}
         storage.update(profile_id=None, profile_name=None, profile_admin=False)
 
+    def forget_server(self):
+        self.base_url = None
+        self.identity_name = ""
+        self.api.base_url = ""
+        storage.clear()
+
     def sign_out(self):
         self.api.sign_out()
         self._token = None

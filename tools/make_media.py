@@ -317,6 +317,7 @@ def main():
     pill("arc-pill-white.png", WHITE)
     pill("arc-pill-surface.png", SURFACE)
     pill("arc-pill-white-64.png", WHITE, 64)
+    pill("arc-pill-white-56.png", WHITE, 56)   # Settings' rows
     cards()
     backdrop_fade()
     backdrop_wide_mask()

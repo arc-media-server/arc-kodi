@@ -104,6 +104,11 @@ class App(object):
             if result == "sign_out":
                 self.session.sign_out()
                 return self.run()
+            if result == "change_server":
+                # Signed out of this server and it's forgotten: the add-on asks for one again.
+                self.session.sign_out()
+                self.session.forget_server()
+                return self.run()
             if result == "switch_profile":
                 self.session.forget_profile()
                 if not self._ensure_profile() or not self._load():
@@ -280,7 +285,7 @@ class App(object):
 
     def _open_settings(self):
         result = self._open(settings.SettingsWindow)
-        if result in ("sign_out", "switch_profile") and self.home_window is not None:
+        if result in ("sign_out", "switch_profile", "change_server") and self.home_window is not None:
             # Home closes and _home() acts on it: a new profile gets a new Home, from scratch.
             self.home_window.result = result
             self.home_window.close()

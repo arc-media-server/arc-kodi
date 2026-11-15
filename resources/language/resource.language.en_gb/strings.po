@@ -761,3 +761,59 @@ msgstr ""
 msgctxt "#30295"
 msgid "%sx"
 msgstr ""
+
+msgctxt "#30296"
+msgid "Playback"
+msgstr ""
+
+msgctxt "#30297"
+msgid "Auto-Play Next Episode"
+msgstr ""
+
+msgctxt "#30298"
+msgid "Skip Intros Automatically"
+msgstr ""
+
+msgctxt "#30299"
+msgid "In the language I last chose"
+msgstr ""
+
+msgctxt "#30300"
+msgid "When the audio is in another language"
+msgstr ""
+
+msgctxt "#30301"
+msgid "Always"
+msgstr ""
+
+msgctxt "#30302"
+msgid "Only when I choose them"
+msgstr ""
+
+msgctxt "#30303"
+msgid "On"
+msgstr ""
+
+msgctxt "#30304"
+msgid "Off"
+msgstr ""
+
+msgctxt "#30305"
+msgid "Change Server"
+msgstr ""
+
+msgctxt "#30306"
+msgid "That change wasn't saved. Check Arc is running and try again."
+msgstr ""
+
+msgctxt "#30307"
+msgid "About"
+msgstr ""
+
+msgctxt "#30308"
+msgid "Profile and Server"
+msgstr ""
+
+msgctxt "#30309"
+msgid "Metadata and artwork from TMDB and TheTVDB. This product uses the TMDB API but is not endorsed or certified by TMDB."
+msgstr ""
