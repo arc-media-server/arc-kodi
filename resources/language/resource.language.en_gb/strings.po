@@ -817,3 +817,23 @@ msgstr ""
 msgctxt "#30309"
 msgid "Metadata and artwork from TMDB and TheTVDB. This product uses the TMDB API but is not endorsed or certified by TMDB."
 msgstr ""
+
+msgctxt "#30310"
+msgid "Delete"
+msgstr ""
+
+msgctxt "#30311"
+msgid "Sign In with Password"
+msgstr ""
+
+msgctxt "#30312"
+msgid "Household password"
+msgstr ""
+
+msgctxt "#30313"
+msgid "That password wasn't right."
+msgstr ""
+
+msgctxt "#30314"
+msgid "Signing in…"
+msgstr ""

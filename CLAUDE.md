@@ -70,7 +70,7 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
 - **Feel:** a TV app driven by a remote: focus always visible (white, as the Apple app), Back
   always works, Context Menu (C or long OK) for the ⋯ actions, Play on a card plays it. Menus and
   questions are Arc's own (`kodi/windows/menu.py`: `choose`, `confirm`), never Kodi's
-  `contextmenu`, `select` or `yesno`. Arc's identity through the owner's logo (the server's `docs/brand`, copied into `tools/brand/`): the
+  `contextmenu`, `select` or `yesno`; PINs go into Arc's PIN pad (`kodi/windows/pin.py`). Arc's identity through the owner's logo (the server's `docs/brand`, copied into `tools/brand/`): the
   stacked logo on sign-in screens, the full logo in the open sidebar, the TV mark where it's
   small, on the sidebar's icon column. The sidebar's icons are the web and Android apps' (Lucide,
   ISC: `tools/brand/icons/`, notice in `resources/LICENSE-lucide.txt`); the Apple app's are SF

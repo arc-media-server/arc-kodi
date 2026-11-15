@@ -318,6 +318,7 @@ def main():
     pill("arc-pill-surface.png", SURFACE)
     pill("arc-pill-white-64.png", WHITE, 64)
     pill("arc-pill-white-56.png", WHITE, 56)   # Settings' rows
+    pill("arc-key.png", WHITE, 96)               # the PIN pad's round keys (tinted when not focused)
     cards()
     backdrop_fade()
     backdrop_wide_mask()

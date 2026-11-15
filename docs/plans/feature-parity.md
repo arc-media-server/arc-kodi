@@ -13,11 +13,11 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 |---|---|---|---|---|
 | Connect by address | Both | Done | Yes | |
 | Sign in with a code (Link a Device) | Both | Done | Yes | |
-| Sign in with the password | Android | Missing | Yes | For keyboards (PC Kodi). |
-| "Who's watching?" with PINs | Both | Part | Yes | Uses Kodi's number dialog; an Arc PIN pad would match. |
+| Sign in with the password | Android | Done | Yes | Under the code; types into Kodi's keyboard until the on-screen one comes with search. |
+| "Who's watching?" with PINs | Both | Done | Yes | Arc's PIN pad. |
 | Switch profile, sign out | Both | Done | Yes | |
-| Settings: Auto-Play, Skip Intros automatically, subtitle mode (saved to the profile) | Both | Missing | Yes | They're read from the profile already; there's no screen to change them. |
-| About (server, version) | Both | Part | Yes | |
+| Settings: Auto-Play, Skip Intros automatically, subtitle mode (saved to the profile) | Both | Done | Yes | Saved to the profile's prefs; plus Change Server. |
+| About (server, version) | Both | Done | Yes | |
 
 ## Home and browsing
 
@@ -108,10 +108,9 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 Done: real-device policy (owner, 13 November: Kodi owns format compatibility, so no per-device
 rules; hardware checks still to do on the AM6B+), title page parity, Arc's own menus, and library
 parity (tabs, sort and filters, folders, person and collection pages, Play All / Shuffle), and
-player extras (chapters, thumbnails, episodes, speed).
+player extras (chapters, thumbnails, episodes, speed), and settings and sign-in (Settings, password
+sign-in, the PIN pad).
 
-1. **Settings screen** (Auto-Play, Skip Intros, subtitle mode), a password sign-in and an Arc
-   PIN pad.
-2. **Search** with an on-screen keyboard and rows; **live updates**.
-3. **Watch Together**.
-4. **Distribution:** the zip built on push, then a Kodi repository for updates.
+1. **Search** with an on-screen keyboard and rows; **live updates**.
+2. **Watch Together**.
+3. **Distribution:** the zip built on push, then a Kodi repository for updates.

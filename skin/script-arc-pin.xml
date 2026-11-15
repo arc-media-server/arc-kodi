@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Arc's PIN pad (kodi/windows/pin.py), in place of Kodi's number dialog: the profile's name, four
+     dots that fill as digits go in, a line for a wrong PIN, and round keys 1-9, 0 and Delete. The
+     remote's number keys work too; the fourth digit sends it. -->
+<window>
+  <defaultcontrol always="true">300</defaultcontrol>
+  <controls>
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <texture>arc-white.png</texture><colordiffuse>FA101114</colordiffuse>
+    </control>
+    <control type="group">
+      <left>660</left><top>150</top><width>600</width><height>800</height>
+      <control type="label" id="301">
+        <left>0</left><top>0</top><width>600</width><height>60</height>
+        <font>arc-title</font><textcolor>fg</textcolor><align>center</align>
+      </control>
+      <control type="group">
+        <left>196</left><top>96</top><width>208</width><height>28</height>
+        <control type="image"><left>0</left><top>0</top><width>28</width><height>28</height><texture>arc-badge-line.png</texture><visible>Integer.IsLess(Window.Property(arc.digits),1)</visible></control>
+        <control type="image"><left>0</left><top>0</top><width>28</width><height>28</height><texture>arc-badge-fill.png</texture><visible>Integer.IsGreaterOrEqual(Window.Property(arc.digits),1)</visible></control>
+        <control type="image"><left>60</left><top>0</top><width>28</width><height>28</height><texture>arc-badge-line.png</texture><visible>Integer.IsLess(Window.Property(arc.digits),2)</visible></control>
+        <control type="image"><left>60</left><top>0</top><width>28</width><height>28</height><texture>arc-badge-fill.png</texture><visible>Integer.IsGreaterOrEqual(Window.Property(arc.digits),2)</visible></control>
+        <control type="image"><left>120</left><top>0</top><width>28</width><height>28</height><texture>arc-badge-line.png</texture><visible>Integer.IsLess(Window.Property(arc.digits),3)</visible></control>
+        <control type="image"><left>120</left><top>0</top><width>28</width><height>28</height><texture>arc-badge-fill.png</texture><visible>Integer.IsGreaterOrEqual(Window.Property(arc.digits),3)</visible></control>
+        <control type="image"><left>180</left><top>0</top><width>28</width><height>28</height><texture>arc-badge-line.png</texture><visible>Integer.IsLess(Window.Property(arc.digits),4)</visible></control>
+        <control type="image"><left>180</left><top>0</top><width>28</width><height>28</height><texture>arc-badge-fill.png</texture><visible>Integer.IsGreaterOrEqual(Window.Property(arc.digits),4)</visible></control>
+      </control>
+      <control type="label" id="302">
+        <left>0</left><top>140</top><width>600</width><height>40</height>
+        <font>arc-small</font><textcolor>fg</textcolor><align>center</align>
+      </control>
+      <control type="panel" id="300">
+        <left>120</left><top>200</top><width>360</width><height>480</height>
+        <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+        <orientation>vertical</orientation>
+        <itemlayout width="120" height="120">
+          <control type="image">
+            <left>12</left><top>12</top><width>96</width><height>96</height>
+            <texture>arc-key.png</texture><colordiffuse>surface2</colordiffuse>
+            <visible>!String.IsEmpty(ListItem.Label)</visible>
+          </control>
+          <control type="label">
+            <left>12</left><top>12</top><width>96</width><height>96</height>
+            <font>arc-title</font><align>center</align><aligny>center</aligny><textcolor>fg</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+            <visible>String.IsEmpty(ListItem.Property(small))</visible>
+          </control>
+          <control type="label">
+            <left>12</left><top>12</top><width>96</width><height>96</height>
+            <font>arc-small</font><align>center</align><aligny>center</aligny><textcolor>fg</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+            <visible>!String.IsEmpty(ListItem.Property(small))</visible>
+          </control>
+        </itemlayout>
+        <focusedlayout width="120" height="120">
+          <control type="image">
+            <left>12</left><top>12</top><width>96</width><height>96</height>
+            <texture>arc-key.png</texture>
+            <visible>!String.IsEmpty(ListItem.Label)</visible>
+          </control>
+          <control type="label">
+            <left>12</left><top>12</top><width>96</width><height>96</height>
+            <font>arc-title</font><align>center</align><aligny>center</aligny><textcolor>black</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+            <visible>String.IsEmpty(ListItem.Property(small))</visible>
+          </control>
+          <control type="label">
+            <left>12</left><top>12</top><width>96</width><height>96</height>
+            <font>arc-small</font><align>center</align><aligny>center</aligny><textcolor>black</textcolor>
+            <label>$INFO[ListItem.Label]</label>
+            <visible>!String.IsEmpty(ListItem.Property(small))</visible>
+          </control>
+        </focusedlayout>
+      </control>
+    </control>
+  </controls>
+</window>
