@@ -13,11 +13,11 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 |---|---|---|---|---|
 | Connect by address | Both | Done | Yes | |
 | Sign in with a code (Link a Device) | Both | Done | Yes | |
-| Sign in with the password | Android | Missing | Yes | For keyboards (PC Kodi). |
-| "Who's watching?" with PINs | Both | Part | Yes | Uses Kodi's number dialog; an Arc PIN pad would match. |
+| Sign in with the password | Android | Done | Yes | Under the code; types into Kodi's keyboard until the on-screen one comes with search. |
+| "Who's watching?" with PINs | Both | Done | Yes | Arc's PIN pad. |
 | Switch profile, sign out | Both | Done | Yes | |
-| Settings: Auto-Play, Skip Intros automatically, subtitle mode (saved to the profile) | Both | Missing | Yes | They're read from the profile already; there's no screen to change them. |
-| About (server, version) | Both | Part | Yes | |
+| Settings: Auto-Play, Skip Intros automatically, subtitle mode (saved to the profile) | Both | Done | Yes | Saved to the profile's prefs; plus Change Server. |
+| About (server, version) | Both | Done | Yes | |
 
 ## Home and browsing
 
@@ -31,14 +31,14 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | An episode's card opens its show, on its season and episode | Apple | Done | Yes | No episode page. |
 | Remove from Continue Watching | Android | Done | Yes | In the card menu, on Continue Watching. |
 | Menus and questions in Arc's style (card menu, Sort, Filter, pickers, Sign Out) | Both | Done | Yes | One Arc menu; Kodi's keyboard and PIN number pad remain (see Search and PINs). |
-| Watch Together row | Apple | Missing | Yes | With Watch Together. |
-| Library: Recommended / Browse / Collections / Folders pills | Both | Part | Yes | Recommended (the server's rows under a hero), Browse and Collections; no Folders (Other videos) yet. |
-| Library sort and filter (genre, unwatched, decade, resolution...) | Both | Part | Yes | Sort and unwatched only. |
+| Watch Together row | Apple | Done | Yes | First on Home while there are rooms; then Join with a Code. |
+| Library: Recommended / Browse / Collections / Folders pills | Both | Done | Yes | Folders for Other videos libraries, which show as wide cards. |
+| Library sort and filter (genre, unwatched, decade, resolution...) | Both | Done | Yes | Seven reversible sorts; Unwatched, Genre, Decade, Resolution (films) from the facets. |
 | Posters: unwatched count tab, progress bar, watched tick, year · length | Both | Done | Yes | |
 | Paging large libraries | Both | Done | Yes | |
-| Collection, playlist, person and folder pages | Both | Part | Yes | Playlists, the watchlist, a person (from Cast) and a collection open as a plain grid; no proper person, collection or folder pages yet. |
-| Search as you type; results in rows (films, shows, episodes, people, collections, genres) | Both | Part | Yes | Kodi's keyboard dialog, then one grid of films/shows/episodes. An on-screen keyboard (as PM4K's) gives as-you-type. |
-| Live updates (new titles, watched state from other devices) | Both | Missing | Yes | Arc's event stream (SSE) with urllib; refetch on change. |
+| Collection, playlist, person and folder pages | Both | Done | Yes | Person (photo, part, rows) and collection (overview, sort) pages; folders in the Folders tab. Playlists are a grid with Play All / Shuffle. |
+| Search as you type; results in rows (films, shows, episodes, people, collections, genres) | Both | Done | Yes | Arc's keys for a remote, and a search box a keyboard or phone types into; rows as the Apple app's. |
+| Live updates (new titles, watched state from other devices) | Both | Done | Yes | Arc's event stream; the screen showing refreshes in place. Ahead of the Apple and Android apps, which don't use the stream yet. |
 
 ## Title page
 
@@ -54,12 +54,12 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Episode browser rises over the hero (reference look) | Apple | Part | Yes | The page scrolls the hero up as focus moves down; no separate sheet. |
 | Upcoming episodes dimmed with "Releases 8 Nov" | Apple | Done | Yes | |
 | About, Details, Crew and Playback cards | Both | Done | Yes | |
-| Cast & Crew row (opens the person) | Both | Done | Yes | The person opens as a grid of their titles; a proper person page comes with library parity. |
+| Cast & Crew row (opens the person) | Both | Done | Yes | Opens their page. |
 | Related / More like this | Both | Done | Yes | |
 | Collections row | Both | Done | Yes | |
 | Trailers & Extras | Both | Done | Yes | Played through Arc's player, without progress. Not yet seen with real extras (the test library has none). |
 | Versions (editions) choice before playing | Android | Missing | Yes | In the player's Playback menu now. |
-| Play All / Shuffle (play queues) | Android | Missing | Yes | Arc's play-queues API. |
+| Play All / Shuffle (play queues) | Android | Done | Yes | Collections and playlists, through Arc's play queues. |
 | Context menu on any card (Play, watched, watchlist, go to show) | Both | Done | Yes | Arc's own menu on Home, grids, search and the title page. |
 
 ## Player
@@ -68,22 +68,22 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 |---|---|---|---|---|
 | Arc's own controls: title, round buttons, timeline | Both | Done | Yes | This change. |
 | Left/Right skip 10 s, presses add up | Both | Done | Yes | |
-| Chapters marked on the timeline; Chapters list | Both | Missing | Yes | |
-| Timeline thumbnails while skipping | Both | Missing | Part | Arc's BIF files hold single JPEGs: the add-on can unpack them; Kodi can't crop a sprite sheet. |
-| Tabs: Info, Chapters, Cast, Episodes | Apple | Missing | Yes | |
+| Chapters marked on the timeline; Chapters list | Both | Done | Yes | Marks in the bar; a list in the Playback menu. |
+| Timeline thumbnails while skipping | Both | Done | Yes | From Arc's BIF, served frame by frame by the local proxy. |
+| Tabs: Info, Chapters, Cast, Episodes | Apple | Part | Yes | Chapters and Episodes are lists in the Playback menu; the overview shows when paused; no Cast in the player. |
 | Audio menu | Both | Done | Yes | Kodi switches tracks itself in a file played as it is. |
 | Subtitles menu (in the file, beside it, picture subtitles burnt in when converted) | Both | Done | Yes | |
 | Subtitles chosen by the profile's mode and language | Both | Done | Yes | |
 | Quality and Version menus | Both | Done | Yes | |
-| Playback speed | Android | Missing | Part | Kodi 20+ has tempo (0.8–1.5×) where the platform supports it. |
+| Playback speed | Android | Done | Part | Kodi's tempo, 0.8x to 1.5x, shown where Kodi allows it; not yet tried on hardware. |
 | Subtitle style (size, colour, background) | Both | Missing | Part | Kodi draws subtitles with its own style settings; follow Kodi's (PM4K does). |
-| Audio and subtitle delay | — | Missing | Yes | Kodi's own; not in the other apps either. |
+| Audio and subtitle delay | — | Done | Yes | Audio Offset and Subtitle Offset in the player's Playback menu (Kodi's own OSD can't be reached under Arc's player). The audio offset is kept for the device. |
 | Skip Intro / Recap / Credits; skip by itself | Both | Done | Yes | Not yet seen with real markers (the test library has none). |
 | Up Next with countdown | Both | Done | Yes | |
 | Resume and progress on the source timeline; conversions kept alive and ended | Both | Done | Yes | |
 | Seek outside what's converted restarts there | Both | Done | Yes | |
 | A file Kodi can't play is tried again converted | Both | Done | Yes | |
-| Watch Together | Both | Missing | Yes | Room events (SSE), heartbeats, following the room's position. A larger piece. |
+| Watch Together | Both | Done | Yes | As the Apple app's: invite or a code, the lobby, shared play/pause/seek, the host's Up Next. Kodi jumps to catch up (its speed steps are too coarse to drift back). |
 
 ## Playback technology (Kodi's own player does the work)
 
@@ -106,13 +106,9 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 ## Suggested order
 
 Done: real-device policy (owner, 13 November: Kodi owns format compatibility, so no per-device
-rules; hardware checks still to do on the AM6B+), title page parity, and Arc's own menus.
+rules; hardware checks still to do on the AM6B+), title page parity, Arc's own menus, and library
+parity (tabs, sort and filters, folders, person and collection pages, Play All / Shuffle), and
+player extras (chapters, thumbnails, episodes, speed), and settings and sign-in (Settings, password
+sign-in, the PIN pad), search and live updates, and Watch Together.
 
-1. **Library parity:** Recommended, Collections and Folders pills; filters; the unwatched tab;
-   person, collection and folder pages; Play All / Shuffle.
-2. **Player extras:** chapters, timeline thumbnails, the Info/Episodes tabs, speed.
-3. **Settings screen** (Auto-Play, Skip Intros, subtitle mode), a password sign-in and an Arc
-   PIN pad.
-4. **Search** with an on-screen keyboard and rows; **live updates**.
-5. **Watch Together**.
-6. **Distribution:** the zip built on push, then a Kodi repository for updates.
+1. **Distribution:** the zip built on push, then a Kodi repository for updates.

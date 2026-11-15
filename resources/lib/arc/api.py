@@ -30,6 +30,15 @@ class APIError(Exception):
         self.retry_after = retry_after
 
 
+class RoomConflict(Exception):
+    """A Watch Together room changed since the revision (or generation) a call named (409):
+    `room` is the room as it is now."""
+
+    def __init__(self, room):
+        Exception.__init__(self, "room changed")
+        self.room = room
+
+
 class Unreachable(Exception):
     """Nothing answered (no network, a wrong address, a timeout)."""
 
@@ -164,6 +173,31 @@ class ArcAPI(object):
     def recent_shows(self, library_id):
         return self.get("libraries/%d/recent-shows" % int(library_id), route="libraries/{id}/recent-shows") or []
 
+    def trickplay(self, item_id, file_id):
+        """A file's timeline thumbnails: {"bif", "info": {interval_ms, count, width, height}}, or
+        None until Arc has made them (404)."""
+        try:
+            return self.get("items/%s/trickplay?file=%s" % (_q(item_id), _q(str(file_id))), route="items/{id}/trickplay")
+        except APIError as e:
+            if e.status == 404:
+                return None
+            raise
+
+    def bif(self, item_id, file_id):
+        """The file's thumbnails as one BIF file (bytes), or None."""
+        status, data, _ = self.raw("GET", "items/%s/trickplay/%s/bif" % (_q(item_id), _q(str(file_id))),
+                                   route="items/{id}/trickplay/{file}/bif")
+        return data if status == 200 else None
+
+    def facets(self, library_id):
+        return self.get("libraries/%d/facets" % int(library_id), route="libraries/{id}/facets") or {}
+
+    def folders(self, library_id, path=""):
+        """An Other videos library's folder at `path` (as a folder's own "path"; "" for the top):
+        {"path", "folders": [{name, path, count, cover}], "items": [...]}."""
+        query = ("?path=" + _q(path)) if path else ""
+        return self.get("libraries/%d/folders%s" % (int(library_id), query), route="libraries/{id}/folders") or {}
+
     def recommended(self, library_id):
         return self.get("libraries/%d/recommended" % int(library_id), route="libraries/{id}/recommended") or {}
 
@@ -268,6 +302,125 @@ class ArcAPI(object):
         token = self._token()
         return {"Authorization": "Bearer " + token} if token else {}
 
+    # MARK: - Watch Together (server docs/WATCH-TOGETHER-API.md)
+
+    def watch_people(self, item_id=None):
+        """Who this profile may invite; with `item_id`, each says whether they may play it."""
+        path = "watch-together/people" + ("?" + parse.urlencode({"item_id": item_id}) if item_id else "")
+        return (self.get(path, route="watch-together/people") or {}).get("people") or []
+
+    def watch_rooms(self):
+        """The rooms this profile made, was invited to or is in, newest first."""
+        return (self.get("watch-together/rooms") or {}).get("rooms") or []
+
+    def create_invited_room(self, item_id, profile_ids):
+        """A room for chosen people: nobody's in it until they join from their lists."""
+        return self.send("POST", "watch-together/rooms", {"item_id": item_id, "profile_ids": list(profile_ids)})
+
+    def create_room(self, item_id):
+        """A room with a code, joined at once by this device: {room, invite_code, ...}."""
+        return self.send("POST", "watch-together", {"item_id": item_id, "start_ms": 0})
+
+    def join_room(self, code):
+        return self.send("POST", "watch-together/join", {"code": code}, route="watch-together/join")
+
+    def accept_room(self, room_id):
+        """Joins a room from this profile's list, without a code."""
+        return self.send("POST", "watch-together/rooms/" + _q(room_id) + "/join", {},
+                         route="watch-together/rooms/{id}/join")
+
+    def dismiss_room(self, room_id):
+        """Declines an invitation, or cancels a room this profile made."""
+        self.send("POST", "watch-together/rooms/" + _q(room_id) + "/dismiss", None,
+                  route="watch-together/rooms/{id}/dismiss", expect_body=False)
+
+    def current_room(self):
+        """This device and profile's own room, or None."""
+        status, data, _ = self.raw("GET", "watch-together/current", route="watch-together/current")
+        if status == 404:
+            return None
+        if not 200 <= status < 300:
+            raise self._failure(status, data, "watch-together/current")
+        return self._decode(data, "watch-together/current")
+
+    def room_command(self, room_id, revision, action, position_ms=None, item_id=None):
+        """play, pause, seek (position_ms), change_item (item_id, position_ms) or end. A room that
+        changed since `revision` raises RoomConflict with the room as it is now."""
+        body = {"revision": revision, "action": action}
+        if position_ms is not None:
+            body["position_ms"] = max(0, int(position_ms))
+        if item_id is not None:
+            body["item_id"] = item_id
+        return self._room_call("watch-together/" + _q(room_id) + "/commands", "watch-together/{id}/commands", body)
+
+    def room_heartbeat(self, room_id, generation, position_ms, state, ready):
+        """This player's report, every couple of seconds. A seek or new title since `generation`
+        raises RoomConflict."""
+        body = {"generation": generation, "position_ms": max(0, int(position_ms)), "state": state,
+                "ready": bool(ready)}
+        return self._room_call("watch-together/" + _q(room_id) + "/heartbeat", "watch-together/{id}/heartbeat", body)
+
+    def leave_room(self, room_id):
+        try:
+            self.raw("POST", "watch-together/" + _q(room_id) + "/leave", route="watch-together/{id}/leave")
+        except Unreachable:
+            pass
+
+    def renew_room_code(self, room_id, revision):
+        return self._room_call("watch-together/" + _q(room_id) + "/invite", "watch-together/{id}/invite",
+                               {"revision": revision}, whole=True)
+
+    def invite_people(self, room_id, profile_ids):
+        return self.send("POST", "watch-together/" + _q(room_id) + "/people", {"profile_ids": list(profile_ids)},
+                         route="watch-together/{id}/people")
+
+    def server_time(self, client_sent_ms):
+        return self.get("watch-together/time?client_sent_ms=%d" % int(client_sent_ms), route="watch-together/time")
+
+    def open_room_events(self, room_id, timeout=45):
+        """The room's live stream (SSE: event "room", the whole room each time)."""
+        return self._open_stream("watch-together/" + _q(room_id) + "/events", "watch-together/{id}/events",
+                                 None, timeout)
+
+    def _room_call(self, path, route, body, whole=False):
+        status, data, _ = self.raw("POST", path, body=body, route=route)
+        if status == 409:
+            obj = None
+            try:
+                obj = json.loads(data.decode("utf-8")) if data else None
+            except (ValueError, UnicodeDecodeError):
+                obj = None
+            if isinstance(obj, dict) and isinstance(obj.get("room"), dict):
+                raise RoomConflict(obj["room"])
+        if not 200 <= status < 300:
+            raise self._failure(status, data, route)
+        return self._decode(data, route)
+
+    def open_events(self, last_event_id=None, timeout=45):
+        """Opens Arc's change-hint stream (Server-Sent Events) and returns the open response, to
+        read line by line (arc/events.py). `last_event_id` resumes after a drop. Raises APIError
+        (with retry_after for a 429) or Unreachable."""
+        return self._open_stream("events", "events", last_event_id, timeout)
+
+    def _open_stream(self, path, route, last_event_id, timeout):
+        req = request.Request(self.base_url + "/api/v1/" + path, method="GET")
+        req.add_header("Accept", "text/event-stream")
+        req.add_header("User-Agent", self.user_agent)
+        if last_event_id:
+            req.add_header("Last-Event-ID", str(last_event_id)[:80])
+        for k, v in self.authorization.items():
+            req.add_header(k, v)
+        try:
+            return self._opener.open(req, timeout=timeout)
+        except urlerror.HTTPError as e:
+            with e:
+                err = self._failure(e.code, e.read(), route)
+                err.retry_after = _seconds((e.headers or {}).get("Retry-After"))
+                raise err
+        except (urlerror.URLError, socket.timeout, ssl.SSLError, ConnectionError, OSError) as e:
+            log.debug("%s: can't reach the server (%s)", route, type(getattr(e, "reason", e)).__name__)
+            raise Unreachable(str(type(e).__name__))
+
     # MARK: - plumbing
 
     def get(self, path, route=None):
@@ -333,6 +486,13 @@ class ArcAPI(object):
             log.debug("%s answered %d", route, status)
         return APIError(status, message, needs=obj.get("needs"), code=obj.get("code"),
                         request_id=obj.get("request_id"))
+
+
+def _seconds(value):
+    try:
+        return max(1, min(int(value), 300))
+    except (TypeError, ValueError):
+        return None
 
 
 class _NoRedirect(request.HTTPRedirectHandler):

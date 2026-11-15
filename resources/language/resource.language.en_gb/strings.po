@@ -577,3 +577,495 @@ msgstr ""
 msgctxt "#30249"
 msgid "Top Unwatched"
 msgstr ""
+
+msgctxt "#30250"
+msgid "Date Added"
+msgstr ""
+
+msgctxt "#30251"
+msgid "Release Date"
+msgstr ""
+
+msgctxt "#30252"
+msgid "Duration"
+msgstr ""
+
+msgctxt "#30253"
+msgid "Last Watched"
+msgstr ""
+
+msgctxt "#30254"
+msgid "Unwatched Only"
+msgstr ""
+
+msgctxt "#30255"
+msgid "Genre"
+msgstr ""
+
+msgctxt "#30256"
+msgid "Decade"
+msgstr ""
+
+msgctxt "#30257"
+msgid "%ss"
+msgstr ""
+
+msgctxt "#30258"
+msgid "Resolution"
+msgstr ""
+
+msgctxt "#30259"
+msgid "Any"
+msgstr ""
+
+msgctxt "#30260"
+msgid "Clear Filters"
+msgstr ""
+
+msgctxt "#30261"
+msgid "Filtered"
+msgstr ""
+
+msgctxt "#30262"
+msgid "Nothing matches these filters."
+msgstr ""
+
+msgctxt "#30263"
+msgid "A to Z"
+msgstr ""
+
+msgctxt "#30264"
+msgid "Z to A"
+msgstr ""
+
+msgctxt "#30265"
+msgid "Newest first"
+msgstr ""
+
+msgctxt "#30266"
+msgid "Oldest first"
+msgstr ""
+
+msgctxt "#30267"
+msgid "Highest first"
+msgstr ""
+
+msgctxt "#30268"
+msgid "Lowest first"
+msgstr ""
+
+msgctxt "#30269"
+msgid "Longest first"
+msgstr ""
+
+msgctxt "#30270"
+msgid "Shortest first"
+msgstr ""
+
+msgctxt "#30271"
+msgid "Most recent first"
+msgstr ""
+
+msgctxt "#30272"
+msgid "Least recent first"
+msgstr ""
+
+msgctxt "#30273"
+msgid "Folders"
+msgstr ""
+
+msgctxt "#30274"
+msgid "%d videos"
+msgstr ""
+
+msgctxt "#30275"
+msgid "1 video"
+msgstr ""
+
+msgctxt "#30276"
+msgid "1 title in your libraries"
+msgstr ""
+
+msgctxt "#30277"
+msgid "%d titles in your libraries"
+msgstr ""
+
+msgctxt "#30278"
+msgid "as %s"
+msgstr ""
+
+msgctxt "#30279"
+msgid "Movies"
+msgstr ""
+
+msgctxt "#30280"
+msgid "TV Shows"
+msgstr ""
+
+msgctxt "#30281"
+msgid "Behind the Camera"
+msgstr ""
+
+msgctxt "#30282"
+msgid "Director"
+msgstr ""
+
+msgctxt "#30283"
+msgid "Writer"
+msgstr ""
+
+msgctxt "#30284"
+msgid "Producer"
+msgstr ""
+
+msgctxt "#30285"
+msgid "Nothing in your libraries has them in it."
+msgstr ""
+
+msgctxt "#30286"
+msgid "This collection has nothing you can watch yet."
+msgstr ""
+
+msgctxt "#30287"
+msgid "Play All"
+msgstr ""
+
+msgctxt "#30288"
+msgid "Shuffle"
+msgstr ""
+
+msgctxt "#30289"
+msgid "Arc couldn't start that."
+msgstr ""
+
+msgctxt "#30290"
+msgid "Chapters"
+msgstr ""
+
+msgctxt "#30291"
+msgid "Chapter %d"
+msgstr ""
+
+msgctxt "#30292"
+msgid "Episodes"
+msgstr ""
+
+msgctxt "#30293"
+msgid "Speed"
+msgstr ""
+
+msgctxt "#30294"
+msgid "Normal"
+msgstr ""
+
+msgctxt "#30295"
+msgid "%sx"
+msgstr ""
+
+msgctxt "#30296"
+msgid "Playback"
+msgstr ""
+
+msgctxt "#30297"
+msgid "Auto-Play Next Episode"
+msgstr ""
+
+msgctxt "#30298"
+msgid "Skip Intros Automatically"
+msgstr ""
+
+msgctxt "#30299"
+msgid "In the language I last chose"
+msgstr ""
+
+msgctxt "#30300"
+msgid "When the audio is in another language"
+msgstr ""
+
+msgctxt "#30301"
+msgid "Always"
+msgstr ""
+
+msgctxt "#30302"
+msgid "Only when I choose them"
+msgstr ""
+
+msgctxt "#30303"
+msgid "On"
+msgstr ""
+
+msgctxt "#30304"
+msgid "Off"
+msgstr ""
+
+msgctxt "#30305"
+msgid "Change Server"
+msgstr ""
+
+msgctxt "#30306"
+msgid "That change wasn't saved. Check Arc is running and try again."
+msgstr ""
+
+msgctxt "#30307"
+msgid "About"
+msgstr ""
+
+msgctxt "#30308"
+msgid "Profile and Server"
+msgstr ""
+
+msgctxt "#30309"
+msgid "Metadata and artwork from TMDB and TheTVDB. This product uses the TMDB API but is not endorsed or certified by TMDB."
+msgstr ""
+
+msgctxt "#30310"
+msgid "Delete"
+msgstr ""
+
+msgctxt "#30311"
+msgid "Sign In with Password"
+msgstr ""
+
+msgctxt "#30312"
+msgid "Household password"
+msgstr ""
+
+msgctxt "#30313"
+msgid "That password wasn't right."
+msgstr ""
+
+msgctxt "#30314"
+msgid "Signing in…"
+msgstr ""
+
+msgctxt "#30315"
+msgid "No matches for “%s”."
+msgstr ""
+
+msgctxt "#30316"
+msgid "Space"
+msgstr ""
+
+msgctxt "#30317"
+msgid "Clear"
+msgstr ""
+
+msgctxt "#30319"
+msgid "People"
+msgstr ""
+
+msgctxt "#30320"
+msgid "%d titles"
+msgstr ""
+
+msgctxt "#30330"
+msgid "Watch Together"
+msgstr ""
+
+msgctxt "#30331"
+msgid "Watch Together…"
+msgstr ""
+
+msgctxt "#30332"
+msgid "Watching now"
+msgstr ""
+
+msgctxt "#30333"
+msgid "Join"
+msgstr ""
+
+msgctxt "#30334"
+msgid "Return"
+msgstr ""
+
+msgctxt "#30335"
+msgid "Decline"
+msgstr ""
+
+msgctxt "#30336"
+msgid "Cancel Room"
+msgstr ""
+
+msgctxt "#30337"
+msgid "You're hosting"
+msgstr ""
+
+msgctxt "#30338"
+msgid "Hosted by %s"
+msgstr ""
+
+msgctxt "#30339"
+msgid "%s is here"
+msgstr ""
+
+msgctxt "#30340"
+msgid "%s are here"
+msgstr ""
+
+msgctxt "#30341"
+msgid "Invited: %s"
+msgstr ""
+
+msgctxt "#30342"
+msgid "Join with a Code"
+msgstr ""
+
+msgctxt "#30343"
+msgid "Choose who to watch %s with. They'll find it on Home under Watch Together."
+msgstr ""
+
+msgctxt "#30344"
+msgid "Invite"
+msgstr ""
+
+msgctxt "#30345"
+msgid "Use a Code Instead"
+msgstr ""
+
+msgctxt "#30346"
+msgid "Can't watch this title"
+msgstr ""
+
+msgctxt "#30347"
+msgid "This title isn't available to you."
+msgstr ""
+
+msgctxt "#30348"
+msgid "You're no longer in the Watch Together room. You're watching on your own."
+msgstr ""
+
+msgctxt "#30349"
+msgid "Watch Together has ended. You're watching on your own."
+msgstr ""
+
+msgctxt "#30350"
+msgid "Paused by %s"
+msgstr ""
+
+msgctxt "#30351"
+msgid "Played by %s"
+msgstr ""
+
+msgctxt "#30352"
+msgid "%s moved the room"
+msgstr ""
+
+msgctxt "#30353"
+msgid "Friend"
+msgstr ""
+
+msgctxt "#30354"
+msgid "There's nobody else to invite yet. You can use a code instead."
+msgstr ""
+
+msgctxt "#30355"
+msgid "Couldn't load who you can invite. Check Arc is running and try again."
+msgstr ""
+
+msgctxt "#30356"
+msgid "You already have rooms waiting. Join or cancel one on Home first."
+msgstr ""
+
+msgctxt "#30357"
+msgid "Couldn't invite them. Check Arc is running and try again."
+msgstr ""
+
+msgctxt "#30358"
+msgid "Your room for %s is ready. It's on Home under Watch Together."
+msgstr ""
+
+msgctxt "#30359"
+msgid "The code the host shared"
+msgstr ""
+
+msgctxt "#30360"
+msgid "That code didn't work. It may have run out: ask the host for a new one."
+msgstr ""
+
+msgctxt "#30361"
+msgid "Too many tries. Wait a minute and try again."
+msgstr ""
+
+msgctxt "#30362"
+msgid "Couldn't join. Check Arc is running and try again."
+msgstr ""
+
+msgctxt "#30363"
+msgid "In the room"
+msgstr ""
+
+msgctxt "#30364"
+msgid "Start"
+msgstr ""
+
+msgctxt "#30365"
+msgid "Invite More People"
+msgstr ""
+
+msgctxt "#30366"
+msgid "Leave"
+msgstr ""
+
+msgctxt "#30367"
+msgid "End for Everyone"
+msgstr ""
+
+msgctxt "#30368"
+msgid "Or share the code %s"
+msgstr ""
+
+msgctxt "#30369"
+msgid "Waiting for %s to start…"
+msgstr ""
+
+msgctxt "#30370"
+msgid "%s (you)"
+msgstr ""
+
+msgctxt "#30371"
+msgid "Host"
+msgstr ""
+
+msgctxt "#30372"
+msgid "Invited"
+msgstr ""
+
+msgctxt "#30373"
+msgid "Loading"
+msgstr ""
+
+msgctxt "#30374"
+msgid "Ready"
+msgstr ""
+
+msgctxt "#30375"
+msgid "Watching"
+msgstr ""
+
+msgctxt "#30376"
+msgid "Can't watch this"
+msgstr ""
+
+msgctxt "#30377"
+msgid "Choose who else to invite. They'll find it on Home under Watch Together."
+msgstr ""
+
+msgctxt "#30380"
+msgid "Audio Offset"
+msgstr ""
+
+msgctxt "#30381"
+msgid "Subtitle Offset"
+msgstr ""
+
+msgctxt "#30382"
+msgid "None"
+msgstr ""
+
+msgctxt "#30383"
+msgid "%s later"
+msgstr ""
+
+msgctxt "#30384"
+msgid "%s earlier"
+msgstr ""

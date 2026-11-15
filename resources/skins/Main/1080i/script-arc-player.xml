@@ -25,6 +25,16 @@
         <height>600</height>
         <texture>arc-osd-scrim.png</texture>
       </control>
+      <control type="textbox" id="203">
+        <left>100</left>
+        <top>712</top>
+        <width>1300</width>
+        <height>78</height>
+        <font>font12</font>
+        <textcolor>DDFFFFFF</textcolor>
+        <shadowcolor>CC000000</shadowcolor>
+        <visible>String.IsEqual(Window.Property(arc.paused),1) + String.IsEmpty(Window.Property(arc.thumb))</visible>
+      </control>
       <control type="label" id="201">
         <left>100</left>
         <top>800</top>
@@ -151,6 +161,326 @@
         <texturebg border="6">arc-tl-bg.png</texturebg>
         <midtexture border="6">arc-tl-fg.png</midtexture>
       </control>
+      <control type="image" id="410">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="411">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="412">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="413">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="414">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="415">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="416">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="417">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="418">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="419">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="420">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="421">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="422">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="423">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="424">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="425">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="426">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="427">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="428">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="429">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="430">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="431">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="432">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="433">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="434">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="435">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="436">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="437">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="438">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="439">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="440">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="441">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="442">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="443">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="444">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="445">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="446">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="447">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="448">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
+      <control type="image" id="449">
+        <left>0</left>
+        <top>944</top>
+        <width>4</width>
+        <height>12</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>B3000000</colordiffuse>
+      </control>
       <control type="image" id="402">
         <left>100</left>
         <top>934</top>
@@ -198,6 +528,28 @@
         <align>right</align>
       </control>
     </control>
+    <control type="group" id="460">
+      <left>100</left>
+      <top>740</top>
+      <width>328</width>
+      <height>188</height>
+      <visible>String.IsEqual(Window.Property(arc.thumb),1)</visible>
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>328</width>
+        <height>188</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>E6FFFFFF</colordiffuse>
+      </control>
+      <control type="image" id="461">
+        <left>4</left>
+        <top>4</top>
+        <width>320</width>
+        <height>180</height>
+        <aspectratio>scale</aspectratio>
+      </control>
+    </control>
     <control type="group" id="600">
       <left>1240</left>
       <top>290</top>
@@ -224,7 +576,7 @@
         <left>16</left>
         <top>76</top>
         <width>548</width>
-        <height>428</height>
+        <height>448</height>
         <onup>noop</onup>
         <ondown>noop</ondown>
         <onleft>noop</onleft>
@@ -401,6 +753,230 @@
         <onright>noop</onright>
         <onup>noop</onup>
         <ondown>noop</ondown>
+      </control>
+    </control>
+    <control type="group" id="700">
+      <visible>String.IsEqual(Window.Property(arc.lobby),1)</visible>
+      <animation effect="fade" time="200">VisibleChange</animation>
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>1920</width>
+        <height>1080</height>
+        <texture>arc-white.png</texture>
+        <colordiffuse>8C000000</colordiffuse>
+      </control>
+      <control type="group">
+        <left>510</left>
+        <top>230</top>
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>900</width>
+          <height>620</height>
+          <texture border="38" colordiffuse="F2FFFFFF">arc-pill-surface.png</texture>
+        </control>
+        <control type="label">
+          <left>48</left>
+          <top>40</top>
+          <width>804</width>
+          <height>56</height>
+          <font>font32_title</font>
+          <textcolor>FFF5F5F7</textcolor>
+          <label>$ADDON[script.arc 30330]</label>
+        </control>
+        <control type="label" id="701">
+          <left>48</left>
+          <top>96</top>
+          <width>804</width>
+          <height>40</height>
+          <font>font13</font>
+          <textcolor>FFA1A1AD</textcolor>
+        </control>
+        <control type="label">
+          <left>48</left>
+          <top>160</top>
+          <width>804</width>
+          <height>36</height>
+          <font>font12</font>
+          <textcolor>FFA1A1AD</textcolor>
+          <label>$ADDON[script.arc 30363]</label>
+        </control>
+        <control type="list" id="702">
+          <left>48</left>
+          <top>200</top>
+          <width>804</width>
+          <height>240</height>
+          <onup>noop</onup>
+          <ondown>noop</ondown>
+          <onleft>noop</onleft>
+          <onright>noop</onright>
+          <itemlayout width="804" height="48">
+            <control type="image">
+              <left>0</left>
+              <top>19</top>
+              <width>10</width>
+              <height>10</height>
+              <texture>arc-circle.png</texture>
+              <colordiffuse>FFFFFFFF</colordiffuse>
+              <visible>String.IsEqual(ListItem.Property(ready),1)</visible>
+            </control>
+            <control type="image">
+              <left>0</left>
+              <top>19</top>
+              <width>10</width>
+              <height>10</height>
+              <texture>arc-circle.png</texture>
+              <colordiffuse>FF6B6B78</colordiffuse>
+              <visible>!String.IsEqual(ListItem.Property(ready),1)</visible>
+            </control>
+            <control type="label">
+              <left>28</left>
+              <top>0</top>
+              <width>520</width>
+              <height>48</height>
+              <font>font13</font>
+              <textcolor>FFF5F5F7</textcolor>
+              <aligny>center</aligny>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>548</left>
+              <top>0</top>
+              <width>256</width>
+              <height>48</height>
+              <font>font12</font>
+              <textcolor>FFA1A1AD</textcolor>
+              <aligny>center</aligny>
+              <align>right</align>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </itemlayout>
+          <focusedlayout width="804" height="48">
+            <control type="image">
+              <left>0</left>
+              <top>19</top>
+              <width>10</width>
+              <height>10</height>
+              <texture>arc-circle.png</texture>
+              <colordiffuse>FFFFFFFF</colordiffuse>
+              <visible>String.IsEqual(ListItem.Property(ready),1)</visible>
+            </control>
+            <control type="image">
+              <left>0</left>
+              <top>19</top>
+              <width>10</width>
+              <height>10</height>
+              <texture>arc-circle.png</texture>
+              <colordiffuse>FF6B6B78</colordiffuse>
+              <visible>!String.IsEqual(ListItem.Property(ready),1)</visible>
+            </control>
+            <control type="label">
+              <left>28</left>
+              <top>0</top>
+              <width>520</width>
+              <height>48</height>
+              <font>font13</font>
+              <textcolor>FFF5F5F7</textcolor>
+              <aligny>center</aligny>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>548</left>
+              <top>0</top>
+              <width>256</width>
+              <height>48</height>
+              <font>font12</font>
+              <textcolor>FFA1A1AD</textcolor>
+              <aligny>center</aligny>
+              <align>right</align>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </focusedlayout>
+        </control>
+        <control type="label" id="703">
+          <left>48</left>
+          <top>456</top>
+          <width>804</width>
+          <height>40</height>
+          <font>font12</font>
+          <textcolor>FFA1A1AD</textcolor>
+        </control>
+        <control type="grouplist" id="704">
+          <left>48</left>
+          <top>508</top>
+          <width>804</width>
+          <height>76</height>
+          <orientation>horizontal</orientation>
+          <itemgap>20</itemgap>
+          <onup>noop</onup>
+          <ondown>noop</ondown>
+          <control type="button" id="710">
+            <width>240</width>
+            <height>76</height>
+            <font>font13</font>
+            <textcolor>FFF5F5F7</textcolor>
+            <focusedcolor>FF000000</focusedcolor>
+            <disabledcolor>FF6B6B78</disabledcolor>
+            <texturefocus border="38">arc-pill-white.png</texturefocus>
+            <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+            <aligny>center</aligny>
+            <align>center</align>
+            <label>$ADDON[script.arc 30364]</label>
+            <visible>String.IsEqual(Window.Property(arc.host),1)</visible>
+          </control>
+          <control type="button" id="711">
+            <width>330</width>
+            <height>76</height>
+            <font>font13</font>
+            <textcolor>FFF5F5F7</textcolor>
+            <focusedcolor>FF000000</focusedcolor>
+            <texturefocus border="38">arc-pill-white.png</texturefocus>
+            <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+            <aligny>center</aligny>
+            <align>center</align>
+            <textoffsetx>0</textoffsetx>
+            <label>$ADDON[script.arc 30365]</label>
+            <visible>String.IsEqual(Window.Property(arc.host),1)</visible>
+          </control>
+          <control type="button" id="712">
+            <width>180</width>
+            <height>76</height>
+            <font>font13</font>
+            <textcolor>FFF5F5F7</textcolor>
+            <focusedcolor>FF000000</focusedcolor>
+            <texturefocus border="38">arc-pill-white.png</texturefocus>
+            <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+            <aligny>center</aligny>
+            <align>center</align>
+            <textoffsetx>0</textoffsetx>
+            <label>$ADDON[script.arc 30366]</label>
+          </control>
+        </control>
+      </control>
+    </control>
+    <control type="group">
+      <left>560</left>
+      <top>120</top>
+      <visible>!String.IsEmpty(Window.Property(arc.notice))</visible>
+      <animation effect="fade" time="200">VisibleChange</animation>
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>800</width>
+        <height>76</height>
+        <texture border="38" colordiffuse="F2FFFFFF">arc-pill-surface.png</texture>
+      </control>
+      <control type="label">
+        <left>32</left>
+        <top>0</top>
+        <width>736</width>
+        <height>76</height>
+        <font>font13</font>
+        <textcolor>FFF5F5F7</textcolor>
+        <align>center</align>
+        <aligny>center</aligny>
+        <label>$INFO[Window.Property(arc.notice)]</label>
       </control>
     </control>
   </controls>

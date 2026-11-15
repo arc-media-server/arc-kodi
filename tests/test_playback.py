@@ -164,3 +164,38 @@ def test_kodi_requests_keep_limits_and_choices_during_fallback():
             if method == "remux":
                 assert sent["caps"]["video"] == []
         assert "mkv" in caps["containers"] and "hevc" in caps["video"]
+
+
+def test_chapters_marks_and_position():
+    plan = {"chapters": [{"title": "B", "start_ms": 60000, "end_ms": 120000},
+                         {"title": "A", "start_ms": 0, "end_ms": 60000},
+                         {"title": "C", "start_ms": 120000},
+                         {"title": "no start"}]}
+    chaps = playback.chapters(plan)
+    assert [c["title"] for c in chaps] == ["A", "B", "C"]
+    assert playback.chapter_at(chaps, 0) == 0
+    assert playback.chapter_at(chaps, 90000) == 1
+    assert playback.chapter_at([], 5) == -1
+    assert playback.chapter_marks(chaps, 240000) == [0.25, 0.5]
+    assert playback.chapter_marks(chaps, 0) == []
+
+
+def test_speed_steps():
+    assert playback.speed_steps(1.0, 1.5) == 5
+    assert playback.speed_steps(1.2, 0.8) == -4
+    assert playback.speed_steps(1.0, 1.0) == 0
+
+
+def test_offsets():
+    assert playback.delay_ms("0.050 s") == 50
+    assert playback.delay_ms("-0.100 s") == -100
+    assert playback.delay_ms("") == 0 and playback.delay_ms("n/a") == 0
+    assert playback.delay_steps(0, 100, playback.AUDIO_STEP_MS) == 4
+    assert playback.delay_steps(50, -25, playback.AUDIO_STEP_MS) == -3
+    assert playback.delay_steps(-100, 1500, playback.SUBTITLE_STEP_MS) == 16
+    assert playback.AUDIO_OFFSETS[playback.nearest(playback.AUDIO_OFFSETS, 60)] == 50
+    assert playback.SUBTITLE_OFFSETS[playback.nearest(playback.SUBTITLE_OFFSETS, 0)] == 0
+    assert playback.offset_amount(-50) == "50 ms"
+    assert playback.offset_amount(1500) == "1.5 s" and playback.offset_amount(2000) == "2 s"
+    assert all(v % playback.AUDIO_STEP_MS == 0 for v in playback.AUDIO_OFFSETS)
+    assert all(v % playback.SUBTITLE_STEP_MS == 0 for v in playback.SUBTITLE_OFFSETS)

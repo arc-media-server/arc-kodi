@@ -72,6 +72,7 @@
       </control>
       <control type="button" id="102">
         <onright>103</onright>
+        <ondown>104</ondown>
         <width>390</width>
         <height>76</height>
         <font>font13</font>
@@ -87,6 +88,7 @@
       </control>
       <control type="button" id="103">
         <onleft>102</onleft>
+        <ondown>104</ondown>
         <height>76</height>
         <font>font13</font>
         <textcolor>FFF5F5F7</textcolor>
@@ -100,6 +102,21 @@
         <top>430</top>
         <width>390</width>
         <label>$ADDON[script.arc 30046]</label>
+      </control>
+      <control type="button" id="104">
+        <onup>102</onup>
+        <height>76</height>
+        <font>font13</font>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+        <aligny>center</aligny>
+        <align>center</align>
+        <textoffsetx>28</textoffsetx>
+        <top>526</top>
+        <width>800</width>
+        <label>$ADDON[script.arc 30311]</label>
       </control>
     </control>
   </controls>
