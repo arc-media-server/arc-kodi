@@ -475,6 +475,11 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             if self.pb.speed_available():
                 options.append((T(30293), self._speed_name(self.pb.speed()), False,
                                 lambda: self._open_submenu("speed"), True))
+            options.append((T(30380), self._offset_name(self.pb.offset_ms("audio")), False,
+                            lambda: self._open_submenu("audio_offset"), True))
+            if plan.get("subtitle_tracks"):
+                options.append((T(30381), self._offset_name(self.pb.offset_ms("subtitles")), False,
+                                lambda: self._open_submenu("subtitle_offset"), True))
             options.append((T(30213), "", False, lambda: self.pb.seek_to(0)))
             if self.pb.in_room():
                 if self.pb.room_host():
@@ -508,6 +513,14 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             options = [(self._speed_name(v), "", abs(v - now) < 0.05, lambda v=v: self.pb.set_speed(v))
                        for v in playback.SPEEDS]
             self._fill_menu(T(30293), options)
+        elif kind in ("audio_offset", "subtitle_offset"):
+            # Later or earlier than the picture, in Kodi's steps; the one in use ticked.
+            which = "audio" if kind == "audio_offset" else "subtitles"
+            values = playback.AUDIO_OFFSETS if which == "audio" else playback.SUBTITLE_OFFSETS
+            at = playback.nearest(values, self.pb.offset_ms(which))
+            options = [(self._offset_name(v), "", i == at, lambda v=v: self.pb.set_offset(which, v))
+                       for i, v in enumerate(values)]
+            self._fill_menu(T(30380) if which == "audio" else T(30381), options)
         elif kind == "chapters":
             at = playback.chapter_at(self.chapters, self.pb.position_ms())
             options = [(self._chapter_name(i), models.clock(c.get("start_ms") or 0), i == at,
@@ -517,6 +530,12 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             options = [(self._version_name(v), "", v.get("file_id") == self.pb.file_id,
                         lambda v=v: self.pb.choose_version(v.get("file_id"))) for v in plan.get("versions") or []]
             self._fill_menu(T(30212), options)
+
+    @staticmethod
+    def _offset_name(ms):
+        if not ms:
+            return T(30382)
+        return (T(30383) if ms > 0 else T(30384)) % playback.offset_amount(ms)
 
     @staticmethod
     def _speed_name(v):

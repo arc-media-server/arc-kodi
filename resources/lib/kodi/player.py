@@ -23,6 +23,7 @@ import xbmcgui
 from arc import models, playback
 from arc import together as wt
 
+from . import storage
 from .compat import T
 from .caps import device_caps
 from .log import log
@@ -112,6 +113,7 @@ class Playback(object):
         self.follower = wt.Follower()
         self._own_toggle = None    # (paused, at): a pause/play the follower asked Kodi for
         self._ended_naturally = False
+        self.subtitle_offset_ms = 0   # this title's subtitle offset, kept across a restart
         if together is not None:
             together.player = self
 
@@ -221,6 +223,7 @@ class Playback(object):
                 self.audio_index = self._kodi_audio
             self._kodi_audio = None
         self._settle_subtitles()
+        self._apply_offsets()
         if self.controls is None:
             self._open_controls()  # over the full-screen video, once it's showing
         if self.controls:
@@ -243,6 +246,44 @@ class Playback(object):
         except Exception as e:
             log.warning("player controls not shown (%s: %s)", type(e).__name__, e)
             self.controls = None
+
+    # MARK: - audio and subtitle offsets
+
+    @staticmethod
+    def offset_ms(kind):
+        """Kodi's audio or subtitle delay now, in ms (positive: later than the picture)."""
+        return playback.delay_ms(xbmc.getInfoLabel("Player.AudioDelay" if kind == "audio" else "Player.SubtitleDelay"))
+
+    def set_offset(self, kind, target_ms, remember=True):
+        """Moves Kodi's audio or subtitle delay to `target_ms`, a step at a time (Kodi has no call to
+        set it). The audio offset is this device's (a TV and its soundbar), so it's kept for every
+        title; a subtitle offset belongs to the title playing."""
+        audio = kind == "audio"
+        n = playback.delay_steps(self.offset_ms(kind), target_ms,
+                                 playback.AUDIO_STEP_MS if audio else playback.SUBTITLE_STEP_MS)
+        action = ("AudioDelay" if audio else "SubtitleDelay") + ("Plus" if n > 0 else "Minus")
+        for _ in range(abs(n)):
+            xbmc.executebuiltin("Action(%s)" % action)
+        if remember:
+            if audio:
+                storage.update(audio_offset_ms=int(target_ms))
+            else:
+                self.subtitle_offset_ms = int(target_ms)
+            log.info("%s offset changed", kind)
+            log.debug("%s offset: %d ms", kind, target_ms)
+
+    def _apply_offsets(self):
+        """A new stream starts with Kodi's default delays: put back this device's audio offset and
+        the title's subtitle offset (after a restart)."""
+        try:
+            audio = int(storage.load().get("audio_offset_ms") or 0)
+        except (TypeError, ValueError):
+            audio = 0
+        if audio and self.offset_ms("audio") != audio:
+            self.set_offset("audio", audio, remember=False)
+            log.debug("audio offset applied: %d ms", audio)
+        if self.subtitle_offset_ms and self.offset_ms("subtitles") != self.subtitle_offset_ms:
+            self.set_offset("subtitles", self.subtitle_offset_ms, remember=False)
 
     def _fetch_thumbs(self, file_id):
         """Asks Arc for the file's timeline thumbnails, once per file, off the player's thread."""
@@ -633,6 +674,7 @@ class Playback(object):
             self.audio_index = None
             self.burn_subtitle = None
             self._subtitle_chosen = False
+            self.subtitle_offset_ms = 0
             self._started = False
             self._stop.clear()
             if self._request(resume_ms):

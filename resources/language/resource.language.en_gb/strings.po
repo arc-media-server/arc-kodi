@@ -1049,3 +1049,23 @@ msgstr ""
 msgctxt "#30377"
 msgid "Choose who else to invite. They'll find it on Home under Watch Together."
 msgstr ""
+
+msgctxt "#30380"
+msgid "Audio Offset"
+msgstr ""
+
+msgctxt "#30381"
+msgid "Subtitle Offset"
+msgstr ""
+
+msgctxt "#30382"
+msgid "None"
+msgstr ""
+
+msgctxt "#30383"
+msgid "%s later"
+msgstr ""
+
+msgctxt "#30384"
+msgid "%s earlier"
+msgstr ""

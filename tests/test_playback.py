@@ -184,3 +184,18 @@ def test_speed_steps():
     assert playback.speed_steps(1.0, 1.5) == 5
     assert playback.speed_steps(1.2, 0.8) == -4
     assert playback.speed_steps(1.0, 1.0) == 0
+
+
+def test_offsets():
+    assert playback.delay_ms("0.050 s") == 50
+    assert playback.delay_ms("-0.100 s") == -100
+    assert playback.delay_ms("") == 0 and playback.delay_ms("n/a") == 0
+    assert playback.delay_steps(0, 100, playback.AUDIO_STEP_MS) == 4
+    assert playback.delay_steps(50, -25, playback.AUDIO_STEP_MS) == -3
+    assert playback.delay_steps(-100, 1500, playback.SUBTITLE_STEP_MS) == 16
+    assert playback.AUDIO_OFFSETS[playback.nearest(playback.AUDIO_OFFSETS, 60)] == 50
+    assert playback.SUBTITLE_OFFSETS[playback.nearest(playback.SUBTITLE_OFFSETS, 0)] == 0
+    assert playback.offset_amount(-50) == "50 ms"
+    assert playback.offset_amount(1500) == "1.5 s" and playback.offset_amount(2000) == "2 s"
+    assert all(v % playback.AUDIO_STEP_MS == 0 for v in playback.AUDIO_OFFSETS)
+    assert all(v % playback.SUBTITLE_STEP_MS == 0 for v in playback.SUBTITLE_OFFSETS)
