@@ -26,7 +26,8 @@ S = 4  # supersampling for smooth edges
 SIDEBAR_LOGO_H = 40
 SIDEBAR_ICON = 44
 LOGO_STACKED_H = 190
-OSD_ICONS = {"sliders-horizontal": 34, "volume-2": 34, "captions": 34, "check": 30, "play": 26, "pause": 26}
+OSD_ICONS = {"sliders-horizontal": 34, "volume-2": 34, "captions": 34, "check": 30, "play": 26, "pause": 26,
+             "rotate-ccw": 34, "circle-check": 34, "bookmark": 34, "bookmark-check": 34, "circle-check-filled": 34}
 
 
 def _rounded(size, radius, fill=None, outline=None, width=0):
@@ -39,14 +40,17 @@ def _rounded(size, radius, fill=None, outline=None, width=0):
     return big.resize((w, h), Image.LANCZOS)
 
 
-def pill(name, fill):
-    # A nine-slice pill for 76-high buttons: 76x76, radius 38, used with border="38".
-    _rounded((76, 76), 38, fill).save(os.path.join(MEDIA, name))
+def pill(name, fill, size=76):
+    # A nine-slice pill: size x size with radius size/2, used with border="size/2" on a control
+    # exactly `size` high. A pill drawn for another height loses its round ends (the corner
+    # slices hold only part of the curve), so each height has its own: 76 for buttons, 64 for
+    # menu rows.
+    _rounded((size, size), size // 2, fill).save(os.path.join(MEDIA, name))
 
 
 # Cards are drawn at the exact size the skin shows them (skin/includes.xml), so Kodi never
 # stretches their corners: a mask that rounds the picture, and the focus ring around it.
-CARDS = {"poster": (244, 366), "thumb": (464, 261)}
+CARDS = {"poster": (244, 366), "thumb": (464, 261), "backdrop": (400, 300)}
 CARD_RADIUS = 14
 
 
@@ -56,6 +60,47 @@ def cards():
         # The ring sits 6 px outside the card: 4 px of white, a 2 px gap.
         _rounded((w + 12, h + 12), CARD_RADIUS + 6, outline=WHITE, width=4).save(
             os.path.join(MEDIA, "arc-ring-%s.png" % kind))
+
+
+def backdrop_wide_mask():
+    """A backdrop card's picture is a 16:9 backdrop shown at its own shape and centred on the 4:3
+    card, through this 16:9 mask: clear at the sides, the card's rounded shape in the middle.
+    (Kodi lines a mask up with the whole picture before cropping it to the control, so a mask the
+    card's own shape would lose its corners with the cropped sides.)"""
+    w, h = CARDS["backdrop"]
+    wide = int(round(h * 16 / 9.0))
+    img = Image.new("RGBA", (wide, h), (0, 0, 0, 0))
+    img.paste(_rounded((w, h), CARD_RADIUS, fill=WHITE), ((wide - w) // 2, 0))
+    img.save(os.path.join(MEDIA, "arc-mask-backdrop-wide.png"))
+
+
+def backdrop_fade():
+    """The dark fade at the foot of a backdrop card, behind its logo (the web's ArcArtwork: black
+    at 70% at the foot to clear halfway up), inside the card's rounded corners."""
+    w, h = CARDS["backdrop"]
+    mask = _rounded((w, h), CARD_RADIUS, fill=WHITE)
+    img = Image.new("RGBA", (w, h))
+    px, mp = img.load(), mask.load()
+    for y in range(h):
+        a = max(0.0, (y - h / 2.0) / (h / 2.0)) * 0.7
+        for x in range(w):
+            px[x, y] = (0, 0, 0, int(round(255 * a * mp[x, y][3] / 255.0)))
+    img.save(os.path.join(MEDIA, "arc-fade-backdrop.png"))
+
+
+def count_tab():
+    """The tab with a show's unwatched episodes at a poster's top right (the Apple app's): black
+    at 80%, its bottom left rounded (12) and its top right following the card's corner."""
+    w, h = 64, 44
+    big = Image.new("RGBA", (w * S, h * S), (0, 0, 0, 0))
+    ImageDraw.Draw(big).rounded_rectangle([0, 0, w * S - 1, h * S - 1], radius=12 * S, fill=(0, 0, 0, 204),
+                                          corners=(False, False, False, True))
+    clip = Image.new("L", (w * S, h * S), 0)
+    ImageDraw.Draw(clip).rounded_rectangle([0, 0, w * S - 1, h * S - 1], radius=CARD_RADIUS * S, fill=255,
+                                           corners=(False, True, False, False))
+    alpha = Image.eval(big.getchannel("A"), lambda a: a)
+    big.putalpha(Image.composite(alpha, Image.new("L", alpha.size, 0), clip))
+    big.resize((w, h), Image.LANCZOS).save(os.path.join(MEDIA, "arc-count-tab.png"))
 
 
 def hero_scrim():
@@ -193,6 +238,67 @@ def player():
     _rounded((8, 32), 4, fill=WHITE).save(os.path.join(MEDIA, "arc-tl-marker.png"))
 
 
+def title_page():
+    """The title page (skin/script-arc-details.xml): four corner glows Kodi tints with the
+    artwork's toned colours, the mask that fades the artwork into them at the left and the foot
+    (as the Apple app's), a circle for cast photos, badge capsules and the cards' panels."""
+    # The page's wash, as the Apple app's MeshGradient: the four colours blended corner to corner
+    # (bilinear) over the whole screen. Kodi can only lay tinted images over each other, so the
+    # layers' opacities are worked out to give exactly the bilinear blend: the top-left colour
+    # everywhere, then top right at x, bottom left at y(1-x)/(1-xy), bottom right at xy.
+    w, h = 192, 108
+    layers = {
+        "tl": lambda x, y: 1.0,
+        "tr": lambda x, y: x,
+        "bl": lambda x, y: 0.0 if x * y >= 1 else y * (1 - x) / (1 - x * y),
+        "br": lambda x, y: x * y,
+    }
+    for name, alpha in layers.items():
+        img = Image.new("RGBA", (w, h))
+        px = img.load()
+        for yy in range(h):
+            for xx in range(w):
+                px[xx, yy] = (255, 255, 255, int(round(255 * alpha(xx / (w - 1.0), yy / (h - 1.0)))))
+        img.save(os.path.join(MEDIA, "arc-mesh-%s.png" % name))
+    # The artwork over the wash, as the Apple app's two masks: bright to 60% down, then softening
+    # to 45% at the foot; half strength at the left edge, whole from 55% across.
+    w, h = 384, 216
+    img = Image.new("RGBA", (w, h))
+    px = img.load()
+    for y in range(h):
+        fy = y / (h - 1.0)
+        for x in range(w):
+            fx = x / (w - 1.0)
+            down = 1.0 if fy <= 0.6 else 1.0 - 0.55 * (fy - 0.6) / 0.4
+            across = 0.5 + 0.5 * min(1.0, fx / 0.55)
+            px[x, y] = (255, 255, 255, int(round(255 * down * across)))
+    img.save(os.path.join(MEDIA, "arc-hero-mask.png"))
+    # Over the artwork, so words stay readable on bright pictures (a yellow cartoon): darker at the
+    # left, behind the hero's words, and towards the foot, behind the season tabs and rows.
+    w, h = 384, 216
+    img = Image.new("RGBA", (w, h))
+    px = img.load()
+    for y in range(h):
+        fy = y / (h - 1.0)
+        for x in range(w):
+            fx = x / (w - 1.0)
+            left = 0.55 * max(0.0, 1.0 - fx / 0.65) ** 1.2
+            foot = 0.65 * max(0.0, (fy - 0.35) / 0.65) ** 1.2
+            px[x, y] = (0, 0, 0, int(round(255 * min(0.85, left + foot))))
+    img.save(os.path.join(MEDIA, "arc-title-scrim.png"))
+    # A soft dark area behind text over bright artwork (the hero's Starring column).
+    _rounded((160, 160), 80, fill=WHITE).save(os.path.join(MEDIA, "arc-mask-face.png"))
+    face = Image.new("RGBA", (160, 240), (0, 0, 0, 0))
+    face.paste(_rounded((160, 160), 80, fill=WHITE), (0, 0))
+    face.save(os.path.join(MEDIA, "arc-mask-face-portrait.png"))
+    _rounded((172, 172), 86, outline=WHITE, width=4).save(os.path.join(MEDIA, "arc-ring-face.png"))
+    _rounded((40, 40), 20, fill=WHITE).save(os.path.join(MEDIA, "arc-badge-fill.png"))
+    _rounded((40, 40), 20, outline=(255, 255, 255, 170), width=2).save(os.path.join(MEDIA, "arc-badge-line.png"))
+    _rounded((64, 64), 24, fill=(255, 255, 255, 30)).save(os.path.join(MEDIA, "arc-panel.png"))
+    _rounded((64, 64), 26, outline=WHITE, width=4).save(os.path.join(MEDIA, "arc-panel-ring.png"))
+    Image.new("RGBA", (8, 8), WHITE).save(os.path.join(MEDIA, "arc-white.png"))  # dims behind Arc's menu
+
+
 def fanart():
     img = Image.new("RGB", (1280, 720))
     px = img.load()
@@ -210,7 +316,11 @@ def main():
             os.remove(os.path.join(MEDIA, name))
     pill("arc-pill-white.png", WHITE)
     pill("arc-pill-surface.png", SURFACE)
+    pill("arc-pill-white-64.png", WHITE, 64)
     cards()
+    backdrop_fade()
+    backdrop_wide_mask()
+    count_tab()
     wash()
     hero_scrim()
     tick()
@@ -218,6 +328,7 @@ def main():
     bars()
     side_panel()
     player()
+    title_page()
     brand_renders()
     fanart()
     print("media written to", MEDIA)

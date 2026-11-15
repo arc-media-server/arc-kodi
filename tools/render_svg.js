@@ -11,8 +11,8 @@ const { chromium } = require('playwright');
   for (let i = 0; i + 2 < args.length + 1; i += 3) {
     const [svg, png, width] = [args[i], args[i + 1], Number(args[i + 2])];
     const markup = fs.readFileSync(svg, 'utf8').replace('<svg ', '<svg width="100%" ');
-    await page.setContent(`<html><body style="margin:0;background:transparent"><div id="m" style="width:${width}px;line-height:0">${markup}</div></body></html>`);
-    await page.locator('#m').screenshot({ path: png, omitBackground: true });
+    await page.setContent(`<html><body style="margin:0;background:transparent"><div id="arc-render-wrap" style="width:${width}px;line-height:0">${markup}</div></body></html>`);
+    await page.locator("#arc-render-wrap").screenshot({ path: png, omitBackground: true });
   }
   await browser.close();
 })().catch((e) => { console.error(e); process.exit(1); });

@@ -487,3 +487,35 @@ class Playback(object):
             self.player.stop()
         else:
             self._finish()
+
+
+class ExtraPlayback(Playback):
+    """A trailer or other extra (an item's extras[]): its own stream through a cast link, in the
+    same player, with no progress, resume or Up Next (extras keep no watch state in Arc)."""
+
+    def __init__(self, session, extra, on_finished=None):
+        item = {"id": extra.get("id"), "kind": "extra", "title": extra.get("title", ""),
+                "images": extra.get("backdrop") or {}}
+        Playback.__init__(self, session, item, 0, on_finished)
+        self.extra = extra
+        self.duration_ms = int(extra.get("duration_ms") or 0)
+
+    def _request(self, start_ms, failed_method=None):
+        self._start_ms = start_ms
+        self._last_ms = start_ms
+        self.plan = {"method": "direct", "url": self.extra.get("stream_url"), "duration_ms": self.duration_ms,
+                     "markers": [], "audio_tracks": [], "subtitle_tracks": [], "versions": []}
+        log.info("playing an extra")
+        return True
+
+    def _report(self, state, position=None):
+        pass
+
+    def _remember(self, prefs):
+        pass
+
+    def _should_play_next(self):
+        return False
+
+    def on_error(self):
+        self._fail()
