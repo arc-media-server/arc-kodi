@@ -53,3 +53,13 @@ def test_cards():
     lines = dict(titlepage.playback_lines(item, "Home Arc", True, "Jon"))
     assert lines["connection"] == "home" and lines["size"] == "5.0 GB" and lines["file"] == "Inception.mkv"
     assert titlepage.starring(item) == ["Leo"]
+
+
+def test_starring_wraps_as_seen_in_kodi():
+    # Lines seen in Kodi at 620 px: these wrapped...
+    for names in ("Ryan Gosling, Harrison Ford, Ana de Armas", "Leonardo DiCaprio, Joseph Gordon-Levitt, Ken Watanabe",
+                  "Yumi Uchiyama, Tomokazu Sugita, Ai Kakuma", "Dan Castellaneta, Julie Kavner, Nancy Cartwright"):
+        assert titlepage.wraps("Starring", names), names
+    # ...and these fitted.
+    for names in ("Harrison Ford, Rutger Hauer, Sean Young", "Nathan Fillion, Gina Torres, Alan Tudyk"):
+        assert not titlepage.wraps("Starring", names), names

@@ -41,6 +41,10 @@ class RecommendedWindow(TabsMixin, home.HomeWindow):
             self.set_label(home.HERO_TITLE, T(30007))
         self._load()
 
+    def on_live(self, change):
+        if change.touches(self.library.get("id")):
+            self.on_return()
+
     def on_return(self):
         # Progress and watched state may have changed: load the rows again, keeping the focus.
         self._refreshing = True

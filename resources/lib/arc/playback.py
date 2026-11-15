@@ -225,3 +225,79 @@ def needs_default_audio_try(preview):
         return False
     preferred, default = preview.get("audio_stream"), default_audio_index(preview)
     return default is not None and preferred is not None and preferred >= 0 and preferred != default
+
+
+# MARK: - chapters
+
+def chapters(plan):
+    """The plan's chapters in order, each with a start (ms); ones without a start are left out."""
+    out = [c for c in (plan or {}).get("chapters") or [] if c.get("start_ms") is not None]
+    return sorted(out, key=lambda c: c.get("start_ms") or 0)
+
+
+def chapter_at(chaps, position_ms):
+    """The index of the chapter playing at `position_ms`, or -1 before the first."""
+    at = -1
+    for i, c in enumerate(chaps):
+        if (c.get("start_ms") or 0) <= position_ms:
+            at = i
+    return at
+
+
+def chapter_marks(chaps, duration_ms, limit=40):
+    """Where to mark chapters on the timeline, as fractions of the length: every chapter but one
+    starting at the very beginning (there's nothing to mark there), at most `limit` of them."""
+    if duration_ms <= 0:
+        return []
+    marks = [float(c.get("start_ms") or 0) / duration_ms for c in chaps if (c.get("start_ms") or 0) > 1000]
+    return [m for m in marks if 0 < m < 1][:limit]
+
+
+# MARK: - speed
+
+# The speeds offered, as Kodi's tempo steps them (0.1 at a time, 0.8x to 1.5x).
+SPEEDS = [0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5]
+
+
+def speed_steps(current, target):
+    """How many tempo steps (positive up, negative down) take `current` to `target`."""
+    return int(round((target - current) * 10))
+
+
+# MARK: - audio and subtitle offsets (Kodi's audio and subtitle delay)
+
+# Kodi moves the audio delay in steps of 25 ms and the subtitle delay in steps of 100 ms (its
+# AudioDelayPlus/Minus and SubtitleDelayPlus/Minus actions). Positive is later: the sound (or the
+# words) comes after the picture.
+AUDIO_STEP_MS, SUBTITLE_STEP_MS = 25, 100
+AUDIO_OFFSETS = [-500, -400, -300, -250, -200, -150, -100, -75, -50, -25, 0,
+                 25, 50, 75, 100, 150, 200, 250, 300, 400, 500]
+SUBTITLE_OFFSETS = [-5000, -3000, -2000, -1500, -1000, -500, -200, -100, 0,
+                    100, 200, 500, 1000, 1500, 2000, 3000, 5000]
+
+
+def delay_ms(label):
+    """Kodi's Player.AudioDelay / Player.SubtitleDelay ("-0.100 s") in milliseconds; 0 if unreadable."""
+    try:
+        return int(round(float((label or "").strip().split()[0]) * 1000))
+    except (ValueError, IndexError):
+        return 0
+
+
+def delay_steps(current_ms, target_ms, step_ms):
+    """How many of Kodi's steps (positive later, negative earlier) take `current_ms` to `target_ms`."""
+    return int(round((target_ms - current_ms) / float(step_ms)))
+
+
+def nearest(values, ms):
+    """The index of the value in `values` closest to `ms` (the offset to tick in a menu)."""
+    return min(range(len(values)), key=lambda i: abs(values[i] - ms))
+
+
+def offset_amount(ms):
+    """An offset's size in words: "50 ms", "1.5 s", "2 s"."""
+    ms = abs(int(ms))
+    if ms < 1000:
+        return "%d ms" % ms
+    s = ms / 1000.0
+    return ("%d s" % s) if s == int(s) else ("%.1f s" % s)

@@ -21,6 +21,7 @@ class Session(object):
                             "is_admin": saved.get("profile_admin", False)}
         self.prefs = {}
         self.libraries = []
+        self.features = {}   # GET /capabilities' features (Watch Together's availability)
         self.identity_name = saved.get("server_name", "")
         self.local = None
         # The last Recommended page per library id, shown at once on the next visit while a fresh
@@ -61,6 +62,12 @@ class Session(object):
         self.recommended = {}
         storage.update(profile_id=None, profile_name=None, profile_admin=False)
 
+    def forget_server(self):
+        self.base_url = None
+        self.identity_name = ""
+        self.api.base_url = ""
+        storage.clear()
+
     def sign_out(self):
         self.api.sign_out()
         self._token = None
@@ -86,6 +93,10 @@ class Session(object):
             self.local = None
         self.prefs = self.api.prefs() or {}
         self.libraries = self.api.libraries() or []
+        try:
+            self.features = (self.api.capabilities() or {}).get("features") or {}
+        except Exception:
+            self.features = {}
         # The server's version, so a log shows which Arc build answered (e.g. after an update).
         log.info("loaded %d libraries from Arc %s", len(self.libraries), (ident or {}).get("version") or "?")
 

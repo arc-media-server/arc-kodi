@@ -69,7 +69,7 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
 - **Feel:** a TV app driven by a remote: focus always visible (white, as the Apple app), Back
   always works, Context Menu (C or long OK) for the ⋯ actions, Play on a card plays it. Menus and
   questions are Arc's own (`kodi/windows/menu.py`: `choose`, `confirm`), never Kodi's
-  `contextmenu`, `select` or `yesno`. Arc's identity through the owner's logo (the server's `docs/brand`, copied into `tools/brand/`): the
+  `contextmenu`, `select` or `yesno`; PINs go into Arc's PIN pad (`kodi/windows/pin.py`). Arc's identity through the owner's logo (the server's `docs/brand`, copied into `tools/brand/`): the
   stacked logo on sign-in screens, the full logo in the open sidebar, the TV mark where it's
   small, on the sidebar's icon column. The sidebar's icons are the web and Android apps' (Lucide,
   ISC: `tools/brand/icons/`, notice in `resources/LICENSE-lucide.txt`); the Apple app's are SF
@@ -133,6 +133,10 @@ docs/changes/                   one note per change
   a horizontal grouplist takes over its children's Left/Right and can't move into a child group
   (lay such a row out as a plain group); a grouplist scrolls only until the focused control's
   foot meets its own, so room under a row has to be inside the row; Kodi won't bottom-align a
-  wrapping label; an auto-width disabled button makes a capsule that fits its text.
+  wrapping label; an auto-width disabled button makes a capsule that fits its text; a list
+  takes how many rows it shows from its height in the skin, not a later `setHeight()`; Kodi's
+  standard font has no arrow characters; Kodi sends an `xbmc.Player`'s events only to the thread
+  that made it, so make players on the add-on's main thread (or reuse one) and never in a worker;
+  a list draws its chosen row with its focused layout even when the list isn't focused.
 - Kodi logs to `kodi.log` (`~/.kodi/temp/` on Linux, `%APPDATA%\Kodi\` on Windows); turn on
   Kodi's debug logging to see the add-on's debug lines.
