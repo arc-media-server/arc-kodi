@@ -1,11 +1,11 @@
 # Consolidate the remaining Kodi feature-parity PRs
 
-PR #4 was squash-merged as main 2ff66a1. Its tree matches the original parity branch
-4e3ed6e, but its original commits are not ancestors of main. PRs #5–#11 were a stack
+PR #4 was squash-merged as main 9d11cf7. Its tree matches the original parity branch
+034d232, but its original commits are not ancestors of main. PRs #5–#11 were a stack
 on that original history, all targeting main; their overlapping changes now conflict.
 
 At the owner's request, replace those seven open PRs with one standalone PR based directly
-on current main. Carry forward the complete latest stack at 30d5c48 (kodi-offsets):
+on current main. Carry forward the complete latest stack at 2c77d65 (kodi-offsets):
 
 - #5: library sort/filters, folders, people/collections and play queues;
 - #6: chapters, thumbnails, episode selection and playback speed;
@@ -15,7 +15,7 @@ on current main. Carry forward the complete latest stack at 30d5c48 (kodi-offset
 - #10: Watch Together and row navigation;
 - #11: audio/subtitle offsets.
 
-The staged tree matched 30d5c48 exactly before this note and a trailing-whitespace-only
+The staged tree matched 2c77d65 exactly before this note and a trailing-whitespace-only
 cleanup in the existing Watch Together note. Application code, tests, translations, source
 skins, generated windows and artwork remain identical to that stack. No feature work or
 conflict resolution that chooses between application versions is introduced. Main and the
