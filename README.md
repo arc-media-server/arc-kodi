@@ -24,13 +24,12 @@
 ## What is Arc for Kodi?
 
 A full-screen [Kodi](https://kodi.tv) add-on for
-[Arc Media Server](https://github.com/arc-media-server/arc-media-server). It draws its own interface rather than using Kodi's library: Home, your libraries, title
-pages, search and the player all look like Arc's other apps, and Kodi's own player plays the
-video.
+[Arc Media Server](https://github.com/arc-media-server/arc-media-server). It draws its own
+interface rather than using Kodi's library: Home, your libraries, title pages, search and the
+player all look like Arc's other apps, and Kodi's own player plays the video.
 
-It never touches Kodi's library: no scraping, no `.strm` files, no library sync. Everything
-comes from your Arc server through its stable `/api/v1`, and your watch history, resume points
-and settings are the same as on every other Arc app.
+Everything comes from your Arc server through its stable `/api/v1`, and your watch history,
+resume points and settings are the same as on every other Arc app.
 
 > **Alpha software.** It's in daily use against real servers, but not yet checked on every
 > device. Playback, HDR, Dolby Vision and passthrough depend on your Kodi build and hardware.
