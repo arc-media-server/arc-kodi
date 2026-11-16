@@ -8,6 +8,9 @@
      What shows is driven by window properties (a fixed <visible> would override setVisible):
      arc.osd (the controls), arc.menu (a menu), arc.skip, arc.upnext, arc.paused, arc.seeking. -->
 <window>
+  <!-- Above the skin's own player dialogs (its seek bar and "Paused" bar open by themselves on
+       pause and seek), as PM4K's player. -->
+  <zorder>100</zorder>
   <defaultcontrol>90</defaultcontrol>
   <controls>
     <!-- Holds the focus while the controls are hidden, so every key reaches the player. -->
@@ -23,6 +26,11 @@
       <control type="image">
         <left>0</left><top>480</top><width>1920</width><height>600</height>
         <texture>arc-osd-scrim.png</texture>
+      </control>
+      <!-- The top shaded too, covering the skin's own bar there. -->
+      <control type="image">
+        <left>0</left><top>0</top><width>1920</width><height>360</height>
+        <texture>arc-osd-top.png</texture>
       </control>
 
       <!-- Paused, the title's overview shows above it (as Plex's player). -->

@@ -402,7 +402,7 @@ class App(object):
             self._tell(T(30362))
 
     def _invite(self, item, room_id=None):
-        """Who to watch with: the people this profile may invite, ticked with Select, then Invite
+        """Who to watch with: the people this profile may invite, ticked with Select, then Send Invite
         (a room waits on their Home rows) or Use a Code Instead (a room with a code, at once).
         For a room this device is in (`room_id`), Invite adds them to it."""
         try:

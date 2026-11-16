@@ -915,7 +915,7 @@ msgid "Choose who to watch %s with. They'll find it on Home under Watch Together
 msgstr ""
 
 msgctxt "#30344"
-msgid "Invite"
+msgid "Send Invite"
 msgstr ""
 
 msgctxt "#30345"
