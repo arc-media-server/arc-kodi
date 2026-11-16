@@ -466,25 +466,28 @@
   </include>
 
   <!-- An About / Details / Crew / Playback card: a heading and lines of text. -->
+  <!-- In a 440 x 360 slot: the card (400 x 330) sits 10 in from the slot's edges, so the focus
+       ring (6 outside the card) stays inside the slot (a list clips what's outside an item) and
+       the cards stand 40 apart. -->
   <include name="InfoCard">
     <param name="focused" default="false"/>
     <definition>
       <control type="image">
-        <left>0</left><top>0</top><width>430</width><height>360</height>
+        <left>10</left><top>10</top><width>400</width><height>330</height>
         <texture border="24">arc-panel.png</texture>
       </control>
       <control type="image">
-        <left>-6</left><top>-6</top><width>442</width><height>372</height>
+        <left>4</left><top>4</top><width>412</width><height>342</height>
         <texture border="26">arc-panel-ring.png</texture>
         <visible>$PARAM[focused]</visible>
       </control>
       <control type="label">
-        <left>28</left><top>22</top><width>374</width><height>40</height>
+        <left>36</left><top>30</top><width>348</width><height>40</height>
         <font>arc-label</font><textcolor>fg</textcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="textbox">
-        <left>28</left><top>70</top><width>374</width><height>270</height>
+        <left>36</left><top>78</top><width>348</width><height>246</height>
         <font>arc-small</font><textcolor>muted</textcolor>
         <label>$INFO[ListItem.Property(body)]</label>
       </control>
