@@ -64,5 +64,6 @@
       <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
       <label></label>
     </control>
+    <include>ArcToast</include>
   </controls>
 </window>

@@ -208,5 +208,6 @@
       </control>
       <control type="group"><height>40</height></control>
     </control>
+    <include>ArcToast</include>
   </controls>
 </window>

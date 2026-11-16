@@ -78,5 +78,6 @@
     </control>
 
     <include content="LibraryTabs"><param name="left" value="112"/><param name="ondown" value="900"/></include>
+    <include>ArcToast</include>
   </controls>
 </window>

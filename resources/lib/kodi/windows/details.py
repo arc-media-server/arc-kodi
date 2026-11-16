@@ -11,6 +11,7 @@ import xbmcgui
 from arc import home as homerows
 from arc import models, titlepage
 
+from .. import toast
 from ..compat import T
 from ..log import log
 from . import menu
@@ -122,7 +123,7 @@ class DetailsWindow(ArcWindow):
 
     def _loaded(self, item, error):
         if error is not None or not item:
-            xbmcgui.Dialog().notification("Arc", T(30004))
+            toast.show(T(30004))
             self.on_back()
             return
         self.item = item

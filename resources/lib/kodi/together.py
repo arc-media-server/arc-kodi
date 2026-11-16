@@ -14,6 +14,7 @@ import xbmcgui
 from arc import together as wt
 from arc.api import APIError, RoomConflict, Unreachable
 
+from . import toast
 from .compat import T
 from .log import log
 
@@ -305,4 +306,4 @@ class Together(object):
                 return
             except Exception:
                 pass
-        xbmcgui.Dialog().notification(T(30330), text, sound=False)
+        toast.show(text)
