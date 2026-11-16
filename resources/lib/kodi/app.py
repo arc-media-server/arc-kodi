@@ -181,6 +181,8 @@ class App(object):
             self._open_collection(payload)
         elif kind == "extra":
             self._play_extra(payload)
+        elif kind == "queue":
+            self._play_queue(item_ids=payload.get("item_ids"), shuffle=payload.get("shuffle", False))
         elif kind == "folder":
             self._open(library.FolderWindow, library=payload["library"], path=payload["path"],
                        title=payload.get("title", ""))

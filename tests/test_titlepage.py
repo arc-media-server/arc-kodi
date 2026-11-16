@@ -90,3 +90,23 @@ def test_unplaced_episodes_have_no_code():
     assert models.episode_code({"season_number": 2, "episode_number": 4}) == "S2 · E4"
     assert not models.placed({"season_number": 0, "episode_number": 0})
     assert titlepage.episode_label({"season_number": 0, "episode_number": 0, "title": "Trash"}) == "Trash"
+
+
+def test_season_actions():
+    from arc import models
+    unwatched = {"season_number": 1, "episodes": [
+        {"id": "a", "user_data": {"played": True}}, {"id": "b", "user_data": {"position_ms": 5000}},
+        {"id": "c", "available": False}]}
+    assert titlepage.season_actions(unwatched) == ["watched", "shuffle"]
+    assert titlepage.season_episode_ids(unwatched) == ["a", "b"]
+    marked = titlepage.mark_season(unwatched, True)
+    assert [models.watched(e) for e in marked[:2]] == [True, True]
+    assert marked[1]["user_data"]["position_ms"] == 0
+    assert "user_data" not in marked[2]            # not on disk: left as it is
+    assert unwatched["episodes"][1]["user_data"]["position_ms"] == 5000   # the original isn't changed
+    assert titlepage.season_actions(dict(unwatched, episodes=marked)) == ["unwatched", "shuffle"]
+    one = {"season_number": 2, "episodes": [{"id": "x"}]}
+    assert titlepage.season_actions(one) == ["watched"]
+    assert titlepage.season_actions({"unplaced": True, "episodes": [{"id": "u"}, {"id": "v"}]}) == []
+    assert titlepage.season_actions({"season_number": 3, "episodes": [{"id": "z", "available": False}]}) == []
+    assert titlepage.season_actions(None) == []
