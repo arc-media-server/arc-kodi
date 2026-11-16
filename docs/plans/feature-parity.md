@@ -73,7 +73,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Left/Right skip 10 s, presses add up | Both | Done | Yes | |
 | Chapters marked on the timeline; Chapters list | Both | Done | Yes | Marks in the bar; a list in the Playback menu. |
 | Timeline thumbnails while skipping | Both | Done | Yes | From Arc's BIF, served frame by frame by the local proxy. |
-| Tabs: Info, Chapters, Cast, Episodes | Apple | Part | Yes | Chapters and Episodes are lists in the Playback menu; the overview shows when paused; no Cast in the player. |
+| Tabs: Info, Chapters, Cast, Episodes | Apple | Done | Yes | Under the timeline as the Apple player's: Down opens Info; Chapters, Cast and Episodes as cards. Player Info (O) shows what Kodi's player reports. |
 | Audio menu | Both | Done | Yes | Kodi switches tracks itself in a file played as it is. |
 | Subtitles menu (in the file, beside it, picture subtitles burnt in when converted) | Both | Done | Yes | Played as they are, PGS and VobSub are drawn by Kodi itself; Arc burns them in only in a converted stream. |
 | Subtitles chosen by the profile's mode and language | Both | Done | Yes | |
@@ -102,7 +102,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 
 | Feature | Apple / Android | Kodi now | Kodi can | Notes |
 |---|---|---|---|---|
-| Top Shelf (Apple) / Watch Next channel (Android) | Both | Missing | Part | Kodi's nearest is skin home widgets, which need a `plugin://` source; that's against this add-on's rule today. An owner decision (#80). |
+| Top Shelf (Apple) / Watch Next channel (Android) | Both | Not planned | — | Owner, 16 November: not for Kodi (its nearest, skin home widgets, would need a `plugin://` source). |
 | Updates without a zip (a Kodi repository) | Stores | Missing | Yes | A repository add-on, as other Kodi add-ons ship. |
 | Automatic build of the install zip | — | Missing | Yes | A GitHub Action on push. |
 

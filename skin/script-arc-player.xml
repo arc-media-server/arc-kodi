@@ -37,157 +37,417 @@
         <left>0</left><top>480</top><width>1920</width><height>600</height>
         <texture>arc-osd-scrim.png</texture>
       </control>
+      <!-- The title, round buttons, timeline and times: they step aside while a tab's card is open. -->
+      <control type="group" id="210">
+        <visible>String.IsEmpty(Window.Property(arc.card))</visible>
+        <animation effect="fade" time="150">VisibleChange</animation>
 
-      <!-- Paused, the title's overview shows above it (as Plex's player). -->
-      <control type="textbox" id="203">
-        <left>100</left><top>712</top><width>1300</width><height>78</height>
-        <font>arc-small</font><textcolor>DDFFFFFF</textcolor><shadowcolor>CC000000</shadowcolor>
-        <visible>String.IsEqual(Window.Property(arc.paused),1) + String.IsEmpty(Window.Property(arc.thumb))</visible>
-      </control>
-      <control type="label" id="201">
-        <left>100</left><top>800</top><width>1300</width><height>40</height>
-        <font>arc-body</font><textcolor>CCFFFFFF</textcolor>
-      </control>
-      <control type="label" id="202">
-        <left>100</left><top>836</top><width>1300</width><height>76</height>
-        <font>arc-title</font><textcolor>white</textcolor>
-      </control>
+        <control type="label" id="201">
+          <left>100</left><top>728</top><width>1300</width><height>40</height>
+          <font>arc-body</font><textcolor>CCFFFFFF</textcolor>
+        </control>
+        <control type="label" id="202">
+          <left>100</left><top>764</top><width>1300</width><height>76</height>
+          <font>arc-title</font><textcolor>white</textcolor>
+        </control>
 
-      <!-- Playback, Audio, Subtitles: round, white with a black icon when focused. -->
-      <control type="button" id="301">
-        <left>1560</left><top>836</top><width>76</width><height>76</height>
-        <texturefocus border="38">arc-pill-white.png</texturefocus>
-        <texturenofocus border="38" colordiffuse="99FFFFFF">arc-pill-surface.png</texturenofocus>
-        <onleft>noop</onleft><onright>302</onright><onup>noop</onup><ondown>noop</ondown>
-      </control>
-      <control type="button" id="302">
-        <left>1652</left><top>836</top><width>76</width><height>76</height>
-        <texturefocus border="38">arc-pill-white.png</texturefocus>
-        <texturenofocus border="38" colordiffuse="99FFFFFF">arc-pill-surface.png</texturenofocus>
-        <onleft>301</onleft><onright>303</onright><onup>noop</onup><ondown>noop</ondown>
-      </control>
-      <control type="button" id="303">
-        <left>1744</left><top>836</top><width>76</width><height>76</height>
-        <texturefocus border="38">arc-pill-white.png</texturefocus>
-        <texturenofocus border="38" colordiffuse="99FFFFFF">arc-pill-surface.png</texturenofocus>
-        <onleft>302</onleft><onright>noop</onright><onup>noop</onup><ondown>noop</ondown>
-      </control>
-      <control type="image">
-        <left>1581</left><top>857</top><width>34</width><height>34</height>
-        <texture>arc-osd-sliders-horizontal.png</texture><colordiffuse>white</colordiffuse>
-        <visible>!Control.HasFocus(301)</visible>
-      </control>
-      <control type="image">
-        <left>1581</left><top>857</top><width>34</width><height>34</height>
-        <texture>arc-osd-sliders-horizontal.png</texture><colordiffuse>black</colordiffuse>
-        <visible>Control.HasFocus(301)</visible>
-      </control>
-      <control type="image">
-        <left>1673</left><top>857</top><width>34</width><height>34</height>
-        <texture>arc-osd-volume-2.png</texture><colordiffuse>white</colordiffuse>
-        <visible>!Control.HasFocus(302)</visible>
-      </control>
-      <control type="image">
-        <left>1673</left><top>857</top><width>34</width><height>34</height>
-        <texture>arc-osd-volume-2.png</texture><colordiffuse>black</colordiffuse>
-        <visible>Control.HasFocus(302)</visible>
-      </control>
-      <control type="image">
-        <left>1765</left><top>857</top><width>34</width><height>34</height>
-        <texture>arc-osd-captions.png</texture><colordiffuse>white</colordiffuse>
-        <visible>!Control.HasFocus(303)</visible>
-      </control>
-      <control type="image">
-        <left>1765</left><top>857</top><width>34</width><height>34</height>
-        <texture>arc-osd-captions.png</texture><colordiffuse>black</colordiffuse>
-        <visible>Control.HasFocus(303)</visible>
-      </control>
-
-      <!-- The timeline. 400 takes the focus (it has no look of its own; the marker grows). -->
-      <control type="button" id="400">
-        <left>100</left><top>930</top><width>1720</width><height>40</height>
-        <texturefocus></texturefocus><texturenofocus></texturenofocus>
-        <onleft>noop</onleft><onright>noop</onright><onup>noop</onup><ondown>noop</ondown>
-      </control>
-      <control type="progress" id="401">
-        <left>100</left><top>944</top><width>1720</width><height>12</height>
-        <texturebg border="6">arc-tl-bg.png</texturebg>
-        <midtexture border="6">arc-tl-fg.png</midtexture>
-      </control>
-      <!-- Chapter marks: small gaps in the bar where chapters start (placed and shown by the
-           Python, 410-449). -->
-      <control type="image" id="410"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="411"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="412"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="413"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="414"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="415"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="416"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="417"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="418"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="419"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="420"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="421"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="422"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="423"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="424"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="425"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="426"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="427"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="428"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="429"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="430"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="431"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="432"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="433"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="434"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="435"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="436"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="437"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="438"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="439"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="440"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="441"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="442"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="443"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="444"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="445"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="446"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="447"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="448"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="449"><left>0</left><top>944</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
-      <control type="image" id="402">
-        <left>100</left><top>934</top><width>8</width><height>32</height>
-        <texture border="4">arc-tl-marker.png</texture>
-      </control>
-      <!-- Under the marker (moved by the Python): playing or paused, and the time played. -->
-      <control type="group" id="403">
-        <left>100</left><top>976</top><width>240</width><height>40</height>
-        <control type="image">
-          <left>0</left><top>7</top><width>26</width><height>26</height>
-          <texture>arc-osd-pause.png</texture>
-          <visible>!String.IsEqual(Window.Property(arc.paused),1)</visible>
+        <!-- Playback, Audio, Subtitles: round, white with a black icon when focused. -->
+        <control type="button" id="301">
+          <left>1560</left><top>764</top><width>76</width><height>76</height>
+          <texturefocus border="38">arc-pill-white.png</texturefocus>
+          <texturenofocus border="38" colordiffuse="99FFFFFF">arc-pill-surface.png</texturenofocus>
+          <onleft>noop</onleft><onright>302</onright><onup>noop</onup><ondown>noop</ondown>
+        </control>
+        <control type="button" id="302">
+          <left>1652</left><top>764</top><width>76</width><height>76</height>
+          <texturefocus border="38">arc-pill-white.png</texturefocus>
+          <texturenofocus border="38" colordiffuse="99FFFFFF">arc-pill-surface.png</texturenofocus>
+          <onleft>301</onleft><onright>303</onright><onup>noop</onup><ondown>noop</ondown>
+        </control>
+        <control type="button" id="303">
+          <left>1744</left><top>764</top><width>76</width><height>76</height>
+          <texturefocus border="38">arc-pill-white.png</texturefocus>
+          <texturenofocus border="38" colordiffuse="99FFFFFF">arc-pill-surface.png</texturenofocus>
+          <onleft>302</onleft><onright>noop</onright><onup>noop</onup><ondown>noop</ondown>
         </control>
         <control type="image">
-          <left>0</left><top>7</top><width>26</width><height>26</height>
-          <texture>arc-osd-play.png</texture>
-          <visible>String.IsEqual(Window.Property(arc.paused),1)</visible>
+          <left>1581</left><top>785</top><width>34</width><height>34</height>
+          <texture>arc-osd-sliders-horizontal.png</texture><colordiffuse>white</colordiffuse>
+          <visible>!Control.HasFocus(301)</visible>
         </control>
-        <control type="label" id="404">
-          <left>38</left><top>0</top><width>200</width><height>40</height>
-          <font>arc-body</font><textcolor>white</textcolor>
+        <control type="image">
+          <left>1581</left><top>785</top><width>34</width><height>34</height>
+          <texture>arc-osd-sliders-horizontal.png</texture><colordiffuse>black</colordiffuse>
+          <visible>Control.HasFocus(301)</visible>
+        </control>
+        <control type="image">
+          <left>1673</left><top>785</top><width>34</width><height>34</height>
+          <texture>arc-osd-volume-2.png</texture><colordiffuse>white</colordiffuse>
+          <visible>!Control.HasFocus(302)</visible>
+        </control>
+        <control type="image">
+          <left>1673</left><top>785</top><width>34</width><height>34</height>
+          <texture>arc-osd-volume-2.png</texture><colordiffuse>black</colordiffuse>
+          <visible>Control.HasFocus(302)</visible>
+        </control>
+        <control type="image">
+          <left>1765</left><top>785</top><width>34</width><height>34</height>
+          <texture>arc-osd-captions.png</texture><colordiffuse>white</colordiffuse>
+          <visible>!Control.HasFocus(303)</visible>
+        </control>
+        <control type="image">
+          <left>1765</left><top>785</top><width>34</width><height>34</height>
+          <texture>arc-osd-captions.png</texture><colordiffuse>black</colordiffuse>
+          <visible>Control.HasFocus(303)</visible>
+        </control>
+
+        <!-- The timeline. 400 takes the focus (it has no look of its own; the marker grows). -->
+        <control type="button" id="400">
+          <left>100</left><top>858</top><width>1720</width><height>40</height>
+          <texturefocus></texturefocus><texturenofocus></texturenofocus>
+          <onleft>noop</onleft><onright>noop</onright><onup>noop</onup><ondown>noop</ondown>
+        </control>
+        <control type="progress" id="401">
+          <left>100</left><top>872</top><width>1720</width><height>12</height>
+          <texturebg border="6">arc-tl-bg.png</texturebg>
+          <midtexture border="6">arc-tl-fg.png</midtexture>
+        </control>
+        <!-- Chapter marks: small gaps in the bar where chapters start (placed and shown by the
+             Python, 410-449). -->
+        <control type="image" id="410"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="411"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="412"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="413"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="414"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="415"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="416"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="417"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="418"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="419"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="420"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="421"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="422"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="423"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="424"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="425"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="426"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="427"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="428"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="429"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="430"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="431"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="432"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="433"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="434"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="435"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="436"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="437"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="438"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="439"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="440"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="441"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="442"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="443"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="444"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="445"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="446"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="447"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="448"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="449"><left>0</left><top>872</top><width>4</width><height>12</height><texture>arc-white.png</texture><colordiffuse>B3000000</colordiffuse></control>
+        <control type="image" id="402">
+          <left>100</left><top>862</top><width>8</width><height>32</height>
+          <texture border="4">arc-tl-marker.png</texture>
+        </control>
+        <!-- Under the marker (moved by the Python): playing or paused, and the time played. -->
+        <control type="group" id="403">
+          <left>100</left><top>904</top><width>240</width><height>40</height>
+          <control type="image">
+            <left>0</left><top>7</top><width>26</width><height>26</height>
+            <texture>arc-osd-pause.png</texture>
+            <visible>!String.IsEqual(Window.Property(arc.paused),1)</visible>
+          </control>
+          <control type="image">
+            <left>0</left><top>7</top><width>26</width><height>26</height>
+            <texture>arc-osd-play.png</texture>
+            <visible>String.IsEqual(Window.Property(arc.paused),1)</visible>
+          </control>
+          <control type="label" id="404">
+            <left>38</left><top>0</top><width>200</width><height>40</height>
+            <font>arc-body</font><textcolor>white</textcolor>
+          </control>
+        </control>
+        <control type="label" id="405">
+          <left>1420</left><top>904</top><width>400</width><height>40</height>
+          <font>arc-body</font><textcolor>white</textcolor><align>right</align>
         </control>
       </control>
-      <control type="label" id="405">
-        <left>1420</left><top>976</top><width>400</width><height>40</height>
-        <font>arc-body</font><textcolor>white</textcolor><align>right</align>
+
+      <!-- The tabs under the timeline, as the Apple player's: Info, Chapters, Cast, Episodes (each
+           only when it has something). Down from the timeline opens Info; a tab's card shows
+           under the row, which moves up while the title and timeline step aside. The Python
+           places the row (group 500) and the tabs that show (groups 511-514). -->
+      <control type="group" id="500">
+        <left>100</left><top>966</top><width>1720</width><height>56</height>
+        <control type="group" id="511">
+          <left>0</left><top>0</top><width>140</width><height>56</height>
+          <!-- Chosen (its card is open) but not focused: a lighter pill. -->
+          <control type="image">
+            <left>0</left><top>0</top><width>140</width><height>56</height>
+            <texture border="28" colordiffuse="66FFFFFF">arc-pill-white-56.png</texture>
+            <visible>String.IsEqual(Window.Property(arc.card),info) + !Control.HasFocus(501)</visible>
+          </control>
+          <control type="button" id="501">
+            <left>0</left><top>0</top><width>140</width><height>56</height>
+            <font>arc-label</font><textcolor>DDFFFFFF</textcolor><focusedcolor>black</focusedcolor>
+            <texturefocus border="28">arc-pill-white-56.png</texturefocus><texturenofocus></texturenofocus>
+            <aligny>center</aligny><align>center</align>
+            <label>$ADDON[script.arc 30484]</label>
+            <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+          </control>
+        </control>
+        <control type="group" id="512">
+          <left>0</left><top>0</top><width>190</width><height>56</height>
+          <!-- Chosen (its card is open) but not focused: a lighter pill. -->
+          <control type="image">
+            <left>0</left><top>0</top><width>190</width><height>56</height>
+            <texture border="28" colordiffuse="66FFFFFF">arc-pill-white-56.png</texture>
+            <visible>String.IsEqual(Window.Property(arc.card),chapters) + !Control.HasFocus(502)</visible>
+          </control>
+          <control type="button" id="502">
+            <left>0</left><top>0</top><width>190</width><height>56</height>
+            <font>arc-label</font><textcolor>DDFFFFFF</textcolor><focusedcolor>black</focusedcolor>
+            <texturefocus border="28">arc-pill-white-56.png</texturefocus><texturenofocus></texturenofocus>
+            <aligny>center</aligny><align>center</align>
+            <label>$ADDON[script.arc 30290]</label>
+            <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+          </control>
+        </control>
+        <control type="group" id="513">
+          <left>0</left><top>0</top><width>140</width><height>56</height>
+          <!-- Chosen (its card is open) but not focused: a lighter pill. -->
+          <control type="image">
+            <left>0</left><top>0</top><width>140</width><height>56</height>
+            <texture border="28" colordiffuse="66FFFFFF">arc-pill-white-56.png</texture>
+            <visible>String.IsEqual(Window.Property(arc.card),cast) + !Control.HasFocus(503)</visible>
+          </control>
+          <control type="button" id="503">
+            <left>0</left><top>0</top><width>140</width><height>56</height>
+            <font>arc-label</font><textcolor>DDFFFFFF</textcolor><focusedcolor>black</focusedcolor>
+            <texturefocus border="28">arc-pill-white-56.png</texturefocus><texturenofocus></texturenofocus>
+            <aligny>center</aligny><align>center</align>
+            <label>$ADDON[script.arc 30171]</label>
+            <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+          </control>
+        </control>
+        <control type="group" id="514">
+          <left>0</left><top>0</top><width>200</width><height>56</height>
+          <!-- Chosen (its card is open) but not focused: a lighter pill. -->
+          <control type="image">
+            <left>0</left><top>0</top><width>200</width><height>56</height>
+            <texture border="28" colordiffuse="66FFFFFF">arc-pill-white-56.png</texture>
+            <visible>String.IsEqual(Window.Property(arc.card),episodes) + !Control.HasFocus(504)</visible>
+          </control>
+          <control type="button" id="504">
+            <left>0</left><top>0</top><width>200</width><height>56</height>
+            <font>arc-label</font><textcolor>DDFFFFFF</textcolor><focusedcolor>black</focusedcolor>
+            <texturefocus border="28">arc-pill-white-56.png</texturefocus><texturenofocus></texturenofocus>
+            <aligny>center</aligny><align>center</align>
+            <label>$ADDON[script.arc 30292]</label>
+            <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+          </control>
+        </control>
+      </control>
+
+      <!-- Info: the picture, the title, Restart (and Previous for an episode), the overview,
+           the details and how it's playing. -->
+      <control type="group" id="520">
+        <left>100</left><top>676</top><width>1720</width><height>384</height>
+        <visible>String.IsEqual(Window.Property(arc.card),info)</visible>
+        <animation effect="slide" start="0,40" time="200" tween="cubic" easing="out">Visible</animation>
+        <control type="image">
+          <left>0</left><top>0</top><width>1720</width><height>384</height>
+          <texture border="38" colordiffuse="E6FFFFFF">arc-pill-surface.png</texture>
+        </control>
+        <control type="image">
+          <left>32</left><top>56</top><width>480</width><height>270</height>
+          <texture>arc-mask-thumb.png</texture><colordiffuse>surface2</colordiffuse>
+        </control>
+        <control type="image" id="521">
+          <left>32</left><top>56</top><width>480</width><height>270</height>
+          <aspectratio>scale</aspectratio>
+          <texture background="true" diffuse="arc-mask-thumb.png"></texture>
+        </control>
+        <control type="label" id="522">
+          <left>548</left><top>52</top><width>960</width><height>56</height>
+          <font>arc-row</font><textcolor>white</textcolor>
+        </control>
+        <control type="button" id="523">
+          <left>1544</left><top>52</top><width>64</width><height>64</height>
+          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+          <texturenofocus border="32" colordiffuse="surface2">arc-pill-white-64.png</texturenofocus>
+          <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+        </control>
+        <control type="image">
+          <left>1559</left><top>67</top><width>34</width><height>34</height>
+          <texture>arc-osd-rotate-ccw.png</texture><colordiffuse>white</colordiffuse>
+          <visible>!Control.HasFocus(523)</visible>
+        </control>
+        <control type="image">
+          <left>1559</left><top>67</top><width>34</width><height>34</height>
+          <texture>arc-osd-rotate-ccw.png</texture><colordiffuse>black</colordiffuse>
+          <visible>Control.HasFocus(523)</visible>
+        </control>
+        <control type="button" id="524">
+          <left>1624</left><top>52</top><width>64</width><height>64</height>
+          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+          <texturenofocus border="32" colordiffuse="surface2">arc-pill-white-64.png</texturenofocus>
+          <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+          <visible>String.IsEqual(Window.Property(arc.previous),1)</visible>
+        </control>
+        <control type="image">
+          <left>1641</left><top>69</top><width>30</width><height>30</height>
+          <texture>arc-osd-skip-back.png</texture><colordiffuse>white</colordiffuse>
+          <visible>String.IsEqual(Window.Property(arc.previous),1) + !Control.HasFocus(524)</visible>
+        </control>
+        <control type="image">
+          <left>1641</left><top>69</top><width>30</width><height>30</height>
+          <texture>arc-osd-skip-back.png</texture><colordiffuse>black</colordiffuse>
+          <visible>String.IsEqual(Window.Property(arc.previous),1) + Control.HasFocus(524)</visible>
+        </control>
+        <control type="label" id="528">
+          <left>548</left><top>116</top><width>1140</width><height>36</height>
+          <font>arc-small</font><textcolor>muted</textcolor>
+        </control>
+        <control type="textbox" id="525">
+          <left>548</left><top>156</top><width>1140</width><height>128</height>
+          <font>arc-small</font><textcolor>DDFFFFFF</textcolor>
+        </control>
+        <control type="label" id="526">
+          <left>548</left><top>290</top><width>800</width><height>36</height>
+          <font>arc-small</font><textcolor>white</textcolor>
+        </control>
+        <control type="label" id="527">
+          <left>1288</left><top>290</top><width>400</width><height>36</height>
+          <font>arc-small</font><textcolor>muted</textcolor><align>right</align>
+        </control>
+      </control>
+
+      <!-- Chapters: a row of cards (name and time, the one playing marked); Select jumps. -->
+      <control type="group" id="530">
+        <left>100</left><top>676</top><width>1720</width><height>384</height>
+        <visible>String.IsEqual(Window.Property(arc.card),chapters)</visible>
+        <animation effect="slide" start="0,40" time="200" tween="cubic" easing="out">Visible</animation>
+        <control type="image">
+          <left>0</left><top>0</top><width>1720</width><height>384</height>
+          <texture border="38" colordiffuse="E6FFFFFF">arc-pill-surface.png</texture>
+        </control>
+        <control type="list" id="531">
+          <left>32</left><top>102</top><width>1656</width><height>340</height>
+          <orientation>horizontal</orientation>
+          <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+          <scrolltime tween="cubic" easing="out">200</scrolltime>
+          <itemlayout width="300" height="200">
+            <control type="image">
+              <left>0</left><top>0</top><width>280</width><height>180</height>
+              <texture border="32" colordiffuse="surface2">arc-pill-white-64.png</texture>
+            </control>
+            <control type="label">
+              <left>24</left><top>20</top><width>232</width><height>90</height>
+              <font>arc-small</font><textcolor>white</textcolor><wrapmultiline>true</wrapmultiline>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>24</left><top>124</top><width>232</width><height>36</height>
+              <font>arc-small</font><textcolor>muted</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </itemlayout>
+          <focusedlayout width="300" height="200">
+            <control type="image">
+              <left>0</left><top>0</top><width>280</width><height>180</height>
+              <texture border="32" colordiffuse="surface2">arc-pill-white-64.png</texture>
+              <visible>!Control.HasFocus(531)</visible>
+            </control>
+            <control type="image">
+              <left>0</left><top>0</top><width>280</width><height>180</height>
+              <texture border="32">arc-pill-white-64.png</texture>
+              <visible>Control.HasFocus(531)</visible>
+            </control>
+            <control type="label">
+              <left>24</left><top>20</top><width>232</width><height>90</height>
+              <font>arc-small</font><textcolor>white</textcolor><wrapmultiline>true</wrapmultiline>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>!Control.HasFocus(531)</visible>
+            </control>
+            <control type="label">
+              <left>24</left><top>20</top><width>232</width><height>90</height>
+              <font>arc-small</font><textcolor>black</textcolor><wrapmultiline>true</wrapmultiline>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>Control.HasFocus(531)</visible>
+            </control>
+            <control type="label">
+              <left>24</left><top>124</top><width>232</width><height>36</height>
+              <font>arc-small</font><textcolor>on-white-muted</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+              <visible>Control.HasFocus(531)</visible>
+            </control>
+            <control type="label">
+              <left>24</left><top>124</top><width>232</width><height>36</height>
+              <font>arc-small</font><textcolor>muted</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+              <visible>!Control.HasFocus(531)</visible>
+            </control>
+          </focusedlayout>
+        </control>
+      </control>
+
+      <!-- Cast: faces, as the title page's. -->
+      <control type="group" id="540">
+        <left>100</left><top>676</top><width>1720</width><height>384</height>
+        <visible>String.IsEqual(Window.Property(arc.card),cast)</visible>
+        <animation effect="slide" start="0,40" time="200" tween="cubic" easing="out">Visible</animation>
+        <control type="image">
+          <left>0</left><top>0</top><width>1720</width><height>384</height>
+          <texture border="38" colordiffuse="E6FFFFFF">arc-pill-surface.png</texture>
+        </control>
+        <control type="list" id="541">
+          <left>32</left><top>47</top><width>1656</width><height>300</height>
+          <orientation>horizontal</orientation>
+          <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+          <scrolltime tween="cubic" easing="out">200</scrolltime>
+          <itemlayout width="200" height="290"><include>FaceCard</include></itemlayout>
+          <focusedlayout width="200" height="290">
+            <include content="FaceCard"><param name="focused" value="Control.HasFocus(541)"/><param name="labelcolor" value="fg"/></include>
+          </focusedlayout>
+        </control>
+      </control>
+
+      <!-- Episodes: this season's, as the title page's; Select plays one. -->
+      <control type="group" id="550">
+        <left>100</left><top>676</top><width>1720</width><height>384</height>
+        <visible>String.IsEqual(Window.Property(arc.card),episodes)</visible>
+        <animation effect="slide" start="0,40" time="200" tween="cubic" easing="out">Visible</animation>
+        <control type="image">
+          <left>0</left><top>0</top><width>1720</width><height>384</height>
+          <texture border="38" colordiffuse="E6FFFFFF">arc-pill-surface.png</texture>
+        </control>
+        <control type="list" id="551">
+          <left>24</left><top>17</top><width>1672</width><height>360</height>
+          <orientation>horizontal</orientation>
+          <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+          <scrolltime tween="cubic" easing="out">200</scrolltime>
+          <itemlayout width="488" height="350"><include>ThumbCard</include></itemlayout>
+          <focusedlayout width="488" height="350">
+            <include content="ThumbCard"><param name="focused" value="Control.HasFocus(551)"/><param name="labelcolor" value="fg"/></include>
+          </focusedlayout>
+        </control>
       </control>
     </control>
 
     <!-- The timeline thumbnail while Left/Right builds up a skip (arc.thumb), above the marker; the
          Python moves group 460 along with the marker and sets image 461. -->
     <control type="group" id="460">
-      <left>100</left><top>740</top><width>328</width><height>188</height>
+      <left>100</left><top>668</top><width>328</width><height>188</height>
       <visible>String.IsEqual(Window.Property(arc.thumb),1)</visible>
       <control type="image">
         <left>0</left><top>0</top><width>328</width><height>188</height>

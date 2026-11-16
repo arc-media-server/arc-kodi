@@ -75,6 +75,18 @@ def season_tabs(data):
     return seasons, tabs
 
 
+def previous_episode(episodes, current_id):
+    """The episode before `current_id` in its season's list, when it's on disk (the player's
+    Info card offers it as Previous); None for the first or one not found."""
+    ids = [e.get("id") for e in episodes or []]
+    if current_id not in ids:
+        return None
+    at = ids.index(current_id)
+    if at == 0 or not episodes[at - 1].get("available", True):
+        return None
+    return episodes[at - 1]
+
+
 def season_actions(tab):
     """What a season tab's menu offers, as the web's show page and Plex's season menu: "watched"
     (Mark Season as Watched) or "unwatched" once every episode on disk is watched, then "shuffle"

@@ -27,7 +27,8 @@ SIDEBAR_LOGO_H = 40
 SIDEBAR_ICON = 44
 LOGO_STACKED_H = 190
 OSD_ICONS = {"sliders-horizontal": 34, "volume-2": 34, "captions": 34, "check": 30, "play": 26, "pause": 26,
-             "rotate-ccw": 34, "circle-check": 34, "bookmark": 34, "bookmark-check": 34, "circle-check-filled": 34}
+             "rotate-ccw": 34, "circle-check": 34, "bookmark": 34, "bookmark-check": 34, "circle-check-filled": 34,
+             "skip-back": 30}
 
 
 def _rounded(size, radius, fill=None, outline=None, width=0):
