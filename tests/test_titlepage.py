@@ -63,3 +63,30 @@ def test_starring_wraps_as_seen_in_kodi():
     # ...and these fitted.
     for names in ("Harrison Ford, Rutger Hauer, Sean Young", "Nathan Fillion, Gina Torres, Alan Tudyk"):
         assert not titlepage.wraps("Starring", names), names
+
+
+def test_season_tabs_add_episodes_outside_the_order():
+    data = {"seasons": [{"season_number": 1, "episodes": [{"id": "e1", "episode_number": 1, "title": "One"}]}],
+            "unplaced": [{"id": "x2", "episode_number": 12, "season_number": 1, "title": "Twelve"}, {"title": "no id"}]}
+    seasons, tabs = titlepage.season_tabs(data)
+    assert [s["season_number"] for s in seasons] == [1]
+    assert len(tabs) == 2 and tabs[1]["unplaced"] and [e["id"] for e in tabs[1]["episodes"]] == ["x2"]
+    # Play follows the order: an unwatched episode outside it isn't picked.
+    assert titlepage.next_to_play(seasons)["id"] == "e1"
+    assert titlepage.season_tabs({"seasons": [], "unplaced": None}) == ([], [])
+    assert titlepage.season_tabs(None) == ([], [])
+
+
+def test_episode_label():
+    assert titlepage.episode_label({"episode_number": 4, "title": "Ariel"}) == "4. Ariel"
+    assert titlepage.episode_label({"episode_number": 12, "title": "Trash"}, unplaced=True) == "Trash"
+    assert titlepage.episode_label({"title": "Pilot"}) == "Pilot"
+
+
+def test_unplaced_episodes_have_no_code():
+    from arc import models
+    assert models.episode_code({"season_number": 0, "episode_number": 0}) == ""
+    assert models.episode_code({"season_number": 0, "episode_number": 3}) == "S0 · E3"   # a special
+    assert models.episode_code({"season_number": 2, "episode_number": 4}) == "S2 · E4"
+    assert not models.placed({"season_number": 0, "episode_number": 0})
+    assert titlepage.episode_label({"season_number": 0, "episode_number": 0, "title": "Trash"}) == "Trash"

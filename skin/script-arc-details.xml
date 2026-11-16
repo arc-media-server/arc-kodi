@@ -198,22 +198,23 @@
 
       <!-- A show's seasons and episodes. -->
       <control type="list" id="200">
+        <!-- Tabs 280 wide: room for "Not in This Order" (episodes outside the show's order). -->
         <left>8</left><width>1700</width><height>76</height>
         <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>12</itemgap>
-        <itemlayout width="220" height="76">
-          <control type="label"><left>0</left><top>0</top><width>220</width><height>76</height>
+        <itemlayout width="280" height="76">
+          <control type="label"><left>0</left><top>0</top><width>280</width><height>76</height>
             <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>C8F5F5F7</textcolor>
             <shadowcolor>CC000000</shadowcolor><label>$INFO[ListItem.Label]</label></control>
         </itemlayout>
-        <focusedlayout width="220" height="76">
-          <control type="image"><left>0</left><top>0</top><width>220</width><height>76</height>
+        <focusedlayout width="280" height="76">
+          <control type="image"><left>0</left><top>0</top><width>280</width><height>76</height>
             <texture border="38">arc-pill-white.png</texture>
             <visible>Control.HasFocus(200)</visible></control>
-          <control type="label"><left>0</left><top>0</top><width>220</width><height>76</height>
+          <control type="label"><left>0</left><top>0</top><width>280</width><height>76</height>
             <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>black</textcolor>
             <label>$INFO[ListItem.Label]</label><visible>Control.HasFocus(200)</visible></control>
-          <control type="label"><left>0</left><top>0</top><width>220</width><height>76</height>
+          <control type="label"><left>0</left><top>0</top><width>280</width><height>76</height>
             <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>fg</textcolor>
             <shadowcolor>CC000000</shadowcolor><label>$INFO[ListItem.Label]</label><visible>!Control.HasFocus(200)</visible></control>
         </focusedlayout>
