@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Built by tools/build_skin.py from skin/script-arc-player.xml: edit that, not this. -->
 <window>
+  <zorder>100</zorder>
   <defaultcontrol>90</defaultcontrol>
   <controls>
     <control type="button" id="90">
@@ -24,6 +25,13 @@
         <width>1920</width>
         <height>600</height>
         <texture>arc-osd-scrim.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>1920</width>
+        <height>360</height>
+        <texture>arc-osd-top.png</texture>
       </control>
       <control type="textbox" id="203">
         <left>100</left>
