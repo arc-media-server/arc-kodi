@@ -23,6 +23,7 @@ import xbmcgui
 from arc import models, playback, titlepage
 from arc import together as wt
 
+from . import toast
 from . import storage
 from .compat import T
 from .caps import device_caps
@@ -691,7 +692,7 @@ class Playback(object):
         return False
 
     def _fail(self):
-        xbmcgui.Dialog().notification("Arc", T(30188))
+        toast.show(T(30188))
         self._stop.set()
         self._finish()
 

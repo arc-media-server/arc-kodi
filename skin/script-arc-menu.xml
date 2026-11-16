@@ -32,5 +32,6 @@
         <include>MenuLayouts</include>
       </control>
     </control>
+    <include>ArcToast</include>
   </controls>
 </window>

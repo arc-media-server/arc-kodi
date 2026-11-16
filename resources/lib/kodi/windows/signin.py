@@ -9,6 +9,7 @@ import xbmcgui
 
 from arc.api import ArcAPI, APIError, Unreachable, normalise_address
 
+from .. import toast
 from ..compat import T
 from ..log import log
 from . import pin as pin_pad
@@ -252,7 +253,7 @@ class ProfilesWindow(ArcWindow):
 
     def _show(self, status, error):
         if error is not None or not isinstance(status, dict):
-            xbmcgui.Dialog().notification("Arc", T(30004))
+            toast.show(T(30004))
             self.result = "failed"
             self.close()
             return
@@ -296,6 +297,6 @@ class ProfilesWindow(ArcWindow):
                 # No PIN sent, or the wrong one: the pad again, saying so if one was typed.
                 self._choose(dict(profile, has_pin=True), wrong=pin is not None)
                 return
-            xbmcgui.Dialog().notification("Arc", getattr(error, "message", T(30004)))
+            toast.show(getattr(error, "message", T(30004)))
 
         self.run_async(work, done)

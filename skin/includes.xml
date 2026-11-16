@@ -31,6 +31,33 @@
   <constant name="arc-hero">font60</constant>         <!-- 60 -->
   <constant name="arc-code">font60</constant>
 
+  <!-- Arc's toast: a short message at the top right, over any of Arc's windows, in place of
+       Kodi's notification (kodi/toast.py). It never takes the focus: it shows while the global
+       property arc.toast (on Kodi's Home window) has words, and fades. -->
+  <include name="ArcToast">
+    <definition>
+      <control type="group">
+        <left>1060</left><top>48</top><width>780</width><height>112</height>
+        <visible>!String.IsEmpty(Window(Home).Property(arc.toast))</visible>
+        <animation effect="fade" time="200">VisibleChange</animation>
+        <animation effect="slide" start="0,-24" end="0,0" time="200" tween="cubic" easing="out">Visible</animation>
+        <control type="image">
+          <left>0</left><top>0</top><width>780</width><height>112</height>
+          <texture border="38" colordiffuse="F2FFFFFF">arc-pill-surface.png</texture>
+        </control>
+        <control type="image">
+          <left>32</left><top>36</top><width>51</width><height>40</height>
+          <texture>arc-mark.png</texture>
+        </control>
+        <control type="label">
+          <left>112</left><top>8</top><width>636</width><height>96</height>
+          <font>arc-body</font><textcolor>fg</textcolor><aligny>center</aligny><wrapmultiline>true</wrapmultiline>
+          <label>$INFO[Window(Home).Property(arc.toast)]</label>
+        </control>
+      </control>
+    </definition>
+  </include>
+
   <include name="PageBackground">
     <control type="image">
       <left>0</left><top>0</top><width>1920</width><height>1080</height>
