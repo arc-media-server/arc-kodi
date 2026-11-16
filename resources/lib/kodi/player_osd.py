@@ -26,7 +26,7 @@ import time
 import xbmc
 import xbmcgui
 
-from arc import models, playback
+from arc import models, playback, titlepage
 from arc import together as wt
 
 from .compat import ADDON_PATH, T
@@ -322,8 +322,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         except Exception:
             pass
         if models.is_episode(item):
-            self._label(EPISODE_LINE, T(30222) % (item.get("season_number") or 0, item.get("episode_number") or 0,
-                                                 item.get("title", "")))
+            self._label(EPISODE_LINE, self._episode_line(item))
             self._label(TITLE, item.get("series_title") or item.get("title", ""))
         else:
             self._label(EPISODE_LINE, "")
@@ -371,8 +370,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
     def _show_up_next(self, nxt):
         self._up_next = True
         self._set_skip(None)
-        self._label(UP_NEXT_TITLE, T(30222) % (nxt.get("season_number") or 0, nxt.get("episode_number") or 0,
-                                               nxt.get("title", "")))
+        self._label(UP_NEXT_TITLE, self._episode_line(nxt))
         self._countdown_from = time.time() if self.auto_play else None
         self._label(UP_NEXT_COUNT, T(30221) % COUNTDOWN if self.auto_play else "")
         self.setProperty("arc.upnext", "1")
@@ -466,7 +464,8 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
                 options.append((T(30212), self._version_name(current), False,
                                 lambda: self._open_submenu("version"), True))
             if models.is_episode(self.pb.item) and self.pb.season_episodes:
-                options.append((T(30292), T(30155) % (self.pb.item.get("season_number") or 0), False,
+                where = T(30385) if self.pb.season_unplaced else T(30155) % (self.pb.item.get("season_number") or 0)
+                options.append((T(30292), where, False,
                                 lambda: self._open_submenu("episodes"), True))
             if self.chapters:
                 at = playback.chapter_at(self.chapters, self.pb.position_ms())
@@ -503,7 +502,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             # profile left it), as the Apple player's Episodes tab.
             options = []
             for e in self.pb.season_episodes:
-                name = "%s. %s" % (e.get("episode_number") or "", e.get("title", ""))
+                name = titlepage.episode_label(e, self.pb.season_unplaced)
                 detail = models.runtime_text(models.duration_ms(e)) or ""
                 options.append((name, detail, e.get("id") == self.pb.item_id,
                                 lambda e=e: self.pb.play_episode(e)))
@@ -536,6 +535,14 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         if not ms:
             return T(30382)
         return (T(30383) if ms > 0 else T(30384)) % playback.offset_amount(ms)
+
+    @staticmethod
+    def _episode_line(item):
+        """"S2, E4 · name", or just the name for an episode outside the show's order (Arc sends
+        0/0 for one: never "S0, E0")."""
+        if not models.placed(item):
+            return item.get("title", "")
+        return T(30222) % (item.get("season_number") or 0, item.get("episode_number") or 0, item.get("title", ""))
 
     @staticmethod
     def _speed_name(v):

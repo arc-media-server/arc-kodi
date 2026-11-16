@@ -61,6 +61,30 @@ def next_to_play(seasons):
     return episodes[0] if episodes else None
 
 
+def season_tabs(data):
+    """A show's seasons from GET /series/{id}/seasons, and the tabs the page shows: the seasons,
+    then "Not in This Order" ({"unplaced": True, "episodes": [...]}) when the profile has episodes
+    the order doesn't place (`unplaced`), so nothing silently disappears. Play, Resume and Up Next
+    follow the seasons alone, as the web does. Returns (seasons, tabs)."""
+    data = data if isinstance(data, dict) else {}
+    seasons = [s for s in data.get("seasons") or [] if isinstance(s, dict)]
+    unplaced = [e for e in data.get("unplaced") or [] if isinstance(e, dict) and e.get("id")]
+    tabs = list(seasons)
+    if unplaced:
+        tabs.append({"unplaced": True, "episodes": unplaced})
+    return seasons, tabs
+
+
+def episode_label(episode, unplaced=False):
+    """An episode in a list: "4. Title", or just the title outside the order (it has no number
+    there)."""
+    title = (episode or {}).get("title", "")
+    number = (episode or {}).get("episode_number")
+    if unplaced or not number:
+        return title
+    return "%d. %s" % (number, title)
+
+
 def play_action(item, episode=None):
     """What the Play button does: ("resume" | "play", the playable item, its resume point).
     `episode` is next_to_play() for a show."""

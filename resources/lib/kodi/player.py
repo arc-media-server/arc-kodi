@@ -19,7 +19,7 @@ import time
 import xbmc
 import xbmcgui
 
-from arc import models, playback
+from arc import models, playback, titlepage
 from arc import together as wt
 
 from . import storage
@@ -96,6 +96,7 @@ class Playback(object):
         self.done = False          # finished: Kodi's later events are for another playback
         self.thumbs = None         # the playing file's timeline thumbnails: {file, interval_ms, count}
         self.season_episodes = []  # an episode's season, for the player's Episodes list
+        self.season_unplaced = False  # ...or the episodes outside the show's order
         self._start_ms = resume_ms  # the source position the current plan was asked to start at
         self._last_ms = None        # where Kodi last said it was playing (source timeline)
         # The viewer's choices, sent with every request to Arc (a restart keeps them).
@@ -357,9 +358,10 @@ class Playback(object):
         except Exception as e:
             log.debug("season unknown (%s)", type(e).__name__)
             return
-        for season in data.get("seasons") or []:
+        for season in titlepage.season_tabs(data)[1]:
             episodes = season.get("episodes") or []
             if any(e.get("id") == self.item_id for e in episodes):
+                self.season_unplaced = bool(season.get("unplaced"))  # Not in This Order
                 self.season_episodes = episodes
                 return
 
@@ -668,6 +670,7 @@ class Playback(object):
             self.resume_ms = resume_ms
             self.thumbs = None
             self.season_episodes = []
+            self.season_unplaced = False
             self.duration_ms = models.duration_ms(nxt)
             self.file_id = None
             self.audio_index = None
