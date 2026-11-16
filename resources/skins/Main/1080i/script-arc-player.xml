@@ -16,6 +16,15 @@
       <onleft>noop</onleft>
       <onright>noop</onright>
     </control>
+    <control type="image">
+      <left>0</left>
+      <top>0</top>
+      <width>1920</width>
+      <height>360</height>
+      <texture>arc-osd-top.png</texture>
+      <visible>String.IsEqual(Window.Property(arc.osd),1) | Window.IsVisible(seekbar)</visible>
+      <animation effect="fade" time="200">VisibleChange</animation>
+    </control>
     <control type="group" id="200">
       <visible>String.IsEqual(Window.Property(arc.osd),1)</visible>
       <animation effect="fade" time="200">VisibleChange</animation>
@@ -25,13 +34,6 @@
         <width>1920</width>
         <height>600</height>
         <texture>arc-osd-scrim.png</texture>
-      </control>
-      <control type="image">
-        <left>0</left>
-        <top>0</top>
-        <width>1920</width>
-        <height>360</height>
-        <texture>arc-osd-top.png</texture>
       </control>
       <control type="textbox" id="203">
         <left>100</left>
