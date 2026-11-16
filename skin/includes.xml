@@ -81,6 +81,35 @@
     </definition>
   </include>
 
+  <!-- The smaller buttons (64 high): a title page's Play, a library's pills. -->
+  <include name="SmallPrimaryButton">
+    <param name="width" default="280"/>
+    <definition>
+      <width>$PARAM[width]</width><height>64</height>
+      <font>arc-label</font>
+      <textcolor>fg</textcolor>
+      <focusedcolor>black</focusedcolor>
+      <disabledcolor>subtle</disabledcolor>
+      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+      <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
+      <aligny>center</aligny><align>center</align>
+    </definition>
+  </include>
+
+  <include name="SmallPillButton">
+    <param name="width" default="220"/>
+    <definition>
+      <width>$PARAM[width]</width><height>64</height>
+      <font>arc-label</font>
+      <textcolor>fg</textcolor>
+      <focusedcolor>black</focusedcolor>
+      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+      <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
+      <aligny>center</aligny><align>center</align>
+      <textoffsetx>24</textoffsetx>
+    </definition>
+  </include>
+
   <!-- A pill-shaped secondary button (the round actions with words, Sort, Filter). -->
   <include name="PillButton">
     <param name="width" default="260"/>
@@ -345,55 +374,55 @@
     <param name="ondown"/><param name="onright" default="noop"/>
     <definition>
       <control type="grouplist" id="120">
-        <left>$PARAM[left]</left><top>$PARAM[top]</top><width>1000</width><height>76</height>
+        <left>$PARAM[left]</left><top>$PARAM[top]</top><width>1000</width><height>64</height>
         <orientation>horizontal</orientation><itemgap>12</itemgap>
         <onup>noop</onup><ondown>$PARAM[ondown]</ondown><onleft>noop</onleft><onright>$PARAM[onright]</onright>
         <control type="button" id="121">
-          <width>auto</width><height>76</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <width>auto</width><height>64</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>28</textoffsetx>
           <textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="38">arc-pill-white.png</texturefocus>
-          <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+          <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
           <visible>String.IsEqual(Window.Property(arc.tab0),current)</visible>
         </control>
         <control type="button" id="122">
-          <width>auto</width><height>76</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <width>auto</width><height>64</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>28</textoffsetx>
           <textcolor>C8F5F5F7</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="38">arc-pill-white.png</texturefocus>
-          <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+          <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
           <visible>String.IsEqual(Window.Property(arc.tab0),other)</visible>
         </control>
         <control type="button" id="123">
-          <width>auto</width><height>76</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <width>auto</width><height>64</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>28</textoffsetx>
           <textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="38">arc-pill-white.png</texturefocus>
-          <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+          <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
           <visible>String.IsEqual(Window.Property(arc.tab1),current)</visible>
         </control>
         <control type="button" id="124">
-          <width>auto</width><height>76</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <width>auto</width><height>64</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>28</textoffsetx>
           <textcolor>C8F5F5F7</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="38">arc-pill-white.png</texturefocus>
-          <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+          <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
           <visible>String.IsEqual(Window.Property(arc.tab1),other)</visible>
         </control>
         <control type="button" id="125">
-          <width>auto</width><height>76</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <width>auto</width><height>64</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>28</textoffsetx>
           <textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="38">arc-pill-white.png</texturefocus>
-          <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+          <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
           <visible>String.IsEqual(Window.Property(arc.tab2),current)</visible>
         </control>
         <control type="button" id="126">
-          <width>auto</width><height>76</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <width>auto</width><height>64</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>28</textoffsetx>
           <textcolor>C8F5F5F7</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="38">arc-pill-white.png</texturefocus>
-          <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+          <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
           <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
         </control>
       </control>
@@ -404,21 +433,21 @@
     <param name="id"/><param name="icon"/><param name="left"/><param name="right"/><param name="x" default="0"/>
     <definition>
       <control type="group">
-        <left>$PARAM[x]</left><width>76</width><height>76</height>
+        <left>$PARAM[x]</left><top>8</top><width>64</width><height>64</height>
         <control type="button" id="$PARAM[id]">
-          <left>0</left><top>0</top><width>76</width><height>76</height>
-          <texturefocus border="38">arc-pill-white.png</texturefocus>
-          <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+          <left>0</left><top>0</top><width>64</width><height>64</height>
+          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+          <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
           <onup>noop</onup><ondown>200</ondown>
           <onleft>$PARAM[left]</onleft><onright>$PARAM[right]</onright>
         </control>
         <control type="image">
-          <left>21</left><top>21</top><width>34</width><height>34</height>
+          <left>17</left><top>17</top><width>30</width><height>30</height>
           <texture>$PARAM[icon]</texture><colordiffuse>white</colordiffuse>
           <visible>!Control.HasFocus($PARAM[id])</visible>
         </control>
         <control type="image">
-          <left>21</left><top>21</top><width>34</width><height>34</height>
+          <left>17</left><top>17</top><width>30</width><height>30</height>
           <texture>$PARAM[icon]</texture><colordiffuse>black</colordiffuse>
           <visible>Control.HasFocus($PARAM[id])</visible>
         </control>

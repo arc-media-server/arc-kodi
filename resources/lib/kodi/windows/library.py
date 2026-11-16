@@ -243,7 +243,7 @@ class GridWindow(TabsMixin, ArcWindow):
             self.set_visible(PLAY_ALL, True)
             self.set_visible(SHUFFLE, True)
             try:
-                self.getControl(TITLE).setWidth(880)  # the name stops short of the pills
+                self.getControl(TITLE).setWidth(740)  # the name stops short of the pills
             except Exception:
                 pass
 
@@ -484,7 +484,7 @@ class CollectionWindow(GridWindow):
                 pass
         if len(self.loaded) > 1:
             try:
-                self.getControl(SORT).setPosition(1460, 40)  # in Filter's place, right of Shuffle
+                self.getControl(SORT).setPosition(1540, 40)  # in Filter's place, right of Shuffle
             except Exception:
                 pass
         self.set_visible(SORT, len(self.loaded) > 1)

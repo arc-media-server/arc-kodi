@@ -168,13 +168,14 @@
         <control type="group" id="99">
           <left>8</left><top>0</top><width>1300</width><height>80</height>
           <control type="button" id="100">
-            <include content="PrimaryButton"><param name="width" value="380"/></include>
+            <include content="SmallPrimaryButton"><param name="width" value="280"/></include>
+            <top>8</top>
             <onup>noop</onup><ondown>200</ondown><onleft>noop</onleft><onright>101</onright>
             <label>$ADDON[script.arc 30005]</label>
           </control>
-          <include content="RoundIconButton"><param name="id" value="101"/><param name="icon" value="arc-osd-rotate-ccw.png"/><param name="left" value="100"/><param name="right" value="102"/><param name="x" value="396"/></include>
-          <include content="RoundIconButton"><param name="id" value="102"/><param name="icon" value="$INFO[Window.Property(arc.watchedicon)]"/><param name="left" value="101"/><param name="right" value="103"/><param name="x" value="488"/></include>
-          <include content="RoundIconButton"><param name="id" value="103"/><param name="icon" value="$INFO[Window.Property(arc.watchlisticon)]"/><param name="left" value="102"/><param name="right" value="noop"/><param name="x" value="580"/></include>
+          <include content="RoundIconButton"><param name="id" value="101"/><param name="icon" value="arc-osd-rotate-ccw.png"/><param name="left" value="100"/><param name="right" value="102"/><param name="x" value="296"/></include>
+          <include content="RoundIconButton"><param name="id" value="102"/><param name="icon" value="$INFO[Window.Property(arc.watchedicon)]"/><param name="left" value="101"/><param name="right" value="103"/><param name="x" value="376"/></include>
+          <include content="RoundIconButton"><param name="id" value="103"/><param name="icon" value="$INFO[Window.Property(arc.watchlisticon)]"/><param name="left" value="102"/><param name="right" value="noop"/><param name="x" value="456"/></include>
         </control>
         <!-- Starring and Director at the right, level with the buttons, as the Apple app's. -->
         <control type="label" id="95">
@@ -189,7 +190,7 @@
           <shadowcolor>CC000000</shadowcolor>
         </control>
         <control type="label" id="97">
-          <left>690</left><top>0</top><width>360</width><height>80</height>
+          <left>540</left><top>0</top><width>360</width><height>80</height>
           <font>arc-small</font><textcolor>fg</textcolor><aligny>center</aligny><shadowcolor>CC000000</shadowcolor>
           <label>$INFO[Window.Property(arc.hint)]</label>
           <visible>Control.HasFocus(101) | Control.HasFocus(102) | Control.HasFocus(103)</visible>

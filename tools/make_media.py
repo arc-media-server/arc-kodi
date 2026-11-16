@@ -317,6 +317,7 @@ def main():
     pill("arc-pill-white.png", WHITE)
     pill("arc-pill-surface.png", SURFACE)
     pill("arc-pill-white-64.png", WHITE, 64)
+    pill("arc-pill-surface-64.png", SURFACE, 64)  # the smaller buttons (title page, library pills)
     pill("arc-pill-white-56.png", WHITE, 56)   # Settings' rows
     pill("arc-key.png", WHITE, 96)               # the PIN pad's round keys (tinted when not focused)
     cards()

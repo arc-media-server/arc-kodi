@@ -20,28 +20,28 @@
     </control>
     <!-- Play All and Shuffle, for a collection or a playlist (hidden elsewhere). -->
     <control type="button" id="108">
-      <include content="PillButton"><param name="width" value="220"/></include>
-      <left>980</left><top>40</top>
+      <include content="SmallPillButton"><param name="width" value="200"/></include>
+      <left>844</left><top>40</top>
       <ondown>100</ondown><onup>noop</onup><onleft>noop</onleft><onright>109</onright>
       <label>$ADDON[script.arc 30287]</label>
     </control>
     <control type="button" id="109">
-      <include content="PillButton"><param name="width" value="220"/></include>
-      <left>1212</left><top>40</top>
+      <include content="SmallPillButton"><param name="width" value="200"/></include>
+      <left>1056</left><top>40</top>
       <ondown>100</ondown><onup>noop</onup><onleft>108</onleft>
       <onright condition="Control.IsVisible(102)">102</onright><onright condition="!Control.IsVisible(102)">noop</onright>
       <label>$ADDON[script.arc 30288]</label>
     </control>
     <control type="button" id="102">
-      <include content="PillButton"><param name="width" value="420"/></include>
-      <left>1180</left><top>40</top>
+      <include content="SmallPillButton"><param name="width" value="340"/></include>
+      <left>1268</left><top>40</top>
       <ondown>100</ondown><onup>noop</onup>
       <onleft condition="Control.IsVisible(109)">109</onleft><onleft condition="!Control.IsVisible(109)">120</onleft>
       <onright>103</onright>
       <label>$ADDON[script.arc 30123]</label>
     </control>
     <control type="button" id="103">
-      <include content="PillButton"><param name="width" value="260"/></include>
+      <include content="SmallPillButton"><param name="width" value="260"/></include>
       <left>1620</left><top>40</top><width>260</width>
       <ondown>100</ondown><onup>noop</onup><onleft>102</onleft><onright>noop</onright>
       <label>$ADDON[script.arc 30124]</label>
