@@ -315,8 +315,15 @@ class DetailsWindow(ArcWindow):
             sub = props["releases"]
         label = titlepage.episode_label(ep, unplaced)
         thumb = models.images(ep).get("primary")
-        li = list_item(label, sub, art={"thumb": self.session.art(thumb) if thumb else art.get("thumb")}, props=props)
-        li.setProperty("overview", ep.get("overview") or "")
+        fallback = art.get("thumb")
+        overview = ep.get("overview") or ""
+        if models.spoiler_hidden(self.session.prefs, ep):
+            # Hide Spoilers: the show's picture and no description until the episode is started.
+            thumb = models.images(self.item).get("backdrop") or models.images(ep).get("series_backdrop")
+            fallback = ""
+            overview = T(30440) if overview else ""
+        li = list_item(label, sub, art={"thumb": self.session.art(thumb) if thumb else fallback}, props=props)
+        li.setProperty("overview", overview)
         set_progress(li, ep)
         return li
 

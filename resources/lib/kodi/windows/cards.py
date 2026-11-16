@@ -21,6 +21,8 @@ def item_art(session, item):
 def card_list_item(session, card, style, season_posters=False):
     """A card (from arc.home.card / recent_card) as a ListItem with the right picture for `style`."""
     item = card["item"]
+    if models.spoiler_hidden(session.prefs, item):
+        card = homerows.without_spoilers(card)
     picture = homerows.card_art(card, style, season_posters)
     art = {"thumb": session.art(picture), "poster": session.art(card.get("poster")),
            "fanart": session.art(card.get("backdrop")), "clearlogo": session.art(card.get("logo"))}
