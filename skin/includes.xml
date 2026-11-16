@@ -499,16 +499,24 @@
     <!-- Taller than the cards (450) to leave room under their words: Kodi scrolls a row only
          until its list's foot meets the grouplist's, so the room has to be in the list. -->
     <param name="height" default="450"/>
+    <!-- The title's 50 and a 30 gap above the list; the group is the row's whole height. Kodi's
+         includes can't add, so a row with another list height passes group_height too. -->
+    <param name="list_top" default="80"/><param name="group_height" default="530"/>
     <definition>
-      <!-- Title and list sit directly in the parent grouplist (as Estuary's widgets do), so Up and
-           Down move between rows; both show only once the list has cards. -->
+      <!-- One group per row, its title on top of its list, so the grouplist scrolls the whole row
+           into view whichever way the focus comes from (title and list as separate grouplist
+           children left the title scrolled off going up). It shows once the list has cards. -->
+      <control type="group">
+        <defaultcontrol always="true">$PARAM[list]</defaultcontrol>
+        <height>$PARAM[group_height]</height>
+        <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       <control type="label" id="$PARAM[title]">
-        <left>8</left><width>1500</width><height>50</height>
+        <left>8</left><top>0</top><width>1500</width><height>50</height>
         <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
       <control type="list" id="$PARAM[list]">
-        <width>$PARAM[width]</width><height>$PARAM[height]</height>
+        <top>$PARAM[list_top]</top><width>$PARAM[width]</width><height>$PARAM[height]</height>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>8</itemgap>
         <scrolltime tween="cubic" easing="out">220</scrolltime>
@@ -518,6 +526,7 @@
         <focusedlayout width="268" height="450">
           <include content="PosterCard"><param name="focused" value="Control.HasFocus($PARAM[list])"/><param name="labelcolor" value="fg"/></include>
         </focusedlayout>
+      </control>
       </control>
     </definition>
   </include>
@@ -529,16 +538,24 @@
     <!-- Taller than the cards (450) to leave room under their words: Kodi scrolls a row only
          until its list's foot meets the grouplist's, so the room has to be in the list. -->
     <param name="height" default="450"/>
+    <!-- The title's 50 and a 30 gap above the list; the group is the row's whole height. Kodi's
+         includes can't add, so a row with another list height passes group_height too. -->
+    <param name="list_top" default="80"/><param name="group_height" default="530"/>
     <definition>
-      <!-- Title and list sit directly in the parent grouplist (as Estuary's widgets do), so Up and
-           Down move between rows; both show only once the list has cards. -->
+      <!-- One group per row, its title on top of its list, so the grouplist scrolls the whole row
+           into view whichever way the focus comes from (title and list as separate grouplist
+           children left the title scrolled off going up). It shows once the list has cards. -->
+      <control type="group">
+        <defaultcontrol always="true">$PARAM[list]</defaultcontrol>
+        <height>$PARAM[group_height]</height>
+        <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       <control type="label" id="$PARAM[title]">
-        <left>8</left><width>1500</width><height>50</height>
+        <left>8</left><top>0</top><width>1500</width><height>50</height>
         <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
       <control type="list" id="$PARAM[list]">
-        <width>$PARAM[width]</width><height>$PARAM[height]</height>
+        <top>$PARAM[list_top]</top><width>$PARAM[width]</width><height>$PARAM[height]</height>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>8</itemgap>
         <scrolltime tween="cubic" easing="out">220</scrolltime>
@@ -549,6 +566,7 @@
           <include content="ThumbCard"><param name="focused" value="Control.HasFocus($PARAM[list])"/><param name="labelcolor" value="fg"/></include>
         </focusedlayout>
       </control>
+      </control>
     </definition>
   </include>
   <include name="BackdropRow">
@@ -558,16 +576,24 @@
     <!-- Taller than the cards (450) to leave room under their words: Kodi scrolls a row only
          until its list's foot meets the grouplist's, so the room has to be in the list. -->
     <param name="height" default="450"/>
+    <!-- The title's 50 and a 30 gap above the list; the group is the row's whole height. Kodi's
+         includes can't add, so a row with another list height passes group_height too. -->
+    <param name="list_top" default="80"/><param name="group_height" default="530"/>
     <definition>
-      <!-- Title and list sit directly in the parent grouplist (as Estuary's widgets do), so Up and
-           Down move between rows; both show only once the list has cards. -->
+      <!-- One group per row, its title on top of its list, so the grouplist scrolls the whole row
+           into view whichever way the focus comes from (title and list as separate grouplist
+           children left the title scrolled off going up). It shows once the list has cards. -->
+      <control type="group">
+        <defaultcontrol always="true">$PARAM[list]</defaultcontrol>
+        <height>$PARAM[group_height]</height>
+        <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       <control type="label" id="$PARAM[title]">
-        <left>8</left><width>1500</width><height>50</height>
+        <left>8</left><top>0</top><width>1500</width><height>50</height>
         <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
       <control type="list" id="$PARAM[list]">
-        <width>$PARAM[width]</width><height>$PARAM[height]</height>
+        <top>$PARAM[list_top]</top><width>$PARAM[width]</width><height>$PARAM[height]</height>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>8</itemgap>
         <scrolltime tween="cubic" easing="out">220</scrolltime>
@@ -577,6 +603,7 @@
         <focusedlayout width="424" height="450">
           <include content="BackdropCard"><param name="focused" value="Control.HasFocus($PARAM[list])"/><param name="labelcolor" value="fg"/></include>
         </focusedlayout>
+      </control>
       </control>
     </definition>
   </include>

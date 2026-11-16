@@ -114,15 +114,19 @@
       <onleft>200</onleft><onup>noop</onup><ondown>noop</ondown>
       <include content="PosterRow"><param name="title" value="311"/><param name="list" value="310"/><param name="width" value="1208"/><param name="onleft" value="200"/></include>
       <include content="PosterRow"><param name="title" value="321"/><param name="list" value="320"/><param name="width" value="1208"/><param name="onleft" value="200"/></include>
-      <include content="ThumbRow"><param name="title" value="331"/><param name="list" value="330"/><param name="width" value="1208"/><param name="height" value="350"/><param name="onleft" value="200"/></include>
+      <include content="ThumbRow"><param name="title" value="331"/><param name="list" value="330"/><param name="width" value="1208"/><param name="height" value="350"/><param name="group_height" value="430"/><param name="onleft" value="200"/></include>
       <include content="PosterRow"><param name="title" value="341"/><param name="list" value="340"/><param name="width" value="1208"/><param name="onleft" value="200"/></include>
+      <control type="group">
+        <defaultcontrol always="true">350</defaultcontrol>
+        <height>370</height>
+        <visible>Integer.IsGreater(Container(350).NumItems,0)</visible>
       <control type="label" id="351">
-        <left>8</left><width>1100</width><height>50</height>
+        <left>8</left><top>0</top><width>1100</width><height>50</height>
         <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
         <visible>Integer.IsGreater(Container(350).NumItems,0)</visible>
       </control>
       <control type="list" id="350">
-        <width>1208</width><height>290</height>
+        <top>80</top><width>1208</width><height>290</height>
         <visible>Integer.IsGreater(Container(350).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>12</itemgap>
         <scrolltime tween="cubic" easing="out">220</scrolltime>
@@ -132,13 +136,18 @@
           <include content="FaceCard"><param name="focused" value="Control.HasFocus(350)"/><param name="labelcolor" value="fg"/></include>
         </focusedlayout>
       </control>
+      </control>
+      <control type="group">
+        <defaultcontrol always="true">360</defaultcontrol>
+        <height>220</height>
+        <visible>Integer.IsGreater(Container(360).NumItems,0)</visible>
       <control type="label" id="361">
-        <left>8</left><width>1100</width><height>50</height>
+        <left>8</left><top>0</top><width>1100</width><height>50</height>
         <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
         <visible>Integer.IsGreater(Container(360).NumItems,0)</visible>
       </control>
       <control type="list" id="360">
-        <width>1208</width><height>140</height>
+        <top>80</top><width>1208</width><height>140</height>
         <visible>Integer.IsGreater(Container(360).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>0</itemgap>
         <scrolltime tween="cubic" easing="out">220</scrolltime>
@@ -195,6 +204,7 @@
             <visible>Control.HasFocus(360)</visible>
           </control>
         </focusedlayout>
+      </control>
       </control>
       <control type="group"><height>40</height></control>
     </control>
