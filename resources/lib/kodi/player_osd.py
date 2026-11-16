@@ -56,6 +56,11 @@ MARKER_Y, MARKER_Y_FOCUSED = 934, 928
 STEP_MS = 10000                 # Left/Right
 BIG_STEP_MS = 60000             # the remote's skip keys
 SEEK_SETTLE = 0.8               # seconds after the last press before it seeks
+# Kodi's own player dialogs opened by a key or an action (its OSD, its info, its delay slider):
+# Arc's player is the interface, so they're closed as they appear. (The
+# skin's seek bar isn't here: the skin reopens it at once while paused, so Arc's player draws
+# over it instead; see the skin.)
+KODI_DIALOGS = ("videoosd", "fullscreeninfo", "sliderdialog")
 HIDE_AFTER = 5.0                # seconds without a key before the controls hide (while playing)
 SHOW_AFTER_SEEK = 3.0
 COUNTDOWN = 10                  # seconds of Up Next before the next episode plays
@@ -187,7 +192,18 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             except Exception as e:
                 log.debug("player controls tick failed (%s)", type(e).__name__)
 
+    def _close_kodi_dialogs(self):
+        for name in KODI_DIALOGS:
+            if xbmc.getCondVisibility("Window.IsVisible(%s)" % name):
+                xbmc.executebuiltin("Dialog.Close(%s,true)" % name)
+                log.debug("closed Kodi's %s", name)
+        # A busy spinner left open once playing (Kodi's own, not Arc's).
+        if self.pb._started and xbmc.getCondVisibility("Window.IsActive(busydialog) + !Player.Caching"):
+            xbmc.executebuiltin("Dialog.Close(busydialog,true)")
+            log.debug("closed a stuck busy dialog")
+
     def _tick(self):
+        self._close_kodi_dialogs()
         now = time.time()
         if self._pending is not None and now - self._pending_at >= SEEK_SETTLE:
             target, self._pending = self._pending, None
