@@ -34,14 +34,23 @@ from .log import log
 
 CATCHER = 90
 SKIP, UP_NEXT, UP_NEXT_TITLE, UP_NEXT_PLAY, UP_NEXT_CLOSE, UP_NEXT_COUNT = 100, 101, 104, 103, 105, 106
-EPISODE_LINE, TITLE, OVERVIEW = 201, 202, 203
+EPISODE_LINE, TITLE, STEPPING = 201, 202, 210   # 210: what steps aside while a card is open
 PLAYBACK_BUTTON, AUDIO_BUTTON, SUBTITLES_BUTTON = 301, 302, 303
 BUTTONS = (PLAYBACK_BUTTON, AUDIO_BUTTON, SUBTITLES_BUTTON)
 TIMELINE, TIMELINE_BAR, MARKER, TIME_GROUP, TIME_PLAYED, TIME_LEFT = 400, 401, 402, 403, 404, 405
 CHAPTER_MARK_BASE, CHAPTER_MARKS = 410, 40   # the timeline's chapter marks, 410-449
 THUMB_GROUP, THUMB_IMAGE, THUMB_W = 460, 461, 328   # the thumbnail's group, image and width
 MENU_TITLE, MENU_LIST, MENU_BACK = 601, 602, 603
-MENU_ROW, MENU_ROWS, MENU_BOTTOM = 64, 7, 816  # rows 64 high, up to 7 showing, ending above the buttons
+MENU_ROW, MENU_ROWS, MENU_BOTTOM = 64, 7, 744  # rows 64 high, up to 7 showing, ending above the buttons
+# The tabs under the timeline (Info, Chapters, Cast, Episodes) and their cards, as the Apple player's.
+TAB_ROW, TAB_ROW_Y, TAB_ROW_Y_OPEN, TAB_GAP = 500, 966, 620, 16
+TAB_IDS = {"info": 501, "chapters": 502, "cast": 503, "episodes": 504}
+TAB_GROUPS = {"info": (511, 140), "chapters": (512, 190), "cast": (513, 140), "episodes": (514, 200)}
+TAB_ORDER = ("info", "chapters", "cast", "episodes")
+INFO_IMAGE, INFO_TITLE, RESTART, PREVIOUS, INFO_OVERVIEW, INFO_META, INFO_HOW, INFO_LINE = \
+    521, 522, 523, 524, 525, 526, 527, 528
+CHAPTERS_LIST, CAST_LIST, EPISODES_LIST = 531, 541, 551
+CARD_FOCUS = {"info": RESTART, "chapters": CHAPTERS_LIST, "cast": CAST_LIST, "episodes": EPISODES_LIST}
 CONTROLS, MENU = 200, 600
 INFO, INFO_LIST, INFO_BACK = 850, 852, 853   # Player Info's panel (700s are the lobby's)
 INFO_ROW, INFO_EVERY = 40, 1.0              # its rows; how often it reads Kodi again (seconds)
@@ -56,11 +65,14 @@ LOBBY_START, LOBBY_INVITE, LOBBY_LEAVE = 710, 711, 712
 NOTICE_FOR = 3.0                # seconds a notice shows
 # The group each focusable control shows with.
 GROUP_OF = {PLAYBACK_BUTTON: CONTROLS, AUDIO_BUTTON: CONTROLS, SUBTITLES_BUTTON: CONTROLS, TIMELINE: CONTROLS,
+            501: CONTROLS, 502: CONTROLS, 503: CONTROLS, 504: CONTROLS, RESTART: CONTROLS, PREVIOUS: CONTROLS,
+            CHAPTERS_LIST: CONTROLS, CAST_LIST: CONTROLS, EPISODES_LIST: CONTROLS,
             MENU_LIST: MENU, UP_NEXT_PLAY: UP_NEXT, UP_NEXT_CLOSE: UP_NEXT,
             LOBBY_START: LOBBY, LOBBY_INVITE: LOBBY, LOBBY_LEAVE: LOBBY}
 
 TL_X, TL_W = 100, 1720          # the timeline's place (the skin's)
-MARKER_Y, MARKER_Y_FOCUSED = 934, 928
+MARKER_Y, MARKER_Y_FOCUSED = 862, 856
+TIMES_Y, MARKS_Y, THUMB_Y = 904, 872, 668   # the skin's
 STEP_MS = 10000                 # Left/Right
 BIG_STEP_MS = 60000             # the remote's skip keys
 SEEK_SETTLE = 0.8               # seconds after the last press before it seeks
@@ -146,6 +158,12 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         self._up_next = False
         self._was_paused = False    # for showing the controls when playback pauses
         self._info_at = None        # Player Info: when it last read Kodi (None while closed)
+        self._card = None           # the tab whose card is open ("info", ...), or None
+        self._tabs = ["info"]       # the tabs that show
+        self._details = None        # the whole title (its cast and files), fetched once per title
+        self._details_for = None
+        self._cast = []
+        self._previous = None       # the episode before this one, for Info's Previous
         self._up_next_closed = False
         self._countdown_from = None
         self._osd = False
@@ -283,7 +301,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             marker = self.getControl(MARKER)
             marker.setPosition(x, MARKER_Y_FOCUSED if focused else MARKER_Y)
             marker.setHeight(44 if focused else 32)
-            self.getControl(TIME_GROUP).setPosition(min(max(x - 30, TL_X), TL_X + TL_W - 420), 976)
+            self.getControl(TIME_GROUP).setPosition(min(max(x - 30, TL_X), TL_X + TL_W - 420), TIMES_Y)
         except Exception:
             pass
         self._draw_thumb(position)
@@ -297,7 +315,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             try:
                 ctrl = self.getControl(CHAPTER_MARK_BASE + i)
                 if i < len(marks):
-                    ctrl.setPosition(int(TL_X + marks[i] * TL_W) - 2, 944)
+                    ctrl.setPosition(int(TL_X + marks[i] * TL_W) - 2, MARKS_Y)
                     ctrl.setVisible(True)
                 else:
                     ctrl.setVisible(False)
@@ -319,7 +337,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         frac = min(1.0, max(0.0, float(position) / duration)) if duration > 0 else 0.0
         x = int(TL_X + frac * TL_W) - THUMB_W // 2
         try:
-            self.getControl(THUMB_GROUP).setPosition(min(max(x, TL_X), TL_X + TL_W - THUMB_W), 740)
+            self.getControl(THUMB_GROUP).setPosition(min(max(x, TL_X), TL_X + TL_W - THUMB_W), THUMB_Y)
             self.getControl(THUMB_IMAGE).setImage(url, False)
         except Exception:
             pass
@@ -352,10 +370,8 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
 
     def _titles(self):
         item = self.pb.item
-        try:
-            self.getControl(OVERVIEW).setText(item.get("overview") or "")
-        except Exception:
-            pass
+        self._load_details()
+        self._fill_info()
         if models.is_episode(item):
             self._label(EPISODE_LINE, self._episode_line(item))
             self._label(TITLE, item.get("series_title") or item.get("title", ""))
@@ -365,6 +381,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
 
     def _show(self, focus=TIMELINE):
         self._draw_chapters()  # the length may only be known once it's playing
+        self._layout_tabs()
         self._osd = True
         self.setProperty("arc.osd", "1")
         self._draw_timeline(self.pb.position_ms() if self._pending is None else self._pending, self.pb.duration_ms)
@@ -374,6 +391,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
     def _hide(self):
         self._osd = False
         self._close_menu(refocus=False)
+        self._close_card(refocus=False)
         self.setProperty("arc.osd", "")
         if self._marker:
             self._focus(SKIP)
@@ -498,14 +516,6 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
                 current = next((v for v in plan["versions"] if v.get("file_id") == self.pb.file_id), {})
                 options.append((T(30212), self._version_name(current), False,
                                 lambda: self._open_submenu("version"), True))
-            if models.is_episode(self.pb.item) and self.pb.season_episodes:
-                where = T(30385) if self.pb.season_unplaced else T(30155) % (self.pb.item.get("season_number") or 0)
-                options.append((T(30292), where, False,
-                                lambda: self._open_submenu("episodes"), True))
-            if self.chapters:
-                at = playback.chapter_at(self.chapters, self.pb.position_ms())
-                options.append((T(30290), self._chapter_name(at) if at >= 0 else "", False,
-                                lambda: self._open_submenu("chapters"), True))
             if self.pb.speed_available():
                 options.append((T(30293), self._speed_name(self.pb.speed()), False,
                                 lambda: self._open_submenu("speed"), True))
@@ -591,6 +601,181 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         bits.append("4K" if h >= 1600 else "%dp" % h if h else "")
         bits.append((v.get("hdr") or "").upper())
         return " · ".join(b for b in bits if b)
+
+    # MARK: - tabs and cards (Info, Chapters, Cast, Episodes)
+
+    def _load_details(self):
+        """The whole title (its cast, files and pictures), once per title, off the UI's thread."""
+        item_id = self.pb.item_id
+        if self._details_for == item_id:
+            return
+        self._details_for = item_id
+        self._details, self._cast = None, []
+
+        def work():
+            try:
+                details = self.pb.api.item(item_id)
+            except Exception as e:
+                log.debug("player details not loaded (%s)", type(e).__name__)
+                return
+            if self._details_for != item_id or not isinstance(details, dict):
+                return
+            self._details = details
+            self._cast = [c for c in models.actors(details) if c.get("name")]
+            self._fill_info()
+            self._layout_tabs()
+
+        threading.Thread(target=work, daemon=True).start()
+
+    def _layout_tabs(self):
+        """Shows the tabs that have something, left to right from the timeline's start."""
+        has = {"info": True, "chapters": bool(self.chapters), "cast": bool(self._cast),
+               "episodes": len(self.pb.season_episodes or []) > 1}
+        self._tabs = [t for t in TAB_ORDER if has[t]]
+        x = 0
+        for t in TAB_ORDER:
+            group, width = TAB_GROUPS[t]
+            try:
+                ctrl = self.getControl(group)
+                ctrl.setVisible(has[t])
+                if has[t]:
+                    ctrl.setPosition(x, 0)
+                    x += width + TAB_GAP
+            except Exception:
+                pass
+
+    def _fill_info(self):
+        item = self._details or self.pb.item or {}
+        episode = models.is_episode(item)
+        images = models.images(item)
+        picture = (images.get("primary") or images.get("series_backdrop")) if episode else \
+            (images.get("backdrop") or images.get("primary"))
+        if episode and models.spoiler_hidden(self.pb.session.prefs, item):
+            picture = images.get("series_backdrop") or picture
+        playing = self.pb.item or {}
+        bits = []
+        if episode and models.placed(playing):
+            bits.append(models.episode_code(playing))   # in the order shown (the playing item's)
+        bits.append(models.runtime_text(self.pb.duration_ms or models.duration_ms(item)) or "")
+        if item.get("year"):
+            bits.append(str(item["year"]))
+        meta = " · ".join(b for b in bits if b)
+        badges = "   ".join(models.quality_badges(item))
+        method = (self.pb.plan or {}).get("method")
+        try:
+            self.getControl(INFO_IMAGE).setImage(self.pb.session.art(picture) if picture else "")
+            self._label(INFO_TITLE, item.get("title", ""))
+            self._label(INFO_LINE, item.get("series_title", "") if episode else "")
+            overview = item.get("overview") or ""
+            if overview and models.spoiler_hidden(self.pb.session.prefs, item):
+                overview = T(30440)
+            self.getControl(INFO_OVERVIEW).setText(overview)
+            self._label(INFO_META, "   ".join(b for b in (meta, badges) if b))
+            self._label(INFO_HOW, T(METHOD_NAMES[method]) if method in METHOD_NAMES else "")
+        except Exception as e:
+            log.debug("info card not filled (%s)", type(e).__name__)
+        # Previous: the episode before this one in its season.
+        self._previous = titlepage.previous_episode(self.pb.season_episodes, self.pb.item_id)
+        self.setProperty("arc.previous", "1" if self._previous else "")
+
+    def _fill_card(self, name):
+        if name == "chapters":
+            ctrl = self.getControl(CHAPTERS_LIST)
+            ctrl.reset()
+            at = playback.chapter_at(self.chapters, self.pb.position_ms())
+            ctrl.addItems([xbmcgui.ListItem(self._chapter_name(i), models.clock(c.get("start_ms") or 0))
+                           for i, c in enumerate(self.chapters)])
+            if at >= 0:
+                ctrl.selectItem(at)
+        elif name == "cast":
+            from arc import search
+            ctrl = self.getControl(CAST_LIST)
+            ctrl.reset()
+            items = []
+            for c in self._cast:
+                li = xbmcgui.ListItem(c.get("name", ""), c.get("character") or "")
+                if c.get("image"):
+                    li.setArt({"thumb": self.pb.session.art(c["image"])})
+                li.setProperty("initials", search.initials(c.get("name")))
+                items.append(li)
+            ctrl.addItems(items)
+        elif name == "episodes":
+            from .windows.cards import item_list_item
+            ctrl = self.getControl(EPISODES_LIST)
+            ctrl.reset()
+            eps = self.pb.season_episodes or []
+            show = self.pb.item or {}
+            items = []
+            for e in eps:
+                e = dict(e)
+                e.setdefault("series_title", show.get("series_title", ""))
+                items.append(item_list_item(self.pb.session, e, "thumb"))
+            ctrl.addItems(items)
+            ids = [e.get("id") for e in eps]
+            if self.pb.item_id in ids:
+                ctrl.selectItem(ids.index(self.pb.item_id))
+
+    def _open_card(self, name):
+        """Shows a tab's card under the row (the title and timeline step aside) and focuses the tab."""
+        self._layout_tabs()
+        if name not in self._tabs:
+            name = "info"
+        if name == "info":
+            self._fill_info()   # the season's episodes (for Previous) may have arrived since
+        else:
+            self._fill_card(name)
+        self._card = name
+        self.setProperty("arc.card", name)
+        try:
+            self.getControl(TAB_ROW).setPosition(TL_X, TAB_ROW_Y_OPEN)
+        except Exception:
+            pass
+        self._focus(TAB_IDS[name])
+
+    def _close_card(self, refocus=True):
+        if self._card is None:
+            return
+        self._card = None
+        self.setProperty("arc.card", "")
+        try:
+            self.getControl(TAB_ROW).setPosition(TL_X, TAB_ROW_Y)
+        except Exception:
+            pass
+        if refocus:
+            self._focus(TIMELINE)
+
+    def _tab_of(self, focus):
+        return next((t for t, cid in TAB_IDS.items() if cid == focus), None)
+
+    def _card_keys(self, focus, code):
+        """Up, Down, Left and Right on the tabs and in the cards; True when handled."""
+        tab = self._tab_of(focus)
+        if tab is not None:
+            if code in (A_LEFT, A_RIGHT):
+                i = self._tabs.index(tab) if tab in self._tabs else 0
+                j = i + (1 if code == A_RIGHT else -1)
+                if 0 <= j < len(self._tabs):
+                    self._open_card(self._tabs[j])
+                return True
+            if code == A_UP:
+                self._close_card()
+                return True
+            if code == A_DOWN and self._card:
+                self._focus(CARD_FOCUS[self._card])
+                return True
+            return True
+        if focus in (RESTART, PREVIOUS):
+            if code == A_UP:
+                self._focus(TAB_IDS["info"])
+            elif code == A_RIGHT and focus == RESTART and self._previous:
+                self.setFocusId(PREVIOUS)
+            elif code == A_LEFT and focus == PREVIOUS:
+                self.setFocusId(RESTART)
+            return True
+        if focus in (CHAPTERS_LIST, CAST_LIST, EPISODES_LIST) and code == A_UP:
+            self._focus(TAB_IDS[self._card or "info"])
+            return True
+        return False
 
     # MARK: - Player Info
 
@@ -703,6 +888,21 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
                 if not opens_submenu:
                     self._close_menu()
                 action()
+        elif control_id == RESTART:
+            self._close_card()
+            self.pb.seek_to(0)
+        elif control_id == PREVIOUS and self._previous:
+            self.pb.play_episode(self._previous)
+        elif control_id == CHAPTERS_LIST:
+            pos = self.getControl(CHAPTERS_LIST).getSelectedPosition()
+            if 0 <= pos < len(self.chapters):
+                self._close_card()
+                self.pb.seek_to(self.chapters[pos].get("start_ms") or 0)
+        elif control_id == EPISODES_LIST:
+            eps = self.pb.season_episodes or []
+            pos = self.getControl(EPISODES_LIST).getSelectedPosition()
+            if 0 <= pos < len(eps) and eps[pos].get("id") != self.pb.item_id and eps[pos].get("available", True):
+                self.pb.play_episode(eps[pos])
         elif control_id == TIMELINE:
             if self._pending is not None:
                 target, self._pending = self._pending, None
@@ -728,6 +928,8 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
                 self._close_menu()
             elif self._info_at is not None:
                 self._toggle_info()
+            elif self._card is not None:
+                self._close_card()
             elif self._osd:
                 self._hide()
             elif focus == SKIP and self._marker:
@@ -754,12 +956,22 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         if code in A_NEXT and self.pb.next_item:
             self.pb.play_next_now()
             return
+        if self._card_keys(focus, code):
+            return
         if focus in (CATCHER, TIMELINE, SKIP):
             if code in (A_LEFT, A_RIGHT):
                 self._nudge(STEP_MS if code == A_RIGHT else -STEP_MS)
                 return
-            if focus == CATCHER and (code in (A_SELECT, A_DOWN) or code in A_INFO):
+            if focus == CATCHER and code == A_DOWN:
+                # Down from the picture opens Info, as the Apple player.
+                self._show(None)
+                self._open_card("info")
+                return
+            if focus == CATCHER and (code == A_SELECT or code in A_INFO):
                 self._show(TIMELINE)
+                return
+            if focus == TIMELINE and code == A_DOWN:
+                self._open_card("info")
                 return
             if focus in (CATCHER, SKIP) and code == A_UP:
                 self._show(SUBTITLES_BUTTON)

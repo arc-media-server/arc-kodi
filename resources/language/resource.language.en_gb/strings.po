@@ -1319,3 +1319,11 @@ msgstr ""
 msgctxt "#30483"
 msgid "Converted by Arc"
 msgstr ""
+
+msgctxt "#30484"
+msgid "Info"
+msgstr ""
+
+msgctxt "#30485"
+msgid "Previous Episode"
+msgstr ""
