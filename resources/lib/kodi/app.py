@@ -15,6 +15,7 @@ from .session import Session
 from .together import Together
 from .player import Playback
 from .windows import signin, home, library, details, search, settings, menu, recommended, person
+from .windows import keyboard
 
 
 class App(object):
@@ -400,7 +401,7 @@ class App(object):
             self._refresh_home()
 
     def _join_code(self):
-        code = xbmcgui.Dialog().input(T(30359))
+        code = (keyboard.type_text(T(30359), kind="code") or "").strip()
         if not code:
             return
         try:
