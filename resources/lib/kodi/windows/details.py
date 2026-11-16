@@ -4,6 +4,8 @@ plays) and round buttons (Play from the Beginning, Watched, Watchlist), a show's
 episodes, Related, Cast, Collections, Trailers & Extras, and the About / Details / Crew /
 Playback cards. The choices are arc/titlepage.py's; this draws them."""
 
+import time
+
 import xbmcgui
 
 from arc import home as homerows
@@ -43,7 +45,8 @@ EXTRAS = 350
 EXTRAS_TITLE = 351
 CARDS = 360
 
-MOVE_ACTIONS = (1, 2)  # left, right
+# Left, right; and how long (ms) a title may take to load before it's logged at info.
+MOVE_ACTIONS, SLOW_MS = (1, 2), 3000
 
 # The Kodi side's words for arc/titlepage.py's card keys.
 CARD_KEYS = {"released": 30145, "runtime": 30146, "rated": 30160, "genres": 30161, "directed": 30147,
@@ -83,8 +86,22 @@ class DetailsWindow(ArcWindow):
         self.set_label(COLLECTIONS_TITLE, T(30122))
         self.set_label(EXTRAS_TITLE, T(30149))
         if self.initial:
+            # The card's own data draws the page at once: the picture, the words, and Play and
+            # the round buttons (watched and watchlist from the card's state), so nothing waits
+            # on Arc's full answer, which fills in the rest (genres, badges, cast, rows).
             self._render_hero(self.initial)
-        self.run_async(lambda: self.session.api.item(self.item_id), self._loaded)
+            self._render_actions(self.initial)
+        else:
+            self._render_actions({})
+        started = time.time()
+
+        def fetch():
+            item = self.session.api.item(self.item_id)
+            took = int((time.time() - started) * 1000)
+            (log.info if took >= SLOW_MS else log.debug)("title page loaded in %d ms", took)
+            return item
+
+        self.run_async(fetch, self._loaded)
         self.run_async(lambda: self.session.api.palette(self.item_id), self._show_palette)
 
     def on_return(self):
@@ -190,8 +207,8 @@ class DetailsWindow(ArcWindow):
 
     # MARK: - Play and the round buttons
 
-    def _render_actions(self):
-        item = self.item
+    def _render_actions(self, item=None):
+        item = item if item is not None else (self.item or {})
         episode = titlepage.next_to_play(self.seasons) if models.is_series(item) else None
         self.action = titlepage.play_action(item, episode)
         if self.action is None:
@@ -481,6 +498,8 @@ class DetailsWindow(ArcWindow):
         self.nav("play", {"item": target, "resume": 0 if from_start else resume})
 
     def _toggle_watched(self):
+        if self.item is None:
+            return  # still loading
         now = not models.watched(self.item)
 
         def done(_result, error):
@@ -494,6 +513,8 @@ class DetailsWindow(ArcWindow):
         self.run_async(lambda: self.session.api.set_played(self.item_id, now), done)
 
     def _toggle_watchlist(self):
+        if self.item is None:
+            return  # still loading
         now = not models.watchlisted(self.item)
 
         def done(_result, error):
