@@ -75,6 +75,42 @@ def season_tabs(data):
     return seasons, tabs
 
 
+def season_actions(tab):
+    """What a season tab's menu offers, as the web's show page and Plex's season menu: "watched"
+    (Mark Season as Watched) or "unwatched" once every episode on disk is watched, then "shuffle"
+    when it has more than one episode on disk. Nothing for Not in This Order (it isn't a season
+    Arc can mark) or a season with nothing on disk."""
+    if not tab or tab.get("unplaced"):
+        return []
+    on_disk = [e for e in tab.get("episodes") or [] if e.get("available", True)]
+    if not on_disk:
+        return []
+    out = ["unwatched" if all(models.watched(e) for e in on_disk) else "watched"]
+    if len(on_disk) > 1:
+        out.append("shuffle")
+    return out
+
+
+def season_episode_ids(tab):
+    """The season's episodes on disk, in order (for Shuffle Season's play queue)."""
+    return [e["id"] for e in (tab or {}).get("episodes") or [] if e.get("id") and e.get("available", True)]
+
+
+def mark_season(tab, played):
+    """The season's episodes as they'll be once Arc has marked them (shown at once): watched or
+    not, and no resume point either way. Upcoming episodes (not on disk) are left as they are."""
+    out = []
+    for e in (tab or {}).get("episodes") or []:
+        e = dict(e)
+        if e.get("available", True):
+            ud = dict(e.get("user_data") or {})
+            ud["played"] = bool(played)
+            ud["position_ms"] = 0
+            e["user_data"] = ud
+        out.append(e)
+    return out
+
+
 def episode_label(episode, unplaced=False):
     """An episode in a list: "4. Title", or just the title outside the order (it has no number
     there)."""
