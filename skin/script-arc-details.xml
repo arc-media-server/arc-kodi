@@ -277,12 +277,14 @@
       <include content="PosterRow"><param name="title" value="341"/><param name="list" value="340"/><param name="width" value="1808"/></include>
 
       <!-- About, Details, Crew, Playback. -->
+      <!-- About, Details, Crew, Playback: 40 apart, with room under them inside the list (the
+           page scrolls only until the list's foot meets the screen's). -->
       <control type="list" id="360">
-        <width>1808</width><height>380</height>
+        <left>-10</left><width>1818</width><height>420</height>
         <visible>Integer.IsGreater(Container(360).NumItems,0)</visible>
-        <orientation>horizontal</orientation><itemgap>20</itemgap>
-        <itemlayout width="430" height="380"><include>InfoCard</include></itemlayout>
-        <focusedlayout width="430" height="380">
+        <orientation>horizontal</orientation><itemgap>0</itemgap>
+        <itemlayout width="440" height="420"><include>InfoCard</include></itemlayout>
+        <focusedlayout width="440" height="420">
           <include content="InfoCard"><param name="focused" value="Control.HasFocus(360)"/></include>
         </focusedlayout>
       </control>
