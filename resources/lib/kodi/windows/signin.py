@@ -74,6 +74,64 @@ class ConnectWindow(ArcWindow):
         self.close()
 
 
+class UnavailableWindow(ArcWindow):
+    """Arc couldn't be reached as the add-on started (the server is off, asleep or restarting):
+    say so, and try again every 15 seconds, going on by itself once Arc answers. Try Again
+    checks at once; Change Server picks another; Back leaves the add-on. Its result is "retry",
+    "change_server" or "exit"."""
+
+    xml = "script-arc-unavailable.xml"
+
+    RETRY, CHANGE, TITLE, MESSAGE, STATUS, EVERY = 101, 102, 200, 201, 202, 15
+
+    def on_init(self):
+        self.set_label(self.TITLE, T(30420) % (self.session.identity_name or "Arc"))
+        self.set_text(self.MESSAGE, T(30004))
+        self.set_label(self.STATUS, T(30421))
+        self.focus_id(self.RETRY)
+        self._checking = False
+        threading.Thread(target=self._keep_trying, daemon=True).start()
+
+    def _keep_trying(self):
+        monitor = xbmc.Monitor()
+        while not self._closing and not monitor.waitForAbort(self.EVERY):
+            if not self._closing and not self._checking and self._reachable():
+                log.info("Arc answered again")
+                self._finish("retry")
+                return
+
+    def _reachable(self):
+        try:
+            return isinstance(self.session.api.health(), dict)
+        except Exception:
+            return False
+
+    def _finish(self, result):
+        if not self._closing:
+            self.result = result
+            self.close()
+
+    def on_click(self, control_id):
+        if control_id == self.RETRY and not self._checking:
+            self._checking = True
+            self.set_label(self.STATUS, T(30025))
+
+            def done(ok, _error):
+                self._checking = False
+                if ok:
+                    log.info("Arc answered again")
+                    self._finish("retry")
+                else:
+                    self.set_label(self.STATUS, T(30422))
+
+            self.run_async(self._reachable, done)
+        elif control_id == self.CHANGE:
+            self._finish("change_server")
+
+    def on_back(self):
+        self._finish("exit")
+
+
 class SignInWindow(ArcWindow):
     """Shows a Link-a-Device code and polls until it's approved."""
 

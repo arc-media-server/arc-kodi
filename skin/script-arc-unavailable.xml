@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Arc couldn't be reached when the add-on started (signin.UnavailableWindow): the logo, what's
+     wrong and what to check, Try Again and Change Server. It tries again by itself every 15
+     seconds and goes on once Arc answers; Back leaves the add-on. -->
+<window>
+  <defaultcontrol always="true">101</defaultcontrol>
+  <controls>
+    <include>PageBackground</include>
+    <control type="group">
+      <left>560</left><top>330</top><width>800</width>
+      <control type="image">
+        <left>310</left><top>-230</top><width>180</width><height>190</height>
+        <texture>arc-logo-stacked.png</texture>
+      </control>
+      <control type="label" id="200">
+        <left>0</left><top>0</top><width>800</width><height>60</height>
+        <font>arc-title</font><textcolor>fg</textcolor><align>center</align>
+      </control>
+      <control type="textbox" id="201">
+        <left>40</left><top>76</top><width>720</width><height>84</height>
+        <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
+      </control>
+      <control type="button" id="101">
+        <ondown>102</ondown><onup>noop</onup><onleft>noop</onleft><onright>noop</onright>
+        <include content="PrimaryButton"><param name="width" value="520"/></include>
+        <left>140</left><top>190</top>
+        <label>$ADDON[script.arc 30002]</label>
+      </control>
+      <control type="button" id="102">
+        <onup>101</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+        <include content="PillButton"><param name="width" value="520"/></include>
+        <textoffsetx>0</textoffsetx>
+        <left>140</left><top>286</top>
+        <label>$ADDON[script.arc 30305]</label>
+      </control>
+      <control type="label" id="202">
+        <left>0</left><top>390</top><width>800</width><height>40</height>
+        <font>arc-small</font><textcolor>subtle</textcolor><align>center</align>
+      </control>
+    </control>
+  </controls>
+</window>
