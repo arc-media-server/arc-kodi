@@ -261,162 +261,186 @@
       <!-- Info: the picture, the title, Restart (and Previous for an episode), the overview,
            the details and how it's playing. -->
       <control type="group" id="520">
-        <left>100</left><top>700</top><width>1720</width><height>340</height>
+        <left>100</left><top>676</top><width>1720</width><height>384</height>
         <visible>String.IsEqual(Window.Property(arc.card),info)</visible>
         <animation effect="slide" start="0,40" time="200" tween="cubic" easing="out">Visible</animation>
         <control type="image">
-          <left>0</left><top>0</top><width>1720</width><height>340</height>
+          <left>0</left><top>0</top><width>1720</width><height>384</height>
           <texture border="38" colordiffuse="E6FFFFFF">arc-pill-surface.png</texture>
         </control>
         <control type="image">
-          <left>32</left><top>32</top><width>480</width><height>270</height>
+          <left>32</left><top>56</top><width>480</width><height>270</height>
           <texture>arc-mask-thumb.png</texture><colordiffuse>surface2</colordiffuse>
         </control>
         <control type="image" id="521">
-          <left>32</left><top>32</top><width>480</width><height>270</height>
+          <left>32</left><top>56</top><width>480</width><height>270</height>
           <aspectratio>scale</aspectratio>
           <texture background="true" diffuse="arc-mask-thumb.png"></texture>
         </control>
         <control type="label" id="522">
-          <left>548</left><top>28</top><width>960</width><height>56</height>
+          <left>548</left><top>52</top><width>960</width><height>56</height>
           <font>arc-row</font><textcolor>white</textcolor>
         </control>
         <control type="button" id="523">
-          <left>1544</left><top>28</top><width>64</width><height>64</height>
+          <left>1544</left><top>52</top><width>64</width><height>64</height>
           <texturefocus border="32">arc-pill-white-64.png</texturefocus>
           <texturenofocus border="32" colordiffuse="surface2">arc-pill-white-64.png</texturenofocus>
           <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
         </control>
         <control type="image">
-          <left>1559</left><top>43</top><width>34</width><height>34</height>
+          <left>1559</left><top>67</top><width>34</width><height>34</height>
           <texture>arc-osd-rotate-ccw.png</texture><colordiffuse>white</colordiffuse>
           <visible>!Control.HasFocus(523)</visible>
         </control>
         <control type="image">
-          <left>1559</left><top>43</top><width>34</width><height>34</height>
+          <left>1559</left><top>67</top><width>34</width><height>34</height>
           <texture>arc-osd-rotate-ccw.png</texture><colordiffuse>black</colordiffuse>
           <visible>Control.HasFocus(523)</visible>
         </control>
         <control type="button" id="524">
-          <left>1624</left><top>28</top><width>64</width><height>64</height>
+          <left>1624</left><top>52</top><width>64</width><height>64</height>
           <texturefocus border="32">arc-pill-white-64.png</texturefocus>
           <texturenofocus border="32" colordiffuse="surface2">arc-pill-white-64.png</texturenofocus>
           <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
           <visible>String.IsEqual(Window.Property(arc.previous),1)</visible>
         </control>
         <control type="image">
-          <left>1641</left><top>45</top><width>30</width><height>30</height>
+          <left>1641</left><top>69</top><width>30</width><height>30</height>
           <texture>arc-osd-skip-back.png</texture><colordiffuse>white</colordiffuse>
           <visible>String.IsEqual(Window.Property(arc.previous),1) + !Control.HasFocus(524)</visible>
         </control>
         <control type="image">
-          <left>1641</left><top>45</top><width>30</width><height>30</height>
+          <left>1641</left><top>69</top><width>30</width><height>30</height>
           <texture>arc-osd-skip-back.png</texture><colordiffuse>black</colordiffuse>
           <visible>String.IsEqual(Window.Property(arc.previous),1) + Control.HasFocus(524)</visible>
         </control>
         <control type="label" id="528">
-          <left>548</left><top>92</top><width>1140</width><height>36</height>
+          <left>548</left><top>116</top><width>1140</width><height>36</height>
           <font>arc-small</font><textcolor>muted</textcolor>
         </control>
         <control type="textbox" id="525">
-          <left>548</left><top>132</top><width>1140</width><height>128</height>
+          <left>548</left><top>156</top><width>1140</width><height>128</height>
           <font>arc-small</font><textcolor>DDFFFFFF</textcolor>
         </control>
         <control type="label" id="526">
-          <left>548</left><top>266</top><width>800</width><height>36</height>
+          <left>548</left><top>290</top><width>800</width><height>36</height>
           <font>arc-small</font><textcolor>white</textcolor>
         </control>
         <control type="label" id="527">
-          <left>1288</left><top>266</top><width>400</width><height>36</height>
+          <left>1288</left><top>290</top><width>400</width><height>36</height>
           <font>arc-small</font><textcolor>muted</textcolor><align>right</align>
         </control>
       </control>
 
       <!-- Chapters: a row of cards (name and time, the one playing marked); Select jumps. -->
-      <control type="list" id="531">
-        <left>100</left><top>700</top><width>1720</width><height>340</height>
-        <orientation>horizontal</orientation>
+      <control type="group" id="530">
+        <left>100</left><top>676</top><width>1720</width><height>384</height>
         <visible>String.IsEqual(Window.Property(arc.card),chapters)</visible>
-        <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
-        <scrolltime tween="cubic" easing="out">200</scrolltime>
-        <itemlayout width="300" height="200">
-          <control type="image">
-            <left>0</left><top>0</top><width>280</width><height>180</height>
-            <texture border="32" colordiffuse="E6FFFFFF">arc-pill-surface.png</texture>
-          </control>
-          <control type="label">
-            <left>24</left><top>20</top><width>232</width><height>90</height>
-            <font>arc-small</font><textcolor>white</textcolor><wrapmultiline>true</wrapmultiline>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>24</left><top>124</top><width>232</width><height>36</height>
-            <font>arc-small</font><textcolor>muted</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </itemlayout>
-        <focusedlayout width="300" height="200">
-          <control type="image">
-            <left>0</left><top>0</top><width>280</width><height>180</height>
-            <texture border="32" colordiffuse="E6FFFFFF">arc-pill-surface.png</texture>
-            <visible>!Control.HasFocus(531)</visible>
-          </control>
-          <control type="image">
-            <left>0</left><top>0</top><width>280</width><height>180</height>
-            <texture border="32">arc-pill-white-64.png</texture>
-            <visible>Control.HasFocus(531)</visible>
-          </control>
-          <control type="label">
-            <left>24</left><top>20</top><width>232</width><height>90</height>
-            <font>arc-small</font><textcolor>white</textcolor><wrapmultiline>true</wrapmultiline>
-            <label>$INFO[ListItem.Label]</label>
-            <visible>!Control.HasFocus(531)</visible>
-          </control>
-          <control type="label">
-            <left>24</left><top>20</top><width>232</width><height>90</height>
-            <font>arc-small</font><textcolor>black</textcolor><wrapmultiline>true</wrapmultiline>
-            <label>$INFO[ListItem.Label]</label>
-            <visible>Control.HasFocus(531)</visible>
-          </control>
-          <control type="label">
-            <left>24</left><top>124</top><width>232</width><height>36</height>
-            <font>arc-small</font><textcolor>on-white-muted</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-            <visible>Control.HasFocus(531)</visible>
-          </control>
-          <control type="label">
-            <left>24</left><top>124</top><width>232</width><height>36</height>
-            <font>arc-small</font><textcolor>muted</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-            <visible>!Control.HasFocus(531)</visible>
-          </control>
-        </focusedlayout>
+        <animation effect="slide" start="0,40" time="200" tween="cubic" easing="out">Visible</animation>
+        <control type="image">
+          <left>0</left><top>0</top><width>1720</width><height>384</height>
+          <texture border="38" colordiffuse="E6FFFFFF">arc-pill-surface.png</texture>
+        </control>
+        <control type="list" id="531">
+          <left>32</left><top>102</top><width>1656</width><height>340</height>
+          <orientation>horizontal</orientation>
+          <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+          <scrolltime tween="cubic" easing="out">200</scrolltime>
+          <itemlayout width="300" height="200">
+            <control type="image">
+              <left>0</left><top>0</top><width>280</width><height>180</height>
+              <texture border="32" colordiffuse="surface2">arc-pill-white-64.png</texture>
+            </control>
+            <control type="label">
+              <left>24</left><top>20</top><width>232</width><height>90</height>
+              <font>arc-small</font><textcolor>white</textcolor><wrapmultiline>true</wrapmultiline>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>24</left><top>124</top><width>232</width><height>36</height>
+              <font>arc-small</font><textcolor>muted</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </itemlayout>
+          <focusedlayout width="300" height="200">
+            <control type="image">
+              <left>0</left><top>0</top><width>280</width><height>180</height>
+              <texture border="32" colordiffuse="surface2">arc-pill-white-64.png</texture>
+              <visible>!Control.HasFocus(531)</visible>
+            </control>
+            <control type="image">
+              <left>0</left><top>0</top><width>280</width><height>180</height>
+              <texture border="32">arc-pill-white-64.png</texture>
+              <visible>Control.HasFocus(531)</visible>
+            </control>
+            <control type="label">
+              <left>24</left><top>20</top><width>232</width><height>90</height>
+              <font>arc-small</font><textcolor>white</textcolor><wrapmultiline>true</wrapmultiline>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>!Control.HasFocus(531)</visible>
+            </control>
+            <control type="label">
+              <left>24</left><top>20</top><width>232</width><height>90</height>
+              <font>arc-small</font><textcolor>black</textcolor><wrapmultiline>true</wrapmultiline>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>Control.HasFocus(531)</visible>
+            </control>
+            <control type="label">
+              <left>24</left><top>124</top><width>232</width><height>36</height>
+              <font>arc-small</font><textcolor>on-white-muted</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+              <visible>Control.HasFocus(531)</visible>
+            </control>
+            <control type="label">
+              <left>24</left><top>124</top><width>232</width><height>36</height>
+              <font>arc-small</font><textcolor>muted</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+              <visible>!Control.HasFocus(531)</visible>
+            </control>
+          </focusedlayout>
+        </control>
       </control>
 
       <!-- Cast: faces, as the title page's. -->
-      <control type="list" id="541">
-        <left>100</left><top>700</top><width>1720</width><height>300</height>
-        <orientation>horizontal</orientation>
+      <control type="group" id="540">
+        <left>100</left><top>676</top><width>1720</width><height>384</height>
         <visible>String.IsEqual(Window.Property(arc.card),cast)</visible>
-        <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
-        <scrolltime tween="cubic" easing="out">200</scrolltime>
-        <itemlayout width="200" height="290"><include>FaceCard</include></itemlayout>
-        <focusedlayout width="200" height="290">
-          <include content="FaceCard"><param name="focused" value="Control.HasFocus(541)"/><param name="labelcolor" value="fg"/></include>
-        </focusedlayout>
+        <animation effect="slide" start="0,40" time="200" tween="cubic" easing="out">Visible</animation>
+        <control type="image">
+          <left>0</left><top>0</top><width>1720</width><height>384</height>
+          <texture border="38" colordiffuse="E6FFFFFF">arc-pill-surface.png</texture>
+        </control>
+        <control type="list" id="541">
+          <left>32</left><top>47</top><width>1656</width><height>300</height>
+          <orientation>horizontal</orientation>
+          <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+          <scrolltime tween="cubic" easing="out">200</scrolltime>
+          <itemlayout width="200" height="290"><include>FaceCard</include></itemlayout>
+          <focusedlayout width="200" height="290">
+            <include content="FaceCard"><param name="focused" value="Control.HasFocus(541)"/><param name="labelcolor" value="fg"/></include>
+          </focusedlayout>
+        </control>
       </control>
 
       <!-- Episodes: this season's, as the title page's; Select plays one. -->
-      <control type="list" id="551">
-        <left>92</left><top>692</top><width>1736</width><height>360</height>
-        <orientation>horizontal</orientation>
+      <control type="group" id="550">
+        <left>100</left><top>676</top><width>1720</width><height>384</height>
         <visible>String.IsEqual(Window.Property(arc.card),episodes)</visible>
-        <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
-        <scrolltime tween="cubic" easing="out">200</scrolltime>
-        <itemlayout width="488" height="350"><include>ThumbCard</include></itemlayout>
-        <focusedlayout width="488" height="350">
-          <include content="ThumbCard"><param name="focused" value="Control.HasFocus(551)"/><param name="labelcolor" value="fg"/></include>
-        </focusedlayout>
+        <animation effect="slide" start="0,40" time="200" tween="cubic" easing="out">Visible</animation>
+        <control type="image">
+          <left>0</left><top>0</top><width>1720</width><height>384</height>
+          <texture border="38" colordiffuse="E6FFFFFF">arc-pill-surface.png</texture>
+        </control>
+        <control type="list" id="551">
+          <left>24</left><top>17</top><width>1672</width><height>360</height>
+          <orientation>horizontal</orientation>
+          <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+          <scrolltime tween="cubic" easing="out">200</scrolltime>
+          <itemlayout width="488" height="350"><include>ThumbCard</include></itemlayout>
+          <focusedlayout width="488" height="350">
+            <include content="ThumbCard"><param name="focused" value="Control.HasFocus(551)"/><param name="labelcolor" value="fg"/></include>
+          </focusedlayout>
+        </control>
       </control>
     </control>
 

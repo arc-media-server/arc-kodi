@@ -43,7 +43,7 @@ THUMB_GROUP, THUMB_IMAGE, THUMB_W = 460, 461, 328   # the thumbnail's group, ima
 MENU_TITLE, MENU_LIST, MENU_BACK = 601, 602, 603
 MENU_ROW, MENU_ROWS, MENU_BOTTOM = 64, 7, 744  # rows 64 high, up to 7 showing, ending above the buttons
 # The tabs under the timeline (Info, Chapters, Cast, Episodes) and their cards, as the Apple player's.
-TAB_ROW, TAB_ROW_Y, TAB_ROW_Y_OPEN, TAB_GAP = 500, 966, 620, 16
+TAB_ROW, TAB_ROW_Y, TAB_ROW_Y_OPEN, TAB_GAP = 500, 966, 604, 16
 TAB_IDS = {"info": 501, "chapters": 502, "cast": 503, "episodes": 504}
 TAB_GROUPS = {"info": (511, 140), "chapters": (512, 190), "cast": (513, 140), "episodes": (514, 200)}
 TAB_ORDER = ("info", "chapters", "cast", "episodes")

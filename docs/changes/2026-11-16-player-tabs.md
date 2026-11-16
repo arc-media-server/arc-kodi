@@ -22,6 +22,8 @@ the tabs under the timeline, Down to open them).
   title fetched once per title.
 - **Episodes**: the season's stills as the title page's, the one playing selected; Select plays
   another.
+- Every card sits in the same dark rounded box (1720 by 384), as Info's (the owner, after the
+  first version showed Chapters, Cast and Episodes straight over the picture).
 - The overview no longer shows over the picture when paused (it's in Info), and Chapters and
   Episodes left the Playback menu (they're tabs).
 
