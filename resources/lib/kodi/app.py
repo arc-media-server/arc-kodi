@@ -14,7 +14,7 @@ from .live import Live
 from .session import Session
 from .together import Together
 from .player import Playback
-from .windows import signin, home, library, details, search, settings, menu, recommended, person
+from .windows import signin, home, library, details, search, settings, menu, recommended, person, invite
 
 
 class App(object):
@@ -413,9 +413,10 @@ class App(object):
             self._tell(T(30362))
 
     def _invite(self, item, room_id=None):
-        """Who to watch with: the people this profile may invite, ticked with Select, then Invite
-        (a room waits on their Home rows) or Use a Code Instead (a room with a code, at once).
-        For a room this device is in (`room_id`), Invite adds them to it."""
+        """Who to watch with (Arc's invite screen, windows/invite.py): the people this profile
+        may invite, ticked with Select, then Send Invite (a room waits on their Home rows) or Use
+        a Code Instead (a room with a code, at once). For a room this device is in (`room_id`),
+        Send Invite adds them to it."""
         try:
             people = self.session.api.watch_people(item.get("id"))
         except Exception as e:
@@ -426,46 +427,25 @@ class App(object):
         message = T(30377) if room_id else T(30343) % title
         if not people:
             message = T(30354)
-        chosen, focus = set(), None
-        while True:
-            options = [(p.get("name", ""), T(30346) if p.get("can_watch") is False else T(30353) if p.get("friend") else "")
-                       for p in people]
-            actions = []
-            if people:
-                options.append(T(30344))
-                actions.append("invite")
-            if not room_id:
-                options.append(T(30345))
-                actions.append("code")
-            choice = menu.choose(T(30330), options, selected=chosen, focus=focus, message=message)
-            if choice < 0:
-                return
-            if choice < len(people):
-                focus = choice
-                if people[choice].get("can_watch") is not False:
-                    chosen ^= {choice}
-                continue
-            act = actions[choice - len(people)]
-            if act == "invite" and not chosen:
-                focus = choice
-                continue
-            ids = [people[i].get("id") for i in sorted(chosen)]
-            try:
-                if act == "code":
-                    self.together.start_with_code(item.get("id"))
-                elif room_id:
-                    self.together.invite(ids)
-                else:
-                    self.together.create_room(item.get("id"), ids)
-                    self._tell(T(30358) % title)
-                    self._refresh_home()
-            except APIError as e:
-                log.warning("Watch Together room not made (%d)", e.status)
-                self._tell(T(30356) if e.status == 429 else T(30357))
-            except Exception as e:
-                log.warning("Watch Together room not made (%s)", type(e).__name__)
-                self._tell(T(30357))
+        choice = invite.ask(people, message, offer_code=not room_id)
+        if choice is None:
             return
+        act, ids = choice
+        try:
+            if act == "code":
+                self.together.start_with_code(item.get("id"))
+            elif room_id:
+                self.together.invite(ids)
+            else:
+                self.together.create_room(item.get("id"), ids)
+                self._tell(T(30358) % title)
+                self._refresh_home()
+        except APIError as e:
+            log.warning("Watch Together room not made (%d)", e.status)
+            self._tell(T(30356) if e.status == 429 else T(30357))
+        except Exception as e:
+            log.warning("Watch Together room not made (%s)", type(e).__name__)
+            self._tell(T(30357))
 
     def _tell(self, message):
         menu.choose(T(30330), [T(30000)], message=message)
