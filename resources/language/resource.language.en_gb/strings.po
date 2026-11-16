@@ -1219,3 +1219,7 @@ msgstr ""
 msgctxt "#30453"
 msgid "Done"
 msgstr ""
+
+msgctxt "#30454"
+msgid "Maximum Resolution"
+msgstr ""

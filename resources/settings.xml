@@ -5,7 +5,7 @@
   <section id="script.arc">
     <category id="playback" label="30144">
       <group id="1">
-        <setting id="max_height" type="integer" label="30130">
+        <setting id="max_height" type="integer" label="30454">
           <level>0</level>
           <default>2160</default>
           <constraints>
