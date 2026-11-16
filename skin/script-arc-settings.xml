@@ -1,71 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Settings, as the Apple app's: the profile and server at the left; at the right the profile's
-     playback choices (saved to Arc, so every app follows them), then Switch Profile, Sign Out and
-     Change Server, then About. Each row names its value at its right. -->
+<!-- Settings, as the Android and Apple apps': the page's name at the top; at the left, centred,
+     the profile (its initials in a circle), the server and the add-on's version; at the right the
+     list. The list holds three kinds of entry (ListItem.Property(kind)): a section heading, a row
+     (a dark rounded pill, its name at the left and its value at the right; white with black text
+     when focused) and a note. Headings and notes can't be chosen: the window steps over them.
+     Every entry has the same 76-high slot (Kodi picks a list's layout once for all its entries,
+     not per entry), and shows the parts for its kind. -->
 <window>
   <defaultcontrol always="true">110</defaultcontrol>
   <controls>
     <include>PageBackground</include>
+    <control type="label">
+      <left>0</left><top>56</top><width>1920</width><height>80</height>
+      <font>arc-title</font><textcolor>fg</textcolor><align>center</align>
+      <label>$ADDON[script.arc 30084]</label>
+    </control>
+
+    <!-- The profile and server. -->
     <control type="group">
-      <left>160</left><top>200</top><width>600</width>
-      <control type="label">
-        <left>0</left><top>0</top><width>600</width><height>80</height>
-        <font>arc-hero</font><textcolor>fg</textcolor>
-        <label>$ADDON[script.arc 30084]</label>
+      <left>120</left><top>300</top><width>640</width>
+      <control type="image">
+        <left>210</left><top>0</top><width>220</width><height>220</height>
+        <texture>arc-circle.png</texture><colordiffuse>surface2</colordiffuse>
+      </control>
+      <control type="label" id="102">
+        <left>210</left><top>0</top><width>220</width><height>220</height>
+        <font>arc-hero</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
       </control>
       <control type="label" id="101">
-        <left>0</left><top>120</top><width>560</width><height>60</height>
-        <font>arc-title</font><textcolor>fg</textcolor>
+        <left>0</left><top>250</top><width>640</width><height>60</height>
+        <font>arc-title</font><textcolor>fg</textcolor><align>center</align>
       </control>
       <control type="label" id="100">
-        <left>2</left><top>186</top><width>560</width><height>40</height>
-        <font>arc-body</font><textcolor>muted</textcolor>
+        <left>0</left><top>316</top><width>640</width><height>40</height>
+        <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
       </control>
-      <control type="textbox" id="104">
-        <left>2</left><top>560</top><width>520</width><height>120</height>
-        <font>arc-small</font><textcolor>subtle</textcolor>
+      <control type="label" id="103">
+        <left>0</left><top>358</top><width>640</width><height>40</height>
+        <font>arc-small</font><textcolor>subtle</textcolor><align>center</align>
       </control>
     </control>
+    <control type="textbox" id="104">
+      <left>160</left><top>930</top><width>560</width><height>110</height>
+      <font>arc-small</font><textcolor>subtle</textcolor><align>center</align>
+    </control>
+
     <control type="list" id="110">
-      <left>800</left><top>200</top><width>980</width><height>616</height>
+      <left>840</left><top>160</top><width>960</width><height>900</height>
       <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
-      <scrolltime>150</scrolltime>
-      <itemlayout width="980" height="88">
+      <scrolltime tween="cubic" easing="out">200</scrolltime>
+      <itemlayout height="76" width="960">
+        <!-- A section heading: muted words at the foot of its slot, so it sits over its rows. -->
         <control type="label">
-          <left>0</left><top>0</top><width>980</width><height>30</height>
-          <font>arc-small</font><textcolor>muted</textcolor>
-          <label>$INFO[ListItem.Property(section)]</label>
+          <left>28</left><top>30</top><width>900</width><height>44</height>
+          <font>arc-label</font><textcolor>muted</textcolor><aligny>center</aligny>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>String.IsEqual(ListItem.Property(kind),heading)</visible>
+        </control>
+        <!-- A note under a section: up to two short lines. -->
+        <control type="textbox">
+          <left>28</left><top>4</top><width>900</width><height>68</height>
+          <font>arc-small</font><textcolor>subtle</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>String.IsEqual(ListItem.Property(kind),note)</visible>
+        </control>
+        <!-- A row: a dark pill, its name at the left and its value at the right. -->
+        <control type="image">
+          <left>0</left><top>6</top><width>960</width><height>64</height>
+          <texture border="32" colordiffuse="surface2">arc-pill-white-64.png</texture>
+          <visible>String.IsEqual(ListItem.Property(kind),row)</visible>
         </control>
         <control type="label">
-          <left>36</left><top>30</top><width>600</width><height>56</height>
+          <left>36</left><top>6</top><width>560</width><height>64</height>
           <font>arc-label</font><aligny>center</aligny><textcolor>fg</textcolor>
           <label>$INFO[ListItem.Label]</label>
+          <visible>String.IsEqual(ListItem.Property(kind),row)</visible>
         </control>
         <control type="label">
-          <left>500</left><top>30</top><width>444</width><height>56</height>
+          <left>420</left><top>6</top><width>504</width><height>64</height>
           <font>arc-label</font><aligny>center</aligny><align>right</align><textcolor>muted</textcolor>
           <label>$INFO[ListItem.Label2]</label>
+          <visible>String.IsEqual(ListItem.Property(kind),row)</visible>
         </control>
       </itemlayout>
-      <focusedlayout width="980" height="88">
+      <focusedlayout height="76" width="960">
+        <!-- A section heading: muted words at the foot of its slot, so it sits over its rows. -->
         <control type="label">
-          <left>0</left><top>0</top><width>980</width><height>30</height>
-          <font>arc-small</font><textcolor>muted</textcolor>
-          <label>$INFO[ListItem.Property(section)]</label>
+          <left>28</left><top>30</top><width>900</width><height>44</height>
+          <font>arc-label</font><textcolor>muted</textcolor><aligny>center</aligny>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>String.IsEqual(ListItem.Property(kind),heading)</visible>
+        </control>
+        <!-- A note under a section: up to two short lines. -->
+        <control type="textbox">
+          <left>28</left><top>4</top><width>900</width><height>68</height>
+          <font>arc-small</font><textcolor>subtle</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>String.IsEqual(ListItem.Property(kind),note)</visible>
+        </control>
+        <!-- The focused row: white, black words (dark, as the others, while the list hasn't the focus). -->
+        <control type="image">
+          <left>0</left><top>6</top><width>960</width><height>64</height>
+          <texture border="32" colordiffuse="surface2">arc-pill-white-64.png</texture>
+          <visible>String.IsEqual(ListItem.Property(kind),row) + !Control.HasFocus(110)</visible>
         </control>
         <control type="image">
-          <left>0</left><top>30</top><width>980</width><height>56</height>
-          <texture border="28">arc-pill-white-56.png</texture>
+          <left>0</left><top>6</top><width>960</width><height>64</height>
+          <texture border="32">arc-pill-white-64.png</texture>
+          <visible>String.IsEqual(ListItem.Property(kind),row) + Control.HasFocus(110)</visible>
         </control>
         <control type="label">
-          <left>36</left><top>30</top><width>600</width><height>56</height>
+          <left>36</left><top>6</top><width>560</width><height>64</height>
+          <font>arc-label</font><aligny>center</aligny><textcolor>fg</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>String.IsEqual(ListItem.Property(kind),row) + !Control.HasFocus(110)</visible>
+        </control>
+        <control type="label">
+          <left>36</left><top>6</top><width>560</width><height>64</height>
           <font>arc-label</font><aligny>center</aligny><textcolor>black</textcolor>
           <label>$INFO[ListItem.Label]</label>
+          <visible>String.IsEqual(ListItem.Property(kind),row) + Control.HasFocus(110)</visible>
         </control>
         <control type="label">
-          <left>500</left><top>30</top><width>444</width><height>56</height>
-          <font>arc-label</font><aligny>center</aligny><align>right</align><textcolor>FF3A3A40</textcolor>
+          <left>420</left><top>6</top><width>504</width><height>64</height>
+          <font>arc-label</font><aligny>center</aligny><align>right</align><textcolor>muted</textcolor>
           <label>$INFO[ListItem.Label2]</label>
+          <visible>String.IsEqual(ListItem.Property(kind),row) + !Control.HasFocus(110)</visible>
+        </control>
+        <control type="label">
+          <left>420</left><top>6</top><width>504</width><height>64</height>
+          <font>arc-label</font><aligny>center</aligny><align>right</align><textcolor>on-white-muted</textcolor>
+          <label>$INFO[ListItem.Label2]</label>
+          <visible>String.IsEqual(ListItem.Property(kind),row) + Control.HasFocus(110)</visible>
         </control>
       </focusedlayout>
     </control>
