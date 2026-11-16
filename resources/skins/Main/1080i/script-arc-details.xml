@@ -1544,76 +1544,77 @@
         </control>
       </control>
       <control type="list" id="360">
-        <width>1808</width>
-        <height>380</height>
+        <left>-10</left>
+        <width>1818</width>
+        <height>420</height>
         <visible>Integer.IsGreater(Container(360).NumItems,0)</visible>
         <orientation>horizontal</orientation>
-        <itemgap>20</itemgap>
-        <itemlayout width="430" height="380">
+        <itemgap>0</itemgap>
+        <itemlayout width="440" height="420">
           <control type="image">
-            <left>0</left>
-            <top>0</top>
-            <width>430</width>
-            <height>360</height>
+            <left>10</left>
+            <top>10</top>
+            <width>400</width>
+            <height>330</height>
             <texture border="24">arc-panel.png</texture>
           </control>
           <control type="image">
-            <left>-6</left>
-            <top>-6</top>
-            <width>442</width>
-            <height>372</height>
+            <left>4</left>
+            <top>4</top>
+            <width>412</width>
+            <height>342</height>
             <texture border="26">arc-panel-ring.png</texture>
             <visible>false</visible>
           </control>
           <control type="label">
-            <left>28</left>
-            <top>22</top>
-            <width>374</width>
+            <left>36</left>
+            <top>30</top>
+            <width>348</width>
             <height>40</height>
             <font>font13</font>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="textbox">
-            <left>28</left>
-            <top>70</top>
-            <width>374</width>
-            <height>270</height>
+            <left>36</left>
+            <top>78</top>
+            <width>348</width>
+            <height>246</height>
             <font>font12</font>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Property(body)]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="430" height="380">
+        <focusedlayout width="440" height="420">
           <control type="image">
-            <left>0</left>
-            <top>0</top>
-            <width>430</width>
-            <height>360</height>
+            <left>10</left>
+            <top>10</top>
+            <width>400</width>
+            <height>330</height>
             <texture border="24">arc-panel.png</texture>
           </control>
           <control type="image">
-            <left>-6</left>
-            <top>-6</top>
-            <width>442</width>
-            <height>372</height>
+            <left>4</left>
+            <top>4</top>
+            <width>412</width>
+            <height>342</height>
             <texture border="26">arc-panel-ring.png</texture>
             <visible>Control.HasFocus(360)</visible>
           </control>
           <control type="label">
-            <left>28</left>
-            <top>22</top>
-            <width>374</width>
+            <left>36</left>
+            <top>30</top>
+            <width>348</width>
             <height>40</height>
             <font>font13</font>
             <textcolor>FFF5F5F7</textcolor>
             <label>$INFO[ListItem.Label]</label>
           </control>
           <control type="textbox">
-            <left>28</left>
-            <top>70</top>
-            <width>374</width>
-            <height>270</height>
+            <left>36</left>
+            <top>78</top>
+            <width>348</width>
+            <height>246</height>
             <font>font12</font>
             <textcolor>FFA1A1AD</textcolor>
             <label>$INFO[ListItem.Property(body)]</label>

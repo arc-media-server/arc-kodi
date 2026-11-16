@@ -33,13 +33,21 @@ class App(object):
 
     def run(self):
         try:
-            if not self._ensure_signed_in():
+            while True:
+                if not self._ensure_signed_in():
+                    return
+                if not self._ensure_profile():
+                    return
+                loaded = self._load()
+                if loaded == "change_server":
+                    # From the Server Unavailable screen: forget this server, find another.
+                    self.session.sign_out()
+                    self.session.forget_server()
+                    continue
+                if not loaded:
+                    return
+                self._home()
                 return
-            if not self._ensure_profile():
-                return
-            if not self._load():
-                return
-            self._home()
         finally:
             self._shut_down()
 
@@ -84,19 +92,28 @@ class App(object):
         return True
 
     def _load(self):
-        try:
-            self.session.refresh()
-            return True
-        except Unreachable:
-            xbmcgui.Dialog().notification("Arc", T(30004))
-            return False
-        except APIError as e:
-            if e.status in (401, 403):
-                # the token or profile is no longer valid; sign in again
-                self.session.forget_profile()
-                return self._ensure_profile() and self._load()
-            xbmcgui.Dialog().notification("Arc", e.message)
-            return False
+        """Loads the profile's state from Arc. If Arc can't be reached (off, asleep, restarting),
+        the Server Unavailable screen waits for it rather than the add-on closing. Returns True
+        once loaded, "change_server", or False to leave."""
+        while True:
+            try:
+                self.session.refresh()
+                return True
+            except Unreachable:
+                log.warning("Arc can't be reached at start-up")
+                result = signin.UnavailableWindow.open(self.session)
+                if result == "retry":
+                    continue
+                return "change_server" if result == "change_server" else False
+            except APIError as e:
+                if e.status in (401, 403):
+                    # the token or profile is no longer valid; sign in again
+                    self.session.forget_profile()
+                    if not self._ensure_profile():
+                        return False
+                    continue
+                xbmcgui.Dialog().notification("Arc", e.message)
+                return False
 
     # MARK: - home + navigation
 
