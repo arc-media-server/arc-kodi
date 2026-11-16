@@ -48,6 +48,15 @@ def watched(item):
     return bool(user_data(item).get("played"))
 
 
+def spoiler_hidden(prefs, item):
+    """With the profile's Hide Spoilers on, whether an episode's still and description are kept
+    back: an episode the profile hasn't started (as the web's spoiler guard)."""
+    if not (prefs or {}).get("hide_spoilers") or not is_episode(item):
+        return False
+    ud = user_data(item)
+    return not ud.get("played") and not ud.get("position_ms")
+
+
 def watchlisted(item):
     return bool(user_data(item).get("watchlisted"))
 

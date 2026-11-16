@@ -68,3 +68,18 @@ def test_recent_season_card_identity():
     assert c["id"] == "season:sh1:2:123"
     assert c["new_episodes"] == 3
     assert c["season_poster"] == "/s2.jpg"
+
+
+def test_spoilers():
+    from arc import models
+    ep = {"id": "e", "kind": "episode", "images": {"primary": "/still", "series_backdrop": "/show"}}
+    on = {"hide_spoilers": True}
+    assert models.spoiler_hidden(on, ep)
+    assert not models.spoiler_hidden({}, ep)
+    assert not models.spoiler_hidden(on, dict(ep, user_data={"position_ms": 1000}))   # started
+    assert not models.spoiler_hidden(on, dict(ep, user_data={"played": True}))
+    assert not models.spoiler_hidden(on, {"kind": "movie"})
+    c = home.without_spoilers(home.card(ep))
+    assert c["thumb"] == "/show" and c["show_art"]
+    bare = home.without_spoilers(home.card(dict(ep, images={"primary": "/still"})))
+    assert bare["thumb"] is None and home.card_art(bare, home.THUMB) is None
