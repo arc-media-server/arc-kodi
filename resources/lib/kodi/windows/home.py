@@ -44,6 +44,7 @@ ACTION_UP, ACTION_DOWN = 3, 4
 
 class HomeWindow(ArcWindow):
     xml = "script-arc-home.xml"
+    ABOVE_ROWS = None   # a control above the rows that Up from the first row goes to
 
     def __init__(self, *args, **kwargs):
         ArcWindow.__init__(self, *args, **kwargs)
@@ -349,6 +350,12 @@ class HomeWindow(ArcWindow):
                     self._update_hero(i)
                     break
                 i += step
+            else:
+                if code == ACTION_UP and self.ABOVE_ROWS is not None:
+                    # Up from the first row: to what's above the rows (a library's tabs). Kodi
+                    # won't move there out of a row's group by itself.
+                    self._row = None
+                    self.focus_id(self.ABOVE_ROWS)
             return True
         if code in MOVE_ACTIONS:
             # Kodi has already moved the focus; the background follows it.
