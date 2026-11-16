@@ -92,6 +92,15 @@ def test_unplaced_episodes_have_no_code():
     assert titlepage.episode_label({"season_number": 0, "episode_number": 0, "title": "Trash"}) == "Trash"
 
 
+def test_previous_episode():
+    eps = [{"id": "a"}, {"id": "b", "available": False}, {"id": "c"}, {"id": "d"}]
+    assert titlepage.previous_episode(eps, "d")["id"] == "c"
+    assert titlepage.previous_episode(eps, "c") is None      # the one before isn't on disk
+    assert titlepage.previous_episode(eps, "a") is None
+    assert titlepage.previous_episode(eps, "zz") is None
+    assert titlepage.previous_episode(None, "a") is None
+
+
 def test_season_actions():
     from arc import models
     unwatched = {"season_number": 1, "episodes": [
