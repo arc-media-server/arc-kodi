@@ -184,6 +184,17 @@ def with_show_art(c):
     return c
 
 
+def without_spoilers(c):
+    """The card of an episode the profile hasn't started, with Hide Spoilers on: its show's
+    picture in place of the episode's still (as the web's), or none when the show has none."""
+    if models.images(c["item"]).get("series_backdrop"):
+        return with_show_art(c)
+    c = dict(c)
+    c["thumb"] = None
+    c["show_art"] = True
+    return c
+
+
 def card_art(c, style, season_posters=False):
     """The picture a card of `style` shows."""
     if style == POSTER:

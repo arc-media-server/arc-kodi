@@ -1153,7 +1153,7 @@ msgid "Top"
 msgstr ""
 
 msgctxt "#30410"
-msgid "These follow your profile on every device. Kodi doesn't hide spoilers yet."
+msgid "These follow your profile on every device."
 msgstr ""
 
 msgctxt "#30411"
@@ -1190,6 +1190,10 @@ msgstr ""
 
 msgctxt "#30433"
 msgid "Arc couldn't mark this season. Try again in a moment."
+msgstr ""
+
+msgctxt "#30440"
+msgid "Description hidden until you watch it."
 msgstr ""
 
 msgctxt "#30441"
