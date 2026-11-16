@@ -54,5 +54,6 @@
         <label>$ADDON[script.arc 30311]</label>
       </control>
     </control>
+    <include>ArcToast</include>
   </controls>
 </window>

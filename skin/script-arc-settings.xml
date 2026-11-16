@@ -135,5 +135,6 @@
         </control>
       </focusedlayout>
     </control>
+    <include>ArcToast</include>
   </controls>
 </window>

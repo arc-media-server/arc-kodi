@@ -87,5 +87,6 @@
         <include content="BackdropRow"><param name="title" value="3912"/><param name="list" value="3812"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
     </control>
 
+    <include>ArcToast</include>
   </controls>
 </window>
