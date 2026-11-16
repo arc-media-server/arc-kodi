@@ -38,5 +38,6 @@
         <font>arc-small</font><textcolor>subtle</textcolor><align>center</align>
       </control>
     </control>
+    <include>ArcToast</include>
   </controls>
 </window>

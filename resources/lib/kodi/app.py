@@ -7,6 +7,7 @@ import xbmcgui
 from arc import menus, models, titlepage
 from arc.api import APIError, Unreachable
 
+from . import toast
 from . import log as logmod
 from .compat import T
 from .log import log
@@ -56,6 +57,7 @@ class App(object):
         """Ends what still runs when the add-on closes: playback, then the artwork proxy's server.
         Kodi waits for an add-on's threads before it ends it, so the proxy left running kept the
         add-on alive after Back, and Kodi killed it at exit."""
+        toast.close()
         self.live.stop()
         self.together.leave()
         if self.playback is not None:
@@ -113,7 +115,7 @@ class App(object):
                     if not self._ensure_profile():
                         return False
                     continue
-                xbmcgui.Dialog().notification("Arc", e.message)
+                toast.show(e.message)
                 return False
 
     # MARK: - home + navigation
@@ -203,11 +205,11 @@ class App(object):
             queue = PlayQueue.create(self.session.api, item_ids=item_ids, playlist_id=playlist_id, shuffle=shuffle)
         except Exception as e:
             log.warning("play queue failed: %s", type(e).__name__)
-            xbmcgui.Dialog().notification("Arc", T(30289))
+            toast.show(T(30289))
             return
         first = queue.current_item()
         if not first:
-            xbmcgui.Dialog().notification("Arc", T(30289))
+            toast.show(T(30289))
             return
         log.info("playing a queue of %d (%s)", len(queue.entries), "shuffled" if shuffle else "in order")
         self._play(first, 0, queue=queue)
@@ -322,7 +324,7 @@ class App(object):
                 api.remove_from_continue(item.get("id"))
         except Exception as e:
             log.warning("card action %s failed: %s", act, type(e).__name__)
-            xbmcgui.Dialog().notification("Arc", T(30179))
+            toast.show(T(30179))
             return
         log.debug("card action done: %s", act)
         ud = item.setdefault("user_data", {})
@@ -471,7 +473,7 @@ class App(object):
         except Exception:
             playlists = []
         if not playlists:
-            xbmcgui.Dialog().notification("Arc", T(30106))
+            toast.show(T(30106))
             return
         names = [p.get("title") or p.get("name", "") for p in playlists]
         choice = menu.choose(T(30083), names)

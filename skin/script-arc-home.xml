@@ -78,5 +78,6 @@
     </control>
 
     <include>Sidebar</include>
+    <include>ArcToast</include>
   </controls>
 </window>
