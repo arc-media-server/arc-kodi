@@ -1203,3 +1203,19 @@ msgstr ""
 msgctxt "#30442"
 msgid "Choose Version"
 msgstr ""
+
+msgctxt "#30450"
+msgid "Shift"
+msgstr ""
+
+msgctxt "#30451"
+msgid "123"
+msgstr ""
+
+msgctxt "#30452"
+msgid "ABC"
+msgstr ""
+
+msgctxt "#30453"
+msgid "Done"
+msgstr ""

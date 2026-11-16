@@ -11,6 +11,7 @@ from arc.api import ArcAPI, APIError, Unreachable, normalise_address
 
 from ..compat import T
 from ..log import log
+from . import keyboard
 from . import pin as pin_pad
 from .base import ArcWindow, list_item
 
@@ -40,7 +41,7 @@ class ConnectWindow(ArcWindow):
                 self._connect()
 
     def _type_address(self):
-        typed = (xbmcgui.Dialog().input(T(30020), self.address) or "").strip()
+        typed = (keyboard.type_text(T(30020), self.address, kind="address") or "").strip()
         if typed:
             self.address = typed
             self.set_label(self.ADDRESS, typed)
@@ -199,7 +200,7 @@ class SignInWindow(ArcWindow):
     def _password(self):
         """Signs in with the household password (POST /auth/login), for a keyboard; the code
         keeps working meanwhile. The password goes to Arc and nowhere else: not stored or logged."""
-        password = xbmcgui.Dialog().input(T(30312), option=xbmcgui.ALPHANUM_HIDE_INPUT)
+        password = keyboard.type_text(T(30312), kind="password")
         if not password:
             return
         self.set_text(self.STATUS, T(30314))
