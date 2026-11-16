@@ -1176,6 +1176,22 @@ msgctxt "#30422"
 msgid "Still no answer. Trying again every 15 seconds…"
 msgstr ""
 
+msgctxt "#30430"
+msgid "Mark Season as Watched"
+msgstr ""
+
+msgctxt "#30431"
+msgid "Mark Season as Unwatched"
+msgstr ""
+
+msgctxt "#30432"
+msgid "Shuffle Season"
+msgstr ""
+
+msgctxt "#30433"
+msgid "Arc couldn't mark this season. Try again in a moment."
+msgstr ""
+
 msgctxt "#30440"
 msgid "Description hidden until you watch it."
 msgstr ""

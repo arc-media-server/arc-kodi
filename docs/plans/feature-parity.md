@@ -55,6 +55,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Episode browser rises over the hero (reference look) | Apple | Part | Yes | The page scrolls the hero up as focus moves down; no separate sheet. |
 | Upcoming episodes dimmed with "Releases 8 Nov" | Apple | Done | Yes | |
 | "Not in This Order": episodes the order doesn't place (`unplaced`), after the seasons, without numbers | Web, Roku, TV | Done | Yes | A last season tab; Play/Resume/Up Next follow the order. |
+| A season's menu: Mark Season as Watched / Unwatched, Shuffle Season | Android, TV | Done | Yes | OK or Context Menu on a season tab, as the Android app's; none on Not in This Order. |
 | About, Details, Crew and Playback cards | Both | Done | Yes | |
 | Cast & Crew row (opens the person) | Both | Done | Yes | Opens their page. |
 | Related / More like this | Both | Done | Yes | |
@@ -74,7 +75,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Timeline thumbnails while skipping | Both | Done | Yes | From Arc's BIF, served frame by frame by the local proxy. |
 | Tabs: Info, Chapters, Cast, Episodes | Apple | Part | Yes | Chapters and Episodes are lists in the Playback menu; the overview shows when paused; no Cast in the player. |
 | Audio menu | Both | Done | Yes | Kodi switches tracks itself in a file played as it is. |
-| Subtitles menu (in the file, beside it, picture subtitles burnt in when converted) | Both | Done | Yes | |
+| Subtitles menu (in the file, beside it, picture subtitles burnt in when converted) | Both | Done | Yes | Played as they are, PGS and VobSub are drawn by Kodi itself; Arc burns them in only in a converted stream. |
 | Subtitles chosen by the profile's mode and language | Both | Done | Yes | |
 | Quality and Version menus | Both | Done | Yes | |
 | Playback speed | Android | Done | Part | Kodi's tempo, 0.8x to 1.5x, shown where Kodi allows it; not yet tried on hardware. |
