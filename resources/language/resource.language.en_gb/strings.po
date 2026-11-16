@@ -1069,3 +1069,95 @@ msgstr ""
 msgctxt "#30384"
 msgid "%s earlier"
 msgstr ""
+
+msgctxt "#30390"
+msgid "Hide Spoilers"
+msgstr ""
+
+msgctxt "#30391"
+msgid "Preferred Audio Language"
+msgstr ""
+
+msgctxt "#30392"
+msgid "The file's default"
+msgstr ""
+
+msgctxt "#30393"
+msgid "Show Subtitles"
+msgstr ""
+
+msgctxt "#30394"
+msgid "Subtitle Language"
+msgstr ""
+
+msgctxt "#30395"
+msgid "Size"
+msgstr ""
+
+msgctxt "#30396"
+msgid "Colour"
+msgstr ""
+
+msgctxt "#30397"
+msgid "Background"
+msgstr ""
+
+msgctxt "#30398"
+msgid "Position"
+msgstr ""
+
+msgctxt "#30399"
+msgid "Small"
+msgstr ""
+
+msgctxt "#30400"
+msgid "Medium"
+msgstr ""
+
+msgctxt "#30401"
+msgid "Large"
+msgstr ""
+
+msgctxt "#30402"
+msgid "Huge"
+msgstr ""
+
+msgctxt "#30403"
+msgid "White"
+msgstr ""
+
+msgctxt "#30404"
+msgid "Yellow"
+msgstr ""
+
+msgctxt "#30405"
+msgid "Shaded box"
+msgstr ""
+
+msgctxt "#30406"
+msgid "Solid black"
+msgstr ""
+
+msgctxt "#30407"
+msgid "Outline only"
+msgstr ""
+
+msgctxt "#30408"
+msgid "Bottom"
+msgstr ""
+
+msgctxt "#30409"
+msgid "Top"
+msgstr ""
+
+msgctxt "#30410"
+msgid "These follow your profile on every device. Kodi doesn't hide spoilers yet."
+msgstr ""
+
+msgctxt "#30411"
+msgid "Kodi shows subtitles in its own style; size, colour, background and position apply in Arc's other apps."
+msgstr ""
+
+msgctxt "#30412"
+msgid "Arc for Kodi %s"
+msgstr ""

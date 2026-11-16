@@ -540,973 +540,1008 @@
           </control>
         </focusedlayout>
       </control>
-      <control type="list" id="201">
-        <width>1808</width>
-        <height>350</height>
+      <control type="group">
+        <defaultcontrol always="true">201</defaultcontrol>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(201).NumItems,0)</visible>
-        <orientation>horizontal</orientation>
-        <itemgap>8</itemgap>
-        <scrolltime tween="cubic" easing="out">220</scrolltime>
-        <itemlayout width="488" height="350">
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>464</width>
-            <height>261</height>
-            <texture>arc-mask-thumb.png</texture>
-            <colordiffuse>FF26272D</colordiffuse>
-          </control>
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>464</width>
-            <height>261</height>
-            <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
-          </control>
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>464</width>
-            <height>261</height>
-            <texture>arc-mask-thumb.png</texture>
-            <colordiffuse>B3000000</colordiffuse>
-            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
-          </control>
-          <control type="image">
-            <left>20</left>
-            <top>20</top>
-            <width>230</width>
-            <height>44</height>
-            <texture border="22">arc-pill-white-56.png</texture>
-            <colordiffuse>A6000000</colordiffuse>
-            <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
-          </control>
-          <control type="label">
-            <left>20</left>
-            <top>20</top>
-            <width>230</width>
-            <height>44</height>
-            <font>font12</font>
-            <textcolor>FFF5F5F7</textcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <label>$INFO[ListItem.Property(tag)]</label>
-            <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
-          </control>
-          <control type="image">
-            <left>2</left>
-            <top>2</top>
-            <width>476</width>
-            <height>273</height>
-            <texture>arc-ring-thumb.png</texture>
-            <visible>false</visible>
-          </control>
-          <control type="progress">
-            <left>20</left>
-            <top>250</top>
-            <width>440</width>
-            <height>8</height>
-            <texturebg border="4">arc-bar-bg.png</texturebg>
-            <midtexture border="4">arc-bar-fg.png</midtexture>
-            <info>ListItem.PercentPlayed</info>
-            <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>278</top>
-            <width>464</width>
-            <height>34</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FFA1A1AD</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>310</top>
-            <width>464</width>
-            <height>30</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FF6B6B78</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </itemlayout>
-        <focusedlayout width="488" height="350">
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>464</width>
-            <height>261</height>
-            <texture>arc-mask-thumb.png</texture>
-            <colordiffuse>FF26272D</colordiffuse>
-          </control>
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>464</width>
-            <height>261</height>
-            <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
-          </control>
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>464</width>
-            <height>261</height>
-            <texture>arc-mask-thumb.png</texture>
-            <colordiffuse>B3000000</colordiffuse>
-            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
-          </control>
-          <control type="image">
-            <left>20</left>
-            <top>20</top>
-            <width>230</width>
-            <height>44</height>
-            <texture border="22">arc-pill-white-56.png</texture>
-            <colordiffuse>A6000000</colordiffuse>
-            <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
-          </control>
-          <control type="label">
-            <left>20</left>
-            <top>20</top>
-            <width>230</width>
-            <height>44</height>
-            <font>font12</font>
-            <textcolor>FFF5F5F7</textcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <label>$INFO[ListItem.Property(tag)]</label>
-            <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
-          </control>
-          <control type="image">
-            <left>2</left>
-            <top>2</top>
-            <width>476</width>
-            <height>273</height>
-            <texture>arc-ring-thumb.png</texture>
-            <visible>Control.HasFocus(201)</visible>
-          </control>
-          <control type="progress">
-            <left>20</left>
-            <top>250</top>
-            <width>440</width>
-            <height>8</height>
-            <texturebg border="4">arc-bar-bg.png</texturebg>
-            <midtexture border="4">arc-bar-fg.png</midtexture>
-            <info>ListItem.PercentPlayed</info>
-            <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>278</top>
-            <width>464</width>
-            <height>34</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FFF5F5F7</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>310</top>
-            <width>464</width>
-            <height>30</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FF6B6B78</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </focusedlayout>
+        <control type="list" id="201">
+          <top>0</top>
+          <width>1808</width>
+          <height>350</height>
+          <visible>Integer.IsGreater(Container(201).NumItems,0)</visible>
+          <orientation>horizontal</orientation>
+          <itemgap>8</itemgap>
+          <scrolltime tween="cubic" easing="out">220</scrolltime>
+          <itemlayout width="488" height="350">
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>464</width>
+              <height>261</height>
+              <texture>arc-mask-thumb.png</texture>
+              <colordiffuse>FF26272D</colordiffuse>
+            </control>
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>464</width>
+              <height>261</height>
+              <aspectratio>scale</aspectratio>
+              <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+            </control>
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>464</width>
+              <height>261</height>
+              <texture>arc-mask-thumb.png</texture>
+              <colordiffuse>B3000000</colordiffuse>
+              <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+            </control>
+            <control type="image">
+              <left>20</left>
+              <top>20</top>
+              <width>230</width>
+              <height>44</height>
+              <texture border="22">arc-pill-white-56.png</texture>
+              <colordiffuse>A6000000</colordiffuse>
+              <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+            </control>
+            <control type="label">
+              <left>20</left>
+              <top>20</top>
+              <width>230</width>
+              <height>44</height>
+              <font>font12</font>
+              <textcolor>FFF5F5F7</textcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <label>$INFO[ListItem.Property(tag)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+            </control>
+            <control type="image">
+              <left>2</left>
+              <top>2</top>
+              <width>476</width>
+              <height>273</height>
+              <texture>arc-ring-thumb.png</texture>
+              <visible>false</visible>
+            </control>
+            <control type="progress">
+              <left>20</left>
+              <top>250</top>
+              <width>440</width>
+              <height>8</height>
+              <texturebg border="4">arc-bar-bg.png</texturebg>
+              <midtexture border="4">arc-bar-fg.png</midtexture>
+              <info>ListItem.PercentPlayed</info>
+              <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>278</top>
+              <width>464</width>
+              <height>34</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FFA1A1AD</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>310</top>
+              <width>464</width>
+              <height>30</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </itemlayout>
+          <focusedlayout width="488" height="350">
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>464</width>
+              <height>261</height>
+              <texture>arc-mask-thumb.png</texture>
+              <colordiffuse>FF26272D</colordiffuse>
+            </control>
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>464</width>
+              <height>261</height>
+              <aspectratio>scale</aspectratio>
+              <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+            </control>
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>464</width>
+              <height>261</height>
+              <texture>arc-mask-thumb.png</texture>
+              <colordiffuse>B3000000</colordiffuse>
+              <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+            </control>
+            <control type="image">
+              <left>20</left>
+              <top>20</top>
+              <width>230</width>
+              <height>44</height>
+              <texture border="22">arc-pill-white-56.png</texture>
+              <colordiffuse>A6000000</colordiffuse>
+              <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+            </control>
+            <control type="label">
+              <left>20</left>
+              <top>20</top>
+              <width>230</width>
+              <height>44</height>
+              <font>font12</font>
+              <textcolor>FFF5F5F7</textcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <label>$INFO[ListItem.Property(tag)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+            </control>
+            <control type="image">
+              <left>2</left>
+              <top>2</top>
+              <width>476</width>
+              <height>273</height>
+              <texture>arc-ring-thumb.png</texture>
+              <visible>Control.HasFocus(201)</visible>
+            </control>
+            <control type="progress">
+              <left>20</left>
+              <top>250</top>
+              <width>440</width>
+              <height>8</height>
+              <texturebg border="4">arc-bar-bg.png</texturebg>
+              <midtexture border="4">arc-bar-fg.png</midtexture>
+              <info>ListItem.PercentPlayed</info>
+              <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>278</top>
+              <width>464</width>
+              <height>34</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FFF5F5F7</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>310</top>
+              <width>464</width>
+              <height>30</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </focusedlayout>
+        </control>
+        <control type="textbox" id="202">
+          <left>8</left>
+          <top>360</top>
+          <width>1400</width>
+          <height>114</height>
+          <font>font12</font>
+          <textcolor>DDF5F5F7</textcolor>
+          <shadowcolor>CC000000</shadowcolor>
+          <label>$INFO[Container(201).ListItem.Property(overview)]</label>
+          <visible>Control.HasFocus(201) + !String.IsEmpty(Container(201).ListItem.Property(overview))</visible>
+        </control>
       </control>
-      <control type="textbox" id="202">
-        <left>8</left>
-        <width>1400</width>
-        <height>80</height>
-        <font>font12</font>
-        <textcolor>DDF5F5F7</textcolor>
-        <shadowcolor>CC000000</shadowcolor>
-        <label>$INFO[Container(201).ListItem.Property(overview)]</label>
-        <visible>Control.HasFocus(201) + !String.IsEmpty(Container(201).ListItem.Property(overview))</visible>
-      </control>
-      <control type="label" id="331">
-        <left>8</left>
-        <width>1500</width>
-        <height>50</height>
-        <font>font32_title</font>
-        <textcolor>FFF5F5F7</textcolor>
-        <shadowcolor>CC000000</shadowcolor>
+      <control type="group">
+        <defaultcontrol always="true">330</defaultcontrol>
+        <height>364</height>
         <visible>Integer.IsGreater(Container(330).NumItems,0)</visible>
+        <control type="label" id="331">
+          <left>8</left>
+          <top>0</top>
+          <width>1500</width>
+          <height>50</height>
+          <font>font32_title</font>
+          <textcolor>FFF5F5F7</textcolor>
+          <shadowcolor>CC000000</shadowcolor>
+          <visible>Integer.IsGreater(Container(330).NumItems,0)</visible>
+        </control>
+        <control type="list" id="330">
+          <top>74</top>
+          <width>1808</width>
+          <height>290</height>
+          <visible>Integer.IsGreater(Container(330).NumItems,0)</visible>
+          <orientation>horizontal</orientation>
+          <itemgap>12</itemgap>
+          <scrolltime tween="cubic" easing="out">220</scrolltime>
+          <itemlayout width="200" height="290">
+            <control type="image">
+              <left>20</left>
+              <top>10</top>
+              <width>160</width>
+              <height>160</height>
+              <texture>arc-mask-face.png</texture>
+              <colordiffuse>FF26272D</colordiffuse>
+            </control>
+            <control type="label">
+              <left>20</left>
+              <top>10</top>
+              <width>160</width>
+              <height>160</height>
+              <font>font52_title</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>FFA1A1AD</textcolor>
+              <label>$INFO[ListItem.Property(initials)]</label>
+            </control>
+            <control type="image">
+              <left>20</left>
+              <top>10</top>
+              <width>160</width>
+              <height>240</height>
+              <aspectratio>scale</aspectratio>
+              <texture background="true" diffuse="arc-mask-face-portrait.png">$INFO[ListItem.Art(thumb)]</texture>
+            </control>
+            <control type="image">
+              <left>14</left>
+              <top>4</top>
+              <width>172</width>
+              <height>172</height>
+              <texture>arc-ring-face.png</texture>
+              <visible>false</visible>
+            </control>
+            <control type="label">
+              <left>0</left>
+              <top>186</top>
+              <width>200</width>
+              <height>34</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FFA1A1AD</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>0</left>
+              <top>218</top>
+              <width>200</width>
+              <height>30</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </itemlayout>
+          <focusedlayout width="200" height="290">
+            <control type="image">
+              <left>20</left>
+              <top>10</top>
+              <width>160</width>
+              <height>160</height>
+              <texture>arc-mask-face.png</texture>
+              <colordiffuse>FF26272D</colordiffuse>
+            </control>
+            <control type="label">
+              <left>20</left>
+              <top>10</top>
+              <width>160</width>
+              <height>160</height>
+              <font>font52_title</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>FFA1A1AD</textcolor>
+              <label>$INFO[ListItem.Property(initials)]</label>
+            </control>
+            <control type="image">
+              <left>20</left>
+              <top>10</top>
+              <width>160</width>
+              <height>240</height>
+              <aspectratio>scale</aspectratio>
+              <texture background="true" diffuse="arc-mask-face-portrait.png">$INFO[ListItem.Art(thumb)]</texture>
+            </control>
+            <control type="image">
+              <left>14</left>
+              <top>4</top>
+              <width>172</width>
+              <height>172</height>
+              <texture>arc-ring-face.png</texture>
+              <visible>Control.HasFocus(330)</visible>
+            </control>
+            <control type="label">
+              <left>0</left>
+              <top>186</top>
+              <width>200</width>
+              <height>34</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FFF5F5F7</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>0</left>
+              <top>218</top>
+              <width>200</width>
+              <height>30</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </focusedlayout>
+        </control>
       </control>
-      <control type="list" id="330">
-        <width>1808</width>
-        <height>290</height>
-        <visible>Integer.IsGreater(Container(330).NumItems,0)</visible>
-        <orientation>horizontal</orientation>
-        <itemgap>12</itemgap>
-        <scrolltime tween="cubic" easing="out">220</scrolltime>
-        <itemlayout width="200" height="290">
-          <control type="image">
-            <left>20</left>
-            <top>10</top>
-            <width>160</width>
-            <height>160</height>
-            <texture>arc-mask-face.png</texture>
-            <colordiffuse>FF26272D</colordiffuse>
-          </control>
-          <control type="label">
-            <left>20</left>
-            <top>10</top>
-            <width>160</width>
-            <height>160</height>
-            <font>font52_title</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textcolor>FFA1A1AD</textcolor>
-            <label>$INFO[ListItem.Property(initials)]</label>
-          </control>
-          <control type="image">
-            <left>20</left>
-            <top>10</top>
-            <width>160</width>
-            <height>240</height>
-            <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-face-portrait.png">$INFO[ListItem.Art(thumb)]</texture>
-          </control>
-          <control type="image">
-            <left>14</left>
-            <top>4</top>
-            <width>172</width>
-            <height>172</height>
-            <texture>arc-ring-face.png</texture>
-            <visible>false</visible>
-          </control>
-          <control type="label">
-            <left>0</left>
-            <top>186</top>
-            <width>200</width>
-            <height>34</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FFA1A1AD</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>0</left>
-            <top>218</top>
-            <width>200</width>
-            <height>30</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FF6B6B78</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </itemlayout>
-        <focusedlayout width="200" height="290">
-          <control type="image">
-            <left>20</left>
-            <top>10</top>
-            <width>160</width>
-            <height>160</height>
-            <texture>arc-mask-face.png</texture>
-            <colordiffuse>FF26272D</colordiffuse>
-          </control>
-          <control type="label">
-            <left>20</left>
-            <top>10</top>
-            <width>160</width>
-            <height>160</height>
-            <font>font52_title</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textcolor>FFA1A1AD</textcolor>
-            <label>$INFO[ListItem.Property(initials)]</label>
-          </control>
-          <control type="image">
-            <left>20</left>
-            <top>10</top>
-            <width>160</width>
-            <height>240</height>
-            <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-face-portrait.png">$INFO[ListItem.Art(thumb)]</texture>
-          </control>
-          <control type="image">
-            <left>14</left>
-            <top>4</top>
-            <width>172</width>
-            <height>172</height>
-            <texture>arc-ring-face.png</texture>
-            <visible>Control.HasFocus(330)</visible>
-          </control>
-          <control type="label">
-            <left>0</left>
-            <top>186</top>
-            <width>200</width>
-            <height>34</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FFF5F5F7</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>0</left>
-            <top>218</top>
-            <width>200</width>
-            <height>30</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FF6B6B78</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </focusedlayout>
-      </control>
-      <control type="label" id="351">
-        <left>8</left>
-        <width>1500</width>
-        <height>50</height>
-        <font>font32_title</font>
-        <shadowcolor>99000000</shadowcolor>
-        <textcolor>FFF5F5F7</textcolor>
+      <control type="group">
+        <defaultcontrol always="true">350</defaultcontrol>
+        <height>530</height>
         <visible>Integer.IsGreater(Container(350).NumItems,0)</visible>
+        <control type="label" id="351">
+          <left>8</left>
+          <top>0</top>
+          <width>1500</width>
+          <height>50</height>
+          <font>font32_title</font>
+          <shadowcolor>99000000</shadowcolor>
+          <textcolor>FFF5F5F7</textcolor>
+          <visible>Integer.IsGreater(Container(350).NumItems,0)</visible>
+        </control>
+        <control type="list" id="350">
+          <top>80</top>
+          <width>1808</width>
+          <height>450</height>
+          <visible>Integer.IsGreater(Container(350).NumItems,0)</visible>
+          <orientation>horizontal</orientation>
+          <itemgap>8</itemgap>
+          <scrolltime tween="cubic" easing="out">220</scrolltime>
+          <preloaditems>2</preloaditems>
+          <onleft />
+          <itemlayout width="488" height="450">
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>464</width>
+              <height>261</height>
+              <texture>arc-mask-thumb.png</texture>
+              <colordiffuse>FF26272D</colordiffuse>
+            </control>
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>464</width>
+              <height>261</height>
+              <aspectratio>scale</aspectratio>
+              <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+            </control>
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>464</width>
+              <height>261</height>
+              <texture>arc-mask-thumb.png</texture>
+              <colordiffuse>B3000000</colordiffuse>
+              <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+            </control>
+            <control type="image">
+              <left>20</left>
+              <top>20</top>
+              <width>230</width>
+              <height>44</height>
+              <texture border="22">arc-pill-white-56.png</texture>
+              <colordiffuse>A6000000</colordiffuse>
+              <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+            </control>
+            <control type="label">
+              <left>20</left>
+              <top>20</top>
+              <width>230</width>
+              <height>44</height>
+              <font>font12</font>
+              <textcolor>FFF5F5F7</textcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <label>$INFO[ListItem.Property(tag)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+            </control>
+            <control type="image">
+              <left>2</left>
+              <top>2</top>
+              <width>476</width>
+              <height>273</height>
+              <texture>arc-ring-thumb.png</texture>
+              <visible>false</visible>
+            </control>
+            <control type="progress">
+              <left>20</left>
+              <top>250</top>
+              <width>440</width>
+              <height>8</height>
+              <texturebg border="4">arc-bar-bg.png</texturebg>
+              <midtexture border="4">arc-bar-fg.png</midtexture>
+              <info>ListItem.PercentPlayed</info>
+              <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>278</top>
+              <width>464</width>
+              <height>34</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FFA1A1AD</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>310</top>
+              <width>464</width>
+              <height>30</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </itemlayout>
+          <focusedlayout width="488" height="450">
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>464</width>
+              <height>261</height>
+              <texture>arc-mask-thumb.png</texture>
+              <colordiffuse>FF26272D</colordiffuse>
+            </control>
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>464</width>
+              <height>261</height>
+              <aspectratio>scale</aspectratio>
+              <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+            </control>
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>464</width>
+              <height>261</height>
+              <texture>arc-mask-thumb.png</texture>
+              <colordiffuse>B3000000</colordiffuse>
+              <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+            </control>
+            <control type="image">
+              <left>20</left>
+              <top>20</top>
+              <width>230</width>
+              <height>44</height>
+              <texture border="22">arc-pill-white-56.png</texture>
+              <colordiffuse>A6000000</colordiffuse>
+              <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+            </control>
+            <control type="label">
+              <left>20</left>
+              <top>20</top>
+              <width>230</width>
+              <height>44</height>
+              <font>font12</font>
+              <textcolor>FFF5F5F7</textcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <label>$INFO[ListItem.Property(tag)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+            </control>
+            <control type="image">
+              <left>2</left>
+              <top>2</top>
+              <width>476</width>
+              <height>273</height>
+              <texture>arc-ring-thumb.png</texture>
+              <visible>Control.HasFocus(350)</visible>
+            </control>
+            <control type="progress">
+              <left>20</left>
+              <top>250</top>
+              <width>440</width>
+              <height>8</height>
+              <texturebg border="4">arc-bar-bg.png</texturebg>
+              <midtexture border="4">arc-bar-fg.png</midtexture>
+              <info>ListItem.PercentPlayed</info>
+              <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>278</top>
+              <width>464</width>
+              <height>34</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FFF5F5F7</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>310</top>
+              <width>464</width>
+              <height>30</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </focusedlayout>
+        </control>
       </control>
-      <control type="list" id="350">
-        <width>1808</width>
-        <height>450</height>
-        <visible>Integer.IsGreater(Container(350).NumItems,0)</visible>
-        <orientation>horizontal</orientation>
-        <itemgap>8</itemgap>
-        <scrolltime tween="cubic" easing="out">220</scrolltime>
-        <preloaditems>2</preloaditems>
-        <onleft />
-        <itemlayout width="488" height="450">
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>464</width>
-            <height>261</height>
-            <texture>arc-mask-thumb.png</texture>
-            <colordiffuse>FF26272D</colordiffuse>
-          </control>
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>464</width>
-            <height>261</height>
-            <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
-          </control>
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>464</width>
-            <height>261</height>
-            <texture>arc-mask-thumb.png</texture>
-            <colordiffuse>B3000000</colordiffuse>
-            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
-          </control>
-          <control type="image">
-            <left>20</left>
-            <top>20</top>
-            <width>230</width>
-            <height>44</height>
-            <texture border="22">arc-pill-white-56.png</texture>
-            <colordiffuse>A6000000</colordiffuse>
-            <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
-          </control>
-          <control type="label">
-            <left>20</left>
-            <top>20</top>
-            <width>230</width>
-            <height>44</height>
-            <font>font12</font>
-            <textcolor>FFF5F5F7</textcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <label>$INFO[ListItem.Property(tag)]</label>
-            <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
-          </control>
-          <control type="image">
-            <left>2</left>
-            <top>2</top>
-            <width>476</width>
-            <height>273</height>
-            <texture>arc-ring-thumb.png</texture>
-            <visible>false</visible>
-          </control>
-          <control type="progress">
-            <left>20</left>
-            <top>250</top>
-            <width>440</width>
-            <height>8</height>
-            <texturebg border="4">arc-bar-bg.png</texturebg>
-            <midtexture border="4">arc-bar-fg.png</midtexture>
-            <info>ListItem.PercentPlayed</info>
-            <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>278</top>
-            <width>464</width>
-            <height>34</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FFA1A1AD</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>310</top>
-            <width>464</width>
-            <height>30</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FF6B6B78</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </itemlayout>
-        <focusedlayout width="488" height="450">
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>464</width>
-            <height>261</height>
-            <texture>arc-mask-thumb.png</texture>
-            <colordiffuse>FF26272D</colordiffuse>
-          </control>
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>464</width>
-            <height>261</height>
-            <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
-          </control>
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>464</width>
-            <height>261</height>
-            <texture>arc-mask-thumb.png</texture>
-            <colordiffuse>B3000000</colordiffuse>
-            <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
-          </control>
-          <control type="image">
-            <left>20</left>
-            <top>20</top>
-            <width>230</width>
-            <height>44</height>
-            <texture border="22">arc-pill-white-56.png</texture>
-            <colordiffuse>A6000000</colordiffuse>
-            <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
-          </control>
-          <control type="label">
-            <left>20</left>
-            <top>20</top>
-            <width>230</width>
-            <height>44</height>
-            <font>font12</font>
-            <textcolor>FFF5F5F7</textcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <label>$INFO[ListItem.Property(tag)]</label>
-            <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
-          </control>
-          <control type="image">
-            <left>2</left>
-            <top>2</top>
-            <width>476</width>
-            <height>273</height>
-            <texture>arc-ring-thumb.png</texture>
-            <visible>Control.HasFocus(350)</visible>
-          </control>
-          <control type="progress">
-            <left>20</left>
-            <top>250</top>
-            <width>440</width>
-            <height>8</height>
-            <texturebg border="4">arc-bar-bg.png</texturebg>
-            <midtexture border="4">arc-bar-fg.png</midtexture>
-            <info>ListItem.PercentPlayed</info>
-            <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>278</top>
-            <width>464</width>
-            <height>34</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FFF5F5F7</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>310</top>
-            <width>464</width>
-            <height>30</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FF6B6B78</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </focusedlayout>
-      </control>
-      <control type="label" id="311">
-        <left>8</left>
-        <width>1500</width>
-        <height>50</height>
-        <font>font32_title</font>
-        <shadowcolor>99000000</shadowcolor>
-        <textcolor>FFF5F5F7</textcolor>
+      <control type="group">
+        <defaultcontrol always="true">300</defaultcontrol>
+        <height>530</height>
         <visible>Integer.IsGreater(Container(300).NumItems,0)</visible>
+        <control type="label" id="311">
+          <left>8</left>
+          <top>0</top>
+          <width>1500</width>
+          <height>50</height>
+          <font>font32_title</font>
+          <shadowcolor>99000000</shadowcolor>
+          <textcolor>FFF5F5F7</textcolor>
+          <visible>Integer.IsGreater(Container(300).NumItems,0)</visible>
+        </control>
+        <control type="list" id="300">
+          <top>80</top>
+          <width>1808</width>
+          <height>450</height>
+          <visible>Integer.IsGreater(Container(300).NumItems,0)</visible>
+          <orientation>horizontal</orientation>
+          <itemgap>8</itemgap>
+          <scrolltime tween="cubic" easing="out">220</scrolltime>
+          <preloaditems>2</preloaditems>
+          <onleft />
+          <itemlayout width="268" height="450">
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>244</width>
+              <height>366</height>
+              <texture>arc-mask-poster.png</texture>
+              <colordiffuse>FF26272D</colordiffuse>
+            </control>
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>244</width>
+              <height>366</height>
+              <aspectratio>scale</aspectratio>
+              <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
+            </control>
+            <control type="image">
+              <left>2</left>
+              <top>2</top>
+              <width>256</width>
+              <height>378</height>
+              <texture>arc-ring-poster.png</texture>
+              <visible>false</visible>
+            </control>
+            <control type="label">
+              <left>20</left>
+              <top>20</top>
+              <width>220</width>
+              <height>340</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <textcolor>FFA1A1AD</textcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <wrapmultiline>true</wrapmultiline>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
+            </control>
+            <control type="image">
+              <left>196</left>
+              <top>16</top>
+              <width>48</width>
+              <height>48</height>
+              <texture>arc-tick.png</texture>
+              <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="image">
+              <left>188</left>
+              <top>8</top>
+              <width>64</width>
+              <height>44</height>
+              <texture>arc-count-tab.png</texture>
+              <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="label">
+              <left>188</left>
+              <top>8</top>
+              <width>64</width>
+              <height>44</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>FFFFFFFF</textcolor>
+              <label>$INFO[ListItem.Property(unwatched)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="progress">
+              <left>16</left>
+              <top>358</top>
+              <width>228</width>
+              <height>8</height>
+              <texturebg border="4">arc-bar-bg.png</texturebg>
+              <midtexture border="4">arc-bar-fg.png</midtexture>
+              <info>ListItem.PercentPlayed</info>
+              <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>384</top>
+              <width>244</width>
+              <height>34</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FFA1A1AD</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>416</top>
+              <width>244</width>
+              <height>30</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </itemlayout>
+          <focusedlayout width="268" height="450">
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>244</width>
+              <height>366</height>
+              <texture>arc-mask-poster.png</texture>
+              <colordiffuse>FF26272D</colordiffuse>
+            </control>
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>244</width>
+              <height>366</height>
+              <aspectratio>scale</aspectratio>
+              <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
+            </control>
+            <control type="image">
+              <left>2</left>
+              <top>2</top>
+              <width>256</width>
+              <height>378</height>
+              <texture>arc-ring-poster.png</texture>
+              <visible>Control.HasFocus(300)</visible>
+            </control>
+            <control type="label">
+              <left>20</left>
+              <top>20</top>
+              <width>220</width>
+              <height>340</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <textcolor>FFA1A1AD</textcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <wrapmultiline>true</wrapmultiline>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
+            </control>
+            <control type="image">
+              <left>196</left>
+              <top>16</top>
+              <width>48</width>
+              <height>48</height>
+              <texture>arc-tick.png</texture>
+              <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="image">
+              <left>188</left>
+              <top>8</top>
+              <width>64</width>
+              <height>44</height>
+              <texture>arc-count-tab.png</texture>
+              <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="label">
+              <left>188</left>
+              <top>8</top>
+              <width>64</width>
+              <height>44</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>FFFFFFFF</textcolor>
+              <label>$INFO[ListItem.Property(unwatched)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="progress">
+              <left>16</left>
+              <top>358</top>
+              <width>228</width>
+              <height>8</height>
+              <texturebg border="4">arc-bar-bg.png</texturebg>
+              <midtexture border="4">arc-bar-fg.png</midtexture>
+              <info>ListItem.PercentPlayed</info>
+              <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>384</top>
+              <width>244</width>
+              <height>34</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FFF5F5F7</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>416</top>
+              <width>244</width>
+              <height>30</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </focusedlayout>
+        </control>
       </control>
-      <control type="list" id="300">
-        <width>1808</width>
-        <height>450</height>
-        <visible>Integer.IsGreater(Container(300).NumItems,0)</visible>
-        <orientation>horizontal</orientation>
-        <itemgap>8</itemgap>
-        <scrolltime tween="cubic" easing="out">220</scrolltime>
-        <preloaditems>2</preloaditems>
-        <onleft />
-        <itemlayout width="268" height="450">
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>244</width>
-            <height>366</height>
-            <texture>arc-mask-poster.png</texture>
-            <colordiffuse>FF26272D</colordiffuse>
-          </control>
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>244</width>
-            <height>366</height>
-            <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
-          </control>
-          <control type="image">
-            <left>2</left>
-            <top>2</top>
-            <width>256</width>
-            <height>378</height>
-            <texture>arc-ring-poster.png</texture>
-            <visible>false</visible>
-          </control>
-          <control type="label">
-            <left>20</left>
-            <top>20</top>
-            <width>220</width>
-            <height>340</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <textcolor>FFA1A1AD</textcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <wrapmultiline>true</wrapmultiline>
-            <label>$INFO[ListItem.Label]</label>
-            <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
-          </control>
-          <control type="image">
-            <left>196</left>
-            <top>16</top>
-            <width>48</width>
-            <height>48</height>
-            <texture>arc-tick.png</texture>
-            <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
-          </control>
-          <control type="image">
-            <left>188</left>
-            <top>8</top>
-            <width>64</width>
-            <height>44</height>
-            <texture>arc-count-tab.png</texture>
-            <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
-          </control>
-          <control type="label">
-            <left>188</left>
-            <top>8</top>
-            <width>64</width>
-            <height>44</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textcolor>FFFFFFFF</textcolor>
-            <label>$INFO[ListItem.Property(unwatched)]</label>
-            <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
-          </control>
-          <control type="progress">
-            <left>16</left>
-            <top>358</top>
-            <width>228</width>
-            <height>8</height>
-            <texturebg border="4">arc-bar-bg.png</texturebg>
-            <midtexture border="4">arc-bar-fg.png</midtexture>
-            <info>ListItem.PercentPlayed</info>
-            <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>384</top>
-            <width>244</width>
-            <height>34</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FFA1A1AD</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>416</top>
-            <width>244</width>
-            <height>30</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FF6B6B78</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </itemlayout>
-        <focusedlayout width="268" height="450">
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>244</width>
-            <height>366</height>
-            <texture>arc-mask-poster.png</texture>
-            <colordiffuse>FF26272D</colordiffuse>
-          </control>
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>244</width>
-            <height>366</height>
-            <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
-          </control>
-          <control type="image">
-            <left>2</left>
-            <top>2</top>
-            <width>256</width>
-            <height>378</height>
-            <texture>arc-ring-poster.png</texture>
-            <visible>Control.HasFocus(300)</visible>
-          </control>
-          <control type="label">
-            <left>20</left>
-            <top>20</top>
-            <width>220</width>
-            <height>340</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <textcolor>FFA1A1AD</textcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <wrapmultiline>true</wrapmultiline>
-            <label>$INFO[ListItem.Label]</label>
-            <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
-          </control>
-          <control type="image">
-            <left>196</left>
-            <top>16</top>
-            <width>48</width>
-            <height>48</height>
-            <texture>arc-tick.png</texture>
-            <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
-          </control>
-          <control type="image">
-            <left>188</left>
-            <top>8</top>
-            <width>64</width>
-            <height>44</height>
-            <texture>arc-count-tab.png</texture>
-            <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
-          </control>
-          <control type="label">
-            <left>188</left>
-            <top>8</top>
-            <width>64</width>
-            <height>44</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textcolor>FFFFFFFF</textcolor>
-            <label>$INFO[ListItem.Property(unwatched)]</label>
-            <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
-          </control>
-          <control type="progress">
-            <left>16</left>
-            <top>358</top>
-            <width>228</width>
-            <height>8</height>
-            <texturebg border="4">arc-bar-bg.png</texturebg>
-            <midtexture border="4">arc-bar-fg.png</midtexture>
-            <info>ListItem.PercentPlayed</info>
-            <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>384</top>
-            <width>244</width>
-            <height>34</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FFF5F5F7</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>416</top>
-            <width>244</width>
-            <height>30</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FF6B6B78</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </focusedlayout>
-      </control>
-      <control type="label" id="341">
-        <left>8</left>
-        <width>1500</width>
-        <height>50</height>
-        <font>font32_title</font>
-        <shadowcolor>99000000</shadowcolor>
-        <textcolor>FFF5F5F7</textcolor>
+      <control type="group">
+        <defaultcontrol always="true">340</defaultcontrol>
+        <height>530</height>
         <visible>Integer.IsGreater(Container(340).NumItems,0)</visible>
-      </control>
-      <control type="list" id="340">
-        <width>1808</width>
-        <height>450</height>
-        <visible>Integer.IsGreater(Container(340).NumItems,0)</visible>
-        <orientation>horizontal</orientation>
-        <itemgap>8</itemgap>
-        <scrolltime tween="cubic" easing="out">220</scrolltime>
-        <preloaditems>2</preloaditems>
-        <onleft />
-        <itemlayout width="268" height="450">
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>244</width>
-            <height>366</height>
-            <texture>arc-mask-poster.png</texture>
-            <colordiffuse>FF26272D</colordiffuse>
-          </control>
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>244</width>
-            <height>366</height>
-            <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
-          </control>
-          <control type="image">
-            <left>2</left>
-            <top>2</top>
-            <width>256</width>
-            <height>378</height>
-            <texture>arc-ring-poster.png</texture>
-            <visible>false</visible>
-          </control>
-          <control type="label">
-            <left>20</left>
-            <top>20</top>
-            <width>220</width>
-            <height>340</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <textcolor>FFA1A1AD</textcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <wrapmultiline>true</wrapmultiline>
-            <label>$INFO[ListItem.Label]</label>
-            <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
-          </control>
-          <control type="image">
-            <left>196</left>
-            <top>16</top>
-            <width>48</width>
-            <height>48</height>
-            <texture>arc-tick.png</texture>
-            <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
-          </control>
-          <control type="image">
-            <left>188</left>
-            <top>8</top>
-            <width>64</width>
-            <height>44</height>
-            <texture>arc-count-tab.png</texture>
-            <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
-          </control>
-          <control type="label">
-            <left>188</left>
-            <top>8</top>
-            <width>64</width>
-            <height>44</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textcolor>FFFFFFFF</textcolor>
-            <label>$INFO[ListItem.Property(unwatched)]</label>
-            <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
-          </control>
-          <control type="progress">
-            <left>16</left>
-            <top>358</top>
-            <width>228</width>
-            <height>8</height>
-            <texturebg border="4">arc-bar-bg.png</texturebg>
-            <midtexture border="4">arc-bar-fg.png</midtexture>
-            <info>ListItem.PercentPlayed</info>
-            <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>384</top>
-            <width>244</width>
-            <height>34</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FFA1A1AD</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>416</top>
-            <width>244</width>
-            <height>30</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FF6B6B78</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </itemlayout>
-        <focusedlayout width="268" height="450">
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>244</width>
-            <height>366</height>
-            <texture>arc-mask-poster.png</texture>
-            <colordiffuse>FF26272D</colordiffuse>
-          </control>
-          <control type="image">
-            <left>8</left>
-            <top>8</top>
-            <width>244</width>
-            <height>366</height>
-            <aspectratio>scale</aspectratio>
-            <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
-          </control>
-          <control type="image">
-            <left>2</left>
-            <top>2</top>
-            <width>256</width>
-            <height>378</height>
-            <texture>arc-ring-poster.png</texture>
-            <visible>Control.HasFocus(340)</visible>
-          </control>
-          <control type="label">
-            <left>20</left>
-            <top>20</top>
-            <width>220</width>
-            <height>340</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <textcolor>FFA1A1AD</textcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <wrapmultiline>true</wrapmultiline>
-            <label>$INFO[ListItem.Label]</label>
-            <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
-          </control>
-          <control type="image">
-            <left>196</left>
-            <top>16</top>
-            <width>48</width>
-            <height>48</height>
-            <texture>arc-tick.png</texture>
-            <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
-          </control>
-          <control type="image">
-            <left>188</left>
-            <top>8</top>
-            <width>64</width>
-            <height>44</height>
-            <texture>arc-count-tab.png</texture>
-            <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
-          </control>
-          <control type="label">
-            <left>188</left>
-            <top>8</top>
-            <width>64</width>
-            <height>44</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textcolor>FFFFFFFF</textcolor>
-            <label>$INFO[ListItem.Property(unwatched)]</label>
-            <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
-          </control>
-          <control type="progress">
-            <left>16</left>
-            <top>358</top>
-            <width>228</width>
-            <height>8</height>
-            <texturebg border="4">arc-bar-bg.png</texturebg>
-            <midtexture border="4">arc-bar-fg.png</midtexture>
-            <info>ListItem.PercentPlayed</info>
-            <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>384</top>
-            <width>244</width>
-            <height>34</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FFF5F5F7</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-          <control type="label">
-            <left>8</left>
-            <top>416</top>
-            <width>244</width>
-            <height>30</height>
-            <font>font12</font>
-            <shadowcolor>99000000</shadowcolor>
-            <align>center</align>
-            <textcolor>FF6B6B78</textcolor>
-            <label>$INFO[ListItem.Label2]</label>
-          </control>
-        </focusedlayout>
+        <control type="label" id="341">
+          <left>8</left>
+          <top>0</top>
+          <width>1500</width>
+          <height>50</height>
+          <font>font32_title</font>
+          <shadowcolor>99000000</shadowcolor>
+          <textcolor>FFF5F5F7</textcolor>
+          <visible>Integer.IsGreater(Container(340).NumItems,0)</visible>
+        </control>
+        <control type="list" id="340">
+          <top>80</top>
+          <width>1808</width>
+          <height>450</height>
+          <visible>Integer.IsGreater(Container(340).NumItems,0)</visible>
+          <orientation>horizontal</orientation>
+          <itemgap>8</itemgap>
+          <scrolltime tween="cubic" easing="out">220</scrolltime>
+          <preloaditems>2</preloaditems>
+          <onleft />
+          <itemlayout width="268" height="450">
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>244</width>
+              <height>366</height>
+              <texture>arc-mask-poster.png</texture>
+              <colordiffuse>FF26272D</colordiffuse>
+            </control>
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>244</width>
+              <height>366</height>
+              <aspectratio>scale</aspectratio>
+              <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
+            </control>
+            <control type="image">
+              <left>2</left>
+              <top>2</top>
+              <width>256</width>
+              <height>378</height>
+              <texture>arc-ring-poster.png</texture>
+              <visible>false</visible>
+            </control>
+            <control type="label">
+              <left>20</left>
+              <top>20</top>
+              <width>220</width>
+              <height>340</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <textcolor>FFA1A1AD</textcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <wrapmultiline>true</wrapmultiline>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
+            </control>
+            <control type="image">
+              <left>196</left>
+              <top>16</top>
+              <width>48</width>
+              <height>48</height>
+              <texture>arc-tick.png</texture>
+              <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="image">
+              <left>188</left>
+              <top>8</top>
+              <width>64</width>
+              <height>44</height>
+              <texture>arc-count-tab.png</texture>
+              <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="label">
+              <left>188</left>
+              <top>8</top>
+              <width>64</width>
+              <height>44</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>FFFFFFFF</textcolor>
+              <label>$INFO[ListItem.Property(unwatched)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="progress">
+              <left>16</left>
+              <top>358</top>
+              <width>228</width>
+              <height>8</height>
+              <texturebg border="4">arc-bar-bg.png</texturebg>
+              <midtexture border="4">arc-bar-fg.png</midtexture>
+              <info>ListItem.PercentPlayed</info>
+              <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>384</top>
+              <width>244</width>
+              <height>34</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FFA1A1AD</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>416</top>
+              <width>244</width>
+              <height>30</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </itemlayout>
+          <focusedlayout width="268" height="450">
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>244</width>
+              <height>366</height>
+              <texture>arc-mask-poster.png</texture>
+              <colordiffuse>FF26272D</colordiffuse>
+            </control>
+            <control type="image">
+              <left>8</left>
+              <top>8</top>
+              <width>244</width>
+              <height>366</height>
+              <aspectratio>scale</aspectratio>
+              <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
+            </control>
+            <control type="image">
+              <left>2</left>
+              <top>2</top>
+              <width>256</width>
+              <height>378</height>
+              <texture>arc-ring-poster.png</texture>
+              <visible>Control.HasFocus(340)</visible>
+            </control>
+            <control type="label">
+              <left>20</left>
+              <top>20</top>
+              <width>220</width>
+              <height>340</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <textcolor>FFA1A1AD</textcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <wrapmultiline>true</wrapmultiline>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
+            </control>
+            <control type="image">
+              <left>196</left>
+              <top>16</top>
+              <width>48</width>
+              <height>48</height>
+              <texture>arc-tick.png</texture>
+              <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="image">
+              <left>188</left>
+              <top>8</top>
+              <width>64</width>
+              <height>44</height>
+              <texture>arc-count-tab.png</texture>
+              <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="label">
+              <left>188</left>
+              <top>8</top>
+              <width>64</width>
+              <height>44</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>FFFFFFFF</textcolor>
+              <label>$INFO[ListItem.Property(unwatched)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="progress">
+              <left>16</left>
+              <top>358</top>
+              <width>228</width>
+              <height>8</height>
+              <texturebg border="4">arc-bar-bg.png</texturebg>
+              <midtexture border="4">arc-bar-fg.png</midtexture>
+              <info>ListItem.PercentPlayed</info>
+              <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>384</top>
+              <width>244</width>
+              <height>34</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FFF5F5F7</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>416</top>
+              <width>244</width>
+              <height>30</height>
+              <font>font12</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>center</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Label2]</label>
+            </control>
+          </focusedlayout>
+        </control>
       </control>
       <control type="list" id="360">
         <width>1808</width>
