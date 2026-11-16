@@ -26,7 +26,7 @@ import time
 import xbmc
 import xbmcgui
 
-from arc import models, playback, titlepage
+from arc import models, playback, playerinfo, titlepage
 from arc import together as wt
 
 from .compat import ADDON_PATH, T
@@ -43,6 +43,14 @@ THUMB_GROUP, THUMB_IMAGE, THUMB_W = 460, 461, 328   # the thumbnail's group, ima
 MENU_TITLE, MENU_LIST, MENU_BACK = 601, 602, 603
 MENU_ROW, MENU_ROWS, MENU_BOTTOM = 64, 7, 816  # rows 64 high, up to 7 showing, ending above the buttons
 CONTROLS, MENU = 200, 600
+INFO, INFO_LIST, INFO_BACK = 850, 852, 853   # Player Info's panel (700s are the lobby's)
+INFO_ROW, INFO_EVERY = 40, 1.0              # its rows; how often it reads Kodi again (seconds)
+INFO_NAMES = {"video": 30461, "decoder": 30462, "picture": 30463, "pixformat": 30464, "hdr": 30465,
+              "deint": 30466, "dolby_vision": 30467, "dv_profile": 30468, "dv_layers": 30469,
+              "dv_changed": 30470, "display": 30471, "output": 30472, "output_format": 30473,
+              "audio": 30474, "audio_decoder": 30475, "audio_format": 30476, "audio_sink": 30477,
+              "arc": 30478, "arc_method": 30479, "arc_reason": 30480}
+METHOD_NAMES = {"direct": 30481, "remux": 30482, "transcode": 30483}
 LOBBY, LOBBY_TITLE, LOBBY_PEOPLE, LOBBY_STATUS = 700, 701, 702, 703
 LOBBY_START, LOBBY_INVITE, LOBBY_LEAVE = 710, 711, 712
 NOTICE_FOR = 3.0                # seconds a notice shows
@@ -60,7 +68,7 @@ SEEK_SETTLE = 0.8               # seconds after the last press before it seeks
 # Arc's player is the interface, so they're closed as they appear, as PM4K's player does. (The
 # skin's seek bar isn't here: the skin reopens it at once while paused, so Arc's player draws
 # over it instead; see the skin.)
-KODI_DIALOGS = ("videoosd", "fullscreeninfo", "sliderdialog")
+KODI_DIALOGS = ("videoosd", "fullscreeninfo", "sliderdialog", "playerprocessinfo")
 HIDE_AFTER = 5.0                # seconds without a key before the controls hide (while playing)
 SHOW_AFTER_SEEK = 3.0
 COUNTDOWN = 10                  # seconds of Up Next before the next episode plays
@@ -73,6 +81,7 @@ A_STOP = (13,)
 A_STEP_FWD, A_STEP_BACK, A_BIG_FWD, A_BIG_BACK = (20, 77), (21, 78), (22,), (23,)
 A_NEXT, A_PREV = (14,), (15,)
 A_CONTEXT = (117,)
+A_PROCESS_INFO = (69,)          # Kodi's Player Process Info (the O key)
 
 
 def language_name(code):
@@ -136,6 +145,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         self._marker = None
         self._up_next = False
         self._was_paused = False    # for showing the controls when playback pauses
+        self._info_at = None        # Player Info: when it last read Kodi (None while closed)
         self._up_next_closed = False
         self._countdown_from = None
         self._osd = False
@@ -206,6 +216,8 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
     def _tick(self):
         self._close_kodi_dialogs()
         now = time.time()
+        if self._info_at is not None and now - self._info_at >= INFO_EVERY:
+            self._draw_info()
         if self._pending is not None and now - self._pending_at >= SEEK_SETTLE:
             target, self._pending = self._pending, None
             self.pb.seek_to(target)
@@ -503,6 +515,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
                 options.append((T(30381), self._offset_name(self.pb.offset_ms("subtitles")), False,
                                 lambda: self._open_submenu("subtitle_offset"), True))
             options.append((T(30213), "", False, lambda: self.pb.seek_to(0)))
+            options.append((T(30460), "", False, self._toggle_info))
             if self.pb.in_room():
                 if self.pb.room_host():
                     options.append((T(30365), "", False, self._invite_more))
@@ -578,6 +591,51 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         bits.append("4K" if h >= 1600 else "%dp" % h if h else "")
         bits.append((v.get("hdr") or "").upper())
         return " · ".join(b for b in bits if b)
+
+    # MARK: - Player Info
+
+    def _toggle_info(self):
+        if self._info_at is None:
+            self._draw_info()
+            self.setProperty("arc.info", "1")
+            log.debug("player info shown")
+        else:
+            self._info_at = None
+            self.setProperty("arc.info", "")
+
+    def _draw_info(self):
+        """Reads what Kodi's player reports now and shows it (once a second while open)."""
+        self._info_at = time.time()
+        values = {k: xbmc.getInfoLabel(label) for k, label in playerinfo.LABELS.items()}
+        hw = xbmc.getCondVisibility(playerinfo.CONDITIONS["hw"])
+        entries = playerinfo.rows(values, hw=hw, plan=self.pb.plan)
+        try:
+            ctrl = self.getControl(INFO_LIST)
+            if ctrl.size() == len(entries) and all(
+                    ctrl.getListItem(i).getProperty("key") == e[1] for i, e in enumerate(entries)):
+                for i, e in enumerate(entries):   # the same rows: only their values change
+                    if e[0] == "row":
+                        ctrl.getListItem(i).setLabel2(self._info_value(e))
+                return
+            ctrl.reset()
+            items = []
+            for e in entries:
+                li = xbmcgui.ListItem(T(INFO_NAMES.get(e[1], 30460)), self._info_value(e))
+                li.setProperty("kind", e[0])
+                li.setProperty("key", e[1])
+                items.append(li)
+            ctrl.addItems(items)
+            self.getControl(INFO_BACK).setHeight(76 + len(entries) * INFO_ROW + 24)
+        except Exception as e:
+            log.debug("player info not drawn (%s)", type(e).__name__)
+
+    @staticmethod
+    def _info_value(entry):
+        if entry[0] != "row":
+            return ""
+        if entry[1] == "arc_method" and entry[2] in METHOD_NAMES:
+            return T(METHOD_NAMES[entry[2]])
+        return entry[2]
 
     def _fill_menu(self, title, options):
         self._label(MENU_TITLE, title)
@@ -662,9 +720,14 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             if code in A_BACK:
                 self.pb.stop()   # closing the player leaves the room
             return               # the lobby's buttons move by themselves; Select is onClick
+        if code in A_PROCESS_INFO:
+            self._toggle_info()
+            return
         if code in A_BACK:
             if self._menu is not None:
                 self._close_menu()
+            elif self._info_at is not None:
+                self._toggle_info()
             elif self._osd:
                 self._hide()
             elif focus == SKIP and self._marker:
