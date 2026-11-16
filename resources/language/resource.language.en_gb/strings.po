@@ -911,7 +911,7 @@ msgid "Join with a Code"
 msgstr ""
 
 msgctxt "#30343"
-msgid "Choose who to watch %s with. They'll find it on Home under Watch Together."
+msgid "Choose who to watch %s with from the people below. They'll find it on Home under Watch Together."
 msgstr ""
 
 msgctxt "#30344"
@@ -1047,7 +1047,7 @@ msgid "Can't watch this"
 msgstr ""
 
 msgctxt "#30377"
-msgid "Choose who else to invite. They'll find it on Home under Watch Together."
+msgid "Choose who else to invite from the people below. They'll find it on Home under Watch Together."
 msgstr ""
 
 msgctxt "#30380"
