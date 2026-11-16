@@ -110,3 +110,22 @@ def test_season_actions():
     assert titlepage.season_actions({"unplaced": True, "episodes": [{"id": "u"}, {"id": "v"}]}) == []
     assert titlepage.season_actions({"season_number": 3, "episodes": [{"id": "z", "available": False}]}) == []
     assert titlepage.season_actions(None) == []
+
+
+def test_versions():
+    from arc import menus, models
+    uhd = {"id": 1, "size": 60 * 1024 ** 3, "streams": [
+        {"kind": "video", "height": 2160, "width": 3840, "color_transfer": "smpte2084", "dolby_vision": True},
+        {"kind": "audio", "codec": "truehd", "profile": "TrueHD Atmos", "channels": 8}]}
+    hd = {"id": 2, "edition": "Director's Cut", "streams": [{"kind": "video", "height": 1080, "width": 1920}]}
+    gone = {"id": 3, "missing": True}
+    part2 = {"id": 4, "part": 2}
+    film = {"id": "m", "kind": "movie", "files": [uhd, hd, gone, part2]}
+    assert [f["id"] for f in models.versions(film)] == [1, 2]
+    assert titlepage.version_label(uhd) == ("4K", "DV · HDR10 · Atmos · 7.1 · 60.0 GB")
+    assert titlepage.version_label(hd) == ("Director's Cut", "1080p")
+    assert titlepage.version_label({"container": "mkv"}) == ("MKV", "")
+    assert "play_version" in menus.card_actions(film)
+    assert "play_version" in menus.card_actions(film, on_page=True)
+    assert "play_version" not in menus.card_actions(dict(film, files=[uhd, gone]))
+    assert "play_version" not in menus.card_actions({"kind": "series", "files": [uhd, hd]})

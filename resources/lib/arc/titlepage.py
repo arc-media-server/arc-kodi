@@ -177,6 +177,22 @@ def size_text(size):
         size /= 1024.0
 
 
+def version_label(f):
+    """A version as Play Version… lists it, as the Android app's: its edition (or else its
+    resolution), then the rest of its picture and sound and its size."""
+    badges = models.file_badges(f)
+    edition = (f or {}).get("edition") or ""
+    if edition:
+        name, rest = edition, badges
+    elif badges and badges[0] in ("4K", "1080p", "720p", "SD"):
+        name, rest = badges[0], badges[1:]
+    else:
+        name, rest = ((f or {}).get("container") or "?").upper(), badges
+    if (f or {}).get("size"):
+        rest = rest + [size_text(f["size"])]
+    return name, " · ".join(rest)
+
+
 def playback_lines(item, server_name="", local=None, profile_name=""):
     """The Playback card: the server, the connection, the profile and the file's quality."""
     out = []

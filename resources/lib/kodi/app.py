@@ -4,7 +4,7 @@ and route navigation between the windows. Opened from default.py.
 
 import xbmcgui
 
-from arc import menus, models
+from arc import menus, models, titlepage
 from arc.api import APIError, Unreachable
 
 from . import log as logmod
@@ -283,19 +283,30 @@ class App(object):
         labels = {"play": T(30005), "resume": T(30006), "from_start": T(30213),
                   "watched": T(30150), "unwatched": T(30151), "watchlist_add": T(30152),
                   "watchlist_remove": T(30153), "go_to_show": T(30176), "remove_continue": T(30177),
-                  "watch_together": T(30331)}
+                  "watch_together": T(30331), "play_version": T(30441)}
         choice = menu.choose(item.get("title", ""), [labels[a] for a in actions])
         if choice < 0:
             return
         act = actions[choice]
         if act in ("play", "resume", "from_start"):
             self._play(item, 0 if act == "from_start" else models.resume_ms(item))
+        elif act == "play_version":
+            self._play_version(item)
         elif act == "go_to_show":
             self._open_card({"item": item})
         elif act == "watch_together":
             self._invite(item)
         else:
             self._change(item, act, payload.get("on_changed"))
+
+    def _play_version(self, item):
+        """Plex's Play Version…: the title's versions, each by its edition or resolution with the
+        rest of its picture, sound and size; the chosen one plays from where the profile left it."""
+        files = models.versions(item)
+        choice = menu.choose(T(30442), [titlepage.version_label(f) for f in files])
+        if 0 <= choice < len(files):
+            log.info("playing a chosen version (%d of %d)", choice + 1, len(files))
+            self._play(item, models.resume_ms(item), file_id=files[choice].get("id"))
 
     def _change(self, item, act, on_changed=None):
         """Saves a card's watched, watchlist or Continue Watching change to Arc, then updates the
@@ -505,7 +516,7 @@ class App(object):
 
     # MARK: - playback
 
-    def _play(self, item, resume_ms, queue=None, together=False):
+    def _play(self, item, resume_ms, queue=None, together=False, file_id=None):
         """Starts playback and returns at once. Kodi delivers the player's events (started, paused,
         ended) on this thread through the open window's loop, so it must not be held here waiting;
         the Playback reports progress and cleans up on its own threads."""
@@ -517,7 +528,7 @@ class App(object):
                 self.playback = None
 
         pb = Playback(self.session, item, resume_ms=resume_ms, on_finished=finished, queue=queue,
-                      together=self.together if together else None)
+                      together=self.together if together else None, file_id=file_id)
         self.playback = pb
         if not pb.start():
             self.playback = None

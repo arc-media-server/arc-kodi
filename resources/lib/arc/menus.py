@@ -15,6 +15,8 @@ def card_actions(item, continue_row=False, on_page=False, in_show=False, togethe
     kind = item.get("kind")
     if not on_page and models.playable(item):
         out += ["resume", "from_start"] if models.resume_ms(item) > 0 else ["play"]
+    if models.playable(item) and len(models.versions(item)) > 1:
+        out.append("play_version")   # Plex's Play Version…, for a title with more than one
     if models.playable(item) or models.is_series(item):
         out.append("unwatched" if models.watched(item) else "watched")
     if kind in ("movie", "series"):
