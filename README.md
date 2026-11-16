@@ -24,14 +24,12 @@
 ## What is Arc for Kodi?
 
 A full-screen [Kodi](https://kodi.tv) add-on for
-[Arc Media Server](https://github.com/arc-media-server/arc-media-server). Like PM4K (Plex for
-Kodi), it draws its own interface rather than using Kodi's library: Home, your libraries, title
-pages, search and the player all look like Arc's other apps, and Kodi's own player plays the
-video.
+[Arc Media Server](https://github.com/arc-media-server/arc-media-server). It draws its own
+interface rather than using Kodi's library: Home, your libraries, title pages, search and the
+player all look like Arc's other apps, and Kodi's own player plays the video.
 
-It never touches Kodi's library: no scraping, no `.strm` files, no library sync. Everything
-comes from your Arc server through its stable `/api/v1`, and your watch history, resume points
-and settings are the same as on every other Arc app.
+Everything comes from your Arc server through its stable `/api/v1`, and your watch history,
+resume points and settings are the same as on every other Arc app.
 
 > **Alpha software.** It's in daily use against real servers, but not yet checked on every
 > device. Playback, HDR, Dolby Vision and passthrough depend on your Kodi build and hardware.
@@ -108,7 +106,7 @@ A Kodi repository, so updates arrive without a zip, is planned.
 
 Arc sends original files to Kodi whenever your quality choice and the server's limits allow it.
 Kodi's own player and settings handle decoding, HDR and Dolby Vision, tone mapping, audio
-passthrough and refresh-rate switching, as they do for PM4K. The add-on doesn't keep
+passthrough and refresh-rate switching. The add-on doesn't keep
 device-specific format rules, and doesn't promise native HDR or Atmos output: what plays, and
 how, depends on your Kodi build, hardware and settings.
 
