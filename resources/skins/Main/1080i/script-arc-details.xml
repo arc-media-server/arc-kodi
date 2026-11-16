@@ -325,16 +325,17 @@
           <width>1300</width>
           <height>80</height>
           <control type="button" id="100">
-            <width>380</width>
-            <height>76</height>
+            <width>280</width>
+            <height>64</height>
             <font>font13</font>
             <textcolor>FFF5F5F7</textcolor>
             <focusedcolor>FF000000</focusedcolor>
             <disabledcolor>FF6B6B78</disabledcolor>
-            <texturefocus border="38">arc-pill-white.png</texturefocus>
-            <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+            <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+            <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
             <aligny>center</aligny>
             <align>center</align>
+            <top>8</top>
             <onup>noop</onup>
             <ondown>200</ondown>
             <onleft>noop</onleft>
@@ -342,105 +343,108 @@
             <label>$ADDON[script.arc 30005]</label>
           </control>
           <control type="group">
-            <left>396</left>
-            <width>76</width>
-            <height>76</height>
+            <left>296</left>
+            <top>8</top>
+            <width>64</width>
+            <height>64</height>
             <control type="button" id="101">
               <left>0</left>
               <top>0</top>
-              <width>76</width>
-              <height>76</height>
-              <texturefocus border="38">arc-pill-white.png</texturefocus>
-              <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+              <width>64</width>
+              <height>64</height>
+              <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+              <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
               <onup>noop</onup>
               <ondown>200</ondown>
               <onleft>100</onleft>
               <onright>102</onright>
             </control>
             <control type="image">
-              <left>21</left>
-              <top>21</top>
-              <width>34</width>
-              <height>34</height>
+              <left>17</left>
+              <top>17</top>
+              <width>30</width>
+              <height>30</height>
               <texture>arc-osd-rotate-ccw.png</texture>
               <colordiffuse>FFFFFFFF</colordiffuse>
               <visible>!Control.HasFocus(101)</visible>
             </control>
             <control type="image">
-              <left>21</left>
-              <top>21</top>
-              <width>34</width>
-              <height>34</height>
+              <left>17</left>
+              <top>17</top>
+              <width>30</width>
+              <height>30</height>
               <texture>arc-osd-rotate-ccw.png</texture>
               <colordiffuse>FF000000</colordiffuse>
               <visible>Control.HasFocus(101)</visible>
             </control>
           </control>
           <control type="group">
-            <left>488</left>
-            <width>76</width>
-            <height>76</height>
+            <left>376</left>
+            <top>8</top>
+            <width>64</width>
+            <height>64</height>
             <control type="button" id="102">
               <left>0</left>
               <top>0</top>
-              <width>76</width>
-              <height>76</height>
-              <texturefocus border="38">arc-pill-white.png</texturefocus>
-              <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+              <width>64</width>
+              <height>64</height>
+              <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+              <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
               <onup>noop</onup>
               <ondown>200</ondown>
               <onleft>101</onleft>
               <onright>103</onright>
             </control>
             <control type="image">
-              <left>21</left>
-              <top>21</top>
-              <width>34</width>
-              <height>34</height>
+              <left>17</left>
+              <top>17</top>
+              <width>30</width>
+              <height>30</height>
               <texture>$INFO[Window.Property(arc.watchedicon)]</texture>
               <colordiffuse>FFFFFFFF</colordiffuse>
               <visible>!Control.HasFocus(102)</visible>
             </control>
             <control type="image">
-              <left>21</left>
-              <top>21</top>
-              <width>34</width>
-              <height>34</height>
+              <left>17</left>
+              <top>17</top>
+              <width>30</width>
+              <height>30</height>
               <texture>$INFO[Window.Property(arc.watchedicon)]</texture>
               <colordiffuse>FF000000</colordiffuse>
               <visible>Control.HasFocus(102)</visible>
             </control>
           </control>
           <control type="group">
-            <left>580</left>
-            <width>76</width>
-            <height>76</height>
+            <left>456</left>
+            <top>8</top>
+            <width>64</width>
+            <height>64</height>
             <control type="button" id="103">
               <left>0</left>
               <top>0</top>
-              <width>76</width>
-              <height>76</height>
-              <texturefocus border="38">arc-pill-white.png</texturefocus>
-              <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+              <width>64</width>
+              <height>64</height>
+              <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+              <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
               <onup>noop</onup>
               <ondown>200</ondown>
               <onleft>102</onleft>
               <onright>noop</onright>
             </control>
             <control type="image">
-              <left>21</left>
-              <top>21</top>
-              <width>34</width>
-              <height>34</height>
+              <left>17</left>
+              <top>17</top>
+              <width>30</width>
+              <height>30</height>
               <texture>$INFO[Window.Property(arc.watchlisticon)]</texture>
               <colordiffuse>FFFFFFFF</colordiffuse>
               <visible>!Control.HasFocus(103)</visible>
             </control>
             <control type="image">
-              <left>21</left>
-              <top>21</top>
-              <width>34</width>
-              <height>34</height>
+              <left>17</left>
+              <top>17</top>
+              <width>30</width>
+              <height>30</height>
               <texture>$INFO[Window.Property(arc.watchlisticon)]</texture>
               <colordiffuse>FF000000</colordiffuse>
               <visible>Control.HasFocus(103)</visible>
@@ -471,7 +475,7 @@
           <shadowcolor>CC000000</shadowcolor>
         </control>
         <control type="label" id="97">
-          <left>690</left>
+          <left>540</left>
           <top>0</top>
           <width>360</width>
           <height>80</height>

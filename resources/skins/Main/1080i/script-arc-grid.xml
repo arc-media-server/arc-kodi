@@ -24,7 +24,7 @@
       <left>80</left>
       <top>40</top>
       <width>1000</width>
-      <height>76</height>
+      <height>64</height>
       <orientation>horizontal</orientation>
       <itemgap>12</itemgap>
       <onup>noop</onup>
@@ -33,80 +33,80 @@
       <onright>102</onright>
       <control type="button" id="121">
         <width>auto</width>
-        <height>76</height>
+        <height>64</height>
         <font>font13</font>
         <align>center</align>
         <aligny>center</aligny>
-        <textoffsetx>36</textoffsetx>
+        <textoffsetx>28</textoffsetx>
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="38">arc-pill-white.png</texturefocus>
-        <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+        <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
         <visible>String.IsEqual(Window.Property(arc.tab0),current)</visible>
       </control>
       <control type="button" id="122">
         <width>auto</width>
-        <height>76</height>
+        <height>64</height>
         <font>font13</font>
         <align>center</align>
         <aligny>center</aligny>
-        <textoffsetx>36</textoffsetx>
+        <textoffsetx>28</textoffsetx>
         <textcolor>C8F5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="38">arc-pill-white.png</texturefocus>
-        <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+        <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
         <visible>String.IsEqual(Window.Property(arc.tab0),other)</visible>
       </control>
       <control type="button" id="123">
         <width>auto</width>
-        <height>76</height>
+        <height>64</height>
         <font>font13</font>
         <align>center</align>
         <aligny>center</aligny>
-        <textoffsetx>36</textoffsetx>
+        <textoffsetx>28</textoffsetx>
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="38">arc-pill-white.png</texturefocus>
-        <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+        <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
         <visible>String.IsEqual(Window.Property(arc.tab1),current)</visible>
       </control>
       <control type="button" id="124">
         <width>auto</width>
-        <height>76</height>
+        <height>64</height>
         <font>font13</font>
         <align>center</align>
         <aligny>center</aligny>
-        <textoffsetx>36</textoffsetx>
+        <textoffsetx>28</textoffsetx>
         <textcolor>C8F5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="38">arc-pill-white.png</texturefocus>
-        <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+        <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
         <visible>String.IsEqual(Window.Property(arc.tab1),other)</visible>
       </control>
       <control type="button" id="125">
         <width>auto</width>
-        <height>76</height>
+        <height>64</height>
         <font>font13</font>
         <align>center</align>
         <aligny>center</aligny>
-        <textoffsetx>36</textoffsetx>
+        <textoffsetx>28</textoffsetx>
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="38">arc-pill-white.png</texturefocus>
-        <texturenofocus border="38" colordiffuse="FF5A5B63">arc-pill-white.png</texturenofocus>
+        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+        <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
         <visible>String.IsEqual(Window.Property(arc.tab2),current)</visible>
       </control>
       <control type="button" id="126">
         <width>auto</width>
-        <height>76</height>
+        <height>64</height>
         <font>font13</font>
         <align>center</align>
         <aligny>center</aligny>
-        <textoffsetx>36</textoffsetx>
+        <textoffsetx>28</textoffsetx>
         <textcolor>C8F5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="38">arc-pill-white.png</texturefocus>
-        <texturenofocus border="38" colordiffuse="A6000000">arc-pill-white.png</texturenofocus>
+        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+        <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
         <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
       </control>
     </control>
@@ -128,17 +128,17 @@
       <label />
     </control>
     <control type="button" id="108">
-      <width>220</width>
-      <height>76</height>
+      <width>200</width>
+      <height>64</height>
       <font>font13</font>
       <textcolor>FFF5F5F7</textcolor>
       <focusedcolor>FF000000</focusedcolor>
-      <texturefocus border="38">arc-pill-white.png</texturefocus>
-      <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+      <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
       <aligny>center</aligny>
       <align>center</align>
-      <textoffsetx>28</textoffsetx>
-      <left>980</left>
+      <textoffsetx>24</textoffsetx>
+      <left>844</left>
       <top>40</top>
       <ondown>100</ondown>
       <onup>noop</onup>
@@ -147,17 +147,17 @@
       <label>$ADDON[script.arc 30287]</label>
     </control>
     <control type="button" id="109">
-      <width>220</width>
-      <height>76</height>
+      <width>200</width>
+      <height>64</height>
       <font>font13</font>
       <textcolor>FFF5F5F7</textcolor>
       <focusedcolor>FF000000</focusedcolor>
-      <texturefocus border="38">arc-pill-white.png</texturefocus>
-      <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+      <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
       <aligny>center</aligny>
       <align>center</align>
-      <textoffsetx>28</textoffsetx>
-      <left>1212</left>
+      <textoffsetx>24</textoffsetx>
+      <left>1056</left>
       <top>40</top>
       <ondown>100</ondown>
       <onup>noop</onup>
@@ -167,17 +167,17 @@
       <label>$ADDON[script.arc 30288]</label>
     </control>
     <control type="button" id="102">
-      <width>420</width>
-      <height>76</height>
+      <width>340</width>
+      <height>64</height>
       <font>font13</font>
       <textcolor>FFF5F5F7</textcolor>
       <focusedcolor>FF000000</focusedcolor>
-      <texturefocus border="38">arc-pill-white.png</texturefocus>
-      <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+      <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
       <aligny>center</aligny>
       <align>center</align>
-      <textoffsetx>28</textoffsetx>
-      <left>1180</left>
+      <textoffsetx>24</textoffsetx>
+      <left>1268</left>
       <top>40</top>
       <ondown>100</ondown>
       <onup>noop</onup>
@@ -187,15 +187,15 @@
       <label>$ADDON[script.arc 30123]</label>
     </control>
     <control type="button" id="103">
-      <height>76</height>
+      <height>64</height>
       <font>font13</font>
       <textcolor>FFF5F5F7</textcolor>
       <focusedcolor>FF000000</focusedcolor>
-      <texturefocus border="38">arc-pill-white.png</texturefocus>
-      <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+      <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
       <aligny>center</aligny>
       <align>center</align>
-      <textoffsetx>28</textoffsetx>
+      <textoffsetx>24</textoffsetx>
       <left>1620</left>
       <top>40</top>
       <width>260</width>
