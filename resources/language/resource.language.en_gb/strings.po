@@ -1191,3 +1191,11 @@ msgstr ""
 msgctxt "#30433"
 msgid "Arc couldn't mark this season. Try again in a moment."
 msgstr ""
+
+msgctxt "#30441"
+msgid "Play Version…"
+msgstr ""
+
+msgctxt "#30442"
+msgid "Choose Version"
+msgstr ""

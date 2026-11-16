@@ -103,9 +103,20 @@ def audio_stream(f):
     return first
 
 
+def versions(item):
+    """A title's versions to choose from (as the player's Version list): its files on disk, the
+    first part of each."""
+    return [f for f in (item or {}).get("files") or []
+            if not f.get("missing") and (f.get("part") or 0) <= 1]
+
+
 def quality_badges(item):
     """The title page's badges: resolution, dynamic range, sound ("4K", "DV", "Atmos"...)."""
-    f = main_file(item)
+    return file_badges(main_file(item))
+
+
+def file_badges(f):
+    """One file's resolution, dynamic range and sound, as quality_badges."""
     out = []
     v = video_stream(f)
     if v:
