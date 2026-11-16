@@ -9,7 +9,7 @@ from arc import recommended
 from ..compat import T
 from ..log import log
 from . import home
-from .library import TAB_BASE, TabsMixin
+from .library import TAB_BASE, TABS, TabsMixin
 
 # The Kodi side's words for arc/recommended.py's title keys.
 TITLE_STRINGS = {
@@ -24,6 +24,7 @@ TITLE_STRINGS = {
 
 class RecommendedWindow(TabsMixin, home.HomeWindow):
     xml = "script-arc-library-rows.xml"
+    ABOVE_ROWS = TABS   # Up from the first row: the library's tabs
 
     def __init__(self, *args, **kwargs):
         self.library = kwargs.pop("library")
