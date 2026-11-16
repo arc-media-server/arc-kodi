@@ -29,11 +29,13 @@ RESULTS = 300
 ROW_IDS = {"movies": (310, 311, 30279), "shows": (320, 321, 30280), "episodes": (330, 331, 30292),
            "collections": (340, 341, 30122), "people": (350, 351, 30319), "genres": (360, 361, 30161)}
 
-A_REMOTE_0, A_REMOTE_9 = 58, 67     # a remote's number keys
+A_REMOTE_0, A_REMOTE_9, A_RIGHT = 58, 67, 2   # a remote's number keys; Right
 PAUSE = 0.35                        # seconds of quiet before searching, as the Apple app
 
 
 class SearchWindow(ArcWindow):
+    # The result rows, top to bottom (each a group of its title and list; see ArcWindow.ROW_STOPS).
+    ROW_STOPS = tuple((ROW_IDS[k][0],) for k in ("movies", "shows", "episodes", "collections", "people", "genres"))
     xml = "script-arc-search.xml"
 
     def __init__(self, *args, **kwargs):
@@ -196,6 +198,13 @@ class SearchWindow(ArcWindow):
             if focus == KEYS and A_REMOTE_0 <= code <= A_REMOTE_9:
                 self._type(str(code - A_REMOTE_0))   # a remote's number keys type digits
                 return True
+            key_pos = self.list_control(KEYS).getSelectedPosition() if focus == KEYS else None
+            stayed = focus == getattr(self, "_last_focus", None) and key_pos == getattr(self, "_key_pos", None)
+            self._key_pos = key_pos
+            if code == A_RIGHT and stayed:
+                # Right at the keyboard's edge: into the first row of matches (Kodi won't move
+                # into a row's group by itself).
+                return self._enter_rows()
             return False
         if code in ACTION_BACK:
             # Back from the matches returns to the keys first, as the Apple app's.
@@ -213,6 +222,14 @@ class SearchWindow(ArcWindow):
         if models.playable(item):
             self.nav("play", {"item": item, "resume": models.resume_ms(item)})
             return True
+        return False
+
+    def _enter_rows(self):
+        for (list_id,) in self.ROW_STOPS:
+            if self.is_visible(list_id):
+                self.focus_id(list_id)
+                self._moved_to = list_id
+                return True
         return False
 
     def on_back(self):

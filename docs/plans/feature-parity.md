@@ -16,7 +16,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Sign in with the password | Android | Done | Yes | Under the code; types into Kodi's keyboard until the on-screen one comes with search. |
 | "Who's watching?" with PINs | Both | Done | Yes | Arc's PIN pad. |
 | Switch profile, sign out | Both | Done | Yes | |
-| Settings: Auto-Play, Skip Intros automatically, subtitle mode (saved to the profile) | Both | Done | Yes | Saved to the profile's prefs; plus Change Server. |
+| Settings: Auto-Play, Skip Intros, Hide Spoilers, audio language, subtitles (when, language, size, colour, background, position), saved to the profile | Both | Done | Yes | Sections as the Android/Apple Settings. Kodi doesn't hide spoilers yet, and draws subtitles in its own style (said under those sections). |
 | About (server, version) | Both | Done | Yes | |
 
 ## Home and browsing

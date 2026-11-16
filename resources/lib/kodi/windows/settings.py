@@ -1,6 +1,11 @@
-"""Settings, as the Apple app's SettingsView: the profile's playback choices (Auto-Play, Skip
-Intros, Subtitles), saved to Arc's prefs so every app follows them; then Switch Profile, Sign Out
-and Change Server; then About. The rows are arc/settings.py's; this draws them and saves."""
+"""Settings, as the Android and Apple apps': sections with headings (Playback, Subtitles, Watch
+Together, Profile and Server, About), each row a dark pill with its name and value, the focused
+one white. The profile's choices (Auto-Play, Skip Intros, Hide Spoilers, the audio language, when
+and how subtitles show) are saved to Arc's prefs so every app follows them; then Switch Profile,
+Sign Out and Change Server; then About. The entries are arc/settings.py's; this draws them, steps
+over the headings and notes, and saves."""
+
+import xbmc
 
 from arc import settings
 
@@ -11,32 +16,71 @@ from .base import ArcWindow, list_item
 
 SERVER = 100
 PROFILE = 101
+INITIALS = 102
+VERSION = 103
 ABOUT = 104
 ROWS = 110
 
-NAMES = {"auto_play": 30297, "auto_skip": 30298, "subtitle_mode": 30185, "join_code": 30342,
+A_UP, A_DOWN, A_PAGE_UP, A_PAGE_DOWN = 3, 4, 5, 6
+
+NAMES = {"auto_play": 30297, "auto_skip": 30298, "hide_spoilers": 30390, "audio_language": 30391,
+         "subtitle_mode": 30393, "subtitle_language": 30394, "subtitle_size": 30395, "subtitle_color": 30396,
+         "subtitle_background": 30397, "subtitle_position": 30398, "join_code": 30342,
          "switch_profile": 30202, "sign_out": 30063, "change_server": 30305, "about": 30307}
-SECTIONS = {"auto_play": 30296, "join_code": 30330, "switch_profile": 30308, "about": 30307}
-MODE_NAMES = {"": 30299, "foreign": 30300, "always": 30301, "manual": 30302}
+HEADINGS = {"playback": 30296, "subtitles": 30185, "together": 30330, "profile": 30308, "about": 30307}
+NOTES = {"playback_note": 30410, "style_note": 30411}
+VALUE_NAMES = {
+    "subtitle_mode": {"": 30299, "foreign": 30300, "always": 30301, "manual": 30302},
+    "subtitle_size": {"small": 30399, "medium": 30400, "large": 30401, "huge": 30402},
+    "subtitle_color": {"white": 30403, "yellow": 30404},
+    "subtitle_background": {"box": 30405, "solid": 30406, "none": 30407},
+    "subtitle_position": {"bottom": 30408, "top": 30409},
+}
+
+
+def language_name(code):
+    if not code:
+        return ""
+    try:
+        name = xbmc.convertLanguage(code, xbmc.ENGLISH_NAME)
+    except Exception:
+        name = ""
+    return name or code
 
 
 class SettingsWindow(ArcWindow):
     xml = "script-arc-settings.xml"
 
     def on_init(self):
-        self.rows = settings.rows(together=self.session.together.available)
-        self.set_label(PROFILE, (self.session.profile or {}).get("name", ""))
+        self.entries = settings.layout(together=self.session.together.available)
+        name = (self.session.profile or {}).get("name", "")
+        self.set_label(PROFILE, name)
+        self.set_label(INITIALS, "".join(w[:1] for w in name.split()[:2]).upper())
         self.set_label(SERVER, self.session.identity_name or "")
+        self.set_label(VERSION, T(30412) % ADDON_VERSION)
         self.set_text(ABOUT, T(30309))
         self._fill()
+        first = next(i for i, (kind, _) in enumerate(self.entries) if kind == "row")
+        self.list_control(ROWS).selectItem(first)
+        self._pos = first
         self.focus_id(ROWS)
+
+    # MARK: - the list
+
+    def _name(self, key, v):
+        """A choice's words."""
+        if key in ("audio_language", "subtitle_language"):
+            if not v:
+                return T(30392) if key == "audio_language" else T(30382)
+            return language_name(v)
+        return T(VALUE_NAMES[key][v]) if key in VALUE_NAMES and v in VALUE_NAMES[key] else (v or "")
 
     def _detail(self, key):
         v = settings.value(self.session.prefs, key)
-        if key in ("auto_play", "auto_skip"):
+        if key in settings.SWITCHES:
             return T(30303) if v else T(30304)
-        if key == "subtitle_mode":
-            return T(MODE_NAMES[v])
+        if settings.choices(key) is not None:
+            return self._name(key, v)
         if key == "about":
             return T(30203) % ADDON_VERSION
         if key == "change_server":
@@ -44,17 +88,53 @@ class SettingsWindow(ArcWindow):
         return ""
 
     def _fill(self):
-        """Fills the rows once; after a change only their values change, in place (refilling the
-        list would move the focus and lose a key pressed meanwhile)."""
+        """Fills the list once; after a change only the rows' values change, in place (refilling
+        would move the focus and lose a key pressed meanwhile)."""
         ctrl = self.list_control(ROWS)
-        if ctrl.size() == len(self.rows):
-            for i, key in enumerate(self.rows):
-                ctrl.getListItem(i).setLabel2(self._detail(key))
+        if ctrl.size() == len(self.entries):
+            for i, (kind, key) in enumerate(self.entries):
+                if kind == "row":
+                    ctrl.getListItem(i).setLabel2(self._detail(key))
             return
         ctrl.reset()
-        for key in self.rows:
-            section = T(SECTIONS[key]) if key in SECTIONS else ""
-            ctrl.addItem(list_item(T(NAMES[key]), self._detail(key), props={"section": section}))
+        items = []
+        for kind, key in self.entries:
+            if kind == "heading":
+                items.append(list_item(T(HEADINGS[key]), props={"kind": "heading"}))
+            elif kind == "note":
+                items.append(list_item(T(NOTES[key]), props={"kind": "note"}))
+            else:
+                items.append(list_item(T(NAMES[key]), self._detail(key), props={"kind": "row"}))
+        ctrl.addItems(items)
+
+    def on_action(self, action, code):
+        """Headings and notes can't be chosen: Kodi has already moved onto one, so step on to the
+        next row that way (or back, at either end)."""
+        if code not in (A_UP, A_DOWN, A_PAGE_UP, A_PAGE_DOWN) or self.getFocusId() != ROWS:
+            return False
+        ctrl = self.list_control(ROWS)
+        pos = ctrl.getSelectedPosition()
+        if pos != self._pos:
+            down = pos > self._pos
+        else:
+            down = code in (A_DOWN, A_PAGE_DOWN)
+        target = self._row_from(pos, 1 if down else -1)
+        if target is None:
+            target = self._row_from(pos, -1 if down else 1)
+        if target is not None and target != pos:
+            ctrl.selectItem(target)
+        self._pos = target if target is not None else pos
+        return False
+
+    def _row_from(self, pos, step):
+        i = pos
+        while 0 <= i < len(self.entries):
+            if self.entries[i][0] == "row":
+                return i
+            i += step
+        return None
+
+    # MARK: - choosing
 
     def on_live(self, change):
         # The app has fetched the profile's prefs again; show them.
@@ -65,17 +145,18 @@ class SettingsWindow(ArcWindow):
         if control_id != ROWS:
             return
         pos = self.list_control(ROWS).getSelectedPosition()
-        if not 0 <= pos < len(self.rows):
+        if not 0 <= pos < len(self.entries) or self.entries[pos][0] != "row":
             return
-        key = self.rows[pos]
-        if key in ("auto_play", "auto_skip"):
+        key = self.entries[pos][1]
+        values = settings.choices(key)
+        if key in settings.SWITCHES:
             self._save(settings.change(self.session.prefs, key))
-        elif key == "subtitle_mode":
-            modes = settings.SUBTITLE_MODES
-            current = modes.index(settings.value(self.session.prefs, key))
-            choice = menu.choose(T(30185), [T(MODE_NAMES[m]) for m in modes], selected=current)
-            if choice >= 0 and choice != current:
-                self._save(settings.change(self.session.prefs, key, modes[choice]))
+        elif values is not None:
+            current = settings.value(self.session.prefs, key)
+            choice = menu.choose(T(NAMES[key]), [self._name(key, v) for v in values],
+                                 selected=values.index(current) if current in values else -1)
+            if choice >= 0 and values[choice] != current:
+                self._save(settings.change(self.session.prefs, key, values[choice]))
         elif key == "join_code":
             self.result = "join_code"
             self.close()

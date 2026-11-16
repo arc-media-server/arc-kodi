@@ -131,12 +131,16 @@ docs/changes/                   one note per change
   a button row inside one needs its own `<ondown>`; Kodi calls `onInit` again on every return to
   a window (`on_return`); never block in a click handler, or Kodi's player events never arrive;
   a horizontal grouplist takes over its children's Left/Right and can't move into a child group
-  (lay such a row out as a plain group); a grouplist scrolls only until the focused control's
+  (lay such a row out as a plain group); a vertical one can't move into a child group either, even
+  with `<defaultcontrol>`, so windows whose rows are groups step between them in Python
+  (`ArcWindow.ROW_STOPS`, Home's own Up/Down); a grouplist scrolls only until the focused control's
   foot meets its own, so room under a row has to be inside the row; Kodi won't bottom-align a
   wrapping label; an auto-width disabled button makes a capsule that fits its text; a list
   takes how many rows it shows from its height in the skin, not a later `setHeight()`; Kodi's
   standard font has no arrow characters; Kodi sends an `xbmc.Player`'s events only to the thread
   that made it, so make players on the add-on's main thread (or reuse one) and never in a worker;
-  a list draws its chosen row with its focused layout even when the list isn't focused.
+  a list draws its chosen row with its focused layout even when the list isn't focused; a list's layout
+  `condition` is checked once for the whole list, not per item, so different kinds of entry share
+  one layout and show their parts by `ListItem.Property` (Settings).
 - Kodi logs to `kodi.log` (`~/.kodi/temp/` on Linux, `%APPDATA%\Kodi\` on Windows); turn on
   Kodi's debug logging to see the add-on's debug lines.

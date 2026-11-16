@@ -13,6 +13,7 @@ ACTION_BACK = (9, 10, 92)        # Backspace, Escape, Nav Back
 ACTION_CONTEXT = (117,)          # Context menu (C / long OK)
 ACTION_PLAY = (79, 229)          # Play, Play/Pause on a remote
 ACTION_PREVIOUS_MENU = 10
+ACTION_UP, ACTION_DOWN = 3, 4
 
 
 def _open(window_cls, xml, session, **kwargs):
@@ -58,15 +59,54 @@ class ArcWindow(xbmcgui.WindowXML):
         except Exception as e:
             log.error("%s onInit failed: %s", type(self).__name__, e)
 
+    # A window whose rows are groups (a title and its list as one unit) in a vertical grouplist
+    # lists them here, top to bottom, each as a tuple of the ids that count as being on it (the
+    # first is focused). Kodi's grouplist won't move the focus into a group, so Up/Down that leave
+    # the focus where it was move to the next visible row here.
+    ROW_STOPS = ()
+
     def onAction(self, action):
         code = action.getId()
+        before = getattr(self, "_last_focus", None)
         try:
-            if self.on_action(action, code):
+            handled = self.on_action(action, code)
+            if not handled and self.ROW_STOPS:
+                handled = self._step_rows(code, before)
+            if handled:
                 return
         except Exception as e:
             log.error("%s onAction failed: %s", type(self).__name__, e)
+        finally:
+            # Where the focus is now: a focus just asked for (Kodi applies it a moment later), or
+            # where Kodi has put it.
+            moved_to, self._moved_to = getattr(self, "_moved_to", None), None
+            try:
+                self._last_focus = moved_to if moved_to is not None else self.getFocusId()
+            except Exception:
+                pass
         if code in ACTION_BACK:
             self.on_back()
+
+    def _step_rows(self, code, before):
+        """Up/Down between ROW_STOPS when Kodi didn't move the focus (see ROW_STOPS)."""
+        if code not in (ACTION_UP, ACTION_DOWN):
+            return False
+        now = self.getFocusId()
+        if now != before:
+            return False
+        at = next((i for i, ids in enumerate(self.ROW_STOPS) if now in ids), None)
+        if at is None:
+            return False
+        step = 1 if code == ACTION_DOWN else -1
+        i = at + step
+        while 0 <= i < len(self.ROW_STOPS):
+            target = self.ROW_STOPS[i][0]
+            if self.is_visible(target):
+                self.focus_id(target)
+                self._moved_to = target
+                return True
+            i += step
+        return False
 
     def onClick(self, control_id):
         log.debug("%s: click on %d", type(self).__name__, control_id)

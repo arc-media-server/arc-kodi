@@ -52,6 +52,11 @@ CARD_KEYS = {"released": 30145, "runtime": 30146, "rated": 30160, "genres": 3016
 
 
 class DetailsWindow(ArcWindow):
+    # The page's rows, top to bottom (see ArcWindow.ROW_STOPS): Play and the round buttons, the
+    # season tabs, the episodes, Cast, Extras, Related, Collections, the cards.
+    ROW_STOPS = ((PLAY, RESTART, WATCHED, WATCHLIST), (SEASONS,), (EPISODES,), (CAST,), (EXTRAS,),
+                 (RELATED,), (COLLECTIONS,), (CARDS,))
+
     xml = "script-arc-details.xml"
 
     def __init__(self, *args, **kwargs):
