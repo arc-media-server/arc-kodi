@@ -1223,3 +1223,99 @@ msgstr ""
 msgctxt "#30454"
 msgid "Maximum Resolution"
 msgstr ""
+
+msgctxt "#30460"
+msgid "Player Info"
+msgstr ""
+
+msgctxt "#30461"
+msgid "Video"
+msgstr ""
+
+msgctxt "#30462"
+msgid "Decoder"
+msgstr ""
+
+msgctxt "#30463"
+msgid "Picture"
+msgstr ""
+
+msgctxt "#30464"
+msgid "Pixel format"
+msgstr ""
+
+msgctxt "#30465"
+msgid "HDR"
+msgstr ""
+
+msgctxt "#30466"
+msgid "Deinterlacing"
+msgstr ""
+
+msgctxt "#30467"
+msgid "Dolby Vision"
+msgstr ""
+
+msgctxt "#30468"
+msgid "Profile"
+msgstr ""
+
+msgctxt "#30469"
+msgid "Layers"
+msgstr ""
+
+msgctxt "#30470"
+msgid "Changed by this device"
+msgstr ""
+
+msgctxt "#30471"
+msgid "Display"
+msgstr ""
+
+msgctxt "#30472"
+msgid "Output"
+msgstr ""
+
+msgctxt "#30473"
+msgid "Output format"
+msgstr ""
+
+msgctxt "#30474"
+msgid "Audio"
+msgstr ""
+
+msgctxt "#30475"
+msgid "Decoder"
+msgstr ""
+
+msgctxt "#30476"
+msgid "Format"
+msgstr ""
+
+msgctxt "#30477"
+msgid "Sent as"
+msgstr ""
+
+msgctxt "#30478"
+msgid "Arc"
+msgstr ""
+
+msgctxt "#30479"
+msgid "Playback"
+msgstr ""
+
+msgctxt "#30480"
+msgid "Why"
+msgstr ""
+
+msgctxt "#30481"
+msgid "Played as it is"
+msgstr ""
+
+msgctxt "#30482"
+msgid "Repackaged by Arc"
+msgstr ""
+
+msgctxt "#30483"
+msgid "Converted by Arc"
+msgstr ""
