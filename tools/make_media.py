@@ -158,6 +158,12 @@ def circle_and_ring():
     img = _canvas(n)
     ImageDraw.Draw(img).ellipse([0, 0, n * S - 1, n * S - 1], outline=WHITE, width=8 * S)
     _save_small(img, "arc-ring.png", n)
+    # A tick box that isn't ticked (Watch Together's people): a ring as heavy as the ticked
+    # one's (arc-osd-circle-check-filled.png), at its size.
+    n = 34
+    img = _canvas(n)
+    ImageDraw.Draw(img).ellipse([S, S, n * S - 1 - S, n * S - 1 - S], outline=WHITE, width=3 * S)
+    _save_small(img, "arc-tick-ring.png", n)
 
 
 def bars():
