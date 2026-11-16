@@ -46,7 +46,7 @@ with their own audio, subtitles and quality.
   - the follower's decisions;
   - notices and participants' states;
   - the room stream.
-  
+
   `arc/api.py` gains the room calls (`RoomConflict` for 409s) and shares the SSE opening with live updates.
 
 ## Found on the way

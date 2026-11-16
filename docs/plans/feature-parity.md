@@ -78,7 +78,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Quality and Version menus | Both | Done | Yes | |
 | Playback speed | Android | Done | Part | Kodi's tempo, 0.8x to 1.5x, shown where Kodi allows it; not yet tried on hardware. |
 | Subtitle style (size, colour, background) | Both | Missing | Part | Kodi draws subtitles with its own style settings; follow Kodi's (PM4K does). |
-| Audio and subtitle delay | — | Missing | Yes | Kodi's own; not in the other apps either. |
+| Audio and subtitle delay | — | Done | Yes | Audio Offset and Subtitle Offset in the player's Playback menu (Kodi's own OSD can't be reached under Arc's player). The audio offset is kept for the device. |
 | Skip Intro / Recap / Credits; skip by itself | Both | Done | Yes | Not yet seen with real markers (the test library has none). |
 | Up Next with countdown | Both | Done | Yes | |
 | Resume and progress on the source timeline; conversions kept alive and ended | Both | Done | Yes | |
