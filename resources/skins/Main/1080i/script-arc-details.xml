@@ -490,11 +490,11 @@
         <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
         <orientation>horizontal</orientation>
         <itemgap>12</itemgap>
-        <itemlayout width="220" height="76">
+        <itemlayout width="280" height="76">
           <control type="label">
             <left>0</left>
             <top>0</top>
-            <width>220</width>
+            <width>280</width>
             <height>76</height>
             <font>font13</font>
             <align>center</align>
@@ -504,11 +504,11 @@
             <label>$INFO[ListItem.Label]</label>
           </control>
         </itemlayout>
-        <focusedlayout width="220" height="76">
+        <focusedlayout width="280" height="76">
           <control type="image">
             <left>0</left>
             <top>0</top>
-            <width>220</width>
+            <width>280</width>
             <height>76</height>
             <texture border="38">arc-pill-white.png</texture>
             <visible>Control.HasFocus(200)</visible>
@@ -516,7 +516,7 @@
           <control type="label">
             <left>0</left>
             <top>0</top>
-            <width>220</width>
+            <width>280</width>
             <height>76</height>
             <font>font13</font>
             <align>center</align>
@@ -528,7 +528,7 @@
           <control type="label">
             <left>0</left>
             <top>0</top>
-            <width>220</width>
+            <width>280</width>
             <height>76</height>
             <font>font13</font>
             <align>center</align>

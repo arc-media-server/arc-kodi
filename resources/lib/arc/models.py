@@ -61,10 +61,17 @@ def progress(item):
     return min(1.0, max(0.02, float(r) / d))
 
 
+def placed(item):
+    """Whether an episode has a place in its show's order. Arc sends 0/0 for one outside it (Not
+    in This Order), and those must never read "S0 · E0"."""
+    s, e = (item or {}).get("season_number"), (item or {}).get("episode_number")
+    return s is not None and bool(e)
+
+
 def episode_code(item):
     """"S1 · E4" style numbers, or "" when Arc doesn't place it."""
     s, e = (item or {}).get("season_number"), (item or {}).get("episode_number")
-    if s is None or e is None:
+    if not placed(item):
         return ""
     return "S%d · E%d" % (s, e)
 
