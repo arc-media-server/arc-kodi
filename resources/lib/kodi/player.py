@@ -265,6 +265,9 @@ class Playback(object):
         action = ("AudioDelay" if audio else "SubtitleDelay") + ("Plus" if n > 0 else "Minus")
         for _ in range(abs(n)):
             xbmc.executebuiltin("Action(%s)" % action)
+        if n:
+            # Kodi shows its own delay slider for these steps; Arc's menu already says the offset.
+            xbmc.executebuiltin("Dialog.Close(sliderdialog,true)")
         if remember:
             if audio:
                 storage.update(audio_offset_ms=int(target_ms))
