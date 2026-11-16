@@ -135,6 +135,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         self._dismissed = set()
         self._marker = None
         self._up_next = False
+        self._was_paused = False    # for showing the controls when playback pauses
         self._up_next_closed = False
         self._countdown_from = None
         self._osd = False
@@ -211,6 +212,12 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         position = self._pending if self._pending is not None else self.pb.position_ms()
         duration = self.pb.duration_ms
         self.setProperty("arc.paused", "1" if self.pb.paused else "")
+        # Paused (by the viewer, Kodi or the room), the controls come up, as Plex's and the Apple
+        # player's do; they stay while paused.
+        if self.pb.paused and not self._was_paused and not self._osd and self._menu is None \
+                and self.pb._started and not self._lobby:
+            self._show()
+        self._was_paused = self.pb.paused
         if self._osd or now < self._shown_until:
             self._draw_timeline(position, duration)
         elif self._pending is None and self.getProperty("arc.thumb"):
