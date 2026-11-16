@@ -75,7 +75,7 @@ class ArcPlayer(xbmc.Player):
 class Playback(object):
     """One title's playback: start, keep progress, the choices made in the player, clean up."""
 
-    def __init__(self, session, item, resume_ms=0, on_finished=None, queue=None, together=None):
+    def __init__(self, session, item, resume_ms=0, on_finished=None, queue=None, together=None, file_id=None):
         self.session = session
         self.api = session.api
         self.item = item
@@ -101,7 +101,7 @@ class Playback(object):
         self._start_ms = resume_ms  # the source position the current plan was asked to start at
         self._last_ms = None        # where Kodi last said it was playing (source timeline)
         # The viewer's choices, sent with every request to Arc (a restart keeps them).
-        self.file_id = None
+        self.file_id = file_id     # a version chosen before playing (Play Version…), else Arc's pick
         self.audio_index = None    # Arc's stream index of the chosen audio track
         self.max_kbps = None       # a quality limit; None for the original
         self.burn_subtitle = None  # a picture subtitle Arc draws into a converted picture

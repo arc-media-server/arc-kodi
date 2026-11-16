@@ -1195,3 +1195,11 @@ msgstr ""
 msgctxt "#30440"
 msgid "Description hidden until you watch it."
 msgstr ""
+
+msgctxt "#30441"
+msgid "Play Version…"
+msgstr ""
+
+msgctxt "#30442"
+msgid "Choose Version"
+msgstr ""
