@@ -281,7 +281,10 @@ class HomeWindow(ArcWindow):
         self.set_image(HERO_LOGO, self.session.art(card.get("logo")))
         self.set_label(HERO_TITLE, "" if card.get("logo") else (item.get("series_title") or item.get("title", "")))
         self.set_label(HERO_INFO, self._hero_info(item))
-        self.set_text(HERO_OVERVIEW, item.get("overview") or "")
+        overview = item.get("overview") or ""
+        if overview and models.spoiler_hidden(self.session.prefs, item):
+            overview = T(30440)
+        self.set_text(HERO_OVERVIEW, overview)
 
     def _hero_info(self, item):
         bits = []
