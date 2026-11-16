@@ -10,12 +10,12 @@ from arc.api import APIError, Unreachable
 from . import log as logmod
 from .compat import T
 from .log import log
+from .windows import keyboard  # Arc's keyboard (address, password, code)
 from .live import Live
 from .session import Session
 from .together import Together
 from .player import Playback
 from .windows import signin, home, library, details, search, settings, menu, recommended, person
-from .windows import keyboard
 
 
 class App(object):
