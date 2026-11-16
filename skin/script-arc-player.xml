@@ -20,17 +20,22 @@
       <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
     </control>
 
+    <!-- The top shaded while Arc's controls show, and whenever the skin's own seek bar is open
+         (it opens by itself on pause and seek, even with Arc's controls hidden): it covers the
+         skin's bar there. -->
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>360</height>
+      <texture>arc-osd-top.png</texture>
+      <visible>String.IsEqual(Window.Property(arc.osd),1) | Window.IsVisible(seekbar)</visible>
+      <animation effect="fade" time="200">VisibleChange</animation>
+    </control>
+
     <control type="group" id="200">
       <visible>String.IsEqual(Window.Property(arc.osd),1)</visible>
       <animation effect="fade" time="200">VisibleChange</animation>
       <control type="image">
         <left>0</left><top>480</top><width>1920</width><height>600</height>
         <texture>arc-osd-scrim.png</texture>
-      </control>
-      <!-- The top shaded too, covering the skin's own bar there. -->
-      <control type="image">
-        <left>0</left><top>0</top><width>1920</width><height>360</height>
-        <texture>arc-osd-top.png</texture>
       </control>
 
       <!-- Paused, the title's overview shows above it (as Plex's player). -->
