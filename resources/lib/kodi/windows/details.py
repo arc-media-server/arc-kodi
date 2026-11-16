@@ -13,6 +13,7 @@ from arc import models, titlepage
 
 from ..compat import T
 from ..log import log
+from . import menu
 from .base import ArcWindow, list_item
 from .cards import item_art, item_list_item, set_progress
 
@@ -244,12 +245,21 @@ class DetailsWindow(ArcWindow):
     def _show_seasons(self, data, error):
         if error is not None or not data:
             return
+        shown = [(t.get("season_number"), self._tab_name(t)) for t in self.tabs]
         self.seasons, self.tabs = titlepage.season_tabs(data)
+        same = shown == [(t.get("season_number"), self._tab_name(t)) for t in self.tabs]
         ctrl = self.list_control(SEASONS)
+        if same and self.getFocusId() == SEASONS and not self.focus_episode:
+            # Fetched again while choosing a season (one just marked, or a change from elsewhere):
+            # the same tabs, so leave them (emptying the focused list would send the focus to
+            # Play) and show the season's episodes as they are now.
+            self._show_episodes(self.season_index)
+            if self.item:
+                self._render_actions()
+            return
         ctrl.reset()
         for s in self.tabs:
-            name = T(30385) if s.get("unplaced") else s.get("name") or (T(30155) % s.get("season_number", 0))
-            ctrl.addItem(list_item(name, props={"season": "" if s.get("unplaced") else s.get("season_number")}))
+            ctrl.addItem(list_item(self._tab_name(s), props={"season": "" if s.get("unplaced") else s.get("season_number")}))
         if self.tabs:
             # Open on the season of the episode Play would play, as Plex does, or of the episode
             # this page was opened for.
@@ -270,6 +280,10 @@ class DetailsWindow(ArcWindow):
                 self.focus_when_visible(EPISODES)
         if self.item:
             self._render_actions()
+
+    @staticmethod
+    def _tab_name(tab):
+        return T(30385) if tab.get("unplaced") else tab.get("name") or (T(30155) % tab.get("season_number", 0))
 
     def _with_show(self, ep):
         """An episode from the season list, with its show's name and pictures (the list's episodes
@@ -415,6 +429,8 @@ class DetailsWindow(ArcWindow):
             self._toggle_watched()
         elif control_id == WATCHLIST:
             self._toggle_watchlist()
+        elif control_id == SEASONS:
+            self._season_menu()
         elif control_id == EPISODES:
             pos = self.list_control(EPISODES).getSelectedPosition()
             eps = self._tab_episodes()
@@ -465,6 +481,8 @@ class DetailsWindow(ArcWindow):
         """Context Menu: the focused episode's or related title's menu, or, elsewhere on the page,
         the title's own (Play and the like are the page's buttons, so it has the rest)."""
         focus = self.getFocusId()
+        if focus == SEASONS:
+            return self._season_menu()
         if focus == EPISODES:
             pos = self.list_control(EPISODES).getSelectedPosition()
             eps = self._tab_episodes()
@@ -490,6 +508,56 @@ class DetailsWindow(ArcWindow):
             self.nav("context", {"item": self.item, "on_page": True, "on_changed": changed})
             return True
         return False
+
+    # MARK: - a season's menu
+
+    def _season_menu(self):
+        """OK or Context Menu on a season tab, as the Android app's: Mark Season as Watched (or
+        Unwatched) and Shuffle Season. Not in This Order has none (it isn't a season)."""
+        index = self.list_control(SEASONS).getSelectedPosition()
+        if not 0 <= index < len(self.tabs):
+            return False
+        if index != self.season_index:
+            self._show_episodes(index)
+        tab = self.tabs[index]
+        actions = titlepage.season_actions(tab)
+        if not actions:
+            return False
+        words = {"watched": 30430, "unwatched": 30431, "shuffle": 30432}
+        choice = menu.choose(self._tab_name(tab), [T(words[a]) for a in actions])
+        if not 0 <= choice < len(actions):
+            return True
+        if actions[choice] == "shuffle":
+            ids = titlepage.season_episode_ids(tab)
+            if self.nav and ids:
+                self.nav("queue", {"item_ids": ids, "shuffle": True})
+        else:
+            self._mark_season(index, actions[choice] == "watched")
+        return True
+
+    def _mark_season(self, index, played):
+        """Marks the season on Arc (the show's played route with the season's number in the order
+        shown), showing the ticks at once and putting them back if Arc says no."""
+        tab = self.tabs[index]
+        number = tab.get("season_number")
+        before = tab.get("episodes") or []
+        tab["episodes"] = titlepage.mark_season(tab, played)
+        if self.season_index == index:
+            self._show_episodes(index)
+        count = len(titlepage.season_episode_ids(tab))
+
+        def done(_result, error):
+            if error is not None:
+                log.warning("season not marked: %s", type(error).__name__)
+                tab["episodes"] = before
+                if self.season_index == index:
+                    self._show_episodes(index)
+                menu.choose(self._tab_name(tab), [T(30000)], message=T(30433))
+                return
+            log.info("season marked %s (%d episodes)", "watched" if played else "unwatched", count)
+            self.on_return()   # the show again (Play follows), and its seasons
+
+        self.run_async(lambda: self.session.api.set_played(self.item_id, played, season_number=number), done)
 
     def _play(self, from_start):
         if not self.action or not self.nav:
