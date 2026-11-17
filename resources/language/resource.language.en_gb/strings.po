@@ -1377,3 +1377,39 @@ msgstr ""
 msgctxt "#30587"
 msgid "Audio Channels"
 msgstr ""
+
+msgctxt "#30590"
+msgid "Add to Playlist…"
+msgstr ""
+
+msgctxt "#30591"
+msgid "Add to Playlist"
+msgstr ""
+
+msgctxt "#30592"
+msgid "Add “%s” to:"
+msgstr ""
+
+msgctxt "#30593"
+msgid "Add every episode of “%s” to:"
+msgstr ""
+
+msgctxt "#30594"
+msgid "You have no playlists to add to yet. Make one in Arc on the web, then add to it here."
+msgstr ""
+
+msgctxt "#30595"
+msgid "Couldn't load your playlists."
+msgstr ""
+
+msgctxt "#30596"
+msgid "Added “%s” to %s"
+msgstr ""
+
+msgctxt "#30597"
+msgid "Couldn't add “%s” to %s."
+msgstr ""
+
+msgctxt "#30598"
+msgid "1 title"
+msgstr ""

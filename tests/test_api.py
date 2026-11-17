@@ -88,3 +88,9 @@ def test_absolute_versions_api_paths():
     api, _ = make({})
     assert api.absolute("/api/items/i1/images/backdrop") == "http://arc:8099/api/v1/items/i1/images/backdrop"
     assert api.absolute("https://cdn/x.jpg") == "https://cdn/x.jpg"
+
+
+def test_add_to_playlist_body_and_count():
+    api, server = make({("POST", "playlists/p1/items"): (200, {"added": 1})})
+    assert api.add_to_playlist("p1", ["m1"]) == 1
+    assert server.requests[0]["body"] == {"item_ids": ["m1"]}
