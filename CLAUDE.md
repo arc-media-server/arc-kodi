@@ -9,7 +9,7 @@ in doubt); how it behaves inside Kodi (windows, the player, keys, Kodi's own
 settings) follows PM4K; the API is the server's `docs/CLIENT-INTEGRATION.md`. The owner (GitHub:
 JonzaUK) drives product vision; agents (Claude, Codex) do most implementation. Read `README.md`
 and `docs/changes/` (what was built and why). The server repo's CLAUDE.md and docs/API.md are the
-wider context; decisions waiting for the owner are on arc-media-server#80.
+wider context; decisions waiting for the owner are arc-media-server issues labelled `owner decision`.
 
 ## Workflow (same as the other repos)
 
@@ -24,8 +24,10 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
   - after changing `skin/`, `python3 tools/build_skin.py`; after changing the media,
     `python3 tools/make_media.py`; commit what they write.
 - Record each change in `docs/changes/YYYY-MM-DD-<slug>.md`; commit messages have a summary, a
-  body and the Co-Authored-By trailer. Keep working without check-ins; log product decisions on
-  arc-media-server#80; stop only for risky or irreversible things.
+  body and the Co-Authored-By trailer. Keep working without check-ins; note product decisions in
+  the PR (a "Decisions" section), or, when the owner really has to choose, in its own
+  arc-media-server issue labelled `owner decision` (#80 is closed; don't add to it); stop only for
+  risky or irreversible things.
 - Never mark device, playback, HDR, Dolby Vision, passthrough or refresh-rate checks done without
   evidence from Kodi on real hardware (and say which: Windows, Linux/LibreELEC, Android, Apple
   TV). Never point tests at the owner's server, data or keys.
@@ -82,7 +84,7 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
   refresh-rate switching, passthrough), follow PM4K and Kodi's own settings rather than adding
   options; for product behaviour follow Arc's design (the other Arc apps) and Plex. Settings come from the server
   (the profile's prefs) wherever Arc already has them; the add-on's own settings are only what
-  only Kodi can know. Log differences on arc-media-server#80.
+  only Kodi can know. Note differences in the PR.
 - **Text:** every user-facing string in
   `resources/language/resource.language.en_gb/strings.po` (ids 30000–30999), used through
   `T(id)` in Python and `$ADDON[script.arc id]` in XML.
