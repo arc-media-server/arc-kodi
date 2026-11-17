@@ -242,6 +242,12 @@ class ArcAPI(object):
     def playlist(self, playlist_id):
         return self.get("playlists/" + _q(playlist_id), route="playlists/{id}")
 
+    def add_to_playlist(self, playlist_id, item_ids):
+        """Adds films, episodes or whole shows to a playlist; returns how many entries were added."""
+        out = self.send("POST", "playlists/" + _q(playlist_id) + "/items", {"item_ids": list(item_ids)},
+                        route="playlists/{id}/items")
+        return int((out or {}).get("added") or 0)
+
     def person(self, person_id):
         return self.get("people/%d" % int(person_id), route="people/{id}")
 

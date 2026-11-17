@@ -42,3 +42,12 @@ def test_watch_together_offered_for_films_and_episodes():
     assert "watch_together" not in menus.card_actions(m)
     s = {"id": "s", "kind": "series"}
     assert "watch_together" not in menus.card_actions(s, together=True)
+
+
+def test_add_to_playlist_for_what_a_playlist_holds():
+    m = {"id": "m", "kind": "movie"}
+    assert menus.card_actions(m, playlists=True) == ["play", "watched", "watchlist_add", "add_to_playlist"]
+    s = {"id": "s", "kind": "series"}
+    assert "add_to_playlist" in menus.card_actions(s, playlists=True)
+    assert "add_to_playlist" not in menus.card_actions({"id": "c", "kind": "collection"}, playlists=True)
+    assert "add_to_playlist" not in menus.card_actions(m)
