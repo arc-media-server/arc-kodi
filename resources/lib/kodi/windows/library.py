@@ -288,6 +288,31 @@ class GridWindow(TabsMixin, ArcWindow):
         self.close()
 
 
+def channels_name(n):
+    """Mono, Stereo, 5.1, 7.1, as the player's audio list words them."""
+    n = int(n or 0)
+    return T(30214) if n == 1 else T(30215) if n == 2 else ("%d.1" % (n - 1)) if n > 2 else ""
+
+
+def filter_value_name(key, value):
+    """A filter's value as the Filters list and pill show it."""
+    if key == "watch_state":
+        return T(30581) if value == "played" else T(30582)
+    if key == "decade":
+        return T(30257) % value if value else ""
+    if key == "resolution":
+        return browse.resolution_name(value or "")
+    if key == "dynamic_range":
+        return T(30584) if value == "unknown" else browse.dynamic_range_name(value)
+    if key == "video_codec":
+        return browse.video_codec_name(value)
+    if key == "audio_codec":
+        return browse.audio_codec_name(value)
+    if key == "audio_channels":
+        return channels_name(value)
+    return value or ""
+
+
 class LibraryWindow(GridWindow):
     """A library's Browse grid with Sort and Filter, as the Apple app's (arc/browse.py)."""
 
@@ -325,9 +350,8 @@ class LibraryWindow(GridWindow):
     def _refresh_pills(self):
         self.set_label(SORT, "%s: %s" % (T(30123), self._sort_name(self.query.sort)))
         kind, value = self.query.filter_name()
-        names = {"all": T(30125), "filtered": T(30261), "unwatched": T(30126), "genre": value,
-                 "decade": T(30257) % value if value else "", "resolution": browse.resolution_name(value or "")}
-        self.set_label(FILTER, "%s: %s" % (T(30124), names[kind]))
+        names = {"all": T(30125), "filtered": T(30261), "unwatched": T(30126)}
+        self.set_label(FILTER, "%s: %s" % (T(30124), names[kind] if kind in names else filter_value_name(kind, value)))
 
     def _items(self, offset, limit):
         page = self.session.api.items(self.query.parameters(self.library, offset, limit))
@@ -356,38 +380,54 @@ class LibraryWindow(GridWindow):
             self._reset()
 
     def _filter_menu(self):
+        """Filters, as the web's and the other TV apps': Unwatched Only, then each filter with what
+        it's set to, opening its own list (Any, then the choices). The media filters (HDR, formats,
+        channels) show only when they'd narrow something (browse.offered)."""
         q = self.query
+        any_name = T(30259)
         rows = [("unwatched", T(30254), "")]
-        facet_rows = [("genre", T(30255), "genres", lambda v: v), ("decade", T(30256), "decades", lambda v: T(30257) % v)]
-        if browse.shows_resolution(self.library):
-            facet_rows.append(("resolution", T(30258), "resolutions", browse.resolution_name))
-        namers = {}
-        for key, title, facet, name in facet_rows:
+
+        def add(key, title, values, facet=None):
+            current = getattr(q, key)
+            # How many titles each value has, shown beside it as before.
+            counts = {str(v): n for v, n in browse.facet_values(self.facets, facet)} if facet else {}
+            rows.append((key, title, filter_value_name(key, current) if current else any_name, values, counts))
+
+        add("watch_state", T(30580), list(browse.WATCH_STATES))
+        for key, title, facet in (("genre", T(30255), "genres"), ("decade", T(30256), "decades")):
             if browse.facet_values(self.facets, facet):
-                current = getattr(q, key)
-                rows.append((key, title, name(current) if current else T(30259)))
-                namers[key] = (title, facet, name)
+                add(key, title, browse.choices(self.facets, facet, getattr(q, key)), facet)
+        if browse.shows_resolution(self.library) and browse.facet_values(self.facets, "resolutions"):
+            add("resolution", T(30258), browse.choices(self.facets, "resolutions", q.resolution), "resolutions")
+        media_titles = {"dynamic_range": T(30583), "video_codec": T(30585), "audio_codec": T(30586),
+                        "audio_channels": T(30587)}
+        for key, facet in browse.MEDIA_FILTERS:
+            if browse.offered(self.facets, facet, getattr(q, key)):
+                add(key, media_titles[key], browse.choices(self.facets, facet, getattr(q, key)), facet)
         if q.filtered:
             rows.append(("clear", T(30260), ""))
-        choice = menu.choose(T(30124), [(title, detail) for _, title, detail in rows],
+        choice = menu.choose(T(30124), [(row[1], row[2]) for row in rows],
                              selected=0 if q.unwatched else -1, focus=0)
         if choice < 0:
             return
         key = rows[choice][0]
         if key == "unwatched":
-            q.unwatched = not q.unwatched
+            q.set_unwatched(not q.unwatched)
         elif key == "clear":
             q.clear_filters()
         else:
-            title, facet, name = namers[key]
-            values = browse.facet_values(self.facets, facet)
+            title, values, counts = rows[choice][1], rows[choice][3], rows[choice][4]
             current = getattr(q, key)
-            options = [T(30259)] + [(name(v), str(n)) for v, n in values]
-            at = 1 + [v for v, _ in values].index(current) if current in [v for v, _ in values] else 0
+            options = [any_name] + [(filter_value_name(key, v), str(counts.get(str(v), ""))) for v in values]
+            at = 1 + values.index(current) if current in values else 0
             pick = menu.choose(title, options, selected=at)
             if pick < 0:
                 return
-            setattr(q, key, None if pick == 0 else values[pick - 1][0])
+            value = None if pick == 0 else values[pick - 1]
+            if key == "watch_state":
+                q.set_watch_state(value)
+            else:
+                setattr(q, key, value)
         self._reset()
 
     def on_click(self, control_id):

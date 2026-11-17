@@ -1,4 +1,5 @@
-from arc.browse import LibraryQuery, facet_values, resolution_name, shows_resolution
+from arc.browse import (LibraryQuery, audio_codec_name, choices, dynamic_range_name, facet_values, offered,
+                        resolution_name, shows_resolution, video_codec_name)
 
 FILMS = {"id": 1, "kind": "movies", "name": "Films"}
 SHOWS = {"id": 2, "kind": "shows", "name": "TV"}
@@ -49,3 +50,47 @@ def test_direction_follows_the_servers_order():
     assert q.direction() == "a_to_z"
     q.choose_sort("title")
     assert q.direction() == "z_to_a"
+
+
+def test_watch_status_and_unwatched_exclude_each_other():
+    q = LibraryQuery()
+    q.set_unwatched(True)
+    q.set_watch_state("played")
+    assert q.watch_state == "played" and not q.unwatched
+    q.set_unwatched(True)
+    assert q.unwatched and q.watch_state is None
+    p = q.parameters(FILMS, 0, 10)
+    assert p["unwatched"] == "1" and "watch_state" not in p
+
+
+def test_media_filters_parameters_name_and_clear():
+    q = LibraryQuery()
+    q.dynamic_range = "dolby_vision"
+    assert q.filter_name() == ("dynamic_range", "dolby_vision")
+    q.audio_channels = 8
+    p = q.parameters(FILMS, 0, 10)
+    assert p["dynamic_range"] == "dolby_vision" and p["audio_channels"] == "8"
+    assert q.filter_name() == ("filtered", None)
+    q.clear_filters()
+    assert not q.filtered and "audio_channels" not in q.parameters(FILMS, 0, 10)
+
+
+def test_media_filters_offered_only_when_they_narrow():
+    facets = {"video_codecs": [{"value": "hevc", "count": 4}],
+              "dynamic_ranges": [{"value": "sdr", "count": 3}, {"value": "hdr10", "count": 1}]}
+    assert not offered(facets, "video_codecs", None)
+    assert offered(facets, "video_codecs", "h264")  # chosen stays visible to change
+    assert offered(facets, "dynamic_ranges", None)
+
+
+def test_choices_keep_the_chosen_value_and_order_channels():
+    facets = {"audio_channels": [{"value": "2", "count": 1}, {"value": "8", "count": 1}, {"value": "6", "count": 2}],
+              "audio_codecs": [{"value": "aac", "count": 2}]}
+    assert choices(facets, "audio_channels", None) == [8, 6, 2]
+    assert choices(facets, "audio_codecs", "truehd") == ["aac", "truehd"]
+
+
+def test_media_names():
+    assert dynamic_range_name("hdr10_plus") == "HDR10+"
+    assert video_codec_name("hevc") == "HEVC" and video_codec_name("prores") == "PRORES"
+    assert audio_codec_name("eac3") == "Dolby Digital Plus"
