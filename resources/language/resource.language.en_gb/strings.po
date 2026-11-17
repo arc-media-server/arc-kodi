@@ -79,6 +79,24 @@ msgctxt "#30028"
 msgid "Nothing answered at that address. Check it, and that this device is on the same network."
 msgstr ""
 
+# Server discovery
+
+msgctxt "#30560"
+msgid "On your network"
+msgstr ""
+
+msgctxt "#30561"
+msgid "Search Again"
+msgstr ""
+
+msgctxt "#30562"
+msgid "Searching…"
+msgstr ""
+
+msgctxt "#30563"
+msgid "No servers found. Enter an address or search again."
+msgstr ""
+
 # sign-in
 msgctxt "#30040"
 msgid "Sign in to Arc"

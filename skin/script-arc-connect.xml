@@ -4,9 +4,9 @@
   <controls>
     <include>PageBackground</include>
     <control type="group">
-      <left>560</left><top>300</top><width>800</width>
+      <left>560</left><top>240</top><width>800</width>
       <control type="image">
-        <left>310</left><top>-230</top><width>180</width><height>190</height>
+        <left>310</left><top>-200</top><width>180</width><height>190</height>
         <texture>arc-logo-stacked.png</texture>
       </control>
       <control type="label">
@@ -20,7 +20,7 @@
         <label>$ADDON[script.arc 30021]</label>
       </control>
       <control type="button" id="100">
-        <ondown>101</ondown>
+        <ondown>103</ondown>
         <left>0</left><top>140</top><width>800</width><height>76</height>
         <font>arc-label</font><textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
         <texturefocus border="38">arc-pill-white.png</texturefocus>
@@ -28,14 +28,68 @@
         <align>left</align><textoffsetx>24</textoffsetx><aligny>center</aligny>
         <label>$ADDON[script.arc 30022]</label>
       </control>
+      <!-- Server discovery: existing list rows and pill buttons. -->
+      <control type="label">
+        <left>0</left><top>235</top><width>800</width><height>44</height>
+        <font>arc-label</font><textcolor>muted</textcolor>
+        <label>$ADDON[script.arc 30560]</label>
+      </control>
+      <control type="list" id="103">
+        <left>0</left><top>285</top><width>800</width><height>192</height>
+        <visible>!String.IsEmpty(Window.Property(servers))</visible>
+        <onup>100</onup><ondown>104</ondown>
+        <itemlayout width="800" height="96">
+          <control type="image">
+            <left>0</left><top>4</top><width>800</width><height>88</height>
+            <texture border="32">arc-pill-surface.png</texture>
+          </control>
+          <control type="label">
+            <left>24</left><top>6</top><width>752</width><height>40</height>
+            <font>arc-label</font><textcolor>fg</textcolor><label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>24</left><top>46</top><width>752</width><height>36</height>
+            <font>arc-small</font><textcolor>fg</textcolor><label>$INFO[ListItem.Label2]</label>
+          </control>
+        </itemlayout>
+        <focusedlayout width="800" height="96">
+          <control type="image">
+            <left>0</left><top>4</top><width>800</width><height>88</height>
+            <texture border="32">arc-pill-white.png</texture>
+          </control>
+          <control type="label">
+            <left>24</left><top>6</top><width>752</width><height>40</height>
+            <font>arc-label</font><textcolor>black</textcolor><label>$INFO[ListItem.Label]</label>
+          </control>
+          <control type="label">
+            <left>24</left><top>46</top><width>752</width><height>36</height>
+            <font>arc-small</font><textcolor>black</textcolor><label>$INFO[ListItem.Label2]</label>
+          </control>
+        </focusedlayout>
+      </control>
+      <control type="label" id="105">
+        <left>0</left><top>300</top><width>800</width><height>100</height>
+        <font>arc-small</font><textcolor>muted</textcolor><wrapmultiline>true</wrapmultiline>
+        <visible>String.IsEmpty(Window.Property(servers))</visible>
+      </control>
+      <control type="button" id="104">
+        <left>0</left><top>510</top><width>800</width><height>64</height>
+        <onup>103</onup><ondown>101</ondown>
+        <font>arc-label</font><textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
+        <texturefocus border="32">arc-pill-white.png</texturefocus>
+        <texturenofocus border="32">arc-pill-surface.png</texturenofocus>
+        <align>center</align><aligny>center</aligny>
+        <label>$ADDON[script.arc 30561]</label>
+      </control>
       <control type="button" id="101">
-        <onup>100</onup>
+        <onup>104</onup>
+        <ondown>100</ondown>
         <include content="PrimaryButton"><param name="width" value="800"/></include>
-        <top>240</top>
+        <top>600</top>
         <label>$ADDON[script.arc 30024]</label>
       </control>
       <control type="label" id="102">
-        <left>0</left><top>340</top><width>800</width><height>80</height>
+        <left>0</left><top>690</top><width>800</width><height>80</height>
         <font>arc-small</font><textcolor>muted</textcolor><align>center</align><wrapmultiline>true</wrapmultiline>
         <label>$ADDON[script.arc 30023]</label>
       </control>
