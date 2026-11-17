@@ -26,7 +26,7 @@ import time
 import xbmc
 import xbmcgui
 
-from arc import models, playback, playerinfo, titlepage
+from arc import browse, models, playback, playerinfo, titlepage
 from arc import together as wt
 
 from .compat import ADDON_PATH, T
@@ -106,8 +106,7 @@ def language_name(code):
     return name or code.upper()
 
 
-CODECS = {"aac": "AAC", "ac3": "Dolby Digital", "eac3": "Dolby Digital Plus", "truehd": "Dolby TrueHD",
-          "dts": "DTS", "flac": "FLAC", "mp3": "MP3", "opus": "Opus", "vorbis": "Vorbis", "alac": "ALAC"}
+CODECS = browse.AUDIO_CODECS
 
 
 def audio_label(track, i):

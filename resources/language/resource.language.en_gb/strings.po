@@ -1345,3 +1345,35 @@ msgstr ""
 msgctxt "#30485"
 msgid "Previous Episode"
 msgstr ""
+
+msgctxt "#30580"
+msgid "Watch Status"
+msgstr ""
+
+msgctxt "#30581"
+msgid "Watched"
+msgstr ""
+
+msgctxt "#30582"
+msgid "Not Started"
+msgstr ""
+
+msgctxt "#30583"
+msgid "HDR"
+msgstr ""
+
+msgctxt "#30584"
+msgid "Not known yet"
+msgstr ""
+
+msgctxt "#30585"
+msgid "Video Format"
+msgstr ""
+
+msgctxt "#30586"
+msgid "Audio Format"
+msgstr ""
+
+msgctxt "#30587"
+msgid "Audio Channels"
+msgstr ""
