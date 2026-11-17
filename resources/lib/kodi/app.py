@@ -282,11 +282,11 @@ class App(object):
         actions = menus.card_actions(item, continue_row=payload.get("continue_row", False),
                                      on_page=payload.get("on_page", False),
                                      in_show=payload.get("in_show", False),
-                                     together=self.together.available)
+                                     together=self.together.available, playlists=True)
         labels = {"play": T(30005), "resume": T(30006), "from_start": T(30213),
                   "watched": T(30150), "unwatched": T(30151), "watchlist_add": T(30152),
                   "watchlist_remove": T(30153), "go_to_show": T(30176), "remove_continue": T(30177),
-                  "watch_together": T(30331), "play_version": T(30441)}
+                  "watch_together": T(30331), "play_version": T(30441), "add_to_playlist": T(30590)}
         choice = menu.choose(item.get("title", ""), [labels[a] for a in actions])
         if choice < 0:
             return
@@ -299,8 +299,39 @@ class App(object):
             self._open_card({"item": item})
         elif act == "watch_together":
             self._invite(item)
+        elif act == "add_to_playlist":
+            self._add_to_playlist(item)
         else:
             self._change(item, act, payload.get("on_changed"))
+
+    def _add_to_playlist(self, item):
+        """Add to Playlist…, as the web's picker and the other TV apps': the profile's playlists with
+        how many titles each holds (smart ones fill themselves, so they aren't listed), then a note
+        of what happened. New playlists are made on the web: typing a name with a remote is slow."""
+        try:
+            lists = [p for p in self.session.api.playlists() if not p.get("smart_filter")]
+        except Exception as e:
+            log.warning("playlists failed to load for Add to Playlist: %s", type(e).__name__)
+            toast.show(T(30595))
+            return
+        if not lists:
+            menu.choose(T(30591), [T(30003)], message=T(30594))
+            return
+        what = T(30593 if models.is_series(item) else 30592) % item.get("title", "")
+        options = [(p.get("title", ""), T(30598) if (p.get("count") or 0) == 1 else T(30320) % (p.get("count") or 0))
+                   for p in lists]
+        choice = menu.choose(T(30591), options, message=what)
+        if choice < 0:
+            return
+        chosen = lists[choice]
+        try:
+            self.session.api.add_to_playlist(chosen.get("id"), [item.get("id")])
+        except Exception as e:
+            log.warning("adding to a playlist failed: %s", type(e).__name__)
+            toast.show(T(30597) % (item.get("title", ""), chosen.get("title", "")))
+            return
+        log.info("added a title to a playlist")
+        toast.show(T(30596) % (item.get("title", ""), chosen.get("title", "")))
 
     def _play_version(self, item):
         """Plex's Play Version…: the title's versions, each by its edition or resolution with the
