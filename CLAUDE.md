@@ -2,8 +2,9 @@
 
 The Kodi client for Arc Media Server: a full-screen add-on (`script.arc`) that draws its own interface with Kodi's WindowXML and never
 touches Kodi's library: no scraping, no `.strm` files, no library sync. The server is
-arc-media-server/arc-media-server (Go, with a web app). The look follows the Apple TV app
-(arc-media-server/arc-apple); how it behaves inside Kodi (windows, the player, keys, Kodi's own
+arc-media-server/arc-media-server (Go, with a web app). The look follows Arc's design, which
+all Arc's TV apps share (arc-media-server/arc-apple is its fullest version, so check there when
+in doubt); how it behaves inside Kodi (windows, the player, keys, Kodi's own
 settings) follows Kodi's conventions; the API is the server's `docs/CLIENT-INTEGRATION.md`. The owner (GitHub:
 JonzaUK) drives product vision; agents (Claude, Codex) do most implementation. Read `README.md`
 and `docs/changes/` (what was built and why). The server repo's CLAUDE.md and docs/API.md are the
@@ -66,7 +67,7 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
   local proxy (`kodi/artwork.py`, 127.0.0.1 only, GET image routes only) that adds the Bearer
   header, and media and subtitles through cast links (`POST /cast`), which carry their own scoped
   token. Never use Kodi's `url|Authorization=...` header suffix with the session token.
-- **Feel:** a TV app driven by a remote: focus always visible (white, as the Apple app), Back
+- **Feel:** a TV app driven by a remote: focus always visible (white, as in Arc's design), Back
   always works, Context Menu (C or long OK) for the ⋯ actions, Play on a card plays it. Menus and
   questions are Arc's own (`kodi/windows/menu.py`: `choose`, `confirm`), never Kodi's
   `contextmenu`, `select` or `yesno`; PINs go into Arc's PIN pad (`kodi/windows/pin.py`). Arc's identity through the owner's logo (the server's `docs/brand`, copied into `tools/brand/`): the
@@ -78,7 +79,7 @@ wider context; decisions waiting for the owner are on arc-media-server#80.
   banner). Colours live only in `skin/includes.xml` (and the media `tools/make_media.py` draws).
 - **Plex first:** for Kodi-specific behaviour (keys, the player,
   refresh-rate switching, passthrough), follow Kodi's own settings and conventions rather than adding
-  options; for product behaviour follow the Apple app and Plex. Settings come from the server
+  options; for product behaviour follow Arc's design (the other Arc apps) and Plex. Settings come from the server
   (the profile's prefs) wherever Arc already has them; the add-on's own settings are only what
   only Kodi can know. Log differences on arc-media-server#80.
 - **Text:** every user-facing string in
