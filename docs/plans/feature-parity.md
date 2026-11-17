@@ -2,7 +2,7 @@
 
 What the Apple TV app (arc-apple) and the Android TV app (arc-android) do, what Arc for Kodi does
 today, and how close Kodi can get. Written 13 November from those repos' `docs/changes/` and code;
-update it as items land. Product decisions it raises go on arc-media-server#80.
+update it as items land. Product decisions it raises go in the PRs that build them.
 
 Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Kodi can match it),
 **Part** (close, with a Kodi limit named), **No** (Kodi can't, or it isn't wanted here).
