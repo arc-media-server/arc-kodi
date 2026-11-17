@@ -146,6 +146,23 @@ class ArcAPI(object):
     def capabilities(self):
         return self.get("capabilities")
 
+    # Server discovery: anonymous, direct probes; expected misses stay quiet.
+    def discover(self):
+        req = request.Request(self.base_url + "/api/v1/discover",
+                              headers={"Accept": "application/json", "User-Agent": self.user_agent})
+        opener = request.build_opener(request.ProxyHandler({}), _NoRedirect())
+        try:
+            with opener.open(req, timeout=self.timeout) as response:
+                if response.status != 200:
+                    return None
+                answer = json.loads(response.read(65537).decode("utf-8"))
+            if (isinstance(answer, dict) and answer.get("product") == "arc"
+                    and type(answer.get("api_version")) is int and answer["api_version"] >= 1):
+                return answer
+        except (OSError, urlerror.URLError, ValueError):
+            pass
+        return None
+
     # MARK: - browsing
 
     def libraries(self):

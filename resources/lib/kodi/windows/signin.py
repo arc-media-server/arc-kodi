@@ -8,6 +8,7 @@ import xbmc
 import xbmcgui
 
 from arc.api import ArcAPI, APIError, Unreachable, normalise_address
+from arc.discovery import DiscoveryState, scan
 
 from .. import toast
 from ..compat import T
@@ -25,28 +26,88 @@ class ConnectWindow(ArcWindow):
     ADDRESS = 100
     CONNECT = 101
     STATUS = 102
+    # Server discovery
+    SERVERS, SEARCH, DISCOVERY_STATUS = 103, 104, 105
 
     def __init__(self, *args, **kwargs):
         ArcWindow.__init__(self, *args, **kwargs)
         self.address = ""
+        self._discovery = DiscoveryState()
 
     def on_init(self):
         self.focus_id(self.ADDRESS)
+        self._search()
 
     def on_click(self, control_id):
         if control_id == self.ADDRESS:
             if self._type_address():
+                self._connect()
+        elif control_id == self.SEARCH:
+            self._search()
+        elif control_id == self.SERVERS:
+            pos = self.list_control(self.SERVERS).getSelectedPosition()
+            if 0 <= pos < len(self._discovery.found):
+                self.address = self._discovery.found[pos]["address"]
+                self.set_label(self.ADDRESS, self.address)
                 self._connect()
         elif control_id == self.CONNECT:
             if self.address or self._type_address():
                 self._connect()
 
     def _type_address(self):
-        typed = (keyboard.type_text(T(30020), self.address, kind="address") or "").strip()
+        self._discovery.typing = True
+        try:
+            typed = (keyboard.type_text(T(30020), self.address, kind="address") or "").strip()
+        finally:
+            self._discovery.typing = False
         if typed:
+            self._discovery.manual = True
             self.address = typed
             self.set_label(self.ADDRESS, typed)
         return bool(typed)
+
+    # Server discovery: reuse the Connect screen's list and pill controls.
+    def _search(self):
+        old = self._discovery
+        old.stop.set()
+        state = self._discovery = DiscoveryState()
+        state.manual = bool(self.address)
+        state.typing = old.typing
+        self.list_control(self.SERVERS).reset()
+        self.set_bool("servers", False)
+        self.set_label(self.DISCOVERY_STATUS, T(30562))
+
+        def found(server):
+            if state is not self._discovery or state.stop.is_set() or self._closing:
+                return
+            focus = state.accept(server)
+            self.list_control(self.SERVERS).addItem(list_item(server["name"], server["address"]))
+            self.set_bool("servers", True)
+            if focus:
+                # Wait for the list to become visible; typing may start during that frame.
+                def focus_first():
+                    monitor = xbmc.Monitor()
+                    for _ in range(40):
+                        if (state is not self._discovery or state.stop.is_set()
+                                or state.typing or state.manual or self._closing):
+                            return
+                        if self.is_visible(self.SERVERS):
+                            self.focus_id(self.SERVERS)
+                            return
+                        if monitor.waitForAbort(0.05):
+                            return
+                threading.Thread(target=focus_first, daemon=True).start()
+
+        def done(_result, _error):
+            if state is self._discovery and not state.stop.is_set():
+                self.set_label(self.DISCOVERY_STATUS, "" if state.found else T(30563))
+                log.info("server discovery finished (%d found)", len(state.found))
+
+        self.run_async(lambda: scan(xbmc.getIPAddress(), found, state.stop), done)
+
+    def close(self):
+        self._discovery.stop.set()
+        ArcWindow.close(self)
 
     def _connect(self):
         base = normalise_address(self.address)
