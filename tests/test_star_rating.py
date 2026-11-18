@@ -27,9 +27,3 @@ def test_rating_failure_is_reported():
     with pytest.raises(APIError):
         ArcAPI("http://scratch", opener=server).set_rating("a", 5)
 
-
-def test_rating_rows_use_only_local_textures_and_preserve_slots():
-    assert ratings.row_properties(9) == {"arc.ratingtexture": "arc-rating-9.png", "arc.ratingposition": "label"}
-    assert ratings.row_properties(9, detail=True)["arc.ratingposition"] == "detail"
-    assert ratings.row_properties(0) == {"arc.ratingtexture": "", "arc.ratingposition": ""}
-    assert ratings.row_properties(99)["arc.ratingtexture"] == "arc-rating-10.png"

@@ -7,8 +7,6 @@ without a choice."""
 
 import xbmcgui
 
-from arc import ratings  # Star rating
-
 from .. import compat
 from ..compat import T
 from ..log import log
@@ -17,6 +15,18 @@ from .base import ACTION_BACK, ACTION_CONTEXT
 PANEL, TITLE, LIST, BACKGROUND, MESSAGE = 600, 601, 602, 603, 604
 ROW, ROWS_SHOWN = 64, 8       # rows 64 high, up to 8 showing (the list scrolls past that)
 PANEL_WIDTH, LINE = 580, 40   # the message's lines, at arc-body, ~34 characters each
+
+
+# Star rating: local artwork avoids dependence on the active skin's font glyphs.
+RATING_TEXTURES = ("", "arc-rating-1.png", "arc-rating-2.png", "arc-rating-3.png", "arc-rating-4.png",
+                   "arc-rating-5.png", "arc-rating-6.png", "arc-rating-7.png", "arc-rating-8.png",
+                   "arc-rating-9.png", "arc-rating-10.png")
+
+
+def _rating_properties(rating, detail=False):
+    r = max(0, min(10, int(rating or 0)))
+    return {"arc.ratingtexture": RATING_TEXTURES[r],
+            "arc.ratingposition": ("detail" if detail else "label") if r else ""}
 
 
 class MenuDialog(xbmcgui.WindowXMLDialog):
@@ -53,7 +63,7 @@ class MenuDialog(xbmcgui.WindowXMLDialog):
                 label, detail = (opt, "") if not isinstance(opt, (tuple, list)) else (opt[0], opt[1])
             li = xbmcgui.ListItem(label, detail)
             if isinstance(opt, dict) and "rating" in opt:
-                for key, value in ratings.row_properties(opt["rating"], opt.get("rating_detail", False)).items():
+                for key, value in _rating_properties(opt["rating"], opt.get("rating_detail", False)).items():
                     li.setProperty(key, value)
             ticked = i in self.selected if isinstance(self.selected, (set, list, tuple)) else i == self.selected
             li.setProperty("selected", "1" if ticked else "")
