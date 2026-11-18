@@ -279,6 +279,11 @@ class ArcAPI(object):
     def remove_from_continue(self, item_id):
         self.send("DELETE", "home/continue/" + _q(item_id), None, route="home/continue/{id}", expect_body=False)
 
+    # Star rating
+    def set_rating(self, item_id, rating):
+        return self.send("PUT", "items/" + _q(item_id) + "/rating",
+                         {"rating": max(0, min(10, int(rating)))}, route="items/{id}/rating")
+
     # MARK: - playing
 
     def start_playback(self, item_id, body):

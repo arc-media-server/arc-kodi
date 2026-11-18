@@ -7,6 +7,10 @@ runs this).
 """
 
 import os
+import sys
+
+# Star rating
+from rating_media import write_rating_stars
 
 from PIL import Image, ImageDraw
 
@@ -348,10 +352,16 @@ def main():
     side_panel()
     player()
     title_page()
+    write_rating_stars(MEDIA)  # Star rating
     brand_renders()
     fanart()
     print("media written to", MEDIA)
 
 
 if __name__ == "__main__":
-    main()
+    # Star rating can be rebuilt alone without rewriting unrelated generated media.
+    if sys.argv[1:] == ["--star-rating"]:
+        os.makedirs(MEDIA, exist_ok=True)
+        write_rating_stars(MEDIA)
+    else:
+        main()

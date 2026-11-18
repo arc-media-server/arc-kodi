@@ -5,6 +5,7 @@ and route navigation between the windows. Opened from default.py.
 import xbmcgui
 
 from arc import menus, models, titlepage
+from arc import ratings  # Star rating
 from arc.api import APIError, Unreachable
 
 from . import toast
@@ -287,7 +288,13 @@ class App(object):
                   "watched": T(30150), "unwatched": T(30151), "watchlist_add": T(30152),
                   "watchlist_remove": T(30153), "go_to_show": T(30176), "remove_continue": T(30177),
                   "watch_together": T(30331), "play_version": T(30441), "add_to_playlist": T(30590)}
-        choice = menu.choose(item.get("title", ""), [labels[a] for a in actions])
+        # Star rating: title pages only, using the same title menu as Android #34.
+        if payload.get("on_page") and item.get("kind") in ("movie", "series", "episode"):
+            actions.append("rate")
+            labels["rate"] = T(30500)
+        options = [{"label": labels[a], "rating": (item.get("user_data") or {}).get("rating", 0),
+                    "rating_detail": True} if a == "rate" else labels[a] for a in actions]
+        choice = menu.choose(item.get("title", ""), options)
         if choice < 0:
             return
         act = actions[choice]
@@ -295,6 +302,8 @@ class App(object):
             self._play(item, 0 if act == "from_start" else models.resume_ms(item))
         elif act == "play_version":
             self._play_version(item)
+        elif act == "rate":
+            self._rate(item, payload.get("on_changed"))
         elif act == "go_to_show":
             self._open_card({"item": item})
         elif act == "watch_together":
@@ -332,6 +341,32 @@ class App(object):
             return
         log.info("added a title to a playlist")
         toast.show(T(30596) % (item.get("title", ""), chosen.get("title", "")))
+
+    # Star rating
+    def _rate(self, item, on_changed=None):
+        current = (item.get("user_data") or {}).get("rating", 0)
+        choices = list(ratings.CHOICES)
+        options = [{"label": ratings.stars(r), "detail": T(30503) % ratings.out_of_five(r),
+                    "rating": r} for r in choices]
+        if current > 0:
+            choices.append(0)
+            options.append(T(30502))
+        selected = choices.index(current) if current in choices and current > 0 else -1
+        choice = menu.choose(T(30501), options, selected=selected, focus=max(selected, 0))
+        if not 0 <= choice < len(choices):
+            return
+        if choices[choice] == current:
+            return
+        try:
+            self.session.api.set_rating(item.get("id"), choices[choice])
+        except Exception as e:
+            log.warning("rating not saved: %s", type(e).__name__)
+            toast.show(T(30504))
+            return
+        item.setdefault("user_data", {})["rating"] = choices[choice]
+        log.debug("rating saved")
+        if on_changed:
+            on_changed(item, "rate")
 
     def _play_version(self, item):
         """Plex's Play Version…: the title's versions, each by its edition or resolution with the
