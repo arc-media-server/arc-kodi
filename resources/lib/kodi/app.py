@@ -292,8 +292,8 @@ class App(object):
         if payload.get("on_page") and item.get("kind") in ("movie", "series", "episode"):
             actions.append("rate")
             labels["rate"] = T(30500)
-        options = [(labels[a], ratings.stars((item.get("user_data") or {}).get("rating", 0)))
-                   if a == "rate" else labels[a] for a in actions]
+        options = [{"label": labels[a], "rating": (item.get("user_data") or {}).get("rating", 0),
+                    "rating_detail": True} if a == "rate" else labels[a] for a in actions]
         choice = menu.choose(item.get("title", ""), options)
         if choice < 0:
             return
@@ -346,7 +346,8 @@ class App(object):
     def _rate(self, item, on_changed=None):
         current = (item.get("user_data") or {}).get("rating", 0)
         choices = list(ratings.CHOICES)
-        options = [(ratings.stars(r), T(30503) % ratings.out_of_five(r)) for r in choices]
+        options = [{"label": ratings.stars(r), "detail": T(30503) % ratings.out_of_five(r),
+                    "rating": r} for r in choices]
         if current > 0:
             choices.append(0)
             options.append(T(30502))

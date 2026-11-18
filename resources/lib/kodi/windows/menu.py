@@ -7,6 +7,8 @@ without a choice."""
 
 import xbmcgui
 
+from arc import ratings  # Star rating
+
 from .. import compat
 from ..compat import T
 from ..log import log
@@ -44,8 +46,15 @@ class MenuDialog(xbmcgui.WindowXMLDialog):
         ctrl.reset()
         items = []
         for i, opt in enumerate(self.options):
-            label, detail = (opt, "") if not isinstance(opt, (tuple, list)) else (opt[0], opt[1])
+            # Star rating extends the same rows; other menus keep their string/tuple options.
+            if isinstance(opt, dict):
+                label, detail = opt.get("label", ""), opt.get("detail", "")
+            else:
+                label, detail = (opt, "") if not isinstance(opt, (tuple, list)) else (opt[0], opt[1])
             li = xbmcgui.ListItem(label, detail)
+            if isinstance(opt, dict) and "rating" in opt:
+                for key, value in ratings.row_properties(opt["rating"], opt.get("rating_detail", False)).items():
+                    li.setProperty(key, value)
             ticked = i in self.selected if isinstance(self.selected, (set, list, tuple)) else i == self.selected
             li.setProperty("selected", "1" if ticked else "")
             items.append(li)
