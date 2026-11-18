@@ -14,6 +14,8 @@ plays: the viewer's pause, play and seeks go to the room as commands, a follower
 step with the room (playing, pausing, jumping), and the player reports itself every two seconds.
 """
 
+from arc import preroll
+
 import threading
 import time
 
@@ -49,6 +51,16 @@ class ArcPlayer(xbmc.Player):
         return not self.pb.done
 
     def onAVStarted(self):
+        # A cancelled native open can finish after Back closed the playback. Kodi broadcasts
+        # events to old players too: cancel only this pre-roll's exact clip-scoped URL.
+        clip_url = getattr(self.pb, "_preroll_url", None)
+        if clip_url and self.pb._stop.is_set():
+            try:
+                if self.getPlayingFile() == clip_url:
+                    self.stop()
+            except Exception:
+                log.debug("cancelled pre-roll stop unavailable")
+            return
         if self._live():
             self.pb.on_started()
 
@@ -82,6 +94,14 @@ class Playback(object):
         self.item = item
         self.item_id = item.get("id")
         self.resume_ms = resume_ms
+        # Pre-roll runs once; advancing titles never re-enters start().
+        self.preroll_pending = False
+        self.preroll_active = False
+        self._preroll_clips = []
+        self._preroll_index = -1
+        self._preroll_url = None
+        self._preroll_replacing = False
+        self._preroll_lock = threading.Lock()
         self.on_finished = on_finished
         self.caps = device_caps()
         self.plan = None
@@ -122,6 +142,16 @@ class Playback(object):
     # MARK: - start
 
     def start(self):
+        if preroll.enabled(self.item, self.resume_ms, self.together is not None):
+            self.preroll_pending = True
+            self._open_controls()
+            threading.Thread(target=self._load_preroll, name="arc-preroll", daemon=True).start()
+            return True
+        return self._start_film()
+
+    def _start_film(self):
+        if self.done or self._stop.is_set():
+            return False
         if not self._request(self.resume_ms):
             return False
         self._open_player()
@@ -129,6 +159,48 @@ class Playback(object):
         if self.together is not None:
             threading.Thread(target=self._follow_loop, daemon=True).start()
         return True
+
+    # Pre-roll: list failures and unsupported clips always move on.
+    def _load_preroll(self):
+        clips, outcome = preroll.clips_before_deadline(lambda: self.api.preroll(self.item_id))
+        if self.done or self._stop.is_set():
+            return
+        if outcome != "ready":
+            log.warning("pre-roll list %s; playing the film", outcome)
+        self._preroll_clips = clips
+        self.preroll_pending = False
+        self.preroll_active = True
+        self.advance_preroll()
+
+    def advance_preroll(self):
+        with self._preroll_lock:
+            if self.done or self._stop.is_set() or not self.preroll_active:
+                return
+            self.preroll_active = False
+            self._preroll_replacing = self.player.isPlaying()
+            self._switching = True
+            self._preroll_index += 1
+            index = self._preroll_index
+            clip = self._preroll_clips[index] if index < len(self._preroll_clips) else None
+        if clip is None:
+            if self.controls:
+                self.controls.setProperty("arc.skip", "")
+            self._started = False
+            self._start_film()
+            return
+        li = xbmcgui.ListItem()
+        li.setContentLookup(False)
+        self.preroll_active = True
+        try:
+            url = self.api.cast_link(clip["url"])
+            if self.done or self._stop.is_set() or index != self._preroll_index:
+                return
+            self._preroll_url = url
+            self.player.play(url, li)
+        except Exception:
+            if index == self._preroll_index:
+                log.warning("pre-roll failed; moving on")
+                self.advance_preroll()
 
     def _choose_start_audio(self, caps, start_ms):
         """Before the first request: if Arc would convert only because the profile's audio
@@ -211,6 +283,10 @@ class Playback(object):
     # MARK: - player callbacks
 
     def on_started(self):
+        if self.preroll_active:
+            self._switching = False
+            self._preroll_replacing = False
+            return
         if self._started:
             return
         self._started = True
@@ -371,6 +447,8 @@ class Playback(object):
                 return
 
     def on_pause(self, paused):
+        if self.preroll_active or self.preroll_pending:
+            return
         self.paused = paused
         self._report("paused" if paused else "playing")
         # In a room, the viewer's pause or play goes to the room; Kodi's own events while a
@@ -387,6 +465,21 @@ class Playback(object):
                 self.together.play()
 
     def on_ended(self, finished):
+        # Kodi can deliver an old clip's Stop after the next stream's AVStarted.
+        # Back explicitly sets _stop, and always wins over this replacement guard.
+        if not finished and self._preroll_index >= 0 and not self._stop.is_set() and self.player.isPlaying():
+            return
+        if self.preroll_active or self.preroll_pending:
+            if self._stop.is_set():
+                self._finish()
+            elif not finished and getattr(self, "_preroll_replacing", False):
+                # Ignore the old source's Stop while an explicitly replacing clip opens.
+                self._preroll_replacing = False
+            else:
+                if not finished:
+                    log.warning("pre-roll stopped before completion; moving on")
+                self.advance_preroll()
+            return
         if self._switching:
             return
         position = self.position_ms()
@@ -410,6 +503,10 @@ class Playback(object):
             self._finish()
 
     def on_error(self):
+        if self.preroll_active:
+            log.warning("pre-roll failed; moving on")
+            self.advance_preroll()
+            return
         method = self.plan.get("method") if self.plan else None
         if method in ("direct", "remux") and not self._stop.is_set():
             log.info("playback error on %s; trying again converted", method)
