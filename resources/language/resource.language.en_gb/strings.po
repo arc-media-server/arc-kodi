@@ -1413,3 +1413,25 @@ msgstr ""
 msgctxt "#30598"
 msgid "1 title"
 msgstr ""
+
+# Star rating
+
+msgctxt "#30500"
+msgid "Rate…"
+msgstr ""
+
+msgctxt "#30501"
+msgid "Your Rating"
+msgstr ""
+
+msgctxt "#30502"
+msgid "Clear Rating"
+msgstr ""
+
+msgctxt "#30503"
+msgid "%s of 5"
+msgstr ""
+
+msgctxt "#30504"
+msgid "Couldn't save your rating. Try again."
+msgstr ""
