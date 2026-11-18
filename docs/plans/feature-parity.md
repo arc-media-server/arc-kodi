@@ -46,6 +46,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Feature | Apple / Android | Kodi now | Kodi can | Notes |
 |---|---|---|---|---|
 | Hero: logo, info line, overview | Both | Done | Yes | |
+| Theme Music on film/show pages, profile switch | Android | Done | Part | Authenticated local audio; Kodi device volume and native stop, rather than independent quiet gain/fade. |
 | Background in the artwork's four colours (palette) | Apple | Done | Part | Kodi has no mesh gradient; four tinted corner glows under the artwork. |
 | Quality badges as capsules (4K, DV, HDR10, Atmos, 5.1) | Both | Done | Yes | |
 | Play label says what plays (Resume 1:02:03, Play S1 E4) | Both | Done | Yes | |

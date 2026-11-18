@@ -216,6 +216,7 @@ class App(object):
 
     def _play_extra(self, extra):
         from .player import ExtraPlayback
+        self._stop_theme_music()
         if self.playback is not None:
             self.playback.stop()
 
@@ -229,6 +230,7 @@ class App(object):
             self.playback = None
 
     def _open(self, window_cls, **kwargs):
+        self._stop_theme_music()
         w = window_cls(window_cls.xml, self._path(), "Main", "1080i", session=self.session, **kwargs)
         if hasattr(w, "nav"):
             w.nav = self._navigate
@@ -534,6 +536,7 @@ class App(object):
         """Starts playback and returns at once. Kodi delivers the player's events (started, paused,
         ended) on this thread through the open window's loop, so it must not be held here waiting;
         the Playback reports progress and cleans up on its own threads."""
+        self._stop_theme_music()
         if self.playback is not None:
             self.playback.stop()
 
@@ -546,3 +549,8 @@ class App(object):
         self.playback = pb
         if not pb.start():
             self.playback = None
+
+    # Theme music
+    def _stop_theme_music(self):
+        if self.stack and hasattr(self.stack[-1], "theme_music"):
+            self.stack[-1].theme_music.stop()

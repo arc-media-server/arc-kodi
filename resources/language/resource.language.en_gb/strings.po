@@ -792,6 +792,11 @@ msgctxt "#30298"
 msgid "Skip Intros Automatically"
 msgstr ""
 
+#. Theme music
+msgctxt "#30540"
+msgid "Theme Music"
+msgstr ""
+
 msgctxt "#30299"
 msgid "In the language I last chose"
 msgstr ""

@@ -22,10 +22,12 @@ STYLE = {
 }
 
 SWITCHES = ("auto_play", "auto_skip", "hide_spoilers")
+# Theme music
+SWITCHES += ("theme_music",)
 
 # Sections in order: (heading, rows, note after them or None).
 SECTIONS = [
-    ("playback", ["auto_play", "auto_skip", "hide_spoilers", "audio_language"], "playback_note"),
+    ("playback", ["auto_play", "auto_skip", "theme_music", "hide_spoilers", "audio_language"], "playback_note"),
     ("subtitles", ["subtitle_mode", "subtitle_language", "subtitle_size", "subtitle_color",
                    "subtitle_background", "subtitle_position"], "style_note"),
     ("together", ["join_code"], None),
@@ -78,6 +80,9 @@ def value(prefs, key):
     """The row's current value: True/False for a switch, the stored value for a choice, None for
     an action."""
     prefs = prefs or {}
+    # Theme music defaults on, as Android.
+    if key == "theme_music":
+        return prefs.get("theme_music", True) is not False
     if key == "auto_play":
         return prefs.get("auto_play", True) is not False
     if key in ("auto_skip", "hide_spoilers"):
