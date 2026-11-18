@@ -77,6 +77,8 @@ class DetailsWindow(ArcWindow):
         self.seasons = []       # the order's seasons (Play follows these)
         self.tabs = []          # the season tabs: the seasons, then Not in This Order
         self.season_index = 0
+        self.show_missing = False
+        self._seasons_request = 0
         self.related = []
         self.cast = []
         self.extras = []
@@ -250,21 +252,39 @@ class DetailsWindow(ArcWindow):
 
     # MARK: - seasons / episodes
 
-    def _load_seasons(self):
-        self.run_async(lambda: self.session.api.seasons(self.item_id), self._show_seasons)
+    def _load_seasons(self, show_missing=None):
+        missing = self.show_missing if show_missing is None else show_missing
+        self._seasons_request += 1
+        request = self._seasons_request
+
+        def loaded(data, error):
+            if request != self._seasons_request:
+                return
+            if error is not None or not data:
+                toast.show(T(30004))
+                return
+            self.show_missing = missing
+            self._show_seasons(data, None)
+
+        self.run_async(lambda: self.session.api.seasons(self.item_id, missing=missing), loaded)
 
     def _show_seasons(self, data, error):
         if error is not None or not data:
             return
+        previous = self.tabs[self.season_index] if 0 <= self.season_index < len(self.tabs) else None
+        selected = self.list_control(EPISODES).getSelectedPosition()
+        old_episodes = self._tab_episodes()
+        episode_id = old_episodes[selected].get("id") if 0 <= selected < len(old_episodes) else None
         shown = [(t.get("season_number"), self._tab_name(t)) for t in self.tabs]
         self.seasons, self.tabs = titlepage.season_tabs(data)
         same = shown == [(t.get("season_number"), self._tab_name(t)) for t in self.tabs]
+        focus = self.getFocusId()
         ctrl = self.list_control(SEASONS)
-        if same and self.getFocusId() == SEASONS and not self.focus_episode:
+        if same and focus == SEASONS and not self.focus_episode:
             # Fetched again while choosing a season (one just marked, or a change from elsewhere):
             # the same tabs, so leave them (emptying the focused list would send the focus to
             # Play) and show the season's episodes as they are now.
-            self._show_episodes(self.season_index)
+            self._show_episodes(self.season_index, episode_id)
             if self.item:
                 self._render_actions()
             return
@@ -280,15 +300,25 @@ class DetailsWindow(ArcWindow):
             if landing:
                 target = {"id": landing}
             start = 0
+            if previous and not landing:
+                for i, tab in enumerate(self.tabs):
+                    if (tab.get("season_number"), bool(tab.get("unplaced"))) == (previous.get("season_number"), bool(previous.get("unplaced"))):
+                        start = i
+                        break
+                target = None
+                landing = episode_id
             for i, s in enumerate(self.tabs):
                 if target and any(e.get("id") == target.get("id") for e in s.get("episodes") or []):
                     start = i
                     break
             ctrl.selectItem(start)
             self._show_episodes(start, landing)
-            if landing:
+            if self.focus_episode:
                 self.focus_episode = None
                 self.focus_when_visible(EPISODES)
+            elif previous and focus in (SEASONS, EPISODES):
+                # Resetting a focused Kodi list sends focus to Play; restore it after refill.
+                self.focus_when_visible(focus)
         if self.item:
             self._render_actions()
 
@@ -338,6 +368,11 @@ class DetailsWindow(ArcWindow):
         if release:
             props["releases"] = T(30154) % ("%d %s" % (release.day, release.strftime("%b")))
             sub = props["releases"]
+        if not ep.get("available", True):
+            props["tag"] = T(30602)
+            # Reuse the existing unavailable-artwork treatment without changing card layouts.
+            props["releases"] = props.get("releases") or T(30602)
+            sub = " · ".join(x for x in (T(30602), sub) if x)
         label = titlepage.episode_label(ep, unplaced)
         thumb = models.images(ep).get("primary")
         fallback = art.get("thumb")
@@ -504,7 +539,7 @@ class DetailsWindow(ArcWindow):
         if focus == EPISODES:
             pos = self.list_control(EPISODES).getSelectedPosition()
             eps = self._tab_episodes()
-            if 0 <= pos < len(eps):
+            if 0 <= pos < len(eps) and eps[pos].get("available", True):
                 self.nav("context", {"item": eps[pos], "in_show": True,
                                      "on_changed": lambda _it, _act: self._load_seasons()})
                 return True
@@ -531,21 +566,23 @@ class DetailsWindow(ArcWindow):
 
     def _season_menu(self):
         """OK or Context Menu on a season tab, as the Android app's: Mark Season as Watched (or
-        Unwatched) and Shuffle Season. Not in This Order has none (it isn't a season)."""
+        Unwatched), Shuffle Season and Show/Hide Missing Episodes. The visibility
+        toggle also works on empty seasons and Not in This Order."""
         index = self.list_control(SEASONS).getSelectedPosition()
         if not 0 <= index < len(self.tabs):
             return False
         if index != self.season_index:
             self._show_episodes(index)
         tab = self.tabs[index]
-        actions = titlepage.season_actions(tab)
-        if not actions:
-            return False
-        words = {"watched": 30430, "unwatched": 30431, "shuffle": 30432}
+        actions = titlepage.season_actions(tab) + ["hide_missing" if self.show_missing else "show_missing"]
+        words = {"watched": 30430, "unwatched": 30431, "shuffle": 30432,
+                 "show_missing": 30600, "hide_missing": 30601}
         choice = menu.choose(self._tab_name(tab), [T(words[a]) for a in actions])
         if not 0 <= choice < len(actions):
             return True
-        if actions[choice] == "shuffle":
+        if actions[choice] in ("show_missing", "hide_missing"):
+            self._load_seasons(show_missing=actions[choice] == "show_missing")
+        elif actions[choice] == "shuffle":
             ids = titlepage.season_episode_ids(tab)
             if self.nav and ids:
                 self.nav("queue", {"item_ids": ids, "shuffle": True})

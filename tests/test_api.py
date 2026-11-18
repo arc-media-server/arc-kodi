@@ -94,3 +94,11 @@ def test_add_to_playlist_body_and_count():
     api, server = make({("POST", "playlists/p1/items"): (200, {"added": 1})})
     assert api.add_to_playlist("p1", ["m1"]) == 1
     assert server.requests[0]["body"] == {"item_ids": ["m1"]}
+
+
+def test_missing_episodes_are_opt_in_and_authenticated():
+    api, server = make({("GET", "series/show/seasons"): (200, {"seasons": []})})
+    api.seasons("show")
+    api.seasons("show", missing=True)
+    assert [r["query"] for r in server.requests] == [{}, {"missing": "1"}]
+    assert all(r["auth"] == "Bearer tok" for r in server.requests)
