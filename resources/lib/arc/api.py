@@ -449,6 +449,10 @@ class ArcAPI(object):
             log.debug("%s: can't reach the server (%s)", route, type(getattr(e, "reason", e)).__name__)
             raise Unreachable(str(type(e).__name__))
 
+    # Pre-roll videos before films.
+    def preroll(self, item_id):
+        return self.get("items/%s/preroll" % _q(item_id), route="items/{id}/preroll")
+
     # MARK: - plumbing
 
     def get(self, path, route=None):

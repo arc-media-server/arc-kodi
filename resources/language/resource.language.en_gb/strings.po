@@ -335,6 +335,11 @@ msgid "Season %d"
 msgstr ""
 
 # player
+#. Pre-roll videos before films
+msgctxt "#30520"
+msgid "Skip"
+msgstr ""
+
 msgctxt "#30180"
 msgid "Skip Intro"
 msgstr ""

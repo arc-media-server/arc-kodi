@@ -62,6 +62,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Related / More like this | Both | Done | Yes | |
 | Collections row | Both | Done | Yes | |
 | Trailers & Extras | Both | Done | Yes | Played through Arc's player, without progress. Not yet seen with real extras (the test library has none). |
+| Pre-roll before initial movie play | Android | Done | Yes | Requires server #485; skips resume, Watch Together and queue advancement. |
 | Versions (editions) choice before playing | Android | Done | Yes | Play Version… in the title's ⋯ menu (Context Menu), as Android and Plex; Play itself plays Arc's pick. Also in the player's Playback menu. |
 | Play All / Shuffle (play queues) | Android | Done | Yes | Collections and playlists, through Arc's play queues. |
 | Context menu on any card (Play, watched, watchlist, go to show) | Both | Done | Yes | Arc's own menu on Home, grids, search and the title page. |

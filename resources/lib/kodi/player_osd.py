@@ -221,7 +221,12 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
                 log.debug("player controls tick failed (%s)", type(e).__name__)
 
     def _close_kodi_dialogs(self):
-        for name in KODI_DIALOGS:
+        dialogs = KODI_DIALOGS
+        # An optional broken clip must not leave Kodi's modal error over the next clip.
+        # Keep ordinary film errors visible.
+        if self.pb.preroll_pending or self.pb.preroll_active:
+            dialogs += ("okdialog",)
+        for name in dialogs:
             if xbmc.getCondVisibility("Window.IsVisible(%s)" % name):
                 xbmc.executebuiltin("Dialog.Close(%s,true)" % name)
                 log.debug("closed Kodi's %s", name)
@@ -232,6 +237,14 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
 
     def _tick(self):
         self._close_kodi_dialogs()
+        if self.pb.preroll_pending or self.pb.preroll_active:
+            self.setProperty("arc.osd", "")
+            self.setProperty("arc.skip", "1" if self.pb.preroll_active else "")
+            if self.pb.preroll_active:
+                self._label(SKIP, T(30520))
+                if self.getFocusId() != SKIP:
+                    self._focus(SKIP)
+            return
         now = time.time()
         if self._info_at is not None and now - self._info_at >= INFO_EVERY:
             self._draw_info()
@@ -861,6 +874,10 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
 
     def onClick(self, control_id):
         self._last_key = time.time()
+        if self.pb.preroll_pending or self.pb.preroll_active:
+            if control_id == SKIP:
+                self.pb.advance_preroll()
+            return
         if control_id == LOBBY_START and self.pb.together is not None:
             self.pb.together.play()
         elif control_id == LOBBY_INVITE:
@@ -913,6 +930,10 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         code = action.getId()
         self._last_key = time.time()
         focus = self.getFocusId()
+        if self.pb.preroll_pending or self.pb.preroll_active:
+            if code in A_BACK or code in A_STOP:
+                self.pb.stop()
+            return
         if code in A_STOP:
             return  # Kodi stops by itself; the Playback hears of it and cleans up
         if self._lobby:
