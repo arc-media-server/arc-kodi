@@ -11,6 +11,7 @@ import xbmcgui
 from arc import home as homerows
 from arc import models, titlepage
 
+from ..thememusic import ThemeMusic
 from .. import toast
 from ..compat import T
 from ..log import log
@@ -71,6 +72,7 @@ class DetailsWindow(ArcWindow):
         # takes the focus, once, as the Apple app opens an episode on its show's page.
         self.focus_episode = kwargs.pop("focus_episode", None)
         ArcWindow.__init__(self, *args, **kwargs)
+        self.theme_music = ThemeMusic(self)
         self.item = None
         self.seasons = []       # the order's seasons (Play follows these)
         self.tabs = []          # the season tabs: the seasons, then Not in This Order
@@ -83,6 +85,7 @@ class DetailsWindow(ArcWindow):
         self.nav = None
 
     def on_init(self):
+        self.theme_music.window_id = xbmcgui.getCurrentWindowId()
         self.set_label(RELATED_TITLE, T(30143))
         self.set_label(CAST_TITLE, T(30171))
         self.set_label(COLLECTIONS_TITLE, T(30122))
@@ -113,6 +116,12 @@ class DetailsWindow(ArcWindow):
             self._load_seasons()
 
     def on_live(self, change):
+        # Theme music follows profile changes without restarting a tune.
+        if self.session.prefs.get("theme_music") is False:
+            if self.theme_music.played:
+                self.theme_music.stop()
+        else:
+            self.theme_music.start(self.item)
         if change.touches((self.item or {}).get("library_id")):
             self.on_return()
 
@@ -127,6 +136,7 @@ class DetailsWindow(ArcWindow):
             self.on_back()
             return
         self.item = item
+        self.theme_music.start(item)
         self._render_hero(item)
         self._render_actions()
         self._render_rows(item)
@@ -599,6 +609,10 @@ class DetailsWindow(ArcWindow):
                 self._render_actions()
 
         self.run_async(lambda: self.session.api.set_watchlist(self.item_id, now), done)
+
+    def close(self):
+        self.theme_music.stop()
+        super().close()
 
     def on_back(self):
         self.result = "back"

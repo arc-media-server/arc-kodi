@@ -9,6 +9,7 @@ from http import server as httpserver
 from urllib import error as urlerror
 from urllib import parse, request
 
+from arc.thememusic import is_theme_path
 from .log import log
 
 # Routes that serve an image. The proxy refuses anything else, so a stray request can't reach the
@@ -18,6 +19,12 @@ _IMAGE_PARTS = ("/images/", "/artwork", "/image", "/trickplay/", "/preroll")
 
 def _is_image_path(path):
     return any(part in path for part in _IMAGE_PARTS)
+
+
+# Theme music never follows a redirect with the profile's Authorization header.
+class _NoThemeRedirect(request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
 
 
 class ArtworkProxy(object):
@@ -43,7 +50,9 @@ class ArtworkProxy(object):
                 if self.path.startswith("/bif/"):
                     proxy._serve_bif_frame(self)
                     return
-                if not _is_image_path(self.path.split("?", 1)[0]):
+                # Theme music: allow only this exact Arc route, never an arbitrary media URL.
+                theme = is_theme_path("/api/v1" + self.path)
+                if not theme and not _is_image_path(self.path.split("?", 1)[0]):
                     self.send_error(404)
                     return
                 target = api.base_url + "/api/v1" + self.path if self.path.startswith("/") else None
@@ -54,7 +63,8 @@ class ArtworkProxy(object):
                 for k, v in api.authorization.items():
                     req.add_header(k, v)
                 try:
-                    with request.urlopen(req, timeout=20) as resp:
+                    opener = request.build_opener(_NoThemeRedirect()).open if theme else request.urlopen
+                    with opener(req, timeout=20) as resp:
                         self.send_response(resp.status)
                         ctype = resp.headers.get("Content-Type", "image/jpeg")
                         self.send_header("Content-Type", ctype)
