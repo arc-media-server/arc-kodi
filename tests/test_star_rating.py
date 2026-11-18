@@ -26,4 +26,3 @@ def test_rating_failure_is_reported():
     server = FakeServer({("PUT", "items/a/rating"): (403, {"error": "denied"})})
     with pytest.raises(APIError):
         ArcAPI("http://scratch", opener=server).set_rating("a", 5)
-

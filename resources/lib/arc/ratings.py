@@ -9,4 +9,3 @@ def stars(rating):
 
 def out_of_five(rating):
     return "%g" % (max(0, min(10, int(rating or 0))) / 2)
-
