@@ -56,7 +56,8 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Episode browser rises over the hero (reference look) | Apple | Part | Yes | The page scrolls the hero up as focus moves down; no separate sheet. |
 | Upcoming episodes dimmed with "Releases 8 Nov" | Apple | Done | Yes | |
 | "Not in This Order": episodes the order doesn't place (`unplaced`), after the seasons, without numbers | Web, Roku, TV | Done | Yes | A last season tab; Play/Resume/Up Next follow the order. |
-| A season's menu: Mark Season as Watched / Unwatched, Shuffle Season | Android, TV | Done | Yes | OK or Context Menu on a season tab, as the Android app's; none on Not in This Order. |
+| A season's menu: Mark Season as Watched / Unwatched, Shuffle Season | Android, TV | Done | Yes | OK or Context Menu on a season tab, as the Android app's; watched/shuffle do not apply to Not in This Order. |
+| Show / Hide Missing Episodes | Android, Web | Done | Yes | Season menu; provider-only episodes are labelled Not on disk and cannot play or enter watched/queue actions. Local to the open show. |
 | About, Details, Crew and Playback cards | Both | Done | Yes | |
 | Cast & Crew row (opens the person) | Both | Done | Yes | Opens their page. |
 | Related / More like this | Both | Done | Yes | |

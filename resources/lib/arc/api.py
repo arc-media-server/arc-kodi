@@ -230,8 +230,9 @@ class ArcAPI(object):
     def palette(self, item_id):
         return self.get("items/" + _q(item_id) + "/artwork/palette", route="items/{id}/artwork/palette")
 
-    def seasons(self, series_id):
-        return self.get("series/" + _q(series_id) + "/seasons", route="series/{id}/seasons")
+    def seasons(self, series_id, missing=False):
+        return self.get("series/" + _q(series_id) + "/seasons" + ("?missing=1" if missing else ""),
+                        route="series/{id}/seasons")
 
     def collection(self, collection_id):
         return self.get("collections/" + _q(collection_id), route="collections/{id}")

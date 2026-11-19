@@ -1446,3 +1446,17 @@ msgstr ""
 msgctxt "#30598"
 msgid "1 title"
 msgstr ""
+
+# Missing provider episodes in a show (visibility is local to its open page).
+
+msgctxt "#30600"
+msgid "Show Missing Episodes"
+msgstr ""
+
+msgctxt "#30601"
+msgid "Hide Missing Episodes"
+msgstr ""
+
+msgctxt "#30602"
+msgid "Not on disk"
+msgstr ""
