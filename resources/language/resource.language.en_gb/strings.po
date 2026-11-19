@@ -260,7 +260,7 @@ msgid "Cast & Crew"
 msgstr ""
 
 msgctxt "#30143"
-msgid "Related"
+msgid "More Like This"
 msgstr ""
 
 msgctxt "#30144"

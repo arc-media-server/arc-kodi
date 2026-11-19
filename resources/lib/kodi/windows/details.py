@@ -1,7 +1,7 @@
 """A title's page, as the Apple app's: the artwork over the title's own four colours, the hero
 (logo, info line, badge capsules, overview, Starring and Directed by), Play (saying what it
 plays) and round buttons (Play from the Beginning, Watched, Watchlist), a show's seasons and
-episodes, Related, Cast, Collections, Trailers & Extras, and the About / Details / Crew /
+episodes, More Like This, Cast, Collections, Trailers & Extras, and the About / Details / Crew /
 Playback cards. The choices are arc/titlepage.py's; this draws them."""
 
 import time
