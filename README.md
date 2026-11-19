@@ -56,7 +56,7 @@ resume points and settings are the same as on every other Arc app.
 arranged them in Arc, with each title's artwork and logo filling the screen as you move.
 
 **🎬 Title pages in Arc's design.** Play or Resume, Watched and Watchlist; cast, extras,
-related titles and collections; seasons and episodes in the order you chose in Arc, including
+More Like This and collections; seasons and episodes in the order you chose in Arc, including
 episodes that order doesn't place. Mark a whole season watched or shuffle it. Pick a version
 (4K, a Director's Cut) when a title has more than one.
 

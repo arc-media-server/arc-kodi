@@ -1,5 +1,5 @@
 """Turning Arc items and cards into Kodi ListItems, with artwork fetched through the proxy. Shared
-by Home, the library grid, Related and search."""
+by Home, the library grid, More Like This and search."""
 
 from arc import home as homerows
 from arc import models
@@ -96,5 +96,5 @@ def _subtitle(card):
 
 
 def item_list_item(session, item, style="poster"):
-    """A plain Arc item as a card (library grid, Related, search results)."""
+    """A plain Arc item as a card (library grid, More Like This, search results)."""
     return card_list_item(session, homerows.card(item), style)
