@@ -60,7 +60,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Show / Hide Missing Episodes | Android, Web | Done | Yes | Season menu; provider-only episodes are labelled Not on disk and cannot play or enter watched/queue actions. Local to the open show. |
 | About, Details, Crew and Playback cards | Both | Done | Yes | |
 | Cast & Crew row (opens the person) | Both | Done | Yes | Opens their page. |
-| Related / More like this | Both | Done | Yes | |
+| More Like This | Both | Done | Yes | |
 | Collections row | Both | Done | Yes | |
 | Trailers & Extras | Both | Done | Yes | Played through Arc's player, without progress. Not yet seen with real extras (the test library has none). |
 | Pre-roll before initial movie play | Android | Done | Yes | Requires server #485; skips resume, Watch Together and queue advancement. |
