@@ -301,3 +301,11 @@ def offset_amount(ms):
         return "%d ms" % ms
     s = ms / 1000.0
     return ("%d s" % s) if s == int(s) else ("%.1f s" % s)
+
+
+def subtitle_timing(ms):
+    """A subtitle timing as Arc writes it everywhere (arc-media-server#479): "+1.5s" later,
+    "\u22120.5s" earlier (a true minus sign), "0.0s" none; seconds to one place, no space."""
+    ms = int(ms)
+    sign = "+" if ms > 0 else "\u2212" if ms < 0 else ""
+    return "%s%.1fs" % (sign, abs(ms) / 1000.0)
