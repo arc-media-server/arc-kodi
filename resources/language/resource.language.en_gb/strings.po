@@ -1106,7 +1106,7 @@ msgid "Audio Offset"
 msgstr ""
 
 msgctxt "#30381"
-msgid "Subtitle Offset"
+msgid "Subtitle Timing"
 msgstr ""
 
 msgctxt "#30382"
@@ -1119,8 +1119,18 @@ msgstr ""
 
 msgctxt "#30384"
 msgid "%s earlier"
+msgstr ""
+
 msgctxt "#30385"
 msgid "Not in This Order"
+msgstr ""
+
+msgctxt "#30386"
+msgid "%s (later)"
+msgstr ""
+
+msgctxt "#30387"
+msgid "%s (earlier)"
 msgstr ""
 
 msgctxt "#30390"

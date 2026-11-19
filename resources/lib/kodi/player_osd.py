@@ -534,7 +534,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             options.append((T(30380), self._offset_name(self.pb.offset_ms("audio")), False,
                             lambda: self._open_submenu("audio_offset"), True))
             if plan.get("subtitle_tracks"):
-                options.append((T(30381), self._offset_name(self.pb.offset_ms("subtitles")), False,
+                options.append((T(30381), self._subtitle_timing_name(self.pb.offset_ms("subtitles")), False,
                                 lambda: self._open_submenu("subtitle_offset"), True))
             options.append((T(30213), "", False, lambda: self.pb.seek_to(0)))
             options.append((T(30460), "", False, self._toggle_info))
@@ -575,7 +575,8 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             which = "audio" if kind == "audio_offset" else "subtitles"
             values = playback.AUDIO_OFFSETS if which == "audio" else playback.SUBTITLE_OFFSETS
             at = playback.nearest(values, self.pb.offset_ms(which))
-            options = [(self._offset_name(v), "", i == at, lambda v=v: self.pb.set_offset(which, v))
+            name = self._offset_name if which == "audio" else self._subtitle_timing_name
+            options = [(name(v), "", i == at, lambda v=v: self.pb.set_offset(which, v))
                        for i, v in enumerate(values)]
             self._fill_menu(T(30380) if which == "audio" else T(30381), options)
         elif kind == "chapters":
@@ -593,6 +594,13 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         if not ms:
             return T(30382)
         return (T(30383) if ms > 0 else T(30384)) % playback.offset_amount(ms)
+
+    @staticmethod
+    def _subtitle_timing_name(ms):
+        """"+1.5s (later)", "\u22120.5s (earlier)", "0.0s" (arc-media-server#479)."""
+        if not ms:
+            return playback.subtitle_timing(0)
+        return (T(30386) if ms > 0 else T(30387)) % playback.subtitle_timing(ms)
 
     @staticmethod
     def _episode_line(item):

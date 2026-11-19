@@ -197,5 +197,9 @@ def test_offsets():
     assert playback.SUBTITLE_OFFSETS[playback.nearest(playback.SUBTITLE_OFFSETS, 0)] == 0
     assert playback.offset_amount(-50) == "50 ms"
     assert playback.offset_amount(1500) == "1.5 s" and playback.offset_amount(2000) == "2 s"
+    assert playback.subtitle_timing(1500) == "+1.5s"
+    assert playback.subtitle_timing(-500) == "\u22120.5s"
+    assert playback.subtitle_timing(0) == "0.0s" and playback.subtitle_timing(2000) == "+2.0s"
+    assert playback.subtitle_timing(-100) == "\u22120.1s"
     assert all(v % playback.AUDIO_STEP_MS == 0 for v in playback.AUDIO_OFFSETS)
     assert all(v % playback.SUBTITLE_STEP_MS == 0 for v in playback.SUBTITLE_OFFSETS)
