@@ -37,6 +37,11 @@ docs/changes/                   one note per change
   sign-in code with `POST /api/v1/auth/link/approve` from the scratch server's admin session.
   This shows layout, focus, navigation and the API flows, not playback quality: the virtual
   display has no audio device or GPU (Kodi's clock runs on past a clip's end without one).
+- **README screenshots** come from Arc's shared screenshot library (arc-media-server's
+  `docs/SCREENSHOTS.md`): run `node tools/screenshots.mjs --serve --state <file>` in the server's
+  `web/`, start Kodi as above with a fresh profile, then `python3 tools/readme_shots.py --state
+  <file>`. It signs in, walks the pages with remote keys and writes `docs/screenshots/*.jpg`;
+  look at each one before committing.
 - Kodi gotchas found that way: a control with a fixed `<visible>` ignores `setVisible()` (use a
   window property in the condition); focusing a control that shows only once it has items fails
   until Kodi's next frame (`focus_when_visible`); a grouplist rewrites its children's Up/Down, and

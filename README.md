@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/home.jpg" alt="Arc's Home in Kodi" width="900">
+  <img src="docs/screenshots/home.jpg" alt="Arc's Home in Kodi: Continue Watching, with Severance's artwork filling the screen" width="900">
 </p>
 
 ## What is Arc for Kodi?
@@ -37,18 +37,21 @@ resume points and settings are the same as on every other Arc app.
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/film.jpg" alt="A film's page"></td>
-    <td width="50%"><img src="docs/screenshots/show.jpg" alt="A show's page, with its seasons and episodes"></td>
+    <td width="50%"><img src="docs/screenshots/film.jpg" alt="Dune: Part Two's page, with Resume and its cast"></td>
+    <td width="50%"><img src="docs/screenshots/show.jpg" alt="Breaking Bad's page, with its first season's episodes"></td>
   </tr>
   <tr>
-    <td width="50%"><img src="docs/screenshots/library.jpg" alt="Browsing a library, with Play All, Shuffle, Sort and Filter"></td>
-    <td width="50%"><img src="docs/screenshots/search.jpg" alt="Search, with Arc's on-screen keyboard"></td>
+    <td width="50%"><img src="docs/screenshots/library.jpg" alt="Browsing Movies, with Play All, Shuffle, Sort and Filter"></td>
+    <td width="50%"><img src="docs/screenshots/search.jpg" alt="Searching for Dune with Arc's on-screen keyboard"></td>
   </tr>
   <tr>
-    <td width="50%"><img src="docs/screenshots/watch-together.jpg" alt="Inviting someone to Watch Together"></td>
-    <td width="50%"><img src="docs/screenshots/settings.jpg" alt="Settings, saved to your profile"></td>
+    <td width="50%"><img src="docs/screenshots/watch-together.jpg" alt="Inviting someone to watch Dune: Part Two together"></td>
+    <td width="50%"><img src="docs/screenshots/settings.jpg" alt="Settings, saved to Jordan's profile"></td>
   </tr>
 </table>
+
+<sub>Artwork and details from <a href="https://www.themoviedb.org">TMDB</a>. Films and shows belong
+to their owners; Arc doesn't include any media.</sub>
 
 ## What it does
 
@@ -83,7 +86,7 @@ are Arc's own, not your skin's.
 <table>
   <tr>
     <td width="50%"><img src="docs/screenshots/sign-in.jpg" alt="Signing in with a code"></td>
-    <td width="50%"><img src="docs/screenshots/profiles.jpg" alt="Who's watching?"></td>
+    <td width="50%"><img src="docs/screenshots/profiles.jpg" alt="Who's watching? Jordan, Alex, Kids and Sam"></td>
   </tr>
 </table>
 
