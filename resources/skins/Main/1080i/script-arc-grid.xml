@@ -8,7 +8,8 @@
       <top>0</top>
       <width>1920</width>
       <height>1080</height>
-      <texture>arc-wash.png</texture>
+      <texture>arc-white.png</texture>
+      <colordiffuse>FF0B0B10</colordiffuse>
     </control>
     <control type="label" id="101">
       <left>80</left>
@@ -221,7 +222,7 @@
           <width>244</width>
           <height>366</height>
           <texture>arc-mask-poster.png</texture>
-          <colordiffuse>FF26272D</colordiffuse>
+          <colordiffuse>FF15151C</colordiffuse>
         </control>
         <control type="image">
           <left>8</left>
@@ -255,32 +256,49 @@
         </control>
         <control type="image">
           <left>196</left>
-          <top>16</top>
-          <width>48</width>
-          <height>48</height>
+          <top>20</top>
+          <width>44</width>
+          <height>44</height>
           <texture>arc-tick.png</texture>
           <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
         </control>
-        <control type="image">
-          <left>188</left>
-          <top>8</top>
-          <width>64</width>
-          <height>44</height>
-          <texture>arc-count-tab.png</texture>
+        <control type="group">
           <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
-        </control>
-        <control type="label">
-          <left>188</left>
-          <top>8</top>
-          <width>64</width>
-          <height>44</height>
-          <font>font12</font>
-          <shadowcolor>99000000</shadowcolor>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textcolor>FFFFFFFF</textcolor>
-          <label>$INFO[ListItem.Property(unwatched)]</label>
-          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+          <control type="image">
+            <left>200</left>
+            <top>20</top>
+            <width>40</width>
+            <height>36</height>
+            <texture border="12">arc-count-badge.png</texture>
+            <visible>!Integer.IsGreater(ListItem.Property(unwatched),9)</visible>
+          </control>
+          <control type="image">
+            <left>186</left>
+            <top>20</top>
+            <width>54</width>
+            <height>36</height>
+            <texture border="12">arc-count-badge.png</texture>
+            <visible>Integer.IsGreater(ListItem.Property(unwatched),9) + !Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+          </control>
+          <control type="image">
+            <left>172</left>
+            <top>20</top>
+            <width>68</width>
+            <height>36</height>
+            <texture border="12">arc-count-badge.png</texture>
+            <visible>Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+          </control>
+          <control type="label">
+            <left>172</left>
+            <top>20</top>
+            <width>54</width>
+            <height>36</height>
+            <font>font12</font>
+            <align>right</align>
+            <aligny>center</aligny>
+            <textcolor>FF000000</textcolor>
+            <label>$INFO[ListItem.Property(unwatched)]</label>
+          </control>
         </control>
         <control type="progress">
           <left>16</left>
@@ -322,7 +340,7 @@
           <width>244</width>
           <height>366</height>
           <texture>arc-mask-poster.png</texture>
-          <colordiffuse>FF26272D</colordiffuse>
+          <colordiffuse>FF15151C</colordiffuse>
         </control>
         <control type="image">
           <left>8</left>
@@ -356,32 +374,49 @@
         </control>
         <control type="image">
           <left>196</left>
-          <top>16</top>
-          <width>48</width>
-          <height>48</height>
+          <top>20</top>
+          <width>44</width>
+          <height>44</height>
           <texture>arc-tick.png</texture>
           <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
         </control>
-        <control type="image">
-          <left>188</left>
-          <top>8</top>
-          <width>64</width>
-          <height>44</height>
-          <texture>arc-count-tab.png</texture>
+        <control type="group">
           <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
-        </control>
-        <control type="label">
-          <left>188</left>
-          <top>8</top>
-          <width>64</width>
-          <height>44</height>
-          <font>font12</font>
-          <shadowcolor>99000000</shadowcolor>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textcolor>FFFFFFFF</textcolor>
-          <label>$INFO[ListItem.Property(unwatched)]</label>
-          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+          <control type="image">
+            <left>200</left>
+            <top>20</top>
+            <width>40</width>
+            <height>36</height>
+            <texture border="12">arc-count-badge.png</texture>
+            <visible>!Integer.IsGreater(ListItem.Property(unwatched),9)</visible>
+          </control>
+          <control type="image">
+            <left>186</left>
+            <top>20</top>
+            <width>54</width>
+            <height>36</height>
+            <texture border="12">arc-count-badge.png</texture>
+            <visible>Integer.IsGreater(ListItem.Property(unwatched),9) + !Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+          </control>
+          <control type="image">
+            <left>172</left>
+            <top>20</top>
+            <width>68</width>
+            <height>36</height>
+            <texture border="12">arc-count-badge.png</texture>
+            <visible>Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+          </control>
+          <control type="label">
+            <left>172</left>
+            <top>20</top>
+            <width>54</width>
+            <height>36</height>
+            <font>font12</font>
+            <align>right</align>
+            <aligny>center</aligny>
+            <textcolor>FF000000</textcolor>
+            <label>$INFO[ListItem.Property(unwatched)]</label>
+          </control>
         </control>
         <control type="progress">
           <left>16</left>
@@ -423,7 +458,7 @@
           <width>464</width>
           <height>261</height>
           <texture>arc-mask-thumb.png</texture>
-          <colordiffuse>FF26272D</colordiffuse>
+          <colordiffuse>FF15151C</colordiffuse>
         </control>
         <control type="image">
           <left>8</left>
@@ -471,6 +506,52 @@
           <texture>arc-ring-thumb.png</texture>
           <visible>false</visible>
         </control>
+        <control type="image">
+          <left>416</left>
+          <top>20</top>
+          <width>44</width>
+          <height>44</height>
+          <texture>arc-tick.png</texture>
+          <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="group">
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+          <control type="image">
+            <left>420</left>
+            <top>20</top>
+            <width>40</width>
+            <height>36</height>
+            <texture border="12">arc-count-badge.png</texture>
+            <visible>!Integer.IsGreater(ListItem.Property(unwatched),9)</visible>
+          </control>
+          <control type="image">
+            <left>406</left>
+            <top>20</top>
+            <width>54</width>
+            <height>36</height>
+            <texture border="12">arc-count-badge.png</texture>
+            <visible>Integer.IsGreater(ListItem.Property(unwatched),9) + !Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+          </control>
+          <control type="image">
+            <left>392</left>
+            <top>20</top>
+            <width>68</width>
+            <height>36</height>
+            <texture border="12">arc-count-badge.png</texture>
+            <visible>Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+          </control>
+          <control type="label">
+            <left>392</left>
+            <top>20</top>
+            <width>54</width>
+            <height>36</height>
+            <font>font12</font>
+            <align>right</align>
+            <aligny>center</aligny>
+            <textcolor>FF000000</textcolor>
+            <label>$INFO[ListItem.Property(unwatched)]</label>
+          </control>
+        </control>
         <control type="progress">
           <left>20</left>
           <top>250</top>
@@ -511,7 +592,7 @@
           <width>464</width>
           <height>261</height>
           <texture>arc-mask-thumb.png</texture>
-          <colordiffuse>FF26272D</colordiffuse>
+          <colordiffuse>FF15151C</colordiffuse>
         </control>
         <control type="image">
           <left>8</left>
@@ -558,6 +639,52 @@
           <height>273</height>
           <texture>arc-ring-thumb.png</texture>
           <visible>Control.HasFocus(100)</visible>
+        </control>
+        <control type="image">
+          <left>416</left>
+          <top>20</top>
+          <width>44</width>
+          <height>44</height>
+          <texture>arc-tick.png</texture>
+          <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+        </control>
+        <control type="group">
+          <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+          <control type="image">
+            <left>420</left>
+            <top>20</top>
+            <width>40</width>
+            <height>36</height>
+            <texture border="12">arc-count-badge.png</texture>
+            <visible>!Integer.IsGreater(ListItem.Property(unwatched),9)</visible>
+          </control>
+          <control type="image">
+            <left>406</left>
+            <top>20</top>
+            <width>54</width>
+            <height>36</height>
+            <texture border="12">arc-count-badge.png</texture>
+            <visible>Integer.IsGreater(ListItem.Property(unwatched),9) + !Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+          </control>
+          <control type="image">
+            <left>392</left>
+            <top>20</top>
+            <width>68</width>
+            <height>36</height>
+            <texture border="12">arc-count-badge.png</texture>
+            <visible>Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+          </control>
+          <control type="label">
+            <left>392</left>
+            <top>20</top>
+            <width>54</width>
+            <height>36</height>
+            <font>font12</font>
+            <align>right</align>
+            <aligny>center</aligny>
+            <textcolor>FF000000</textcolor>
+            <label>$INFO[ListItem.Property(unwatched)]</label>
+          </control>
         </control>
         <control type="progress">
           <left>20</left>

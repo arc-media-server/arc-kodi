@@ -26,7 +26,7 @@ def card_list_item(session, card, style, season_posters=False):
     picture = homerows.card_art(card, style, season_posters)
     art = {"thumb": session.art(picture), "poster": session.art(card.get("poster")),
            "fanart": session.art(card.get("backdrop")), "clearlogo": session.art(card.get("logo"))}
-    label = card.get("label") or item.get("title", "")
+    label = card.get("label") or homerows.card_title(item)
     sub = card["subtitle"] if card.get("subtitle") is not None else _subtitle(card)
     props = {
         "id": card["id"],
@@ -86,13 +86,8 @@ def _subtitle(card):
     if models.is_episode(item):
         # Just the number: the card's other line already has the title (owner's rule).
         return episode_code(item)
-    bits = []
-    if item.get("year"):
-        bits.append(str(item["year"]))
-    rt = models.runtime_text(models.duration_ms(item))
-    if rt:
-        bits.append(rt)
-    return " · ".join(bits)
+    # Just the year, as the Android app's cards (its cardSubtitle).
+    return str(item["year"]) if item.get("year") else ""
 
 
 def item_list_item(session, item, style="poster"):

@@ -18,9 +18,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA = os.path.join(ROOT, "resources", "skins", "Main", "media")
 RES = os.path.join(ROOT, "resources")
 
-BG = (28, 29, 33, 255)
-SURFACE = (38, 39, 45, 255)
-SURFACE2 = (47, 48, 56, 255)
+# The Android app's Background, Surface and Surface2 (ui/theme/Theme.kt), as skin/includes.xml.
+BG = (11, 11, 16, 255)
+SURFACE = (21, 21, 28, 255)
+SURFACE2 = (31, 31, 40, 255)
 WHITE = (255, 255, 255, 255)
 
 
@@ -93,19 +94,11 @@ def backdrop_fade():
     img.save(os.path.join(MEDIA, "arc-fade-backdrop.png"))
 
 
-def count_tab():
-    """The tab with a show's unwatched episodes at a poster's top right (the Apple app's): black
-    at 80%, its bottom left rounded (12) and its top right following the card's corner."""
-    w, h = 64, 44
-    big = Image.new("RGBA", (w * S, h * S), (0, 0, 0, 0))
-    ImageDraw.Draw(big).rounded_rectangle([0, 0, w * S - 1, h * S - 1], radius=12 * S, fill=(0, 0, 0, 204),
-                                          corners=(False, False, False, True))
-    clip = Image.new("L", (w * S, h * S), 0)
-    ImageDraw.Draw(clip).rounded_rectangle([0, 0, w * S - 1, h * S - 1], radius=CARD_RADIUS * S, fill=255,
-                                           corners=(False, True, False, False))
-    alpha = Image.eval(big.getchannel("A"), lambda a: a)
-    big.putalpha(Image.composite(alpha, Image.new("L", alpha.size, 0), clip))
-    big.resize((w, h), Image.LANCZOS).save(os.path.join(MEDIA, "arc-count-tab.png"))
+def count_badge():
+    """The badge with a show's unwatched episodes at a card's top right (the Android app's
+    WatchBadge): white, corners rounded 12 (6 dp at 1080p), drawn as a nine-slice (border 12) so
+    the skin can size it to the number."""
+    _rounded((40, 40), 12, fill=WHITE).save(os.path.join(MEDIA, "arc-count-badge.png"))
 
 
 def hero_scrim():
@@ -120,21 +113,8 @@ def hero_scrim():
             left = max(0.0, 1.0 - fx / 0.7) ** 1.4      # fades out by 70% across
             foot = max(0.0, (fy - 0.35) / 0.65) ** 1.2  # builds from a third down
             a = 0.30 + 0.55 * left + 0.65 * foot
-            px[x, y] = (18, 19, 22, int(255 * min(0.97, a)))
+            px[x, y] = BG[:3] + (int(255 * min(0.97, a)),)   # into the page's near-black
     img.save(os.path.join(MEDIA, "arc-scrim.png"))
-
-
-def wash():
-    # Arc's soft grey blend, cooler top-left to warmer bottom-right.
-    w, h = 320, 180
-    img = Image.new("RGB", (w, h))
-    px = img.load()
-    tl, br = (37, 40, 45), (30, 31, 30)
-    for y in range(h):
-        for x in range(w):
-            t = (x / w + y / h) / 2
-            px[x, y] = tuple(int(tl[i] + (br[i] - tl[i]) * t) for i in range(3))
-    img.save(os.path.join(MEDIA, "arc-wash.png"))
 
 
 def _canvas(size):
@@ -146,7 +126,8 @@ def _save_small(img, name, size):
 
 
 def tick():
-    n = 48
+    # Watched: a white circle with a black check, 44 across (22 dp, the Android app's WatchBadge).
+    n = 44
     img = _canvas(n)
     d = ImageDraw.Draw(img)
     z = n * S
@@ -343,8 +324,7 @@ def main():
     cards()
     backdrop_fade()
     backdrop_wide_mask()
-    count_tab()
-    wash()
+    count_badge()
     hero_scrim()
     tick()
     circle_and_ring()
