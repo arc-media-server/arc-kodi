@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/home.jpg" alt="Arc's Home in Kodi: Continue Watching, with Severance's artwork filling the screen" width="900">
+  <img src="docs/screenshots/home.jpg" alt="Arc's Home in Kodi: Continue Watching as Backdrops, each title's backdrop with its logo, with Severance's artwork filling the screen" width="900">
 </p>
 
 ## What is Arc for Kodi?
