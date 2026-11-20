@@ -29,7 +29,7 @@ import xbmcgui
 from arc import browse, models, playback, playerinfo, titlepage
 from arc import together as wt
 
-from .compat import ADDON_PATH, T
+from .compat import ADDON_PATH, T, episode_code, episode_heading
 from .log import log
 
 CATCHER = 90
@@ -560,7 +560,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             # profile left it), as the Apple player's Episodes tab.
             options = []
             for e in self.pb.season_episodes:
-                name = titlepage.episode_label(e, self.pb.season_unplaced)
+                name = episode_heading(e, self.pb.season_unplaced)
                 detail = models.runtime_text(models.duration_ms(e)) or ""
                 options.append((name, detail, e.get("id") == self.pb.item_id,
                                 lambda e=e: self.pb.play_episode(e)))
@@ -604,11 +604,9 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
 
     @staticmethod
     def _episode_line(item):
-        """"S2, E4 · name", or just the name for an episode outside the show's order (Arc sends
-        0/0 for one: never "S0, E0")."""
-        if not models.placed(item):
-            return item.get("title", "")
-        return T(30222) % (item.get("season_number") or 0, item.get("episode_number") or 0, item.get("title", ""))
+        """"S2 · E4 · name", or just the name for an episode outside the show's order (Arc sends
+        0/0 for one: never "S0 · E0")."""
+        return episode_heading(item)
 
     @staticmethod
     def _speed_name(v):
@@ -675,7 +673,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         playing = self.pb.item or {}
         bits = []
         if episode and models.placed(playing):
-            bits.append(models.episode_code(playing))   # in the order shown (the playing item's)
+            bits.append(episode_code(playing))   # in the order shown (the playing item's)
         bits.append(models.runtime_text(self.pb.duration_ms or models.duration_ms(item)) or "")
         if item.get("year"):
             bits.append(str(item["year"]))

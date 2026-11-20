@@ -13,7 +13,7 @@ from arc import models, titlepage
 
 from ..thememusic import ThemeMusic
 from .. import toast
-from ..compat import T
+from ..compat import T, episode_code, episode_heading
 from ..log import log
 from . import menu
 from .base import ArcWindow, list_item
@@ -204,7 +204,7 @@ class DetailsWindow(ArcWindow):
         """The year (or an episode's code and year) and the length."""
         bits = []
         if models.is_episode(item):
-            code = self._code(item)
+            code = episode_code(item)
             if code:
                 bits.append(code)
         if item.get("year"):
@@ -213,11 +213,6 @@ class DetailsWindow(ArcWindow):
         if rt:
             bits.append(rt)
         return "  ·  ".join(bits)
-
-    @staticmethod
-    def _code(item):
-        s, e = item.get("season_number"), item.get("episode_number")
-        return T(30172) % (s, e) if models.placed(item) else ""
 
     # MARK: - Play and the round buttons
 
@@ -230,7 +225,7 @@ class DetailsWindow(ArcWindow):
         else:
             kind, target, _ = self.action
             if models.is_series(item):
-                label = (T(30157) if kind == "resume" else T(30156)) % self._code(target)
+                label = (T(30157) if kind == "resume" else T(30156)) % episode_code(target)
             else:
                 label = T(30006) if kind == "resume" else T(30005)
         self.set_label(PLAY, label)
@@ -373,7 +368,7 @@ class DetailsWindow(ArcWindow):
             # Reuse the existing unavailable-artwork treatment without changing card layouts.
             props["releases"] = props.get("releases") or T(30602)
             sub = " · ".join(x for x in (T(30602), sub) if x)
-        label = titlepage.episode_label(ep, unplaced)
+        label = episode_heading(ep, unplaced)
         thumb = models.images(ep).get("primary")
         fallback = art.get("thumb")
         overview = ep.get("overview") or ""

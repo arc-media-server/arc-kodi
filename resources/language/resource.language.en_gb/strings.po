@@ -442,10 +442,6 @@ msgctxt "#30221"
 msgid "Starting in %d…"
 msgstr ""
 
-msgctxt "#30222"
-msgid "S%d, E%d · %s"
-msgstr ""
-
 msgctxt "#30223"
 msgid "External"
 msgstr ""
@@ -515,6 +511,7 @@ msgctxt "#30171"
 msgid "Cast"
 msgstr ""
 
+# An episode's number, as every Arc app writes it: "S1 · E4", or "Special 3" for season 0.
 msgctxt "#30172"
 msgid "S%d · E%d"
 msgstr ""
@@ -1469,4 +1466,8 @@ msgstr ""
 
 msgctxt "#30602"
 msgid "Not on disk"
+msgstr ""
+
+msgctxt "#30603"
+msgid "Special %d"
 msgstr ""

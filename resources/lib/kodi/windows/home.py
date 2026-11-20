@@ -10,7 +10,7 @@ from arc import home as homerows
 from arc import models
 from arc import together as wt
 
-from ..compat import T
+from ..compat import T, episode_heading
 from ..log import log
 from .base import ACTION_CONTEXT, ACTION_PLAY, ArcWindow, list_item
 from .cards import card_list_item
@@ -289,8 +289,7 @@ class HomeWindow(ArcWindow):
     def _hero_info(self, item):
         bits = []
         if models.is_episode(item):
-            code = models.episode_code(item)
-            bits.append(("%s  %s" % (code, item.get("title", ""))).strip())
+            bits.append(episode_heading(item))
         if item.get("year"):
             bits.append(str(item["year"]))
         for g in (item.get("genres") or [])[:3]:
