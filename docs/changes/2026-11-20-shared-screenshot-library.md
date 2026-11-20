@@ -35,8 +35,8 @@ server's generated test library.
 
 - `python3 -m pytest -q` and `python3 tools/check.py`.
 - The walk: Kodi 20.5 under Xvfb (1920×1080) against the library's scratch Arc
-  (`node tools/screenshots.mjs --serve`, `127.0.0.1:18299`), run twice from a fresh Kodi
-  profile. I looked at every picture.
+  (`node tools/screenshots.mjs --serve`, `127.0.0.1:18299`), run three times from a fresh Kodi
+  profile (the first run stopped at a Back step, since fixed). I looked at every picture.
 
 No real hardware was used. The pictures show layout, not playback.
 
