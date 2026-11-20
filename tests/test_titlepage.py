@@ -77,19 +77,42 @@ def test_season_tabs_add_episodes_outside_the_order():
     assert titlepage.season_tabs(None) == ([], [])
 
 
-def test_episode_label():
-    assert titlepage.episode_label({"episode_number": 4, "title": "Ariel"}) == "4. Ariel"
-    assert titlepage.episode_label({"episode_number": 12, "title": "Trash"}, unplaced=True) == "Trash"
-    assert titlepage.episode_label({"title": "Pilot"}) == "Pilot"
+# The catalogue's words (strings.po 30172 and 30603), as the Kodi side passes them.
+CODE, SPECIAL = "S%d · E%d", "Special %d"
+
+
+def test_episode_words_in_catalogue():
+    import os
+    po = open(os.path.join(os.path.dirname(__file__), "..", "resources", "language",
+                           "resource.language.en_gb", "strings.po"), encoding="utf-8").read()
+    assert 'msgctxt "#30172"\nmsgid "%s"' % CODE in po
+    assert 'msgctxt "#30603"\nmsgid "%s"' % SPECIAL in po
+
+
+def test_episode_code():
+    from arc import models
+    # The owner's rule for every Arc app: "S1 · E4", no leading zeros, "Special 3" for season 0.
+    assert models.episode_code({"season_number": 1, "episode_number": 4}, CODE, SPECIAL) == "S1 · E4"
+    assert models.episode_code({"season_number": 12, "episode_number": 10}, CODE, SPECIAL) == "S12 · E10"
+    assert models.episode_code({"season_number": 0, "episode_number": 3}, CODE, SPECIAL) == "Special 3"
+
+
+def test_episode_heading():
+    from arc import models
+    ep = {"season_number": 1, "episode_number": 4, "title": "Ariel"}
+    assert models.episode_heading(ep, CODE, SPECIAL) == "S1 · E4 · Ariel"
+    assert models.episode_heading(dict(ep, season_number=0), CODE, SPECIAL) == "Special 4 · Ariel"
+    assert models.episode_heading(dict(ep, episode_number=12), CODE, SPECIAL, unplaced=True) == "Ariel"
+    assert models.episode_heading({"title": "Pilot"}, CODE, SPECIAL) == "Pilot"
+    assert models.episode_heading({"season_number": 1, "episode_number": 2}, CODE, SPECIAL) == "S1 · E2"
 
 
 def test_unplaced_episodes_have_no_code():
     from arc import models
-    assert models.episode_code({"season_number": 0, "episode_number": 0}) == ""
-    assert models.episode_code({"season_number": 0, "episode_number": 3}) == "S0 · E3"   # a special
-    assert models.episode_code({"season_number": 2, "episode_number": 4}) == "S2 · E4"
-    assert not models.placed({"season_number": 0, "episode_number": 0})
-    assert titlepage.episode_label({"season_number": 0, "episode_number": 0, "title": "Trash"}) == "Trash"
+    unplaced = {"season_number": 0, "episode_number": 0, "title": "Trash"}
+    assert not models.placed(unplaced)
+    assert models.episode_code(unplaced, CODE, SPECIAL) == ""   # never "S0 · E0" or "Special 0"
+    assert models.episode_heading(unplaced, CODE, SPECIAL) == "Trash"
 
 
 def test_previous_episode():

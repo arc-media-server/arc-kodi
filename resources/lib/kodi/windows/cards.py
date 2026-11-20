@@ -4,7 +4,7 @@ by Home, the library grid, More Like This and search."""
 from arc import home as homerows
 from arc import models
 
-from ..compat import T
+from ..compat import T, episode_code
 from .base import list_item
 
 
@@ -84,8 +84,8 @@ def _subtitle(card):
     if card.get("season_number") is not None:
         return T(30155) % card["season_number"]
     if models.is_episode(item):
-        code = models.episode_code(item)
-        return ("%s · %s" % (code, item.get("title", ""))) if card.get("show_art") else code
+        # Just the number: the card's other line already has the title (owner's rule).
+        return episode_code(item)
     bits = []
     if item.get("year"):
         bits.append(str(item["year"]))

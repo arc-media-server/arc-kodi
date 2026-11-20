@@ -123,16 +123,6 @@ def mark_season(tab, played):
     return out
 
 
-def episode_label(episode, unplaced=False):
-    """An episode in a list: "4. Title", or just the title outside the order (it has no number
-    there)."""
-    title = (episode or {}).get("title", "")
-    number = (episode or {}).get("episode_number")
-    if unplaced or not number:
-        return title
-    return "%d. %s" % (number, title)
-
-
 def play_action(item, episode=None):
     """What the Play button does: ("resume" | "play", the playable item, its resume point).
     `episode` is next_to_play() for a show."""
