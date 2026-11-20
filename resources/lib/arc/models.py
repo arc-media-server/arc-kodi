@@ -77,12 +77,22 @@ def placed(item):
     return s is not None and bool(e)
 
 
-def episode_code(item):
-    """"S1 · E4" style numbers, or "" when Arc doesn't place it."""
-    s, e = (item or {}).get("season_number"), (item or {}).get("episode_number")
+def episode_code(item, code, special):
+    """An episode's number as every Arc app writes it: `code` ("S%d · E%d") filled in as
+    "S1 · E4", `special` ("Special %d") for season 0, or "" when Arc doesn't place it."""
     if not placed(item):
         return ""
-    return "S%d · E%d" % (s, e)
+    s, e = item.get("season_number"), item.get("episode_number")
+    return special % e if s == 0 else code % (s, e)
+
+
+def episode_heading(item, code, special, unplaced=False):
+    """Where the episode itself is the subject (the player, episode lists, Up Next): its number
+    then its title, "S1 · E4 · Pilot"; just the title outside the show's order (`unplaced`, or
+    Arc's 0/0)."""
+    title = (item or {}).get("title", "")
+    number = "" if unplaced else episode_code(item, code, special)
+    return " · ".join(x for x in (number, title) if x)
 
 
 def main_file(item, file_id=None):

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Arc's player (kodi/player_osd.py): a window over Kodi's video for the whole playback that owns
      the remote, laid out as the Apple and Android players:
-     - at the bottom left the title (an episode's "S2, E4 · name" above its show), and to its
+     - at the bottom left the title (an episode's "S2 · E4 · name" above its show), and to its
        right three round buttons, Playback, Audio and Subtitles, each opening a menu above it;
      - the timeline under them, the time played under its marker and the time left at the end;
      - Skip Intro/Recap/Credits and Up Next at the bottom right while the controls are hidden.

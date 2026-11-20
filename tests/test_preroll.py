@@ -159,7 +159,8 @@ def test_optional_clip_error_dialog_does_not_block_next_clip(monkeypatch):
         getCondVisibility=lambda condition: condition == "Window.IsVisible(okdialog)",
         executebuiltin=execute))
     monkeypatch.setitem(sys.modules, "xbmcgui", SimpleNamespace(WindowXMLDialog=object))
-    monkeypatch.setitem(sys.modules, "kodi.compat", SimpleNamespace(ADDON_PATH="", T=str))
+    monkeypatch.setitem(sys.modules, "kodi.compat", SimpleNamespace(
+        ADDON_PATH="", T=str, episode_code=str, episode_heading=str))
     spec = importlib.util.spec_from_file_location("kodi.preroll_osd_test",
         Path(__file__).parents[1] / "resources/lib/kodi/player_osd.py")
     module = importlib.util.module_from_spec(spec)
