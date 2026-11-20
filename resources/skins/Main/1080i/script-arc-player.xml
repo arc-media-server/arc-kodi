@@ -685,7 +685,7 @@
           <width>480</width>
           <height>270</height>
           <texture>arc-mask-thumb.png</texture>
-          <colordiffuse>FF2F3038</colordiffuse>
+          <colordiffuse>FF1F1F28</colordiffuse>
         </control>
         <control type="image" id="521">
           <left>32</left>
@@ -709,7 +709,7 @@
           <width>64</width>
           <height>64</height>
           <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-          <texturenofocus border="32" colordiffuse="FF2F3038">arc-pill-white-64.png</texturenofocus>
+          <texturenofocus border="32" colordiffuse="FF1F1F28">arc-pill-white-64.png</texturenofocus>
           <onup>noop</onup>
           <ondown>noop</ondown>
           <onleft>noop</onleft>
@@ -739,7 +739,7 @@
           <width>64</width>
           <height>64</height>
           <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-          <texturenofocus border="32" colordiffuse="FF2F3038">arc-pill-white-64.png</texturenofocus>
+          <texturenofocus border="32" colordiffuse="FF1F1F28">arc-pill-white-64.png</texturenofocus>
           <onup>noop</onup>
           <ondown>noop</ondown>
           <onleft>noop</onleft>
@@ -829,7 +829,7 @@
               <top>0</top>
               <width>280</width>
               <height>180</height>
-              <texture border="32" colordiffuse="FF2F3038">arc-pill-white-64.png</texture>
+              <texture border="32" colordiffuse="FF1F1F28">arc-pill-white-64.png</texture>
             </control>
             <control type="label">
               <left>24</left>
@@ -857,7 +857,7 @@
               <top>0</top>
               <width>280</width>
               <height>180</height>
-              <texture border="32" colordiffuse="FF2F3038">arc-pill-white-64.png</texture>
+              <texture border="32" colordiffuse="FF1F1F28">arc-pill-white-64.png</texture>
               <visible>!Control.HasFocus(531)</visible>
             </control>
             <control type="image">
@@ -945,7 +945,7 @@
               <width>160</width>
               <height>160</height>
               <texture>arc-mask-face.png</texture>
-              <colordiffuse>FF26272D</colordiffuse>
+              <colordiffuse>FF15151C</colordiffuse>
             </control>
             <control type="label">
               <left>20</left>
@@ -1005,7 +1005,7 @@
               <width>160</width>
               <height>160</height>
               <texture>arc-mask-face.png</texture>
-              <colordiffuse>FF26272D</colordiffuse>
+              <colordiffuse>FF15151C</colordiffuse>
             </control>
             <control type="label">
               <left>20</left>
@@ -1092,7 +1092,7 @@
               <width>464</width>
               <height>261</height>
               <texture>arc-mask-thumb.png</texture>
-              <colordiffuse>FF26272D</colordiffuse>
+              <colordiffuse>FF15151C</colordiffuse>
             </control>
             <control type="image">
               <left>8</left>
@@ -1140,6 +1140,52 @@
               <texture>arc-ring-thumb.png</texture>
               <visible>false</visible>
             </control>
+            <control type="image">
+              <left>416</left>
+              <top>20</top>
+              <width>44</width>
+              <height>44</height>
+              <texture>arc-tick.png</texture>
+              <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="group">
+              <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+              <control type="image">
+                <left>420</left>
+                <top>20</top>
+                <width>40</width>
+                <height>36</height>
+                <texture border="12">arc-count-badge.png</texture>
+                <visible>!Integer.IsGreater(ListItem.Property(unwatched),9)</visible>
+              </control>
+              <control type="image">
+                <left>406</left>
+                <top>20</top>
+                <width>54</width>
+                <height>36</height>
+                <texture border="12">arc-count-badge.png</texture>
+                <visible>Integer.IsGreater(ListItem.Property(unwatched),9) + !Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+              </control>
+              <control type="image">
+                <left>392</left>
+                <top>20</top>
+                <width>68</width>
+                <height>36</height>
+                <texture border="12">arc-count-badge.png</texture>
+                <visible>Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+              </control>
+              <control type="label">
+                <left>392</left>
+                <top>20</top>
+                <width>54</width>
+                <height>36</height>
+                <font>font12</font>
+                <align>right</align>
+                <aligny>center</aligny>
+                <textcolor>FF000000</textcolor>
+                <label>$INFO[ListItem.Property(unwatched)]</label>
+              </control>
+            </control>
             <control type="progress">
               <left>20</left>
               <top>250</top>
@@ -1180,7 +1226,7 @@
               <width>464</width>
               <height>261</height>
               <texture>arc-mask-thumb.png</texture>
-              <colordiffuse>FF26272D</colordiffuse>
+              <colordiffuse>FF15151C</colordiffuse>
             </control>
             <control type="image">
               <left>8</left>
@@ -1227,6 +1273,52 @@
               <height>273</height>
               <texture>arc-ring-thumb.png</texture>
               <visible>Control.HasFocus(551)</visible>
+            </control>
+            <control type="image">
+              <left>416</left>
+              <top>20</top>
+              <width>44</width>
+              <height>44</height>
+              <texture>arc-tick.png</texture>
+              <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+            </control>
+            <control type="group">
+              <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+              <control type="image">
+                <left>420</left>
+                <top>20</top>
+                <width>40</width>
+                <height>36</height>
+                <texture border="12">arc-count-badge.png</texture>
+                <visible>!Integer.IsGreater(ListItem.Property(unwatched),9)</visible>
+              </control>
+              <control type="image">
+                <left>406</left>
+                <top>20</top>
+                <width>54</width>
+                <height>36</height>
+                <texture border="12">arc-count-badge.png</texture>
+                <visible>Integer.IsGreater(ListItem.Property(unwatched),9) + !Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+              </control>
+              <control type="image">
+                <left>392</left>
+                <top>20</top>
+                <width>68</width>
+                <height>36</height>
+                <texture border="12">arc-count-badge.png</texture>
+                <visible>Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+              </control>
+              <control type="label">
+                <left>392</left>
+                <top>20</top>
+                <width>54</width>
+                <height>36</height>
+                <font>font12</font>
+                <align>right</align>
+                <aligny>center</aligny>
+                <textcolor>FF000000</textcolor>
+                <label>$INFO[ListItem.Property(unwatched)]</label>
+              </control>
             </control>
             <control type="progress">
               <left>20</left>

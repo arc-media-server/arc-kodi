@@ -3,6 +3,8 @@ Watchlist, collections and playlists), arranged as the web does. The focused car
 the background, as on the Apple TV. Rows are stacked horizontal lists filled from the server.
 """
 
+import threading
+
 import xbmc
 import xbmcgui
 
@@ -45,6 +47,10 @@ ACTION_UP, ACTION_DOWN = 3, 4
 class HomeWindow(ArcWindow):
     xml = "script-arc-home.xml"
     ABOVE_ROWS = None   # a control above the rows that Up from the first row goes to
+    # The hero's spot at the top of the scrolling rows (script-arc-home.xml): focusing it scrolls
+    # back to the hero, and it hands the focus straight on to the first row. None in windows
+    # whose rows have no hero above them.
+    HERO_SPOT = 66
 
     def __init__(self, *args, **kwargs):
         ArcWindow.__init__(self, *args, **kwargs)
@@ -264,9 +270,40 @@ class HomeWindow(ArcWindow):
     # MARK: - background follows focus
 
     def onFocus(self, control_id):
+        if self.HERO_SPOT is not None and control_id == self.HERO_SPOT:
+            self._leave_hero_spot()
+            return
         idx = self._row_at(control_id)
         if idx is not None:
             self._update_hero(idx)
+
+    def _leave_hero_spot(self):
+        """Hands the focus on from the hero's spot to the first row once the list has scrolled
+        back to the top. Not at once: Kodi checks whether a row is on screen against where the
+        list is mid-scroll, so focusing the row straight away scrolls only as far as the row."""
+        def run():
+            if xbmc.Monitor().waitForAbort(0.3) or self._closing:
+                return
+            first = self._first_row()
+            if first is not None and self.getFocusId() == self.HERO_SPOT:
+                self._row = first
+                self.focus_id(self._list_id(first))
+        threading.Thread(target=run, daemon=True).start()
+
+    def _first_row(self):
+        """The first row with cards (the one under the hero), or None."""
+        for i, r in enumerate(self.rows):
+            if r.get("cards"):
+                return i
+        return None
+
+    def _focus_row(self, idx):
+        """Focuses row `idx`; the first row by way of the hero's spot, so the list scrolls back to
+        the top and the hero shows again (Kodi would only scroll as far as the row itself)."""
+        if self.HERO_SPOT is not None and idx == self._first_row():
+            self.focus_id(self.HERO_SPOT)
+        else:
+            self.focus_when_visible(self._list_id(idx))
 
     def _update_hero(self, idx):
         if idx >= len(self.rows):
@@ -277,6 +314,9 @@ class HomeWindow(ArcWindow):
             return
         card = cards[pos]
         item = card["item"]
+        if self.HERO_SPOT is not None:
+            # Below the first row the hero has scrolled away and the artwork dims.
+            self.setProperty("scrolled", "" if idx == self._first_row() else "true")
         self.set_image(BG_FANART, self.session.art(card.get("backdrop")))
         self.set_image(HERO_LOGO, self.session.art(card.get("logo")))
         self.set_label(HERO_TITLE, "" if card.get("logo") else (item.get("series_title") or item.get("title", "")))
@@ -339,6 +379,8 @@ class HomeWindow(ArcWindow):
             if before is not None and idx != before:
                 # Kodi's own navigation already moved to another row (it does on some Kodi
                 # versions): just follow it, or Down would move twice.
+                if idx == self._first_row():
+                    self._focus_row(idx)   # back up to the hero
                 self._update_hero(idx)
                 return True
             # Kodi didn't move (it doesn't skip the empty slots everywhere): go to the nearest
@@ -348,7 +390,7 @@ class HomeWindow(ArcWindow):
             while 0 <= i < len(self.rows):
                 if self.rows[i].get("cards"):
                     self._row = i
-                    self.focus_when_visible(self._list_id(i))
+                    self._focus_row(i)
                     self._update_hero(i)
                     break
                 i += step

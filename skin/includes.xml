@@ -2,11 +2,12 @@
 <!-- Shared pieces for the windows in skin/. tools/build_skin.py expands them into each window,
      because Kodi only reads includes, colours and fonts from the user's active skin. -->
 <includes>
-  <!-- Arc's colours (web dark tokens; the same as the Apple app's Theme.swift). No UI colour:
-       chosen and main controls are white with black text. The logo is white too (docs/brand). -->
-  <constant name="bg">FF1C1D21</constant>
-  <constant name="surface">FF26272D</constant>
-  <constant name="surface2">FF2F3038</constant>
+  <!-- Arc's colours (the Android app's ui/theme/Theme.kt: Background, Surface, Surface2...). No UI
+       colour: chosen and main controls are white with black text. The logo is white too
+       (docs/brand). Also in tools/make_media.py. -->
+  <constant name="bg">FF0B0B10</constant>
+  <constant name="surface">FF15151C</constant>
+  <constant name="surface2">FF1F1F28</constant>
   <constant name="fg">FFF5F5F7</constant>
   <constant name="muted">FFA1A1AD</constant>
   <constant name="subtle">FF6B6B78</constant>
@@ -58,10 +59,11 @@
     </definition>
   </include>
 
+  <!-- Every page's background: Arc's near-black, flat (the Android app's Background). -->
   <include name="PageBackground">
     <control type="image">
       <left>0</left><top>0</top><width>1920</width><height>1080</height>
-      <texture>arc-wash.png</texture>
+      <texture>arc-white.png</texture><colordiffuse>bg</colordiffuse>
     </control>
   </include>
 
@@ -152,6 +154,48 @@
     </definition>
   </include>
 
+  <!-- A card's top right corner, as the Android app's WatchBadge: a white circle with a black
+       tick for something watched, or a show's episodes still to watch in a white rounded badge
+       with black words. Both sit 12 in from the picture's corner (6 dp). Kodi can't size a
+       picture to its words, so the badge has a width for one, two and three digits; the params
+       are their lefts (the picture's right edge less 12, less the width: 40, 54, 68), and the
+       tick's (less 44). -->
+  <include name="WatchBadge">
+    <param name="tick"/><param name="one"/><param name="two"/><param name="three"/>
+    <param name="top" default="20"/>
+    <definition>
+      <control type="image">
+        <left>$PARAM[tick]</left><top>$PARAM[top]</top><width>44</width><height>44</height>
+        <texture>arc-tick.png</texture>
+        <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
+      </control>
+      <control type="group">
+        <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
+        <control type="image">
+          <left>$PARAM[one]</left><top>$PARAM[top]</top><width>40</width><height>36</height>
+          <texture border="12">arc-count-badge.png</texture>
+          <visible>!Integer.IsGreater(ListItem.Property(unwatched),9)</visible>
+        </control>
+        <control type="image">
+          <left>$PARAM[two]</left><top>$PARAM[top]</top><width>54</width><height>36</height>
+          <texture border="12">arc-count-badge.png</texture>
+          <visible>Integer.IsGreater(ListItem.Property(unwatched),9) + !Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+        </control>
+        <control type="image">
+          <left>$PARAM[three]</left><top>$PARAM[top]</top><width>68</width><height>36</height>
+          <texture border="12">arc-count-badge.png</texture>
+          <visible>Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
+        </control>
+        <!-- The number, right-aligned 14 in from the badge's right (7 dp), fits all three. -->
+        <control type="label">
+          <left>$PARAM[three]</left><top>$PARAM[top]</top><width>54</width><height>36</height>
+          <font>arc-small</font><align>right</align><aligny>center</aligny><textcolor>black</textcolor>
+          <label>$INFO[ListItem.Property(unwatched)]</label>
+        </control>
+      </control>
+    </definition>
+  </include>
+
   <!-- A poster card (rows and grids). `border` is set only in the focused layout. -->
   <include name="PosterCard">
     <param name="focused" default="false"/>
@@ -179,23 +223,7 @@
         <label>$INFO[ListItem.Label]</label>
         <visible>String.IsEmpty(ListItem.Art(thumb))</visible>
       </control>
-      <control type="image">
-        <left>196</left><top>16</top><width>48</width><height>48</height>
-        <texture>arc-tick.png</texture>
-        <visible>String.IsEqual(ListItem.Property(watched),true)</visible>
-      </control>
-      <!-- A show's episodes still to watch, in a tab at the top right (the Apple app's). -->
-      <control type="image">
-        <left>188</left><top>8</top><width>64</width><height>44</height>
-        <texture>arc-count-tab.png</texture>
-        <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
-      </control>
-      <control type="label">
-        <left>188</left><top>8</top><width>64</width><height>44</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><aligny>center</aligny><textcolor>white</textcolor>
-        <label>$INFO[ListItem.Property(unwatched)]</label>
-        <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
-      </control>
+      <include content="WatchBadge"><param name="tick" value="196"/><param name="one" value="200"/><param name="two" value="186"/><param name="three" value="172"/></include>
       <control type="progress">
         <left>16</left><top>358</top><width>228</width><height>8</height>
         <texturebg border="4">arc-bar-bg.png</texturebg>
@@ -254,6 +282,7 @@
         <texture>arc-ring-thumb.png</texture>
         <visible>$PARAM[focused]</visible>
       </control>
+      <include content="WatchBadge"><param name="tick" value="416"/><param name="one" value="420"/><param name="two" value="406"/><param name="three" value="392"/></include>
       <control type="progress">
         <left>20</left><top>250</top><width>440</width><height>8</height>
         <texturebg border="4">arc-bar-bg.png</texturebg>
@@ -743,6 +772,7 @@
         <texture>arc-ring-backdrop.png</texture>
         <visible>$PARAM[focused]</visible>
       </control>
+      <include content="WatchBadge"><param name="tick" value="352"/><param name="one" value="356"/><param name="two" value="342"/><param name="three" value="328"/></include>
       <control type="progress">
         <left>20</left><top>288</top><width>376</width><height>8</height>
         <texturebg border="4">arc-bar-bg.png</texturebg>

@@ -46,7 +46,7 @@
         <top>176</top>
         <width>736</width>
         <height>320</height>
-        <texture border="32" colordiffuse="FF2F3038">arc-pill-white-64.png</texture>
+        <texture border="32" colordiffuse="FF1F1F28">arc-pill-white-64.png</texture>
       </control>
       <control type="list" id="702">
         <left>48</left>
@@ -225,7 +225,7 @@
         <focusedcolor>FF000000</focusedcolor>
         <disabledcolor>FF6B6B78</disabledcolor>
         <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="FF2F3038">arc-pill-white-64.png</texturenofocus>
+        <texturenofocus border="32" colordiffuse="FF1F1F28">arc-pill-white-64.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
         <label>$ADDON[script.arc 30344]</label>
@@ -244,7 +244,7 @@
         <focusedcolor>FF000000</focusedcolor>
         <disabledcolor>FF6B6B78</disabledcolor>
         <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="FF2F3038">arc-pill-white-64.png</texturenofocus>
+        <texturenofocus border="32" colordiffuse="FF1F1F28">arc-pill-white-64.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
         <label>$ADDON[script.arc 30345]</label>
