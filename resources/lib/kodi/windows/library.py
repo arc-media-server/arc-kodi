@@ -268,7 +268,11 @@ class GridWindow(TabsMixin, ArcWindow):
                     return True
         return False
 
+    def grid_columns(self, control_id):
+        return (3 if self.style == "thumb" else 6) if control_id == GRID else 0
+
     def onFocus(self, control_id):
+        self.restore_focus(control_id)
         if self.library is not None:
             self.tab_focused(control_id)
 

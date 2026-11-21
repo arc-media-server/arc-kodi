@@ -40,8 +40,10 @@ def card_list_item(session, card, style, season_posters=False):
         "showart": "true" if card.get("show_art") else "",
         "subtitle": sub,
     }
-    if card.get("new_episodes"):
-        props["badge"] = T(30107) % card["new_episodes"]
+    if card.get("season_number") is not None and card.get("new_episodes"):
+        props["unwatched"] = card["new_episodes"]
+        props["watched"] = ""
+        props["new_episodes"] = card["new_episodes"]
     if card.get("tag"):
         props["tag"] = card["tag"]   # a word on a wide card's picture (Watch Together)
     li = list_item(label, sub, art=art, props=props)
@@ -53,8 +55,9 @@ def update_list_item(li, item):
     """Shows a changed watched state on a card already in a list (after its menu marked it)."""
     if li is None:
         return
-    li.setProperty("watched", "true" if models.watched(item) else "")
-    li.setProperty("unwatched", str(item.get("unwatched_count") or ""))
+    batch = li.getProperty("new_episodes")
+    li.setProperty("watched", "" if batch else "true" if models.watched(item) else "")
+    li.setProperty("unwatched", batch or str(item.get("unwatched_count") or ""))
     if models.resume_ms(item) <= 0:
         li.setProperty("progress", "")
         try:
@@ -83,6 +86,8 @@ def _subtitle(card):
         return T(30275) if n == 1 else T(30274) % n
     if card.get("season_number") is not None:
         return T(30155) % card["season_number"]
+    if card.get("new_episodes"):
+        return T(30107) % card["new_episodes"]
     if models.is_episode(item):
         # Just the number: the card's other line already has the title (owner's rule).
         return episode_code(item)
