@@ -52,6 +52,7 @@ class HomeWindow(ArcWindow):
     # back to the hero, and it hands the focus straight on to the first row. None in windows
     # whose rows have no hero above them.
     HERO_SPOT = 66
+    SIZE_HERO = True    # the hero fills the screen above the first row (home.py sizes it)
 
     def __init__(self, *args, **kwargs):
         ArcWindow.__init__(self, *args, **kwargs)
@@ -118,12 +119,13 @@ class HomeWindow(ArcWindow):
 
     def _layout_rows(self):
         # The hero fills the screen above the first row, its text moving down with it.
-        height = homerows.hero_height(self.rows[0].get("style") if self.rows else homerows.POSTER)
-        try:
-            self.getControl(HERO_GROUP).setHeight(height)
-            self.getControl(HERO_TEXT_GROUP).setPosition(8, height - homerows.HERO_TEXT)
-        except Exception:
-            pass
+        if self.SIZE_HERO:
+            height = homerows.hero_height(self.rows[0].get("style") if self.rows else homerows.POSTER)
+            try:
+                self.getControl(HERO_GROUP).setHeight(height)
+                self.getControl(HERO_TEXT_GROUP).setPosition(8, height - homerows.HERO_TEXT)
+            except Exception:
+                pass
         for i in range(MAX_ROWS):
             if i < len(self.rows):
                 self.set_label(self._bases(self.rows[i])[1] + 1 + i, self._row_title(self.rows[i]))
@@ -393,6 +395,12 @@ class HomeWindow(ArcWindow):
         before, self._row = self._row, self._row_at(self.getFocusId())
         idx = self._row
         if idx is None:
+            if (code == ACTION_UP and self.ABOVE_ROWS is not None and before is not None
+                    and before == self._first_row() and self.getFocusId() == self.HERO_SPOT):
+                # Up from the first row went to the hero's spot: on to what's above the rows (a
+                # library's tabs) rather than back down to the row.
+                self.focus_id(self.ABOVE_ROWS)
+                return True
             return False
         if code in (ACTION_UP, ACTION_DOWN):
             if before is not None and idx != before:
