@@ -51,56 +51,75 @@
           <font>arc-title</font><textcolor>white</textcolor>
         </control>
 
-        <!-- Playback, Audio, Subtitles: round, white with a black icon when focused. -->
+        <!-- Playback, Audio, Subtitles, as the Android player's: round glass (white at 16%), white
+             with a black icon when focused, their foot level with the title's; the focused one's
+             name above them. -->
         <control type="button" id="301">
-          <left>1560</left><top>764</top><width>76</width><height>76</height>
+          <left>1540</left><top>760</top><width>80</width><height>80</height>
           <texturefocus border="38">arc-pill-white.png</texturefocus>
-          <texturenofocus border="38" colordiffuse="99FFFFFF">arc-pill-surface.png</texturenofocus>
+          <texturenofocus border="38" colordiffuse="29FFFFFF">arc-pill-white.png</texturenofocus>
           <onleft>noop</onleft><onright>302</onright><onup>noop</onup><ondown>noop</ondown>
         </control>
-        <control type="button" id="302">
-          <left>1652</left><top>764</top><width>76</width><height>76</height>
-          <texturefocus border="38">arc-pill-white.png</texturefocus>
-          <texturenofocus border="38" colordiffuse="99FFFFFF">arc-pill-surface.png</texturenofocus>
-          <onleft>301</onleft><onright>303</onright><onup>noop</onup><ondown>noop</ondown>
-        </control>
-        <control type="button" id="303">
-          <left>1744</left><top>764</top><width>76</width><height>76</height>
-          <texturefocus border="38">arc-pill-white.png</texturefocus>
-          <texturenofocus border="38" colordiffuse="99FFFFFF">arc-pill-surface.png</texturenofocus>
-          <onleft>302</onleft><onright>noop</onright><onup>noop</onup><ondown>noop</ondown>
-        </control>
         <control type="image">
-          <left>1581</left><top>785</top><width>34</width><height>34</height>
-          <texture>arc-osd-sliders-horizontal.png</texture><colordiffuse>white</colordiffuse>
+          <left>1563</left><top>783</top><width>34</width><height>34</height>
+          <texture>arc-osd-gauge.png</texture><colordiffuse>white</colordiffuse>
           <visible>!Control.HasFocus(301)</visible>
         </control>
         <control type="image">
-          <left>1581</left><top>785</top><width>34</width><height>34</height>
-          <texture>arc-osd-sliders-horizontal.png</texture><colordiffuse>black</colordiffuse>
+          <left>1563</left><top>783</top><width>34</width><height>34</height>
+          <texture>arc-osd-gauge.png</texture><colordiffuse>black</colordiffuse>
           <visible>Control.HasFocus(301)</visible>
         </control>
+        <control type="label">
+          <left>1220</left><top>712</top><width>600</width><height>36</height>
+          <font>arc-small</font><textcolor>D9FFFFFF</textcolor><align>right</align>
+          <label>$ADDON[script.arc 30296]</label>
+          <visible>Control.HasFocus(301)</visible>
+        </control>
+        <control type="button" id="302">
+          <left>1640</left><top>760</top><width>80</width><height>80</height>
+          <texturefocus border="38">arc-pill-white.png</texturefocus>
+          <texturenofocus border="38" colordiffuse="29FFFFFF">arc-pill-white.png</texturenofocus>
+          <onleft>301</onleft><onright>303</onright><onup>noop</onup><ondown>noop</ondown>
+        </control>
         <control type="image">
-          <left>1673</left><top>785</top><width>34</width><height>34</height>
+          <left>1663</left><top>783</top><width>34</width><height>34</height>
           <texture>arc-osd-volume-2.png</texture><colordiffuse>white</colordiffuse>
           <visible>!Control.HasFocus(302)</visible>
         </control>
         <control type="image">
-          <left>1673</left><top>785</top><width>34</width><height>34</height>
+          <left>1663</left><top>783</top><width>34</width><height>34</height>
           <texture>arc-osd-volume-2.png</texture><colordiffuse>black</colordiffuse>
           <visible>Control.HasFocus(302)</visible>
         </control>
+        <control type="label">
+          <left>1220</left><top>712</top><width>600</width><height>36</height>
+          <font>arc-small</font><textcolor>D9FFFFFF</textcolor><align>right</align>
+          <label>$ADDON[script.arc 30184]</label>
+          <visible>Control.HasFocus(302)</visible>
+        </control>
+        <control type="button" id="303">
+          <left>1740</left><top>760</top><width>80</width><height>80</height>
+          <texturefocus border="38">arc-pill-white.png</texturefocus>
+          <texturenofocus border="38" colordiffuse="29FFFFFF">arc-pill-white.png</texturenofocus>
+          <onleft>302</onleft><onright>noop</onright><onup>noop</onup><ondown>noop</ondown>
+        </control>
         <control type="image">
-          <left>1765</left><top>785</top><width>34</width><height>34</height>
+          <left>1763</left><top>783</top><width>34</width><height>34</height>
           <texture>arc-osd-captions.png</texture><colordiffuse>white</colordiffuse>
           <visible>!Control.HasFocus(303)</visible>
         </control>
         <control type="image">
-          <left>1765</left><top>785</top><width>34</width><height>34</height>
+          <left>1763</left><top>783</top><width>34</width><height>34</height>
           <texture>arc-osd-captions.png</texture><colordiffuse>black</colordiffuse>
           <visible>Control.HasFocus(303)</visible>
         </control>
-
+        <control type="label">
+          <left>1220</left><top>712</top><width>600</width><height>36</height>
+          <font>arc-small</font><textcolor>D9FFFFFF</textcolor><align>right</align>
+          <label>$ADDON[script.arc 30185]</label>
+          <visible>Control.HasFocus(303)</visible>
+        </control>
         <!-- The timeline. 400 takes the focus (it has no look of its own; the marker grows). -->
         <control type="button" id="400">
           <left>100</left><top>858</top><width>1720</width><height>40</height>
@@ -189,15 +208,15 @@
       <control type="group" id="500">
         <left>100</left><top>966</top><width>1720</width><height>56</height>
         <control type="group" id="511">
-          <left>0</left><top>0</top><width>140</width><height>56</height>
+          <left>0</left><top>0</top><width>106</width><height>56</height>
           <!-- Chosen (its card is open) but not focused: a lighter pill. -->
           <control type="image">
-            <left>0</left><top>0</top><width>140</width><height>56</height>
+            <left>0</left><top>0</top><width>106</width><height>56</height>
             <texture border="28" colordiffuse="66FFFFFF">arc-pill-white-56.png</texture>
             <visible>String.IsEqual(Window.Property(arc.card),info) + !Control.HasFocus(501)</visible>
           </control>
           <control type="button" id="501">
-            <left>0</left><top>0</top><width>140</width><height>56</height>
+            <left>0</left><top>0</top><width>106</width><height>56</height>
             <font>arc-label</font><textcolor>DDFFFFFF</textcolor><focusedcolor>black</focusedcolor>
             <texturefocus border="28">arc-pill-white-56.png</texturefocus><texturenofocus></texturenofocus>
             <aligny>center</aligny><align>center</align>
@@ -206,15 +225,15 @@
           </control>
         </control>
         <control type="group" id="512">
-          <left>0</left><top>0</top><width>190</width><height>56</height>
+          <left>0</left><top>0</top><width>174</width><height>56</height>
           <!-- Chosen (its card is open) but not focused: a lighter pill. -->
           <control type="image">
-            <left>0</left><top>0</top><width>190</width><height>56</height>
+            <left>0</left><top>0</top><width>174</width><height>56</height>
             <texture border="28" colordiffuse="66FFFFFF">arc-pill-white-56.png</texture>
             <visible>String.IsEqual(Window.Property(arc.card),chapters) + !Control.HasFocus(502)</visible>
           </control>
           <control type="button" id="502">
-            <left>0</left><top>0</top><width>190</width><height>56</height>
+            <left>0</left><top>0</top><width>174</width><height>56</height>
             <font>arc-label</font><textcolor>DDFFFFFF</textcolor><focusedcolor>black</focusedcolor>
             <texturefocus border="28">arc-pill-white-56.png</texturefocus><texturenofocus></texturenofocus>
             <aligny>center</aligny><align>center</align>
@@ -223,15 +242,15 @@
           </control>
         </control>
         <control type="group" id="513">
-          <left>0</left><top>0</top><width>140</width><height>56</height>
+          <left>0</left><top>0</top><width>112</width><height>56</height>
           <!-- Chosen (its card is open) but not focused: a lighter pill. -->
           <control type="image">
-            <left>0</left><top>0</top><width>140</width><height>56</height>
+            <left>0</left><top>0</top><width>112</width><height>56</height>
             <texture border="28" colordiffuse="66FFFFFF">arc-pill-white-56.png</texture>
             <visible>String.IsEqual(Window.Property(arc.card),cast) + !Control.HasFocus(503)</visible>
           </control>
           <control type="button" id="503">
-            <left>0</left><top>0</top><width>140</width><height>56</height>
+            <left>0</left><top>0</top><width>112</width><height>56</height>
             <font>arc-label</font><textcolor>DDFFFFFF</textcolor><focusedcolor>black</focusedcolor>
             <texturefocus border="28">arc-pill-white-56.png</texturefocus><texturenofocus></texturenofocus>
             <aligny>center</aligny><align>center</align>
@@ -240,15 +259,15 @@
           </control>
         </control>
         <control type="group" id="514">
-          <left>0</left><top>0</top><width>200</width><height>56</height>
+          <left>0</left><top>0</top><width>174</width><height>56</height>
           <!-- Chosen (its card is open) but not focused: a lighter pill. -->
           <control type="image">
-            <left>0</left><top>0</top><width>200</width><height>56</height>
+            <left>0</left><top>0</top><width>174</width><height>56</height>
             <texture border="28" colordiffuse="66FFFFFF">arc-pill-white-56.png</texture>
             <visible>String.IsEqual(Window.Property(arc.card),episodes) + !Control.HasFocus(504)</visible>
           </control>
           <control type="button" id="504">
-            <left>0</left><top>0</top><width>200</width><height>56</height>
+            <left>0</left><top>0</top><width>174</width><height>56</height>
             <font>arc-label</font><textcolor>DDFFFFFF</textcolor><focusedcolor>black</focusedcolor>
             <texturefocus border="28">arc-pill-white-56.png</texturefocus><texturenofocus></texturenofocus>
             <aligny>center</aligny><align>center</align>

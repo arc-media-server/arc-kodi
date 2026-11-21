@@ -43,9 +43,9 @@ THUMB_GROUP, THUMB_IMAGE, THUMB_W = 460, 461, 328   # the thumbnail's group, ima
 MENU_TITLE, MENU_LIST, MENU_BACK = 601, 602, 603
 MENU_ROW, MENU_ROWS, MENU_BOTTOM = 64, 7, 744  # rows 64 high, up to 7 showing, ending above the buttons
 # The tabs under the timeline (Info, Chapters, Cast, Episodes) and their cards, as the Apple player's.
-TAB_ROW, TAB_ROW_Y, TAB_ROW_Y_OPEN, TAB_GAP = 500, 966, 604, 16
+TAB_ROW, TAB_ROW_Y, TAB_ROW_Y_OPEN, TAB_GAP = 500, 966, 604, 12
 TAB_IDS = {"info": 501, "chapters": 502, "cast": 503, "episodes": 504}
-TAB_GROUPS = {"info": (511, 140), "chapters": (512, 190), "cast": (513, 140), "episodes": (514, 200)}
+TAB_GROUPS = {"info": (511, 106), "chapters": (512, 174), "cast": (513, 112), "episodes": (514, 174)}
 TAB_ORDER = ("info", "chapters", "cast", "episodes")
 INFO_IMAGE, INFO_TITLE, RESTART, PREVIOUS, INFO_OVERVIEW, INFO_META, INFO_HOW, INFO_LINE = \
     521, 522, 523, 524, 525, 526, 527, 528
@@ -97,7 +97,8 @@ A_PROCESS_INFO = (69,)          # Kodi's Player Process Info (the O key)
 
 
 def language_name(code):
-    if not code:
+    # "und" (undetermined) is no language: the track is named by its place, as Android's.
+    if not code or code.lower() in ("und", "undetermined"):
         return ""
     try:
         name = xbmc.convertLanguage(code, xbmc.ENGLISH_NAME)
@@ -110,7 +111,8 @@ CODECS = browse.AUDIO_CODECS
 
 
 def audio_label(track, i):
-    name = language_name(track.get("language")) or track.get("title") or T(30220) % (i + 1)
+    # The language, else "Track 2" by position, as Android's audioName.
+    name = language_name(track.get("language")) or T(30220) % (i + 1)
     ch = int(track.get("channels") or 0)
     layout = T(30214) if ch == 1 else T(30215) if ch == 2 else ("%d.1" % (ch - 1)) if ch > 2 else ""
     codec = CODECS.get(track.get("codec") or "", (track.get("codec") or "").upper())

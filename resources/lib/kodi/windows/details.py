@@ -397,8 +397,13 @@ class DetailsWindow(ArcWindow):
                 self._render_actions()
             return
         ctrl.reset()
-        for s in self.tabs:
-            ctrl.addItem(list_item(self._tab_name(s), props={"season": "" if s.get("unplaced") else s.get("season_number")}))
+        last = len(self.tabs) - 1
+        for i, s in enumerate(self.tabs):
+            # Which ends of the joined pill this tab rounds (the season bar is Android's PillTabs).
+            edge = ("l" if i == 0 else "") + ("r" if i == last else "")
+            ctrl.addItem(list_item(self._tab_name(s), props={
+                "season": "" if s.get("unplaced") else s.get("season_number"), "edge": edge,
+                "unplaced": "true" if s.get("unplaced") else ""}))
         if self.tabs:
             # Open on the season of the episode Play would play, as Plex does, or of the episode
             # this page was opened for.

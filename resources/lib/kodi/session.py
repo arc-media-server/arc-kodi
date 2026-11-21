@@ -18,7 +18,8 @@ class Session(object):
         self.profile = None
         if saved.get("profile_id"):
             self.profile = {"id": saved["profile_id"], "name": saved.get("profile_name", ""),
-                            "is_admin": saved.get("profile_admin", False)}
+                            "is_admin": saved.get("profile_admin", False),
+                            "color": saved.get("profile_color", "")}
         self.prefs = {}
         self.libraries = []
         self.features = {}   # GET /capabilities' features (Watch Together's availability)
@@ -53,14 +54,14 @@ class Session(object):
 
     def set_profile(self, profile):
         self.profile = {"id": profile.get("id"), "name": profile.get("name", ""),
-                        "is_admin": profile.get("is_admin", False)}
+                        "is_admin": profile.get("is_admin", False), "color": profile.get("color", "")}
         storage.update(profile_id=profile.get("id"), profile_name=profile.get("name", ""),
-                       profile_admin=profile.get("is_admin", False))
+                       profile_admin=profile.get("is_admin", False), profile_color=profile.get("color", ""))
 
     def forget_profile(self):
         self.profile = None
         self.recommended = {}
-        storage.update(profile_id=None, profile_name=None, profile_admin=False)
+        storage.update(profile_id=None, profile_name=None, profile_admin=False, profile_color=None)
 
     def forget_server(self):
         self.base_url = None
