@@ -1,8 +1,9 @@
-"""A title's page, as the Apple app's: the artwork over the title's own four colours, the hero
-(logo, info line, badge capsules, overview, Starring and Directed by), Play (saying what it
-plays) and round buttons (Play from the Beginning, Watched, Watchlist), a show's seasons and
-episodes, More Like This, Cast, Collections, Trailers & Extras, and the About / Details / Crew /
-Playback cards. The choices are arc/titlepage.py's; this draws them."""
+"""A title's page, as the Android app's: the artwork over the title's own four colours, the
+header low on the first screen (logo, rating and genres, the description with MORE when it's cut,
+the year, length and score with the quality capsules, Play saying what it plays and the round
+buttons, Starring and Directed by at the right), a show's season bar under it and its episodes
+below, then Cast, Trailers & Extras, More Like This, Collections and the About / Details / Crew /
+Playback cards. The choices and the header's layout are arc/titlepage.py's; this draws them."""
 
 import time
 
@@ -23,11 +24,25 @@ PLAY = 100
 RESTART = 101
 WATCHED = 102
 WATCHLIST = 103
+SHUFFLE = 104
+MORE = 105              # ⋯: the title's menu
 LOGO = 110
 TITLE = 111
 INFO = 112
 OVERVIEW = 113
+ABOUT = 114             # the description, focusable when it's cut, opening the whole text
 BG = 115
+MORE_LABEL = 116        # MORE under a cut description
+EPISODE_LINE = 117      # "S1 · E4 · Pilot" on an episode's own page
+HERO = 130
+META_ROW = 151         # (the group holding grouplist 150)
+GENRE_ROW = 143        # (the group holding grouplist 140)
+BUTTONS = 99
+PLAY_BAR, PLAY_BAR_WHITE, PLAY_BAR_BLACK = 188, 189, 190
+PLAY_WORDS = (186, 187)
+HINT = 97
+# The round buttons in the row's order, each with the group the Python places it by.
+ROUND = ((RESTART, 191), (SHUFFLE, 192), (WATCHED, 193), (WATCHLIST, 194), (MORE, 195))
 RATING = 141
 GENRES = 142
 CAPSULE_BASE = 160      # six slots, each a filled (160 + 2i) and an outlined (161 + 2i) capsule
@@ -48,6 +63,12 @@ EXTRAS = 350
 EXTRAS_TITLE = 351
 CARDS = 360
 
+# The description's width, and the room the line estimate allows (a little less, so Kodi's own
+# wrapping never needs a line more than the add-on made room for).
+OVERVIEW_ROOM = 1040 * 0.94
+# An episode card's description: 460 wide in a 23 px font.
+EPISODE_ROOM = 460 * 0.94
+
 # Left, right; and how long (ms) a title may take to load before it's logged at info.
 MOVE_ACTIONS, SLOW_MS = (1, 2), 3000
 
@@ -60,8 +81,10 @@ CARD_KEYS = {"released": 30145, "runtime": 30146, "rated": 30160, "genres": 3016
 class DetailsWindow(ArcWindow):
     # The page's rows, top to bottom (see ArcWindow.ROW_STOPS): Play and the round buttons, the
     # season tabs, the episodes, Cast, Extras, Related, Collections, the cards.
-    ROW_STOPS = ((PLAY, RESTART, WATCHED, WATCHLIST), (SEASONS,), (EPISODES,), (CAST,), (EXTRAS,),
-                 (RELATED,), (COLLECTIONS,), (CARDS,))
+    ROW_STOPS = ((ABOUT,), (PLAY, RESTART, SHUFFLE, WATCHED, WATCHLIST, MORE), (SEASONS,), (EPISODES,),
+                 (CAST,), (EXTRAS,), (RELATED,), (COLLECTIONS,), (CARDS,))
+    # Focus on these and below means the page has scrolled past the header: the artwork dims.
+    BELOW_HEADER = (EPISODES, CAST, EXTRAS, RELATED, COLLECTIONS, CARDS)
 
     xml = "script-arc-details.xml"
 
@@ -84,6 +107,7 @@ class DetailsWindow(ArcWindow):
         self.extras = []
         self.collections = []
         self.action = None      # what Play does: titlepage.play_action()
+        self.overview = ""      # the description MORE opens
         self.nav = None
 
     def on_init(self):
@@ -164,83 +188,172 @@ class DetailsWindow(ArcWindow):
         self.set_image(BG, art.get("fanart") or art.get("thumb"))
         self.set_image(LOGO, art.get("clearlogo"))
         self.set_label(TITLE, "" if art.get("clearlogo") else item.get("title", ""))
+        episode = episode_heading(item) if models.is_episode(item) else ""
+        self.set_label(EPISODE_LINE, episode)
+        # The age rating boxed, then the genres, as the Android app's (above the description).
         rating = item.get("content_rating") or ""
+        genres = (item.get("genres") or [])[:3]
         self.setProperty("arc.rating", rating)
         self.set_label(RATING, rating)
-        self.set_label(GENRES, "  ·  ".join((item.get("genres") or [])[:3]))
-        self.set_text(OVERVIEW, item.get("overview") or item.get("tagline") or "")
-        self.set_label(INFO, self._facts(item))
-        # The quality capsules: the resolution filled, the rest outlined, as the reference's.
-        # Each sizes to its text (an auto-width button).
+        self.set_label(GENRES, " · ".join(genres))
+        # The description: three lines, and when that cuts it, MORE under it and the block
+        # focusable to read the whole thing (titlepage.clip estimates where Kodi will wrap).
+        self.overview = self._overview(item)
+        shown, cut, lines = titlepage.clip(self.overview, OVERVIEW_ROOM, size=30)
+        self.set_text(OVERVIEW, shown)
+        self.set_label(MORE_LABEL, T(30612).upper() if cut else "")
+        # The year, length (or episodes left) and score, then the quality capsules.
+        meta, score = titlepage.meta_line(item, lambda n: (T(30609) if n == 1 else T(30610)) % n)
+        self.set_label(INFO, meta)
+        self.setProperty("arc.score", score)
         badges = models.quality_badges(item)[:CAPSULE_SLOTS]
         for i in range(CAPSULE_SLOTS):
             text = badges[i] if i < len(badges) else ""
             filled = i == 0 and text in ("4K", "1080p", "720p", "SD")
             self.set_label(CAPSULE_BASE + 2 * i + (0 if filled else 1), text)
             self.setProperty("arc.cap%d" % i, ("f" if filled else "o") if text else "")
-        # Starring and Director at the right, as the Apple app's: the label lighter, the names
-        # bold, ending level with the buttons. Starring (which may wrap to two lines) sits above
-        # Director, or in its place when there's no director.
+        # Starring and Directed by at the right, the label lighter, the names bold, each on up
+        # to two lines; Kodi won't bottom-align a wrapping label, so the Python places them by
+        # how many lines they take (titlepage.wraps estimates it).
         stars = titlepage.starring(item)
-        directors = titlepage.people(item, ("director",), 2)
+        directors = titlepage.people(item, ("director",), 3)
         self.set_label(STARRING, self._labelled(T(30158), stars) if stars else "")
         self.set_label(DIRECTORS, self._labelled(T(30147), directors) if directors else "")
-        # Kodi won't bottom-align a wrapping label, so the Python places Starring by how many
-        # lines it takes (titlepage.wraps estimates it from the letters' widths).
-        wraps = bool(stars) and titlepage.wraps(T(30158), ", ".join(stars))
-        bottom = 36 if directors else 76      # where Starring's last line must end, in the row
-        lines = 2 if wraps else 1
+
+        def lines_of(label, names):
+            return 0 if not names else (2 if titlepage.wraps(label, ", ".join(names), room=580) else 1)
+
+        layout = titlepage.hero_layout(
+            models.is_series(item), logo=bool(art.get("clearlogo")), episode_line=bool(episode),
+            rating_row=bool(rating or genres), overview_lines=lines, cut=cut,
+            meta_row=bool(meta or score or badges), starring_lines=lines_of(T(30158), stars),
+            director_lines=lines_of(T(30147), directors))
+        self._place_hero(layout, cut)
+
+    def _place_hero(self, layout, cut):
+        def place(control_id, x, top, height=None):
+            try:
+                control = self.getControl(control_id)
+                control.setPosition(x, top)
+                if height is not None:
+                    control.setHeight(height)
+            except Exception:
+                pass
+
         try:
-            self.getControl(STARRING).setPosition(1120, bottom - 38 * lines)
-            self.getControl(STARRING).setHeight(40 * lines)
+            self.getControl(HERO).setHeight(layout["height"])
         except Exception:
             pass
+        place(LOGO, 8, layout["logo"])
+        place(TITLE, 8, layout["title"])
+        place(EPISODE_LINE, 10, layout.get("episode", 0))
+        place(GENRE_ROW, 8, layout.get("genres", 0))
+        place(ABOUT, -12, layout["block"], layout["block_h"])
+        place(OVERVIEW, 10, layout.get("overview", 0), layout.get("overview_h", 0))
+        place(MORE_LABEL, 10, layout.get("more", 0))
+        place(META_ROW, 10, layout.get("meta", 0))
+        place(BUTTONS, 8, layout["row"])
+        place(HINT, 10, layout["hint"])
+        place(STARRING, 1100, layout["starring"], layout["starring_h"])
+        place(DIRECTORS, 1100, layout["directors"], layout["directors_h"])
+        try:
+            self.getControl(ABOUT).setVisible(cut)
+        except Exception:
+            pass
+
+    def _overview(self, item):
+        """The description, or the tagline; hidden for an episode the profile hasn't started
+        when Hide Spoilers is on, as the episode cards."""
+        text = item.get("overview") or item.get("tagline") or ""
+        if text and models.is_episode(item) and models.spoiler_hidden(self.session.prefs, item):
+            return T(30440)
+        return text
 
     @staticmethod
     def _labelled(label, names):
         return "[COLOR FFD8D8DE]%s[/COLOR] [B]%s[/B]" % (label, ", ".join(names))
 
-    def _facts(self, item):
-        """The year (or an episode's code and year) and the length."""
-        bits = []
-        if models.is_episode(item):
-            code = episode_code(item)
-            if code:
-                bits.append(code)
-        if item.get("year"):
-            bits.append(str(item["year"]))
-        rt = models.runtime_text(models.duration_ms(item))
-        if rt:
-            bits.append(rt)
-        return "  ·  ".join(bits)
-
     # MARK: - Play and the round buttons
 
     def _render_actions(self, item=None):
         item = item if item is not None else (self.item or {})
-        episode = titlepage.next_to_play(self.seasons) if models.is_series(item) else None
+        series = models.is_series(item)
+        episode = titlepage.next_to_play(self.seasons) if series else None
         self.action = titlepage.play_action(item, episode)
-        if self.action is None:
-            label = T(30005)
-        else:
-            kind, target, _ = self.action
-            if models.is_series(item):
-                label = (T(30157) if kind == "resume" else T(30156)) % episode_code(target)
+        kind, arg = titlepage.play_label(item, self.action)
+        words = {"resume_episode": lambda: T(30157) % episode_code(arg),
+                 "play_episode": lambda: T(30156) % episode_code(arg),
+                 "start_watching": lambda: T(30608) % episode_code(arg),
+                 "resume_from": lambda: T(30607) % arg}
+        label = words[kind]() if kind in words else T(30005)
+        # Play: the icon, how far through when part watched, then the words; the pill fits them.
+        resume = self.action[2] if self.action else 0
+        fraction = models.progress(self.action[1]) if self.action and resume > 0 else None
+        words_x = 76 + (92 if fraction is not None else 0)
+        width = int(words_x + titlepage.plain_width(label, 30) + 40)
+        for control_id in PLAY_WORDS:
+            self.set_label(control_id, label)
+            try:
+                self.getControl(control_id).setPosition(words_x, 8)
+            except Exception:
+                pass
+        try:
+            self.getControl(PLAY).setWidth(width)
+            self.getControl(PLAY_BAR).setVisible(fraction is not None)
+            for control_id in (PLAY_BAR_WHITE, PLAY_BAR_BLACK):
+                self.getControl(control_id).setWidth(max(8, int(72 * (fraction or 0))))
+        except Exception:
+            pass
+        # The round buttons this title shows, after Play, 20 apart: Play from the Beginning when
+        # there's something to resume, Shuffle when a show has an episode on disk, then Watched,
+        # Watchlist and ⋯ (the title's menu).
+        shown = []
+        for control_id, group in ROUND:
+            if control_id == RESTART:
+                visible = resume > 0
+            elif control_id == SHUFFLE:
+                visible = series and bool(self._show_episode_ids())
             else:
-                label = T(30006) if kind == "resume" else T(30005)
-        self.set_label(PLAY, label)
+                visible = True
+            try:
+                self.getControl(group).setVisible(visible)
+                if visible:
+                    self.getControl(group).setPosition(width + 20 + 84 * len(shown), 8)
+            except Exception:
+                pass
+            if visible:
+                shown.append(control_id)
+        row = [PLAY] + shown
+        try:
+            for i, control_id in enumerate(row):
+                control = self.getControl(control_id)
+                control.controlLeft(self.getControl(row[i - 1] if i else PLAY))
+                control.controlRight(self.getControl(row[i + 1] if i + 1 < len(row) else control_id))
+        except Exception:
+            pass
+        if self.getFocusId() in (RESTART, SHUFFLE) and self.getFocusId() not in shown:
+            self.focus_id(PLAY)
         watched = models.watched(item)
         self.setProperty("arc.watchedicon", "arc-osd-circle-check-filled.png" if watched else "arc-osd-circle-check.png")
         self.setProperty("arc.watchlisticon", "arc-osd-bookmark-check.png" if models.watchlisted(item) else "arc-osd-bookmark.png")
         self._hint(self.getFocusId())
 
+    def _show_episode_ids(self):
+        """Every episode of the show on disk, in order (Shuffle plays them in a shuffled queue)."""
+        return [i for s in self.seasons for i in titlepage.season_episode_ids(s)]
+
     def onFocus(self, control_id):
         self._hint(control_id)
+        # Past the header the artwork dims, as the Android app's; back on it, it brightens.
+        if control_id in self.BELOW_HEADER:
+            self.setProperty("scrolled", "true")
+        elif control_id in (ABOUT, SEASONS) + tuple(r[0] for r in ROUND) + (PLAY,):
+            self.setProperty("scrolled", "")
 
     def _hint(self, control_id):
-        """The focused round button's name, beside the row."""
+        """The focused round button's name, under the row."""
         item = self.item or {}
-        names = {RESTART: T(30213),
+        names = {RESTART: T(30213), SHUFFLE: T(30288), MORE: T(30612),
                  WATCHED: T(30151) if models.watched(item) else T(30150),
                  WATCHLIST: T(30153) if models.watchlisted(item) else T(30152)}
         self.setProperty("arc.hint", names.get(control_id, ""))
@@ -354,21 +467,24 @@ class DetailsWindow(ArcWindow):
                 break
 
     def _episode_item(self, ep, unplaced=False):
+        """An episode's card, as the Android app's: its number, title, a few lines of its
+        description, and its length (or what's left), with Not on disk for one with no file."""
         art = item_art(self.session, ep)
-        sub = models.runtime_text(models.duration_ms(ep))
         release = models.upcoming_release(ep)
         props = {"item_id": ep.get("id"), "available": "true" if ep.get("available", True) else "",
                  "watched": "true" if models.watched(ep) else "",
-                 "progress": "" if models.progress(ep) is None else str(int(models.progress(ep) * 100))}
+                 "progress": "" if models.progress(ep) is None else str(int(models.progress(ep) * 100)),
+                 "number": "" if unplaced else episode_code(ep)}
+        is_left, length = titlepage.time_left(ep)
+        sub = [T(30611) % length if is_left else length]
         if release:
             props["releases"] = T(30154) % ("%d %s" % (release.day, release.strftime("%b")))
-            sub = props["releases"]
+            sub = [props["releases"]]
         if not ep.get("available", True):
             props["tag"] = T(30602)
             # Reuse the existing unavailable-artwork treatment without changing card layouts.
             props["releases"] = props.get("releases") or T(30602)
-            sub = " · ".join(x for x in (T(30602), sub) if x)
-        label = episode_heading(ep, unplaced)
+            sub.append(T(30602))
         thumb = models.images(ep).get("primary")
         fallback = art.get("thumb")
         overview = ep.get("overview") or ""
@@ -377,8 +493,14 @@ class DetailsWindow(ArcWindow):
             thumb = models.images(self.item).get("backdrop") or models.images(ep).get("series_backdrop")
             fallback = ""
             overview = T(30440) if overview else ""
-        li = list_item(label, sub, art={"thumb": self.session.art(thumb) if thumb else fallback}, props=props)
-        li.setProperty("overview", overview)
+        # Kodi doesn't wrap a label inside a list, so the lines are broken here (up to three,
+        # the last cut with "…"), then the length on a line of its own.
+        shown, _cut, _lines = titlepage.clip(overview, EPISODE_ROOM, size=23)
+        lines = titlepage.wrap_lines(shown, EPISODE_ROOM, size=23)[:3]
+        sub = " · ".join(x for x in sub if x)
+        body = "[CR]".join(lines + (["[COLOR FFA1A1AD]%s[/COLOR]" % sub] if sub else []))
+        li = list_item(ep.get("title", ""), art={"thumb": self.session.art(thumb) if thumb else fallback}, props=props)
+        li.setProperty("body", body)
         set_progress(li, ep)
         return li
 
@@ -477,6 +599,15 @@ class DetailsWindow(ArcWindow):
             self._toggle_watched()
         elif control_id == WATCHLIST:
             self._toggle_watchlist()
+        elif control_id == SHUFFLE:
+            ids = self._show_episode_ids()
+            if self.nav and ids:
+                self.nav("queue", {"item_ids": ids, "shuffle": True})
+        elif control_id == MORE:
+            self._title_menu()
+        elif control_id == ABOUT:
+            # The whole description, in Arc's own dialog (Android's About panel).
+            menu.choose((self.item or {}).get("title", ""), [T(30000)], message=self.overview)
         elif control_id == SEASONS:
             self._season_menu()
         elif control_id == EPISODES:
@@ -548,14 +679,20 @@ class DetailsWindow(ArcWindow):
                                      "on_changed": lambda it, _act: update_list_item(ctrl.getListItem(pos), it)})
                 return True
             return False
-        if self.item:
-            def changed(_it, _act):
-                if models.is_series(self.item):
-                    self._load_seasons()
-                self._render_actions()
-            self.nav("context", {"item": self.item, "on_page": True, "on_changed": changed})
-            return True
-        return False
+        return self._title_menu()
+
+    def _title_menu(self):
+        """The title's own menu (⋯, or the menu key away from the rows): Play and the like are the
+        page's buttons, so it has the rest."""
+        if not self.item or not self.nav:
+            return False
+
+        def changed(_it, _act):
+            if models.is_series(self.item):
+                self._load_seasons()
+            self._render_actions()
+        self.nav("context", {"item": self.item, "on_page": True, "on_changed": changed})
+        return True
 
     # MARK: - a season's menu
 

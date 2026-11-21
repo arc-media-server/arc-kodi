@@ -74,7 +74,9 @@ class MenuDialog(xbmcgui.WindowXMLDialog):
         msg_h = 0
         if self.message:
             lines = max(1, sum(-(-max(1, len(p)) // 34) for p in self.message.split("\n")))
-            msg_h = lines * LINE + 16
+            # A long message (a title's whole description, from MORE) stops short of the screen's
+            # edges, with room for a row under it.
+            msg_h = min(lines * LINE + 16, 1080 - 120 - 76 - ROW - 16)
             self.getControl(MESSAGE).setText(self.message)
             self.getControl(MESSAGE).setHeight(msg_h)
         top = 76 + msg_h
