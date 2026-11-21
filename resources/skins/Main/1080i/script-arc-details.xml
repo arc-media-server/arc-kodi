@@ -63,6 +63,16 @@
       <height>1080</height>
       <texture>arc-title-scrim.png</texture>
     </control>
+    <control type="image">
+      <left>0</left>
+      <top>0</top>
+      <width>1920</width>
+      <height>1080</height>
+      <texture>arc-white.png</texture>
+      <colordiffuse>D10B0B10</colordiffuse>
+      <visible>String.IsEqual(Window.Property(scrolled),true)</visible>
+      <animation effect="fade" time="250">VisibleChange</animation>
+    </control>
     <control type="grouplist" id="900">
       <left>112</left>
       <top>0</top>
@@ -75,276 +85,415 @@
       <ondown>noop</ondown>
       <control type="group" id="130">
         <width>1808</width>
-        <height>640</height>
+        <height>1080</height>
         <control type="image" id="110">
           <left>8</left>
-          <top>90</top>
-          <width>640</width>
-          <height>200</height>
+          <top>400</top>
+          <width>920</width>
+          <height>240</height>
           <aspectratio align="left" aligny="bottom">keep</aspectratio>
         </control>
         <control type="label" id="111">
           <shadowcolor>CC000000</shadowcolor>
           <left>8</left>
-          <top>190</top>
-          <width>1100</width>
-          <height>100</height>
+          <top>556</top>
+          <width>1300</width>
+          <height>84</height>
           <font>font60</font>
           <textcolor>FFF5F5F7</textcolor>
         </control>
-        <control type="grouplist" id="140">
+        <control type="label" id="117">
+          <left>10</left>
+          <top>656</top>
+          <width>1300</width>
+          <height>40</height>
+          <font>font13</font>
+          <textcolor>FFF5F5F7</textcolor>
+          <shadowcolor>CC000000</shadowcolor>
+        </control>
+        <control type="group" id="143">
           <left>8</left>
-          <top>316</top>
+          <top>672</top>
           <width>1150</width>
           <height>40</height>
-          <orientation>horizontal</orientation>
-          <itemgap>14</itemgap>
-          <usecontrolcoords>false</usecontrolcoords>
-          <control type="button" id="141">
-            <width>auto</width>
+          <control type="grouplist" id="140">
+            <left>0</left>
+            <top>0</top>
+            <width>1150</width>
             <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>16</textoffsetx>
-            <disabledcolor>FFF5F5F7</disabledcolor>
-            <textcolor>FFF5F5F7</textcolor>
-            <texturenofocus border="20">arc-badge-line.png</texturenofocus>
-            <texturefocus border="20">arc-badge-line.png</texturefocus>
-            <visible>!String.IsEmpty(Window.Property(arc.rating))</visible>
+            <orientation>horizontal</orientation>
+            <itemgap>24</itemgap>
+            <usecontrolcoords>false</usecontrolcoords>
+            <control type="button" id="141">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>16</textoffsetx>
+              <disabledcolor>FFF5F5F7</disabledcolor>
+              <textcolor>FFF5F5F7</textcolor>
+              <texturenofocus border="20">arc-badge-line.png</texturenofocus>
+              <texturefocus border="20">arc-badge-line.png</texturefocus>
+              <visible>!String.IsEmpty(Window.Property(arc.rating))</visible>
+            </control>
+            <control type="label" id="142">
+              <width>auto</width>
+              <height>40</height>
+              <shadowcolor>CC000000</shadowcolor>
+              <font>font13</font>
+              <textcolor>FFF5F5F7</textcolor>
+              <aligny>center</aligny>
+            </control>
           </control>
-          <control type="label" id="142">
-            <width>auto</width>
-            <height>40</height>
-            <shadowcolor>CC000000</shadowcolor>
-            <font>font13</font>
-            <textcolor>FFF5F5F7</textcolor>
-            <aligny>center</aligny>
-          </control>
+        </control>
+        <control type="button" id="114">
+          <left>-12</left>
+          <top>716</top>
+          <width>1100</width>
+          <height>196</height>
+          <texturefocus border="32" colordiffuse="33FFFFFF">arc-pill-white-64.png</texturefocus>
+          <texturenofocus />
+          <label />
+          <onup>noop</onup>
+          <ondown>100</ondown>
+          <onleft>noop</onleft>
+          <onright>noop</onright>
         </control>
         <control type="textbox" id="113">
           <shadowcolor>CC000000</shadowcolor>
           <left>10</left>
-          <top>376</top>
-          <width>1000</width>
-          <height>160</height>
+          <top>732</top>
+          <width>1040</width>
+          <height>126</height>
           <font>font13</font>
-          <textcolor>DDF5F5F7</textcolor>
+          <textcolor>D9F5F5F7</textcolor>
         </control>
-        <control type="grouplist" id="150">
-          <left>8</left>
-          <top>556</top>
+        <control type="label" id="116">
+          <left>10</left>
+          <top>858</top>
+          <width>400</width>
+          <height>30</height>
+          <font>font20_title</font>
+          <textcolor>FFF5F5F7</textcolor>
+          <shadowcolor>CC000000</shadowcolor>
+        </control>
+        <control type="group" id="151">
+          <left>10</left>
+          <top>856</top>
           <width>1150</width>
           <height>40</height>
-          <orientation>horizontal</orientation>
-          <itemgap>14</itemgap>
-          <control type="label" id="112">
-            <width>auto</width>
+          <control type="grouplist" id="150">
+            <left>0</left>
+            <top>0</top>
+            <width>1150</width>
             <height>40</height>
-            <shadowcolor>CC000000</shadowcolor>
-            <font>font13</font>
-            <textcolor>DDF5F5F7</textcolor>
-            <aligny>center</aligny>
-          </control>
-          <control type="button" id="160">
-            <width>auto</width>
-            <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>18</textoffsetx>
-            <disabledcolor>FF000000</disabledcolor>
-            <textcolor>FF000000</textcolor>
-            <texturenofocus border="20">arc-badge-fill.png</texturenofocus>
-            <texturefocus border="20">arc-badge-fill.png</texturefocus>
-            <visible>String.IsEqual(Window.Property(arc.cap0),f)</visible>
-          </control>
-          <control type="button" id="161">
-            <width>auto</width>
-            <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>18</textoffsetx>
-            <disabledcolor>FFF5F5F7</disabledcolor>
-            <textcolor>FFF5F5F7</textcolor>
-            <texturenofocus border="20">arc-badge-line.png</texturenofocus>
-            <texturefocus border="20">arc-badge-line.png</texturefocus>
-            <visible>String.IsEqual(Window.Property(arc.cap0),o)</visible>
-          </control>
-          <control type="button" id="162">
-            <width>auto</width>
-            <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>18</textoffsetx>
-            <disabledcolor>FF000000</disabledcolor>
-            <textcolor>FF000000</textcolor>
-            <texturenofocus border="20">arc-badge-fill.png</texturenofocus>
-            <texturefocus border="20">arc-badge-fill.png</texturefocus>
-            <visible>String.IsEqual(Window.Property(arc.cap1),f)</visible>
-          </control>
-          <control type="button" id="163">
-            <width>auto</width>
-            <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>18</textoffsetx>
-            <disabledcolor>FFF5F5F7</disabledcolor>
-            <textcolor>FFF5F5F7</textcolor>
-            <texturenofocus border="20">arc-badge-line.png</texturenofocus>
-            <texturefocus border="20">arc-badge-line.png</texturefocus>
-            <visible>String.IsEqual(Window.Property(arc.cap1),o)</visible>
-          </control>
-          <control type="button" id="164">
-            <width>auto</width>
-            <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>18</textoffsetx>
-            <disabledcolor>FF000000</disabledcolor>
-            <textcolor>FF000000</textcolor>
-            <texturenofocus border="20">arc-badge-fill.png</texturenofocus>
-            <texturefocus border="20">arc-badge-fill.png</texturefocus>
-            <visible>String.IsEqual(Window.Property(arc.cap2),f)</visible>
-          </control>
-          <control type="button" id="165">
-            <width>auto</width>
-            <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>18</textoffsetx>
-            <disabledcolor>FFF5F5F7</disabledcolor>
-            <textcolor>FFF5F5F7</textcolor>
-            <texturenofocus border="20">arc-badge-line.png</texturenofocus>
-            <texturefocus border="20">arc-badge-line.png</texturefocus>
-            <visible>String.IsEqual(Window.Property(arc.cap2),o)</visible>
-          </control>
-          <control type="button" id="166">
-            <width>auto</width>
-            <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>18</textoffsetx>
-            <disabledcolor>FF000000</disabledcolor>
-            <textcolor>FF000000</textcolor>
-            <texturenofocus border="20">arc-badge-fill.png</texturenofocus>
-            <texturefocus border="20">arc-badge-fill.png</texturefocus>
-            <visible>String.IsEqual(Window.Property(arc.cap3),f)</visible>
-          </control>
-          <control type="button" id="167">
-            <width>auto</width>
-            <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>18</textoffsetx>
-            <disabledcolor>FFF5F5F7</disabledcolor>
-            <textcolor>FFF5F5F7</textcolor>
-            <texturenofocus border="20">arc-badge-line.png</texturenofocus>
-            <texturefocus border="20">arc-badge-line.png</texturefocus>
-            <visible>String.IsEqual(Window.Property(arc.cap3),o)</visible>
-          </control>
-          <control type="button" id="168">
-            <width>auto</width>
-            <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>18</textoffsetx>
-            <disabledcolor>FF000000</disabledcolor>
-            <textcolor>FF000000</textcolor>
-            <texturenofocus border="20">arc-badge-fill.png</texturenofocus>
-            <texturefocus border="20">arc-badge-fill.png</texturefocus>
-            <visible>String.IsEqual(Window.Property(arc.cap4),f)</visible>
-          </control>
-          <control type="button" id="169">
-            <width>auto</width>
-            <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>18</textoffsetx>
-            <disabledcolor>FFF5F5F7</disabledcolor>
-            <textcolor>FFF5F5F7</textcolor>
-            <texturenofocus border="20">arc-badge-line.png</texturenofocus>
-            <texturefocus border="20">arc-badge-line.png</texturefocus>
-            <visible>String.IsEqual(Window.Property(arc.cap4),o)</visible>
-          </control>
-          <control type="button" id="170">
-            <width>auto</width>
-            <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>18</textoffsetx>
-            <disabledcolor>FF000000</disabledcolor>
-            <textcolor>FF000000</textcolor>
-            <texturenofocus border="20">arc-badge-fill.png</texturenofocus>
-            <texturefocus border="20">arc-badge-fill.png</texturefocus>
-            <visible>String.IsEqual(Window.Property(arc.cap5),f)</visible>
-          </control>
-          <control type="button" id="171">
-            <width>auto</width>
-            <height>40</height>
-            <enable>false</enable>
-            <font>font12</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textoffsetx>18</textoffsetx>
-            <disabledcolor>FFF5F5F7</disabledcolor>
-            <textcolor>FFF5F5F7</textcolor>
-            <texturenofocus border="20">arc-badge-line.png</texturenofocus>
-            <texturefocus border="20">arc-badge-line.png</texturefocus>
-            <visible>String.IsEqual(Window.Property(arc.cap5),o)</visible>
+            <orientation>horizontal</orientation>
+            <itemgap>10</itemgap>
+            <usecontrolcoords>false</usecontrolcoords>
+            <control type="label" id="112">
+              <width>auto</width>
+              <height>40</height>
+              <shadowcolor>CC000000</shadowcolor>
+              <font>font13</font>
+              <textcolor>D9F5F5F7</textcolor>
+              <aligny>center</aligny>
+            </control>
+            <control type="image">
+              <width>22</width>
+              <height>40</height>
+              <aspectratio>keep</aspectratio>
+              <texture>arc-osd-star.png</texture>
+              <colordiffuse>D9F5F5F7</colordiffuse>
+              <visible>!String.IsEmpty(Window.Property(arc.score))</visible>
+            </control>
+            <control type="label" id="118">
+              <width>auto</width>
+              <height>40</height>
+              <shadowcolor>CC000000</shadowcolor>
+              <font>font13</font>
+              <textcolor>D9F5F5F7</textcolor>
+              <aligny>center</aligny>
+              <label>$INFO[Window.Property(arc.score)]</label>
+              <visible>!String.IsEmpty(Window.Property(arc.score))</visible>
+            </control>
+            <control type="image">
+              <width>8</width>
+              <height>40</height>
+              <texture />
+              <visible>!String.IsEmpty(Window.Property(arc.cap0))</visible>
+            </control>
+            <control type="button" id="160">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>18</textoffsetx>
+              <disabledcolor>FF000000</disabledcolor>
+              <textcolor>FF000000</textcolor>
+              <texturenofocus border="20">arc-badge-fill.png</texturenofocus>
+              <texturefocus border="20">arc-badge-fill.png</texturefocus>
+              <visible>String.IsEqual(Window.Property(arc.cap0),f)</visible>
+            </control>
+            <control type="button" id="161">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>18</textoffsetx>
+              <disabledcolor>FFF5F5F7</disabledcolor>
+              <textcolor>FFF5F5F7</textcolor>
+              <texturenofocus border="20">arc-badge-line.png</texturenofocus>
+              <texturefocus border="20">arc-badge-line.png</texturefocus>
+              <visible>String.IsEqual(Window.Property(arc.cap0),o)</visible>
+            </control>
+            <control type="button" id="162">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>18</textoffsetx>
+              <disabledcolor>FF000000</disabledcolor>
+              <textcolor>FF000000</textcolor>
+              <texturenofocus border="20">arc-badge-fill.png</texturenofocus>
+              <texturefocus border="20">arc-badge-fill.png</texturefocus>
+              <visible>String.IsEqual(Window.Property(arc.cap1),f)</visible>
+            </control>
+            <control type="button" id="163">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>18</textoffsetx>
+              <disabledcolor>FFF5F5F7</disabledcolor>
+              <textcolor>FFF5F5F7</textcolor>
+              <texturenofocus border="20">arc-badge-line.png</texturenofocus>
+              <texturefocus border="20">arc-badge-line.png</texturefocus>
+              <visible>String.IsEqual(Window.Property(arc.cap1),o)</visible>
+            </control>
+            <control type="button" id="164">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>18</textoffsetx>
+              <disabledcolor>FF000000</disabledcolor>
+              <textcolor>FF000000</textcolor>
+              <texturenofocus border="20">arc-badge-fill.png</texturenofocus>
+              <texturefocus border="20">arc-badge-fill.png</texturefocus>
+              <visible>String.IsEqual(Window.Property(arc.cap2),f)</visible>
+            </control>
+            <control type="button" id="165">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>18</textoffsetx>
+              <disabledcolor>FFF5F5F7</disabledcolor>
+              <textcolor>FFF5F5F7</textcolor>
+              <texturenofocus border="20">arc-badge-line.png</texturenofocus>
+              <texturefocus border="20">arc-badge-line.png</texturefocus>
+              <visible>String.IsEqual(Window.Property(arc.cap2),o)</visible>
+            </control>
+            <control type="button" id="166">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>18</textoffsetx>
+              <disabledcolor>FF000000</disabledcolor>
+              <textcolor>FF000000</textcolor>
+              <texturenofocus border="20">arc-badge-fill.png</texturenofocus>
+              <texturefocus border="20">arc-badge-fill.png</texturefocus>
+              <visible>String.IsEqual(Window.Property(arc.cap3),f)</visible>
+            </control>
+            <control type="button" id="167">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>18</textoffsetx>
+              <disabledcolor>FFF5F5F7</disabledcolor>
+              <textcolor>FFF5F5F7</textcolor>
+              <texturenofocus border="20">arc-badge-line.png</texturenofocus>
+              <texturefocus border="20">arc-badge-line.png</texturefocus>
+              <visible>String.IsEqual(Window.Property(arc.cap3),o)</visible>
+            </control>
+            <control type="button" id="168">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>18</textoffsetx>
+              <disabledcolor>FF000000</disabledcolor>
+              <textcolor>FF000000</textcolor>
+              <texturenofocus border="20">arc-badge-fill.png</texturenofocus>
+              <texturefocus border="20">arc-badge-fill.png</texturefocus>
+              <visible>String.IsEqual(Window.Property(arc.cap4),f)</visible>
+            </control>
+            <control type="button" id="169">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>18</textoffsetx>
+              <disabledcolor>FFF5F5F7</disabledcolor>
+              <textcolor>FFF5F5F7</textcolor>
+              <texturenofocus border="20">arc-badge-line.png</texturenofocus>
+              <texturefocus border="20">arc-badge-line.png</texturefocus>
+              <visible>String.IsEqual(Window.Property(arc.cap4),o)</visible>
+            </control>
+            <control type="button" id="170">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>18</textoffsetx>
+              <disabledcolor>FF000000</disabledcolor>
+              <textcolor>FF000000</textcolor>
+              <texturenofocus border="20">arc-badge-fill.png</texturenofocus>
+              <texturefocus border="20">arc-badge-fill.png</texturefocus>
+              <visible>String.IsEqual(Window.Property(arc.cap5),f)</visible>
+            </control>
+            <control type="button" id="171">
+              <width>auto</width>
+              <height>40</height>
+              <enable>false</enable>
+              <font>font12</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textoffsetx>18</textoffsetx>
+              <disabledcolor>FFF5F5F7</disabledcolor>
+              <textcolor>FFF5F5F7</textcolor>
+              <texturenofocus border="20">arc-badge-line.png</texturenofocus>
+              <texturefocus border="20">arc-badge-line.png</texturefocus>
+              <visible>String.IsEqual(Window.Property(arc.cap5),o)</visible>
+            </control>
           </control>
         </control>
-      </control>
-      <control type="group" id="98">
-        <width>1808</width>
-        <height>80</height>
         <control type="group" id="99">
           <left>8</left>
-          <top>0</top>
+          <top>920</top>
           <width>1300</width>
           <height>80</height>
           <control type="button" id="100">
+            <left>0</left>
+            <top>8</top>
             <width>280</width>
+            <height>64</height>
+            <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+            <texturenofocus border="32" colordiffuse="29FFFFFF">arc-pill-white-64.png</texturenofocus>
+            <label />
+            <onup>noop</onup>
+            <ondown>noop</ondown>
+            <onleft>noop</onleft>
+            <onright>101</onright>
+          </control>
+          <control type="image">
+            <left>34</left>
+            <top>27</top>
+            <width>26</width>
+            <height>26</height>
+            <texture>arc-osd-play.png</texture>
+            <colordiffuse>FFFFFFFF</colordiffuse>
+            <visible>!Control.HasFocus(100)</visible>
+          </control>
+          <control type="image">
+            <left>34</left>
+            <top>27</top>
+            <width>26</width>
+            <height>26</height>
+            <texture>arc-osd-play.png</texture>
+            <colordiffuse>FF000000</colordiffuse>
+            <visible>Control.HasFocus(100)</visible>
+          </control>
+          <control type="group" id="188">
+            <left>76</left>
+            <top>36</top>
+            <width>72</width>
+            <height>8</height>
+            <control type="image">
+              <left>0</left>
+              <top>0</top>
+              <width>72</width>
+              <height>8</height>
+              <texture border="4">arc-bar-fg.png</texture>
+              <colordiffuse>4DFFFFFF</colordiffuse>
+              <visible>!Control.HasFocus(100)</visible>
+            </control>
+            <control type="image">
+              <left>0</left>
+              <top>0</top>
+              <width>72</width>
+              <height>8</height>
+              <texture border="4">arc-bar-fg.png</texture>
+              <colordiffuse>4D000000</colordiffuse>
+              <visible>Control.HasFocus(100)</visible>
+            </control>
+            <control type="image" id="189">
+              <left>0</left>
+              <top>0</top>
+              <width>36</width>
+              <height>8</height>
+              <texture border="4">arc-bar-fg.png</texture>
+              <colordiffuse>FFFFFFFF</colordiffuse>
+              <visible>!Control.HasFocus(100)</visible>
+            </control>
+            <control type="image" id="190">
+              <left>0</left>
+              <top>0</top>
+              <width>36</width>
+              <height>8</height>
+              <texture border="4">arc-bar-fg.png</texture>
+              <colordiffuse>FF000000</colordiffuse>
+              <visible>Control.HasFocus(100)</visible>
+            </control>
+          </control>
+          <control type="label" id="186">
+            <left>76</left>
+            <top>8</top>
+            <width>800</width>
             <height>64</height>
             <font>font13</font>
             <textcolor>FFF5F5F7</textcolor>
-            <focusedcolor>FF000000</focusedcolor>
-            <disabledcolor>FF6B6B78</disabledcolor>
-            <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-            <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
             <aligny>center</aligny>
-            <align>center</align>
-            <top>8</top>
-            <onup>noop</onup>
-            <ondown>200</ondown>
-            <onleft>noop</onleft>
-            <onright>101</onright>
-            <label>$ADDON[script.arc 30005]</label>
+            <visible>!Control.HasFocus(100)</visible>
           </control>
-          <control type="group">
-            <left>296</left>
+          <control type="label" id="187">
+            <left>76</left>
+            <top>8</top>
+            <width>800</width>
+            <height>64</height>
+            <font>font13</font>
+            <textcolor>FF000000</textcolor>
+            <aligny>center</aligny>
+            <visible>Control.HasFocus(100)</visible>
+          </control>
+          <control type="group" id="191">
+            <left>300</left>
             <top>8</top>
             <width>64</width>
             <height>64</height>
@@ -354,11 +503,9 @@
               <width>64</width>
               <height>64</height>
               <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-              <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
+              <texturenofocus border="32" colordiffuse="29FFFFFF">arc-pill-white-64.png</texturenofocus>
               <onup>noop</onup>
-              <ondown>200</ondown>
-              <onleft>100</onleft>
-              <onright>102</onright>
+              <ondown>noop</ondown>
             </control>
             <control type="image">
               <left>17</left>
@@ -379,8 +526,42 @@
               <visible>Control.HasFocus(101)</visible>
             </control>
           </control>
-          <control type="group">
-            <left>376</left>
+          <control type="group" id="192">
+            <left>384</left>
+            <top>8</top>
+            <width>64</width>
+            <height>64</height>
+            <control type="button" id="104">
+              <left>0</left>
+              <top>0</top>
+              <width>64</width>
+              <height>64</height>
+              <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+              <texturenofocus border="32" colordiffuse="29FFFFFF">arc-pill-white-64.png</texturenofocus>
+              <onup>noop</onup>
+              <ondown>noop</ondown>
+            </control>
+            <control type="image">
+              <left>17</left>
+              <top>17</top>
+              <width>30</width>
+              <height>30</height>
+              <texture>arc-osd-shuffle.png</texture>
+              <colordiffuse>FFFFFFFF</colordiffuse>
+              <visible>!Control.HasFocus(104)</visible>
+            </control>
+            <control type="image">
+              <left>17</left>
+              <top>17</top>
+              <width>30</width>
+              <height>30</height>
+              <texture>arc-osd-shuffle.png</texture>
+              <colordiffuse>FF000000</colordiffuse>
+              <visible>Control.HasFocus(104)</visible>
+            </control>
+          </control>
+          <control type="group" id="193">
+            <left>468</left>
             <top>8</top>
             <width>64</width>
             <height>64</height>
@@ -390,11 +571,9 @@
               <width>64</width>
               <height>64</height>
               <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-              <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
+              <texturenofocus border="32" colordiffuse="29FFFFFF">arc-pill-white-64.png</texturenofocus>
               <onup>noop</onup>
-              <ondown>200</ondown>
-              <onleft>101</onleft>
-              <onright>103</onright>
+              <ondown>noop</ondown>
             </control>
             <control type="image">
               <left>17</left>
@@ -415,8 +594,8 @@
               <visible>Control.HasFocus(102)</visible>
             </control>
           </control>
-          <control type="group">
-            <left>456</left>
+          <control type="group" id="194">
+            <left>552</left>
             <top>8</top>
             <width>64</width>
             <height>64</height>
@@ -426,11 +605,9 @@
               <width>64</width>
               <height>64</height>
               <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-              <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
+              <texturenofocus border="32" colordiffuse="29FFFFFF">arc-pill-white-64.png</texturenofocus>
               <onup>noop</onup>
-              <ondown>200</ondown>
-              <onleft>102</onleft>
-              <onright>noop</onright>
+              <ondown>noop</ondown>
             </control>
             <control type="image">
               <left>17</left>
@@ -451,113 +628,151 @@
               <visible>Control.HasFocus(103)</visible>
             </control>
           </control>
+          <control type="group" id="195">
+            <left>636</left>
+            <top>8</top>
+            <width>64</width>
+            <height>64</height>
+            <control type="button" id="105">
+              <left>0</left>
+              <top>0</top>
+              <width>64</width>
+              <height>64</height>
+              <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+              <texturenofocus border="32" colordiffuse="29FFFFFF">arc-pill-white-64.png</texturenofocus>
+              <onup>noop</onup>
+              <ondown>noop</ondown>
+            </control>
+            <control type="image">
+              <left>17</left>
+              <top>17</top>
+              <width>30</width>
+              <height>30</height>
+              <texture>arc-osd-ellipsis.png</texture>
+              <colordiffuse>FFFFFFFF</colordiffuse>
+              <visible>!Control.HasFocus(105)</visible>
+            </control>
+            <control type="image">
+              <left>17</left>
+              <top>17</top>
+              <width>30</width>
+              <height>30</height>
+              <texture>arc-osd-ellipsis.png</texture>
+              <colordiffuse>FF000000</colordiffuse>
+              <visible>Control.HasFocus(105)</visible>
+            </control>
+          </control>
+        </control>
+        <control type="label" id="97">
+          <left>10</left>
+          <top>1004</top>
+          <width>800</width>
+          <height>36</height>
+          <font>font12</font>
+          <textcolor>CCF5F5F7</textcolor>
+          <shadowcolor>CC000000</shadowcolor>
+          <label>$INFO[Window.Property(arc.hint)]</label>
+          <visible>Control.HasFocus(101) | Control.HasFocus(102) | Control.HasFocus(103) | Control.HasFocus(104) | Control.HasFocus(105)</visible>
         </control>
         <control type="label" id="95">
-          <left>1120</left>
-          <top>-2</top>
-          <width>620</width>
+          <left>1100</left>
+          <top>880</top>
+          <width>596</width>
           <height>40</height>
           <font>font12</font>
           <textcolor>FFF5F5F7</textcolor>
           <align>right</align>
-          <aligny>top</aligny>
           <wrapmultiline>true</wrapmultiline>
           <shadowcolor>CC000000</shadowcolor>
         </control>
         <control type="label" id="96">
-          <left>1120</left>
-          <top>36</top>
-          <width>620</width>
+          <left>1100</left>
+          <top>942</top>
+          <width>596</width>
           <height>40</height>
           <font>font12</font>
           <textcolor>FFF5F5F7</textcolor>
           <align>right</align>
-          <aligny>center</aligny>
+          <wrapmultiline>true</wrapmultiline>
           <shadowcolor>CC000000</shadowcolor>
-        </control>
-        <control type="label" id="97">
-          <left>540</left>
-          <top>0</top>
-          <width>360</width>
-          <height>80</height>
-          <font>font12</font>
-          <textcolor>FFF5F5F7</textcolor>
-          <aligny>center</aligny>
-          <shadowcolor>CC000000</shadowcolor>
-          <label>$INFO[Window.Property(arc.hint)]</label>
-          <visible>Control.HasFocus(101) | Control.HasFocus(102) | Control.HasFocus(103)</visible>
         </control>
       </control>
-      <control type="list" id="200">
-        <left>8</left>
-        <width>1700</width>
-        <height>76</height>
+      <control type="group" id="131">
+        <height>124</height>
         <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
-        <orientation>horizontal</orientation>
-        <itemgap>12</itemgap>
-        <itemlayout width="280" height="76">
-          <control type="label">
-            <left>0</left>
-            <top>0</top>
-            <width>280</width>
-            <height>76</height>
-            <font>font13</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textcolor>C8F5F5F7</textcolor>
-            <shadowcolor>CC000000</shadowcolor>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-        </itemlayout>
-        <focusedlayout width="280" height="76">
-          <control type="image">
-            <left>0</left>
-            <top>0</top>
-            <width>280</width>
-            <height>76</height>
-            <texture border="38">arc-pill-white.png</texture>
-            <visible>Control.HasFocus(200)</visible>
-          </control>
-          <control type="label">
-            <left>0</left>
-            <top>0</top>
-            <width>280</width>
-            <height>76</height>
-            <font>font13</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textcolor>FF000000</textcolor>
-            <label>$INFO[ListItem.Label]</label>
-            <visible>Control.HasFocus(200)</visible>
-          </control>
-          <control type="label">
-            <left>0</left>
-            <top>0</top>
-            <width>280</width>
-            <height>76</height>
-            <font>font13</font>
-            <align>center</align>
-            <aligny>center</aligny>
-            <textcolor>FFF5F5F7</textcolor>
-            <shadowcolor>CC000000</shadowcolor>
-            <label>$INFO[ListItem.Label]</label>
-            <visible>!Control.HasFocus(200)</visible>
-          </control>
-        </focusedlayout>
+        <control type="list" id="200">
+          <left>8</left>
+          <top>24</top>
+          <width>1700</width>
+          <height>76</height>
+          <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
+          <orientation>horizontal</orientation>
+          <itemgap>12</itemgap>
+          <onup>100</onup>
+          <itemlayout width="280" height="76">
+            <control type="label">
+              <left>0</left>
+              <top>0</top>
+              <width>280</width>
+              <height>76</height>
+              <font>font13</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>C8F5F5F7</textcolor>
+              <shadowcolor>CC000000</shadowcolor>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+          </itemlayout>
+          <focusedlayout width="280" height="76">
+            <control type="image">
+              <left>0</left>
+              <top>0</top>
+              <width>280</width>
+              <height>76</height>
+              <texture border="38">arc-pill-white.png</texture>
+              <visible>Control.HasFocus(200)</visible>
+            </control>
+            <control type="label">
+              <left>0</left>
+              <top>0</top>
+              <width>280</width>
+              <height>76</height>
+              <font>font13</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>FF000000</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>Control.HasFocus(200)</visible>
+            </control>
+            <control type="label">
+              <left>0</left>
+              <top>0</top>
+              <width>280</width>
+              <height>76</height>
+              <font>font13</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>FFF5F5F7</textcolor>
+              <shadowcolor>CC000000</shadowcolor>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>!Control.HasFocus(200)</visible>
+            </control>
+          </focusedlayout>
+        </control>
       </control>
       <control type="group">
         <defaultcontrol always="true">201</defaultcontrol>
-        <height>500</height>
+        <height>496</height>
         <visible>Integer.IsGreater(Container(201).NumItems,0)</visible>
         <control type="list" id="201">
           <top>0</top>
           <width>1808</width>
-          <height>350</height>
+          <height>496</height>
           <visible>Integer.IsGreater(Container(201).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
           <scrolltime tween="cubic" easing="out">220</scrolltime>
-          <itemlayout width="488" height="350">
+          <itemlayout width="488" height="496">
             <control type="image">
               <left>8</left>
               <top>8</top>
@@ -580,7 +795,7 @@
               <width>464</width>
               <height>261</height>
               <texture>arc-mask-thumb.png</texture>
-              <colordiffuse>B3000000</colordiffuse>
+              <colordiffuse>99000000</colordiffuse>
               <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
             </control>
             <control type="image">
@@ -669,29 +884,37 @@
               <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
             </control>
             <control type="label">
-              <left>8</left>
-              <top>278</top>
-              <width>464</width>
-              <height>34</height>
-              <font>font12</font>
-              <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <left>10</left>
+              <top>284</top>
+              <width>460</width>
+              <height>28</height>
+              <font>font20_title</font>
               <textcolor>FFA1A1AD</textcolor>
+              <shadowcolor>99000000</shadowcolor>
+              <label>$INFO[ListItem.Property(number)]</label>
+            </control>
+            <control type="label">
+              <left>10</left>
+              <top>312</top>
+              <width>460</width>
+              <height>38</height>
+              <font>font27</font>
+              <textcolor>DDF5F5F7</textcolor>
+              <shadowcolor>99000000</shadowcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
-              <left>8</left>
-              <top>310</top>
-              <width>464</width>
-              <height>30</height>
-              <font>font12</font>
+              <left>10</left>
+              <top>352</top>
+              <width>460</width>
+              <height>128</height>
+              <font>font10</font>
+              <textcolor>A6F5F5F7</textcolor>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
-              <textcolor>FF6B6B78</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
+              <label>$INFO[ListItem.Property(body)]</label>
             </control>
           </itemlayout>
-          <focusedlayout width="488" height="350">
+          <focusedlayout width="488" height="496">
             <control type="image">
               <left>8</left>
               <top>8</top>
@@ -714,7 +937,7 @@
               <width>464</width>
               <height>261</height>
               <texture>arc-mask-thumb.png</texture>
-              <colordiffuse>B3000000</colordiffuse>
+              <colordiffuse>99000000</colordiffuse>
               <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
             </control>
             <control type="image">
@@ -803,39 +1026,36 @@
               <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
             </control>
             <control type="label">
-              <left>8</left>
-              <top>278</top>
-              <width>464</width>
-              <height>34</height>
-              <font>font12</font>
+              <left>10</left>
+              <top>284</top>
+              <width>460</width>
+              <height>28</height>
+              <font>font20_title</font>
+              <textcolor>FFA1A1AD</textcolor>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <label>$INFO[ListItem.Property(number)]</label>
+            </control>
+            <control type="label">
+              <left>10</left>
+              <top>312</top>
+              <width>460</width>
+              <height>38</height>
+              <font>font27</font>
               <textcolor>FFF5F5F7</textcolor>
+              <shadowcolor>99000000</shadowcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
-              <left>8</left>
-              <top>310</top>
-              <width>464</width>
-              <height>30</height>
-              <font>font12</font>
+              <left>10</left>
+              <top>352</top>
+              <width>460</width>
+              <height>128</height>
+              <font>font10</font>
+              <textcolor>A6F5F5F7</textcolor>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
-              <textcolor>FF6B6B78</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
+              <label>$INFO[ListItem.Property(body)]</label>
             </control>
           </focusedlayout>
-        </control>
-        <control type="textbox" id="202">
-          <left>8</left>
-          <top>360</top>
-          <width>1400</width>
-          <height>114</height>
-          <font>font12</font>
-          <textcolor>DDF5F5F7</textcolor>
-          <shadowcolor>CC000000</shadowcolor>
-          <label>$INFO[Container(201).ListItem.Property(overview)]</label>
-          <visible>Control.HasFocus(201) + !String.IsEmpty(Container(201).ListItem.Property(overview))</visible>
         </control>
       </control>
       <control type="group">
