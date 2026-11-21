@@ -42,3 +42,10 @@ def test_layout_has_headings_rows_and_notes():
     for key in rows:
         c = settings.choices(key)
         assert c is None or (len(c) > 1 and settings.value({}, key) in c)
+
+
+def test_show_missing_episodes_is_a_profile_switch_off_by_default():
+    assert settings.value({}, "show_missing_episodes") is False
+    assert settings.change({}, "show_missing_episodes") == {"show_missing_episodes": True}
+    assert settings.change({"show_missing_episodes": True}, "show_missing_episodes") == {"show_missing_episodes": False}
+    assert ("row", "show_missing_episodes") in settings.layout()

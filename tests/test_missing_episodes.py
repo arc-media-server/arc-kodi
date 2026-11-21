@@ -3,7 +3,7 @@ import ast
 from pathlib import Path
 from types import SimpleNamespace
 
-from arc import titlepage
+from arc import settings, titlepage
 
 
 def adapter():
@@ -13,54 +13,51 @@ def adapter():
     names = {'_load_seasons', '_show_seasons', '_season_menu', '_card_menu'}
     methods = [n for n in cls.body if isinstance(n, ast.FunctionDef) and n.name in names]
     tree.body = [ast.ClassDef(name='Adapter', bases=[], keywords=[], body=methods, decorator_list=[])]
-    ns = {'titlepage': titlepage, 'T': lambda n: n, 'SEASONS': 200, 'EPISODES': 201,
+    ns = {'titlepage': titlepage, 'settings': settings, 'T': lambda n: n, 'SEASONS': 200, 'EPISODES': 201,
           'toast': SimpleNamespace(show=lambda _: None), 'menu': SimpleNamespace(choose=lambda *a: 0)}
     exec(compile(ast.fix_missing_locations(tree), str(source), 'exec'), ns)
     obj = ns['Adapter']()
-    obj.show_missing = False
     obj._seasons_request = 0
     obj.item_id = 'show'
     return obj, ns
 
 
-def test_toggle_commits_only_successful_latest_response():
+def test_seasons_follow_the_profile_setting_and_only_the_latest_answer():
     w, ns = adapter()
     requests, applied, errors = [], [], []
     w.run_async = lambda work, done: requests.append((work, done))
-    w.session = SimpleNamespace(api=SimpleNamespace(seasons=lambda id, missing: (id, missing)))
+    w.session = SimpleNamespace(prefs={}, api=SimpleNamespace(seasons=lambda id, missing: (id, missing)))
     w._show_seasons = lambda data, error: applied.append(data)
     ns['toast'].show = errors.append
-    w._load_seasons(True)
-    assert requests[0][0]() == ('show', True)
-    assert not w.show_missing
-    w._load_seasons(False)
+    w._load_seasons()
+    assert requests[0][0]() == ('show', False)
+    w.session.prefs = {'show_missing_episodes': True}
+    w._load_seasons()
+    assert requests[1][0]() == ('show', True)
     requests[0][1]({'seasons': ['stale']}, None)
     assert not applied
     requests[1][1]({'seasons': []}, None)
-    assert applied == [{'seasons': []}] and not w.show_missing
-    w._load_seasons(True)
+    assert applied == [{'seasons': []}]
+    w._load_seasons()
     requests[2][1](None, RuntimeError('offline'))
-    assert not w.show_missing and errors == [30004]
-    w._load_seasons(True)
-    requests[3][1]({'seasons': []}, None)
-    assert w.show_missing
+    assert errors == [30004]
 
 
-def test_visibility_toggle_remains_reachable_without_files():
+def test_season_menu_has_no_missing_toggle():
     w, ns = adapter()
-    w.tabs = [{'season_number': 2, 'episodes': [{'available': False}]}]
+    w.tabs = [{'season_number': 2, 'episodes': [{'available': False}]},
+              {'season_number': 3, 'episodes': [{'id': 'disk'}]}]
     w.season_index = 0
     w.list_control = lambda _: SimpleNamespace(getSelectedPosition=lambda: 0)
     w._tab_name = lambda _: 'Season 2'
-    requested, menus = [], []
-    w._load_seasons = lambda show_missing: requested.append(show_missing)
-    ns['menu'].choose = lambda title, options: menus.append(options) or 0
+    menus = []
+    ns['menu'].choose = lambda title, options: menus.append(options) or -1
     assert w._season_menu()
-    assert menus == [[30600]] and requested == [True]
-    w.show_missing = True
-    w.tabs = [{'unplaced': True, 'episodes': [{'id': 'disk'}]}]
+    assert menus == []
+    w.list_control = lambda _: SimpleNamespace(getSelectedPosition=lambda: 1)
+    w._show_episodes = lambda index: setattr(w, 'season_index', index)
     assert w._season_menu()
-    assert menus[-1] == [30601] and requested[-1] is False
+    assert menus == [[30430]]
 
 
 def test_missing_episode_has_no_mutating_context_menu():

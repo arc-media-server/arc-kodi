@@ -24,10 +24,13 @@ STYLE = {
 SWITCHES = ("auto_play", "auto_skip", "hide_spoilers")
 # Theme music
 SWITCHES += ("theme_music",)
+# Show missing episodes on show pages (one profile setting, as Android and the web)
+SWITCHES += ("show_missing_episodes",)
 
 # Sections in order: (heading, rows, note after them or None).
 SECTIONS = [
-    ("playback", ["auto_play", "auto_skip", "theme_music", "hide_spoilers", "audio_language"], "playback_note"),
+    ("playback", ["auto_play", "auto_skip", "theme_music", "hide_spoilers", "show_missing_episodes",
+                  "audio_language"], "playback_note"),
     ("subtitles", ["subtitle_mode", "subtitle_language", "subtitle_size", "subtitle_color",
                    "subtitle_background", "subtitle_position"], "style_note"),
     ("together", ["join_code"], None),
@@ -85,7 +88,7 @@ def value(prefs, key):
         return prefs.get("theme_music", True) is not False
     if key == "auto_play":
         return prefs.get("auto_play", True) is not False
-    if key in ("auto_skip", "hide_spoilers"):
+    if key in ("auto_skip", "hide_spoilers", "show_missing_episodes"):
         return bool(prefs.get(key))
     if key == "subtitle_mode":
         mode = prefs.get("subtitle_mode") or ""
