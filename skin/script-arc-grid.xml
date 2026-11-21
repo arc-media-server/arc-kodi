@@ -3,54 +3,51 @@
   <defaultcontrol>100</defaultcontrol>
   <controls>
     <include>PageBackground</include>
-    <control type="label" id="101">
-      <left>80</left><top>48</top><width>1200</width><height>60</height>
-      <font>arc-title</font><textcolor>fg</textcolor><label></label>
-      <visible>String.IsEmpty(Window.Property(arc.tab0))</visible>
-    </control>
-    <include content="LibraryTabs"><param name="ondown" value="100"/><param name="onright" value="102"/></include>
+    <!-- The top bar, as the Android app's: the heading (a library's name, with its tabs beside
+         it) on the left; on the right the count ("24 titles") and the page's pills, each sized to
+         its words. -->
+    <include content="PageHeader"><param name="ondown" value="100"/><param name="onright" value="110"/></include>
     <!-- A collection's overview (empty elsewhere); the Python moves the grid down under it. -->
     <control type="textbox" id="107">
       <left>80</left><top>150</top><width>1300</width><height>76</height>
       <font>arc-small</font><textcolor>muted</textcolor>
     </control>
-    <control type="label" id="104">
-      <left>80</left><top>112</top><width>400</width><height>36</height>
-      <font>arc-small</font><textcolor>muted</textcolor><label></label>
-    </control>
-    <!-- Play All and Shuffle, for a collection or a playlist (hidden elsewhere). -->
-    <control type="button" id="108">
-      <include content="SmallPillButton"><param name="width" value="200"/></include>
-      <left>844</left><top>40</top>
-      <ondown>100</ondown><onup>noop</onup><onleft>noop</onleft><onright>109</onright>
-      <label>$ADDON[script.arc 30287]</label>
-    </control>
-    <control type="button" id="109">
-      <include content="SmallPillButton"><param name="width" value="200"/></include>
-      <left>1056</left><top>40</top>
-      <ondown>100</ondown><onup>noop</onup><onleft>108</onleft>
-      <onright condition="Control.IsVisible(102)">102</onright><onright condition="!Control.IsVisible(102)">noop</onright>
-      <label>$ADDON[script.arc 30288]</label>
-    </control>
-    <control type="button" id="102">
-      <include content="SmallPillButton"><param name="width" value="340"/></include>
-      <left>1268</left><top>40</top>
-      <ondown>100</ondown><onup>noop</onup>
-      <onleft condition="Control.IsVisible(109)">109</onleft><onleft condition="!Control.IsVisible(109)">120</onleft>
-      <onright>103</onright>
-      <label>$ADDON[script.arc 30123]</label>
-    </control>
-    <control type="button" id="103">
-      <include content="SmallPillButton"><param name="width" value="260"/></include>
-      <left>1620</left><top>40</top><width>260</width>
-      <ondown>100</ondown><onup>noop</onup><onleft>102</onleft><onright>noop</onright>
-      <label>$ADDON[script.arc 30124]</label>
+    <control type="grouplist" id="110">
+      <left>80</left><top>40</top><width>1760</width><height>64</height>
+      <orientation>horizontal</orientation><align>right</align><itemgap>20</itemgap>
+      <onup>noop</onup><ondown>100</ondown><onright>noop</onright>
+      <onleft condition="!String.IsEmpty(Window.Property(arc.tab0))">120</onleft><onleft condition="String.IsEmpty(Window.Property(arc.tab0))">noop</onleft>
+      <control type="label" id="104">
+        <width>auto</width><height>64</height>
+        <font>arc-body</font><textcolor>muted</textcolor><aligny>center</aligny><label></label>
+      </control>
+      <control type="image">
+        <width>12</width><height>64</height><texture></texture>
+        <visible>!String.IsEmpty(Control.GetLabel(104))</visible>
+      </control>
+      <!-- Play All and Shuffle, for a collection or a playlist (hidden elsewhere). -->
+      <control type="button" id="108">
+        <include>HeaderPill</include>
+        <label>$ADDON[script.arc 30287]</label>
+      </control>
+      <control type="button" id="109">
+        <include>HeaderPill</include>
+        <label>$ADDON[script.arc 30288]</label>
+      </control>
+      <!-- Sort and Filters (a library), or the Watchlist's All and Date Added. -->
+      <control type="button" id="102">
+        <include>HeaderPill</include>
+        <label>$ADDON[script.arc 30123]</label>
+      </control>
+      <control type="button" id="103">
+        <include>HeaderPill</include>
+        <label>$ADDON[script.arc 30124]</label>
+      </control>
     </control>
     <control type="panel" id="100">
       <left>72</left><top>170</top><width>1800</width><height>880</height>
       <onup condition="!String.IsEmpty(Window.Property(arc.tab0))">120</onup>
-      <onup condition="String.IsEmpty(Window.Property(arc.tab0)) + Control.IsVisible(108)">108</onup>
-      <onup condition="String.IsEmpty(Window.Property(arc.tab0)) + !Control.IsVisible(108)">102</onup>
+      <onup condition="String.IsEmpty(Window.Property(arc.tab0))">110</onup>
       <orientation>vertical</orientation>
       <!-- Posters, or wide cards for Other videos (their pictures are stills): the window property
            arc.style says which. -->

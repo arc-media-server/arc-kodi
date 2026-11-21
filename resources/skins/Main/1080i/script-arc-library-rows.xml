@@ -10588,94 +10588,112 @@
         </control>
       </control>
     </control>
-    <control type="grouplist" id="120">
+    <control type="grouplist" id="130">
       <left>112</left>
-      <top>40</top>
-      <width>1000</width>
-      <height>64</height>
+      <top>34</top>
+      <width>1300</width>
+      <height>76</height>
       <orientation>horizontal</orientation>
-      <itemgap>12</itemgap>
+      <itemgap>40</itemgap>
       <onup>noop</onup>
       <ondown>900</ondown>
       <onleft>noop</onleft>
       <onright>noop</onright>
-      <control type="button" id="121">
+      <control type="label" id="101">
         <width>auto</width>
-        <height>64</height>
-        <font>font13</font>
-        <align>center</align>
-        <aligny>center</aligny>
-        <textoffsetx>28</textoffsetx>
+        <height>76</height>
+        <font>font52_title</font>
         <textcolor>FFF5F5F7</textcolor>
-        <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
-        <visible>String.IsEqual(Window.Property(arc.tab0),current)</visible>
-      </control>
-      <control type="button" id="122">
-        <width>auto</width>
-        <height>64</height>
-        <font>font13</font>
-        <align>center</align>
         <aligny>center</aligny>
-        <textoffsetx>28</textoffsetx>
-        <textcolor>C8F5F5F7</textcolor>
-        <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
-        <visible>String.IsEqual(Window.Property(arc.tab0),other)</visible>
+        <label />
       </control>
-      <control type="button" id="123">
-        <width>auto</width>
-        <height>64</height>
-        <font>font13</font>
-        <align>center</align>
-        <aligny>center</aligny>
-        <textoffsetx>28</textoffsetx>
-        <textcolor>FFF5F5F7</textcolor>
-        <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
-        <visible>String.IsEqual(Window.Property(arc.tab1),current)</visible>
-      </control>
-      <control type="button" id="124">
-        <width>auto</width>
-        <height>64</height>
-        <font>font13</font>
-        <align>center</align>
-        <aligny>center</aligny>
-        <textoffsetx>28</textoffsetx>
-        <textcolor>C8F5F5F7</textcolor>
-        <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
-        <visible>String.IsEqual(Window.Property(arc.tab1),other)</visible>
-      </control>
-      <control type="button" id="125">
-        <width>auto</width>
-        <height>64</height>
-        <font>font13</font>
-        <align>center</align>
-        <aligny>center</aligny>
-        <textoffsetx>28</textoffsetx>
-        <textcolor>FFF5F5F7</textcolor>
-        <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
-        <visible>String.IsEqual(Window.Property(arc.tab2),current)</visible>
-      </control>
-      <control type="button" id="126">
-        <width>auto</width>
-        <height>64</height>
-        <font>font13</font>
-        <align>center</align>
-        <aligny>center</aligny>
-        <textoffsetx>28</textoffsetx>
-        <textcolor>C8F5F5F7</textcolor>
-        <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
-        <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
+      <control type="grouplist" id="120">
+        <width>900</width>
+        <height>76</height>
+        <orientation>horizontal</orientation>
+        <itemgap>0</itemgap>
+        <onup>noop</onup>
+        <ondown>900</ondown>
+        <onleft>noop</onleft>
+        <onright>noop</onright>
+        <control type="button" id="121">
+          <width>auto</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textoffsetx>36</textoffsetx>
+          <textcolor>FFF5F5F7</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-l-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-l-current.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab0),current)</visible>
+        </control>
+        <control type="button" id="122">
+          <width>auto</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textoffsetx>36</textoffsetx>
+          <textcolor>A6F5F5F7</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-l-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-l.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab0),other)</visible>
+        </control>
+        <control type="button" id="123">
+          <width>auto</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textoffsetx>36</textoffsetx>
+          <textcolor>FFF5F5F7</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-m-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-m-current.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab1),current)</visible>
+        </control>
+        <control type="button" id="124">
+          <width>auto</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textoffsetx>36</textoffsetx>
+          <textcolor>A6F5F5F7</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-m-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-m.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab1),other)</visible>
+        </control>
+        <control type="button" id="125">
+          <width>auto</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textoffsetx>36</textoffsetx>
+          <textcolor>FFF5F5F7</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-r-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-r-current.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab2),current)</visible>
+        </control>
+        <control type="button" id="126">
+          <width>auto</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textoffsetx>36</textoffsetx>
+          <textcolor>A6F5F5F7</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-r-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-r.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
+        </control>
       </control>
     </control>
     <control type="group">

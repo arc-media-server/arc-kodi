@@ -207,7 +207,7 @@ msgid "Recommended"
 msgstr ""
 
 msgctxt "#30121"
-msgid "Browse"
+msgid "Library"
 msgstr ""
 
 msgctxt "#30122"
@@ -219,15 +219,11 @@ msgid "Sort"
 msgstr ""
 
 msgctxt "#30124"
-msgid "Filter"
+msgid "Filters"
 msgstr ""
 
 msgctxt "#30125"
 msgid "All"
-msgstr ""
-
-msgctxt "#30126"
-msgid "Unwatched"
 msgstr ""
 
 msgctxt "#30127"
@@ -663,10 +659,6 @@ msgstr ""
 
 msgctxt "#30260"
 msgid "Clear Filters"
-msgstr ""
-
-msgctxt "#30261"
-msgid "Filtered"
 msgstr ""
 
 msgctxt "#30262"
@@ -1470,4 +1462,16 @@ msgstr ""
 
 msgctxt "#30603"
 msgid "Special %d"
+msgstr ""
+
+msgctxt "#30604"
+msgid "%d title"
+msgstr ""
+
+msgctxt "#30605"
+msgid "%d titles"
+msgstr ""
+
+msgctxt "#30606"
+msgid "Filters, %d on"
 msgstr ""
