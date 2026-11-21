@@ -33,7 +33,7 @@ SIDEBAR_ICON = 44
 LOGO_STACKED_H = 190
 OSD_ICONS = {"sliders-horizontal": 34, "volume-2": 34, "captions": 34, "check": 30, "play": 26, "pause": 26,
              "rotate-ccw": 34, "circle-check": 34, "bookmark": 34, "bookmark-check": 34, "circle-check-filled": 34,
-             "skip-back": 30}
+             "skip-back": 30, "shuffle": 34, "ellipsis": 34, "star": 24}
 
 
 def _rounded(size, radius, fill=None, outline=None, width=0):
@@ -343,7 +343,6 @@ def main():
     pill("arc-pill-white.png", WHITE)
     pill("arc-pill-surface.png", SURFACE)
     pill("arc-pill-white-64.png", WHITE, 64)
-    pill("arc-pill-surface-64.png", SURFACE, 64)  # the smaller buttons (title page, library pills)
     pill("arc-pill-white-56.png", WHITE, 56)   # Settings' rows
     pill("arc-key.png", WHITE, 96)               # the PIN pad's round keys (tinted when not focused)
     library_tabs()
