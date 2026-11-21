@@ -154,8 +154,8 @@ def test_versions():
     part2 = {"id": 4, "part": 2}
     film = {"id": "m", "kind": "movie", "files": [uhd, hd, gone, part2]}
     assert [f["id"] for f in models.versions(film)] == [1, 2]
-    assert titlepage.version_label(uhd) == ("4K", "DV · HDR10 · Atmos · 7.1 · 60.0 GB")
-    assert titlepage.version_label(hd) == ("Director's Cut", "1080p")
+    assert titlepage.version_label(uhd) == ("4K", "DV · HDR10 · TrueHD 7.1 · Atmos · 60.0 GB")
+    assert titlepage.version_label(hd) == ("Director's Cut", "1080p · SDR")
     assert titlepage.version_label({"container": "mkv"}) == ("MKV", "")
     assert "play_version" in menus.card_actions(film)
     assert "play_version" in menus.card_actions(film, on_page=True)

@@ -1894,7 +1894,7 @@
         <top>0</top>
         <width>780</width>
         <height>600</height>
-        <texture border="38" colordiffuse="F2FFFFFF">arc-pill-surface.png</texture>
+        <texture border="38" colordiffuse="FF15151C">arc-pill-white.png</texture>
       </control>
       <control type="label">
         <left>40</left>
@@ -1984,6 +1984,24 @@
             <visible>String.IsEqual(ListItem.Property(kind),row)</visible>
           </control>
         </focusedlayout>
+      </control>
+      <control type="button" id="854">
+        <left>40</left>
+        <top>500</top>
+        <width>360</width>
+        <height>76</height>
+        <font>font13</font>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="38">arc-pill-white.png</texturefocus>
+        <texturenofocus border="38" colordiffuse="FF2A2A35">arc-pill-line.png</texturenofocus>
+        <aligny>center</aligny>
+        <align>center</align>
+        <label>$ADDON[script.arc 30617]</label>
+        <onup>noop</onup>
+        <ondown>noop</ondown>
+        <onleft>noop</onleft>
+        <onright>noop</onright>
       </control>
     </control>
   </controls>

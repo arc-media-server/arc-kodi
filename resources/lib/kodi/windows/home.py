@@ -36,6 +36,7 @@ HERO_LOGO = 62
 HERO_TITLE = 63
 HERO_INFO = 64
 HERO_OVERVIEW = 65
+HERO_GROUP, HERO_TEXT_GROUP = 67, 68
 
 # Watch Together's row, first while there are rooms (it shows only once it has cards).
 TOGETHER_ROW = {"id": "together", "source": ("together",), "style": homerows.THUMB, "season_posters": False}
@@ -65,7 +66,7 @@ class HomeWindow(ArcWindow):
         self._build_sidebar()
         self.rows = self._wanted_rows()
         self.layout = self._layout_key()
-        self.list_control(SIDEBAR).selectItem(1)  # Home is the chosen place
+        self.list_control(SIDEBAR).selectItem(2)  # Home is the chosen place
         self._layout_rows()
         # Home starts on its rows: the first row with cards takes focus when it arrives (_fill_row).
         self._load_rows()
@@ -75,7 +76,10 @@ class HomeWindow(ArcWindow):
     def _build_sidebar(self):
         libs = self.session.ordered_libraries()
         watchlist_at = min(max(int((self.session.prefs or {}).get("watchlist_position") or 0), 0), len(libs))
-        places = [("search", T(30080), "search"), ("home", T(30081), "home")]
+        # The profile at the top, as Android's and LG/Samsung's; choosing it switches profile.
+        profile = self.session.profile or {}
+        places = [("profile", profile.get("name", ""), "", None),
+                  ("search", T(30080), "search"), ("home", T(30081), "home")]
         middle = []
         for lib in libs:
             # The web and Android apps' icons (Lucide): film, tv, clapperboard for other videos.
@@ -87,8 +91,13 @@ class HomeWindow(ArcWindow):
         self.places = places
         ctrl = self.list_control(SIDEBAR)
         ctrl.reset()
+        from .signin import PROFILE_COLOURS
+        colour = PROFILE_COLOURS.get(profile.get("color"), PROFILE_COLOURS["violet"])
         for place in places:
-            ctrl.addItem(list_item(place[1], props={"icon": place[2], "place": place[0]}))
+            props = {"icon": place[2], "place": place[0]}
+            if place[0] == "profile":
+                props.update(colorhex=colour, initial=(profile.get("name") or "?")[:1].upper())
+            ctrl.addItem(list_item(place[1], props=props))
 
     # MARK: - rows
 
@@ -108,6 +117,13 @@ class HomeWindow(ArcWindow):
         return None
 
     def _layout_rows(self):
+        # The hero fills the screen above the first row, its text moving down with it.
+        height = homerows.hero_height(self.rows[0].get("style") if self.rows else homerows.POSTER)
+        try:
+            self.getControl(HERO_GROUP).setHeight(height)
+            self.getControl(HERO_TEXT_GROUP).setPosition(8, height - homerows.HERO_TEXT)
+        except Exception:
+            pass
         for i in range(MAX_ROWS):
             if i < len(self.rows):
                 self.set_label(self._bases(self.rows[i])[1] + 1 + i, self._row_title(self.rows[i]))
@@ -351,6 +367,9 @@ class HomeWindow(ArcWindow):
         pid = place[0]
         if pid == "home":
             self.focus_id(ROWS)
+        elif pid == "profile":
+            self.result = "switch_profile"
+            self.close()
         elif pid.startswith("library:"):
             self.nav("library", place[3])
         else:

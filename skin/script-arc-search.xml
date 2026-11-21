@@ -113,7 +113,6 @@
       <scrolltime tween="cubic" easing="out">220</scrolltime>
       <onleft>200</onleft><onup>noop</onup><ondown>noop</ondown>
       <include content="PosterRow"><param name="title" value="311"/><param name="list" value="310"/><param name="width" value="1208"/><param name="onleft" value="200"/></include>
-      <include content="PosterRow"><param name="title" value="321"/><param name="list" value="320"/><param name="width" value="1208"/><param name="onleft" value="200"/></include>
       <include content="ThumbRow"><param name="title" value="331"/><param name="list" value="330"/><param name="width" value="1208"/><param name="height" value="350"/><param name="group_height" value="430"/><param name="onleft" value="200"/></include>
       <include content="PosterRow"><param name="title" value="341"/><param name="list" value="340"/><param name="width" value="1208"/><param name="onleft" value="200"/></include>
       <control type="group">

@@ -23,13 +23,13 @@ def test_rows_in_order_only_with_matches():
     data = {
         "people": [{"id": 3, "name": "Sigourney Weaver"}, {"id": 0, "name": "nobody"}],
         "movies": [{"id": "m1", "title": "Alien"}],
-        "shows": [],
+        "shows": [{"id": "s1"}, {"id": "s2"}],
         "genres": [{"name": "Horror", "library_id": 1, "library_name": "Films"}, {"name": "x"}],
         "collections": [{"id": "c1", "title": "Alien Collection"}],
         "future_kind": [{"id": 1}],
     }
     got = [(k, s, [e.get("id") or e.get("name") for e in es]) for k, s, es in search.rows(data)]
-    assert got == [("movies", "poster", ["m1"]), ("collections", "poster", ["c1"]),
+    assert got == [("top", "poster", ["m1", "s1", "s2"]), ("collections", "poster", ["c1"]),
                    ("people", "face", [3]), ("genres", "pill", ["Horror"])]
     assert search.rows(None) == []
     assert search.rows({"movies": None}) == []

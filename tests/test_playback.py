@@ -73,7 +73,10 @@ def test_quality_badges():
         {"kind": "video", "codec": "hevc", "width": 3840, "height": 2160, "dolby_vision": True},
         {"kind": "audio", "codec": "eac3", "channels": 6, "profile": "Dolby Atmos"}]}]}
     badges = models.quality_badges(item)
-    assert "4K" in badges and "DV" in badges and "Atmos" in badges and "5.1" in badges
+    assert badges == ["4K", "DV", "DD+ 5.1", "Atmos"]
+    sdr = {"files": [{"streams": [{"kind": "video", "width": 1920, "height": 1080},
+                                  {"kind": "audio", "codec": "aac", "channels": 2}]}]}
+    assert models.quality_badges(sdr) == ["1080p", "SDR", "AAC 2.0"]
 
 
 def test_runtime_and_clock():

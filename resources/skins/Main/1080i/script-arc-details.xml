@@ -681,8 +681,7 @@
           <height>40</height>
           <font>font12</font>
           <textcolor>FFF5F5F7</textcolor>
-          <align>right</align>
-          <wrapmultiline>true</wrapmultiline>
+          <align>left</align>
           <shadowcolor>CC000000</shadowcolor>
         </control>
         <control type="label" id="96">
@@ -692,8 +691,7 @@
           <height>40</height>
           <font>font12</font>
           <textcolor>FFF5F5F7</textcolor>
-          <align>right</align>
-          <wrapmultiline>true</wrapmultiline>
+          <align>left</align>
           <shadowcolor>CC000000</shadowcolor>
         </control>
       </control>

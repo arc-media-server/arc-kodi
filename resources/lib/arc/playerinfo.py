@@ -102,7 +102,7 @@ def _join(*bits):
     return " · ".join(b for b in bits if b)
 
 
-def rows(values, hw=False, plan=None):
+def rows(values, hw=False, plan=None, passthrough_word="Passthrough"):
     """The panel's entries, top to bottom: ("heading", key) and ("row", key, value). `values` are
     LABELS' answers by key (empty when Kodi doesn't know them). Rows with nothing to say are left
     out, and so is a section left empty."""
@@ -122,7 +122,7 @@ def rows(values, hw=False, plan=None):
     hdr = HDR_NAMES.get(v["hdrtype"].lower(), v["hdrtype"]) if v["hdrtype"] else ""
     section("video", [("decoder", decoder), ("picture", _join(size, fps, scan)),
                       ("pixformat", v["pixformat"]), ("hdr", hdr),
-                      ("deint", v["deint"] if v["deint"] and v["deint"].lower() not in ("none", "") else "")])
+                      ("deint", "" if scan == "progressive" or v["deint"].lower() in ("none", "") else v["deint"])])
 
     sd = sidedata(v["sidedata"])
     dovi = (sd or {}).get("dovi")
@@ -137,7 +137,9 @@ def rows(values, hw=False, plan=None):
     display = v["aml_mode"] or v["screen"]
     section("display", [("output", display), ("output_format", _join(v["aml_eotf"], v["aml_pixformat"]))])
 
-    audio_in = _join(v["audio_decoder"], v["audio_channels"])
+    # Passthrough: Kodi reports the channels as "RAW, RAW, ..."; the TV or receiver decodes.
+    passthrough = v["audio_decoder"].lower().startswith("pt-") or "raw" in v["audio_channels"].lower()
+    audio_in = _join(v["audio_decoder"], passthrough_word if passthrough else v["audio_channels"])
     audio_fmt = _join(("%s Hz" % v["audio_rate"]) if v["audio_rate"] else "",
                       ("%s bit" % v["audio_bits"]) if v["audio_bits"] else "")
     section("audio", [("audio_decoder", audio_in), ("audio_format", audio_fmt), ("audio_sink", v["audio_sink"])])

@@ -26,7 +26,7 @@ SPACE_KEY, DELETE_KEY, CLEAR_KEY = 210, 211, 212
 RESULTS = 300
 
 # Each row's list and title, in arc/search.py's ROWS order.
-ROW_IDS = {"movies": (310, 311, 30279), "shows": (320, 321, 30280), "episodes": (330, 331, 30292),
+ROW_IDS = {"top": (310, 311, 30616), "episodes": (330, 331, 30292),
            "collections": (340, 341, 30122), "people": (350, 351, 30319), "genres": (360, 361, 30161)}
 
 A_REMOTE_0, A_REMOTE_9, A_RIGHT = 58, 67, 2   # a remote's number keys; Right
@@ -35,7 +35,7 @@ PAUSE = 0.35                        # seconds of quiet before searching, as the 
 
 class SearchWindow(ArcWindow):
     # The result rows, top to bottom (each a group of its title and list; see ArcWindow.ROW_STOPS).
-    ROW_STOPS = tuple((ROW_IDS[k][0],) for k in ("movies", "shows", "episodes", "collections", "people", "genres"))
+    ROW_STOPS = tuple((ROW_IDS[k][0],) for k in ("top", "episodes", "collections", "people", "genres"))
     xml = "script-arc-search.xml"
 
     def __init__(self, *args, **kwargs):
@@ -213,7 +213,7 @@ class SearchWindow(ArcWindow):
         if not self.nav or (code not in ACTION_CONTEXT and code not in ACTION_PLAY):
             return False
         kind, item, pos = self._selected(focus)
-        if item is None or kind not in ("movies", "shows", "episodes"):
+        if item is None or kind not in ("top", "episodes"):
             return False
         if code in ACTION_CONTEXT:
             ctrl = self.list_control(focus)

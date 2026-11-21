@@ -210,3 +210,15 @@ def card_art(c, style, season_posters=False):
     if style == THUMB:
         return c.get("thumb")
     return c.get("backdrop")
+
+
+# Home's rows (skin/script-arc-home.xml): a poster row's slot is 620 high, a thumb or backdrop
+# row's 500. The hero takes the rest of the screen above the first row, so that row sits at the
+# foot of the screen, as Android's; the hero's text block (404 high) ends where the hero does.
+ROW_HEIGHTS = {POSTER: 620, THUMB: 500, BACKDROP: 500}
+HERO_TEXT = 404
+
+
+def hero_height(first_style, screen=1080):
+    """The hero's height above a first row of `first_style`."""
+    return screen - ROW_HEIGHTS.get(first_style, ROW_HEIGHTS[POSTER])
