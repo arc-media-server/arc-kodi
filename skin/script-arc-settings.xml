@@ -41,10 +41,6 @@
         <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
       </control>
     </control>
-    <control type="textbox" id="104">
-      <left>160</left><top>930</top><width>560</width><height>110</height>
-      <font>arc-small</font><textcolor>subtle</textcolor><align>center</align>
-    </control>
 
     <control type="list" id="110">
       <left>840</left><top>160</top><width>960</width><height>900</height>

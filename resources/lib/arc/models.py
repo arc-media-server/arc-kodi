@@ -129,6 +129,10 @@ def versions(item):
             if not f.get("missing") and (f.get("part") or 0) <= 1]
 
 
+AUDIO_CODECS = {"eac3": "DD+", "ac3": "DD", "truehd": "TrueHD", "aac": "AAC", "flac": "FLAC",
+                "opus": "Opus", "mp3": "MP3"}
+
+
 def quality_badges(item):
     """The title page's badges: resolution, dynamic range, sound ("4K", "DV", "Atmos"...)."""
     return file_badges(main_file(item))
@@ -157,25 +161,25 @@ def file_badges(f):
             out.append("HDR10")
         elif transfer == "arib-std-b67":
             out.append("HLG")
+        elif not v.get("dolby_vision"):
+            out.append("SDR")
     a = audio_stream(f)
     if a:
-        codec = a.get("codec") or ""
-        profile = (a.get("profile") or "").lower()
-        if "atmos" in profile or codec == "truehd" and "atmos" in (a.get("title") or "").lower():
-            out.append("Atmos")
-        elif codec in ("truehd",):
-            out.append("TrueHD")
-        elif codec == "dts":
-            out.append("DTS-HD" if "hd" in profile else "DTS")
-        elif codec == "eac3":
-            out.append("DD+")
-        elif codec == "ac3":
-            out.append("DD")
+        # As Android's capsules: the codec and its channels together ("DD+ 5.1", "AAC 2.0"),
+        # then Atmos on its own.
+        codec = (a.get("codec") or "").lower()
+        profile = a.get("profile") or ""
+        if codec == "dts":
+            name = "DTS:X" if "dts:x" in profile.lower() else "DTS-HD MA" if "MA" in profile else "DTS"
+        else:
+            name = AUDIO_CODECS.get(codec, codec.upper())
         ch = a.get("channels") or 0
-        if ch >= 8:
-            out.append("7.1")
-        elif ch >= 6:
-            out.append("5.1")
+        channels = {1: "1.0", 2: "2.0", 6: "5.1", 8: "7.1"}.get(ch, "%dch" % ch if ch else "")
+        sound = " ".join(x for x in (name, channels) if x)
+        if sound:
+            out.append(sound)
+        if "atmos" in profile.lower() or codec == "truehd" and "atmos" in (a.get("title") or "").lower():
+            out.append("Atmos")
     return out
 
 

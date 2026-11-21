@@ -342,12 +342,9 @@ class ProfilesWindow(ArcWindow):
     xml = "script-arc-profiles.xml"
 
     LIST = 100
-    SERVER = 101
     SIGN_OUT = 102
 
     def on_init(self):
-        # The server's name (as set in Arc), under the title, as Android's.
-        self.set_label(self.SERVER, self.session.identity_name or "")
         self._load()
 
     def _load(self):

@@ -92,3 +92,9 @@ def test_card_title_is_the_show_for_an_episode():
     assert home.card_title(ep) == "Severance"
     assert home.card_title({"kind": "episode", "title": "Half Loop"}) == "Half Loop"
     assert home.card_title({"kind": "movie", "title": "Dune: Part Two"}) == "Dune: Part Two"
+
+
+def test_hero_leaves_the_first_row_at_the_foot():
+    from arc import home
+    assert home.hero_height(home.THUMB) == 580 and home.hero_height(home.BACKDROP) == 580
+    assert home.hero_height(home.POSTER) == 460 and home.hero_height(None) == 460

@@ -47,7 +47,7 @@
       <onleft>50</onleft>
       <onup>noop</onup>
       <ondown>noop</ondown>
-      <control type="group">
+      <control type="group" id="67">
         <width>1728</width>
         <height>460</height>
         <control type="button" id="66">
@@ -60,7 +60,7 @@
           <label />
           <onleft>50</onleft>
         </control>
-        <control type="group">
+        <control type="group" id="68">
           <left>8</left>
           <top>56</top>
           <width>1300</width>
@@ -363,7 +363,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3401</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3401).NumItems,0)</visible>
         <control type="label" id="3501">
           <left>8</left>
@@ -378,7 +378,7 @@
         <control type="list" id="3401">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3401).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -657,7 +657,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3801</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3801).NumItems,0)</visible>
         <control type="label" id="3901">
           <left>8</left>
@@ -672,7 +672,7 @@
         <control type="list" id="3801">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3801).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -1239,7 +1239,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3402</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3402).NumItems,0)</visible>
         <control type="label" id="3502">
           <left>8</left>
@@ -1254,7 +1254,7 @@
         <control type="list" id="3402">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3402).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -1533,7 +1533,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3802</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3802).NumItems,0)</visible>
         <control type="label" id="3902">
           <left>8</left>
@@ -1548,7 +1548,7 @@
         <control type="list" id="3802">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3802).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -2115,7 +2115,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3403</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3403).NumItems,0)</visible>
         <control type="label" id="3503">
           <left>8</left>
@@ -2130,7 +2130,7 @@
         <control type="list" id="3403">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3403).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -2409,7 +2409,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3803</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3803).NumItems,0)</visible>
         <control type="label" id="3903">
           <left>8</left>
@@ -2424,7 +2424,7 @@
         <control type="list" id="3803">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3803).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -2991,7 +2991,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3404</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3404).NumItems,0)</visible>
         <control type="label" id="3504">
           <left>8</left>
@@ -3006,7 +3006,7 @@
         <control type="list" id="3404">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3404).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -3285,7 +3285,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3804</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3804).NumItems,0)</visible>
         <control type="label" id="3904">
           <left>8</left>
@@ -3300,7 +3300,7 @@
         <control type="list" id="3804">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3804).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -3867,7 +3867,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3405</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3405).NumItems,0)</visible>
         <control type="label" id="3505">
           <left>8</left>
@@ -3882,7 +3882,7 @@
         <control type="list" id="3405">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3405).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -4161,7 +4161,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3805</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3805).NumItems,0)</visible>
         <control type="label" id="3905">
           <left>8</left>
@@ -4176,7 +4176,7 @@
         <control type="list" id="3805">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3805).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -4743,7 +4743,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3406</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3406).NumItems,0)</visible>
         <control type="label" id="3506">
           <left>8</left>
@@ -4758,7 +4758,7 @@
         <control type="list" id="3406">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3406).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -5037,7 +5037,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3806</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3806).NumItems,0)</visible>
         <control type="label" id="3906">
           <left>8</left>
@@ -5052,7 +5052,7 @@
         <control type="list" id="3806">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3806).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -5619,7 +5619,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3407</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3407).NumItems,0)</visible>
         <control type="label" id="3507">
           <left>8</left>
@@ -5634,7 +5634,7 @@
         <control type="list" id="3407">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3407).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -5913,7 +5913,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3807</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3807).NumItems,0)</visible>
         <control type="label" id="3907">
           <left>8</left>
@@ -5928,7 +5928,7 @@
         <control type="list" id="3807">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3807).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -6495,7 +6495,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3408</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3408).NumItems,0)</visible>
         <control type="label" id="3508">
           <left>8</left>
@@ -6510,7 +6510,7 @@
         <control type="list" id="3408">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3408).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -6789,7 +6789,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3808</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3808).NumItems,0)</visible>
         <control type="label" id="3908">
           <left>8</left>
@@ -6804,7 +6804,7 @@
         <control type="list" id="3808">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3808).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -7371,7 +7371,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3409</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3409).NumItems,0)</visible>
         <control type="label" id="3509">
           <left>8</left>
@@ -7386,7 +7386,7 @@
         <control type="list" id="3409">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3409).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -7665,7 +7665,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3809</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3809).NumItems,0)</visible>
         <control type="label" id="3909">
           <left>8</left>
@@ -7680,7 +7680,7 @@
         <control type="list" id="3809">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3809).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -8247,7 +8247,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3410</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3410).NumItems,0)</visible>
         <control type="label" id="3510">
           <left>8</left>
@@ -8262,7 +8262,7 @@
         <control type="list" id="3410">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3410).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -8541,7 +8541,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3810</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3810).NumItems,0)</visible>
         <control type="label" id="3910">
           <left>8</left>
@@ -8556,7 +8556,7 @@
         <control type="list" id="3810">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3810).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -9123,7 +9123,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3411</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3411).NumItems,0)</visible>
         <control type="label" id="3511">
           <left>8</left>
@@ -9138,7 +9138,7 @@
         <control type="list" id="3411">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3411).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -9417,7 +9417,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3811</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3811).NumItems,0)</visible>
         <control type="label" id="3911">
           <left>8</left>
@@ -9432,7 +9432,7 @@
         <control type="list" id="3811">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3811).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -9999,7 +9999,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3412</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3412).NumItems,0)</visible>
         <control type="label" id="3512">
           <left>8</left>
@@ -10014,7 +10014,7 @@
         <control type="list" id="3412">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3412).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -10293,7 +10293,7 @@
       </control>
       <control type="group">
         <defaultcontrol always="true">3812</defaultcontrol>
-        <height>620</height>
+        <height>500</height>
         <visible>Integer.IsGreater(Container(3812).NumItems,0)</visible>
         <control type="label" id="3912">
           <left>8</left>
@@ -10308,7 +10308,7 @@
         <control type="list" id="3812">
           <top>80</top>
           <width>1728</width>
-          <height>510</height>
+          <height>400</height>
           <visible>Integer.IsGreater(Container(3812).NumItems,0)</visible>
           <orientation>horizontal</orientation>
           <itemgap>8</itemgap>
@@ -10655,6 +10655,28 @@
             <height>44</height>
             <texture>arc-icon-$INFO[ListItem.Property(icon)].png</texture>
             <colordiffuse>FFA1A1AD</colordiffuse>
+            <visible>!String.IsEqual(ListItem.Property(place),profile)</visible>
+          </control>
+          <control type="image">
+            <left>42</left>
+            <top>20</top>
+            <width>44</width>
+            <height>44</height>
+            <texture>arc-circle.png</texture>
+            <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
+            <visible>String.IsEqual(ListItem.Property(place),profile)</visible>
+          </control>
+          <control type="label">
+            <left>42</left>
+            <top>20</top>
+            <width>44</width>
+            <height>44</height>
+            <font>font12</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <align>center</align>
+            <aligny>center</aligny>
+            <label>$INFO[ListItem.Property(initial)]</label>
+            <visible>String.IsEqual(ListItem.Property(place),profile)</visible>
           </control>
           <control type="label">
             <left>112</left>
@@ -10684,7 +10706,7 @@
             <height>44</height>
             <texture>arc-icon-$INFO[ListItem.Property(icon)].png</texture>
             <colordiffuse>FF000000</colordiffuse>
-            <visible>Control.HasFocus(50)</visible>
+            <visible>Control.HasFocus(50) + !String.IsEqual(ListItem.Property(place),profile)</visible>
           </control>
           <control type="image">
             <left>42</left>
@@ -10693,7 +10715,28 @@
             <height>44</height>
             <texture>arc-icon-$INFO[ListItem.Property(icon)].png</texture>
             <colordiffuse>FFF5F5F7</colordiffuse>
-            <visible>!Control.HasFocus(50)</visible>
+            <visible>!Control.HasFocus(50) + !String.IsEqual(ListItem.Property(place),profile)</visible>
+          </control>
+          <control type="image">
+            <left>42</left>
+            <top>20</top>
+            <width>44</width>
+            <height>44</height>
+            <texture>arc-circle.png</texture>
+            <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
+            <visible>String.IsEqual(ListItem.Property(place),profile)</visible>
+          </control>
+          <control type="label">
+            <left>42</left>
+            <top>20</top>
+            <width>44</width>
+            <height>44</height>
+            <font>font12</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <align>center</align>
+            <aligny>center</aligny>
+            <label>$INFO[ListItem.Property(initial)]</label>
+            <visible>String.IsEqual(ListItem.Property(place),profile)</visible>
           </control>
           <control type="label">
             <left>112</left>

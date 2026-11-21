@@ -19,16 +19,17 @@
     <control type="grouplist" id="900">
       <left>192</left><top>0</top><width>1728</width><height>1080</height>
       <!-- The hero (the focused title's logo or name, details and overview) is the list's first
-           entry, so it scrolls away above the rows, as the Android app's Home. It's 460 high, then
-           each row is 620 (title 50 + gap 30 + list 510 + 30 below): the first row fills the screen
-           under the hero, and Kodi, scrolling just far enough to show a row's foot, lines every
+           entry, so it scrolls away above the rows, as the Android app's Home. A poster row is 620
+           (title 50 + gap 30 + list 510 + 30 below), a thumb or backdrop row 500 (list 400): the
+           hero is the rest of the screen above the first row (home.py sizes it), so that row sits
+           at the foot of the screen, as Android's, and the hero's text moves down with it; and Kodi, scrolling just far enough to show a row's foot, lines every
            later row up at the same height (the gap is inside each row, not between them). -->
       <orientation>vertical</orientation><itemgap>0</itemgap>
       <scrolltime tween="cubic" easing="out">260</scrolltime>
       <!-- Up on the first row and Down on the last stay put: a grouplist otherwise wraps round,
            and a held key would cycle through every row. -->
       <onleft>50</onleft><onup>noop</onup><ondown>noop</ondown>
-      <control type="group">
+      <control type="group" id="67">
         <width>1728</width><height>460</height>
         <!-- Focusing this scrolls the list back to the top; it passes the focus straight on to the
              first row (kodi/windows/home.py, HERO_SPOT). -->
@@ -37,7 +38,7 @@
           <texturefocus/><texturenofocus/><label/>
           <onleft>50</onleft>
         </control>
-        <control type="group">
+        <control type="group" id="68">
           <left>8</left><top>56</top><width>1300</width><height>400</height>
           <control type="image" id="62">
             <left>0</left><top>0</top><width>640</width><height>220</height>
@@ -59,41 +60,41 @@
         </control>
       </control>
         <include content="PosterRow"><param name="title" value="3101"/><param name="list" value="3001"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="ThumbRow"><param name="title" value="3501"/><param name="list" value="3401"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="BackdropRow"><param name="title" value="3901"/><param name="list" value="3801"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
+        <include content="ThumbRow"><param name="title" value="3501"/><param name="list" value="3401"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
+        <include content="BackdropRow"><param name="title" value="3901"/><param name="list" value="3801"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
         <include content="PosterRow"><param name="title" value="3102"/><param name="list" value="3002"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="ThumbRow"><param name="title" value="3502"/><param name="list" value="3402"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="BackdropRow"><param name="title" value="3902"/><param name="list" value="3802"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
+        <include content="ThumbRow"><param name="title" value="3502"/><param name="list" value="3402"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
+        <include content="BackdropRow"><param name="title" value="3902"/><param name="list" value="3802"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
         <include content="PosterRow"><param name="title" value="3103"/><param name="list" value="3003"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="ThumbRow"><param name="title" value="3503"/><param name="list" value="3403"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="BackdropRow"><param name="title" value="3903"/><param name="list" value="3803"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
+        <include content="ThumbRow"><param name="title" value="3503"/><param name="list" value="3403"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
+        <include content="BackdropRow"><param name="title" value="3903"/><param name="list" value="3803"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
         <include content="PosterRow"><param name="title" value="3104"/><param name="list" value="3004"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="ThumbRow"><param name="title" value="3504"/><param name="list" value="3404"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="BackdropRow"><param name="title" value="3904"/><param name="list" value="3804"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
+        <include content="ThumbRow"><param name="title" value="3504"/><param name="list" value="3404"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
+        <include content="BackdropRow"><param name="title" value="3904"/><param name="list" value="3804"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
         <include content="PosterRow"><param name="title" value="3105"/><param name="list" value="3005"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="ThumbRow"><param name="title" value="3505"/><param name="list" value="3405"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="BackdropRow"><param name="title" value="3905"/><param name="list" value="3805"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
+        <include content="ThumbRow"><param name="title" value="3505"/><param name="list" value="3405"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
+        <include content="BackdropRow"><param name="title" value="3905"/><param name="list" value="3805"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
         <include content="PosterRow"><param name="title" value="3106"/><param name="list" value="3006"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="ThumbRow"><param name="title" value="3506"/><param name="list" value="3406"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="BackdropRow"><param name="title" value="3906"/><param name="list" value="3806"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
+        <include content="ThumbRow"><param name="title" value="3506"/><param name="list" value="3406"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
+        <include content="BackdropRow"><param name="title" value="3906"/><param name="list" value="3806"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
         <include content="PosterRow"><param name="title" value="3107"/><param name="list" value="3007"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="ThumbRow"><param name="title" value="3507"/><param name="list" value="3407"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="BackdropRow"><param name="title" value="3907"/><param name="list" value="3807"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
+        <include content="ThumbRow"><param name="title" value="3507"/><param name="list" value="3407"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
+        <include content="BackdropRow"><param name="title" value="3907"/><param name="list" value="3807"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
         <include content="PosterRow"><param name="title" value="3108"/><param name="list" value="3008"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="ThumbRow"><param name="title" value="3508"/><param name="list" value="3408"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="BackdropRow"><param name="title" value="3908"/><param name="list" value="3808"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
+        <include content="ThumbRow"><param name="title" value="3508"/><param name="list" value="3408"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
+        <include content="BackdropRow"><param name="title" value="3908"/><param name="list" value="3808"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
         <include content="PosterRow"><param name="title" value="3109"/><param name="list" value="3009"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="ThumbRow"><param name="title" value="3509"/><param name="list" value="3409"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="BackdropRow"><param name="title" value="3909"/><param name="list" value="3809"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
+        <include content="ThumbRow"><param name="title" value="3509"/><param name="list" value="3409"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
+        <include content="BackdropRow"><param name="title" value="3909"/><param name="list" value="3809"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
         <include content="PosterRow"><param name="title" value="3110"/><param name="list" value="3010"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="ThumbRow"><param name="title" value="3510"/><param name="list" value="3410"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="BackdropRow"><param name="title" value="3910"/><param name="list" value="3810"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
+        <include content="ThumbRow"><param name="title" value="3510"/><param name="list" value="3410"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
+        <include content="BackdropRow"><param name="title" value="3910"/><param name="list" value="3810"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
         <include content="PosterRow"><param name="title" value="3111"/><param name="list" value="3011"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="ThumbRow"><param name="title" value="3511"/><param name="list" value="3411"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="BackdropRow"><param name="title" value="3911"/><param name="list" value="3811"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
+        <include content="ThumbRow"><param name="title" value="3511"/><param name="list" value="3411"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
+        <include content="BackdropRow"><param name="title" value="3911"/><param name="list" value="3811"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
         <include content="PosterRow"><param name="title" value="3112"/><param name="list" value="3012"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="ThumbRow"><param name="title" value="3512"/><param name="list" value="3412"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
-        <include content="BackdropRow"><param name="title" value="3912"/><param name="list" value="3812"/><param name="onleft" value="50"/><param name="height" value="510"/><param name="group_height" value="620"/></include>
+        <include content="ThumbRow"><param name="title" value="3512"/><param name="list" value="3412"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
+        <include content="BackdropRow"><param name="title" value="3912"/><param name="list" value="3812"/><param name="onleft" value="50"/><param name="height" value="400"/><param name="group_height" value="500"/></include>
     </control>
 
     <include>Sidebar</include>

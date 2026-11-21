@@ -71,3 +71,10 @@ def test_unknowns_and_zeros_left_out():
     assert ("row", "picture", "1280×720 · 24.000 fps · progressive") in out
     assert not any(e[1] == "deint" for e in out)
     assert ("heading", "audio") not in out
+
+
+def test_passthrough_and_progressive():
+    out = playerinfo.rows({"audio_decoder": "pt-eac3", "audio_channels": "RAW, RAW, RAW, RAW",
+                           "scantype": "p", "deint": "yadif"})
+    assert ("row", "audio_decoder", "pt-eac3 · Passthrough") in out
+    assert not any(e[1] == "deint" for e in out)

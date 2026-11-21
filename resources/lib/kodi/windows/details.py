@@ -211,16 +211,15 @@ class DetailsWindow(ArcWindow):
             filled = i == 0 and text in ("4K", "1080p", "720p", "SD")
             self.set_label(CAPSULE_BASE + 2 * i + (0 if filled else 1), text)
             self.setProperty("arc.cap%d" % i, ("f" if filled else "o") if text else "")
-        # Starring and Directed by at the right, the label lighter, the names bold, each on up
-        # to two lines; Kodi won't bottom-align a wrapping label, so the Python places them by
-        # how many lines they take (titlepage.wraps estimates it).
+        # Starring and Directed by at the right, the label lighter, the names bold, one line
+        # each (cut short if long), as Android's.
         stars = titlepage.starring(item)
         directors = titlepage.people(item, ("director",), 3)
         self.set_label(STARRING, self._labelled(T(30158), stars) if stars else "")
         self.set_label(DIRECTORS, self._labelled(T(30147), directors) if directors else "")
 
         def lines_of(label, names):
-            return 0 if not names else (2 if titlepage.wraps(label, ", ".join(names), room=580) else 1)
+            return 1 if names else 0
 
         layout = titlepage.hero_layout(
             models.is_series(item), logo=bool(art.get("clearlogo")), episode_line=bool(episode),
