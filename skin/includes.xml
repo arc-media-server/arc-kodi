@@ -754,6 +754,8 @@
     <!-- The title's 50 and a 30 gap above the list; the group is the row's whole height. Kodi's
          includes can't add, so a row with another list height passes group_height too. -->
     <param name="list_top" default="80"/><param name="group_height" default="530"/>
+    <!-- Home and Recommended put the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
+    <param name="title_top" default="0"/>
     <definition>
       <!-- One group per row, its title on top of its list, so the grouplist scrolls the whole row
            into view whichever way the focus comes from (title and list as separate grouplist
@@ -763,7 +765,7 @@
         <height>$PARAM[group_height]</height>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       <control type="label" id="$PARAM[title]">
-        <left>8</left><top>0</top><width>1500</width><height>50</height>
+        <left>8</left><top>$PARAM[title_top]</top><width>1500</width><height>50</height>
         <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
@@ -793,6 +795,8 @@
     <!-- The title's 50 and a 30 gap above the list; the group is the row's whole height. Kodi's
          includes can't add, so a row with another list height passes group_height too. -->
     <param name="list_top" default="80"/><param name="group_height" default="530"/>
+    <!-- Home and Recommended put the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
+    <param name="title_top" default="0"/>
     <definition>
       <!-- One group per row, its title on top of its list, so the grouplist scrolls the whole row
            into view whichever way the focus comes from (title and list as separate grouplist
@@ -802,7 +806,7 @@
         <height>$PARAM[group_height]</height>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       <control type="label" id="$PARAM[title]">
-        <left>8</left><top>0</top><width>1500</width><height>50</height>
+        <left>8</left><top>$PARAM[title_top]</top><width>1500</width><height>50</height>
         <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
@@ -831,6 +835,8 @@
     <!-- The title's 50 and a 30 gap above the list; the group is the row's whole height. Kodi's
          includes can't add, so a row with another list height passes group_height too. -->
     <param name="list_top" default="80"/><param name="group_height" default="530"/>
+    <!-- Home and Recommended put the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
+    <param name="title_top" default="0"/>
     <definition>
       <!-- One group per row, its title on top of its list, so the grouplist scrolls the whole row
            into view whichever way the focus comes from (title and list as separate grouplist
@@ -840,7 +846,7 @@
         <height>$PARAM[group_height]</height>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       <control type="label" id="$PARAM[title]">
-        <left>8</left><top>0</top><width>1500</width><height>50</height>
+        <left>8</left><top>$PARAM[title_top]</top><width>1500</width><height>50</height>
         <font>arc-row</font><shadowcolor>99000000</shadowcolor><textcolor>fg</textcolor>
         <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>

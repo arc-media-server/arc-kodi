@@ -24,7 +24,8 @@ TITLE_STRINGS = {
 
 class RecommendedWindow(TabsMixin, home.HomeWindow):
     xml = "script-arc-library-rows.xml"
-    SIZE_HERO = False   # the hero keeps the skin's height: the tabs sit above it
+    rows_height = 950   # the row list sits under the tabs (skin/script-arc-library-rows.xml)
+    hero_text = 330
     ABOVE_ROWS = TABS   # Up from the first row: the library's tabs
 
     def __init__(self, *args, **kwargs):

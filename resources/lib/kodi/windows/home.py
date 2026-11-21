@@ -52,7 +52,8 @@ class HomeWindow(ArcWindow):
     # back to the hero, and it hands the focus straight on to the first row. None in windows
     # whose rows have no hero above them.
     HERO_SPOT = 66
-    SIZE_HERO = True    # the hero fills the screen above the first row (home.py sizes it)
+    rows_height = 1080  # the row list's height (the skin's grouplist 900)
+    hero_text = homerows.HERO_TEXT   # the hero's text block's height (the skin's group 68)
 
     def __init__(self, *args, **kwargs):
         ArcWindow.__init__(self, *args, **kwargs)
@@ -118,14 +119,14 @@ class HomeWindow(ArcWindow):
         return None
 
     def _layout_rows(self):
-        # The hero fills the screen above the first row, its text moving down with it.
-        if self.SIZE_HERO:
-            height = homerows.hero_height(self.rows[0].get("style") if self.rows else homerows.POSTER)
-            try:
-                self.getControl(HERO_GROUP).setHeight(height)
-                self.getControl(HERO_TEXT_GROUP).setPosition(8, height - homerows.HERO_TEXT)
-            except Exception:
-                pass
+        # The hero fills the list above the first row, its text moving down with it.
+        first = self.rows[0].get("style") if self.rows else homerows.POSTER
+        height = homerows.hero_height(first, self.rows_height)
+        try:
+            self.getControl(HERO_GROUP).setHeight(height)
+            self.getControl(HERO_TEXT_GROUP).setPosition(8, height - self.hero_text)
+        except Exception:
+            pass
         for i in range(MAX_ROWS):
             if i < len(self.rows):
                 self.set_label(self._bases(self.rows[i])[1] + 1 + i, self._row_title(self.rows[i]))

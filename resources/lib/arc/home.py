@@ -222,5 +222,5 @@ HERO_TEXT = 404
 
 
 def hero_height(first_style, screen=1080):
-    """The hero's height above a first row of `first_style`."""
+    """The hero's height above a first row of `first_style`, in a row list `screen` high."""
     return screen - ROW_HEIGHTS.get(first_style, ROW_HEIGHTS[POSTER])
