@@ -11,104 +11,112 @@
       <texture>arc-white.png</texture>
       <colordiffuse>FF0B0B10</colordiffuse>
     </control>
-    <control type="label" id="101">
+    <control type="grouplist" id="130">
       <left>80</left>
-      <top>48</top>
-      <width>1200</width>
-      <height>60</height>
-      <font>font52_title</font>
-      <textcolor>FFF5F5F7</textcolor>
-      <label />
-      <visible>String.IsEmpty(Window.Property(arc.tab0))</visible>
-    </control>
-    <control type="grouplist" id="120">
-      <left>80</left>
-      <top>40</top>
-      <width>1000</width>
-      <height>64</height>
+      <top>34</top>
+      <width>1300</width>
+      <height>76</height>
       <orientation>horizontal</orientation>
-      <itemgap>12</itemgap>
+      <itemgap>40</itemgap>
       <onup>noop</onup>
       <ondown>100</ondown>
       <onleft>noop</onleft>
-      <onright>102</onright>
-      <control type="button" id="121">
+      <onright>110</onright>
+      <control type="label" id="101">
         <width>auto</width>
-        <height>64</height>
-        <font>font13</font>
-        <align>center</align>
-        <aligny>center</aligny>
-        <textoffsetx>28</textoffsetx>
+        <height>76</height>
+        <font>font52_title</font>
         <textcolor>FFF5F5F7</textcolor>
-        <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
-        <visible>String.IsEqual(Window.Property(arc.tab0),current)</visible>
-      </control>
-      <control type="button" id="122">
-        <width>auto</width>
-        <height>64</height>
-        <font>font13</font>
-        <align>center</align>
         <aligny>center</aligny>
-        <textoffsetx>28</textoffsetx>
-        <textcolor>C8F5F5F7</textcolor>
-        <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
-        <visible>String.IsEqual(Window.Property(arc.tab0),other)</visible>
+        <label />
       </control>
-      <control type="button" id="123">
-        <width>auto</width>
-        <height>64</height>
-        <font>font13</font>
-        <align>center</align>
-        <aligny>center</aligny>
-        <textoffsetx>28</textoffsetx>
-        <textcolor>FFF5F5F7</textcolor>
-        <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
-        <visible>String.IsEqual(Window.Property(arc.tab1),current)</visible>
-      </control>
-      <control type="button" id="124">
-        <width>auto</width>
-        <height>64</height>
-        <font>font13</font>
-        <align>center</align>
-        <aligny>center</aligny>
-        <textoffsetx>28</textoffsetx>
-        <textcolor>C8F5F5F7</textcolor>
-        <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
-        <visible>String.IsEqual(Window.Property(arc.tab1),other)</visible>
-      </control>
-      <control type="button" id="125">
-        <width>auto</width>
-        <height>64</height>
-        <font>font13</font>
-        <align>center</align>
-        <aligny>center</aligny>
-        <textoffsetx>28</textoffsetx>
-        <textcolor>FFF5F5F7</textcolor>
-        <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
-        <visible>String.IsEqual(Window.Property(arc.tab2),current)</visible>
-      </control>
-      <control type="button" id="126">
-        <width>auto</width>
-        <height>64</height>
-        <font>font13</font>
-        <align>center</align>
-        <aligny>center</aligny>
-        <textoffsetx>28</textoffsetx>
-        <textcolor>C8F5F5F7</textcolor>
-        <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
-        <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
+      <control type="grouplist" id="120">
+        <width>900</width>
+        <height>76</height>
+        <orientation>horizontal</orientation>
+        <itemgap>0</itemgap>
+        <onup>noop</onup>
+        <ondown>100</ondown>
+        <onleft>noop</onleft>
+        <onright>110</onright>
+        <control type="button" id="121">
+          <width>auto</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textoffsetx>36</textoffsetx>
+          <textcolor>FFF5F5F7</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-l-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-l-current.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab0),current)</visible>
+        </control>
+        <control type="button" id="122">
+          <width>auto</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textoffsetx>36</textoffsetx>
+          <textcolor>A6F5F5F7</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-l-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-l.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab0),other)</visible>
+        </control>
+        <control type="button" id="123">
+          <width>auto</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textoffsetx>36</textoffsetx>
+          <textcolor>FFF5F5F7</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-m-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-m-current.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab1),current)</visible>
+        </control>
+        <control type="button" id="124">
+          <width>auto</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textoffsetx>36</textoffsetx>
+          <textcolor>A6F5F5F7</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-m-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-m.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab1),other)</visible>
+        </control>
+        <control type="button" id="125">
+          <width>auto</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textoffsetx>36</textoffsetx>
+          <textcolor>FFF5F5F7</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-r-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-r-current.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab2),current)</visible>
+        </control>
+        <control type="button" id="126">
+          <width>auto</width>
+          <height>76</height>
+          <font>font13</font>
+          <align>center</align>
+          <aligny>center</aligny>
+          <textoffsetx>36</textoffsetx>
+          <textcolor>A6F5F5F7</textcolor>
+          <focusedcolor>FF000000</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-r-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-r.png</texturenofocus>
+          <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
+        </control>
       </control>
     </control>
     <control type="textbox" id="107">
@@ -119,92 +127,85 @@
       <font>font12</font>
       <textcolor>FFA1A1AD</textcolor>
     </control>
-    <control type="label" id="104">
+    <control type="grouplist" id="110">
       <left>80</left>
-      <top>112</top>
-      <width>400</width>
-      <height>36</height>
-      <font>font12</font>
-      <textcolor>FFA1A1AD</textcolor>
-      <label />
-    </control>
-    <control type="button" id="108">
-      <width>200</width>
-      <height>64</height>
-      <font>font13</font>
-      <textcolor>FFF5F5F7</textcolor>
-      <focusedcolor>FF000000</focusedcolor>
-      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-      <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
-      <aligny>center</aligny>
-      <align>center</align>
-      <textoffsetx>24</textoffsetx>
-      <left>844</left>
       <top>40</top>
-      <ondown>100</ondown>
-      <onup>noop</onup>
-      <onleft>noop</onleft>
-      <onright>109</onright>
-      <label>$ADDON[script.arc 30287]</label>
-    </control>
-    <control type="button" id="109">
-      <width>200</width>
+      <width>1760</width>
       <height>64</height>
-      <font>font13</font>
-      <textcolor>FFF5F5F7</textcolor>
-      <focusedcolor>FF000000</focusedcolor>
-      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-      <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
-      <aligny>center</aligny>
-      <align>center</align>
-      <textoffsetx>24</textoffsetx>
-      <left>1056</left>
-      <top>40</top>
-      <ondown>100</ondown>
+      <orientation>horizontal</orientation>
+      <align>right</align>
+      <itemgap>20</itemgap>
       <onup>noop</onup>
-      <onleft>108</onleft>
-      <onright condition="Control.IsVisible(102)">102</onright>
-      <onright condition="!Control.IsVisible(102)">noop</onright>
-      <label>$ADDON[script.arc 30288]</label>
-    </control>
-    <control type="button" id="102">
-      <width>340</width>
-      <height>64</height>
-      <font>font13</font>
-      <textcolor>FFF5F5F7</textcolor>
-      <focusedcolor>FF000000</focusedcolor>
-      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-      <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
-      <aligny>center</aligny>
-      <align>center</align>
-      <textoffsetx>24</textoffsetx>
-      <left>1268</left>
-      <top>40</top>
       <ondown>100</ondown>
-      <onup>noop</onup>
-      <onleft condition="Control.IsVisible(109)">109</onleft>
-      <onleft condition="!Control.IsVisible(109)">120</onleft>
-      <onright>103</onright>
-      <label>$ADDON[script.arc 30123]</label>
-    </control>
-    <control type="button" id="103">
-      <height>64</height>
-      <font>font13</font>
-      <textcolor>FFF5F5F7</textcolor>
-      <focusedcolor>FF000000</focusedcolor>
-      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-      <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
-      <aligny>center</aligny>
-      <align>center</align>
-      <textoffsetx>24</textoffsetx>
-      <left>1620</left>
-      <top>40</top>
-      <width>260</width>
-      <ondown>100</ondown>
-      <onup>noop</onup>
-      <onleft>102</onleft>
       <onright>noop</onright>
-      <label>$ADDON[script.arc 30124]</label>
+      <onleft condition="!String.IsEmpty(Window.Property(arc.tab0))">120</onleft>
+      <onleft condition="String.IsEmpty(Window.Property(arc.tab0))">noop</onleft>
+      <control type="label" id="104">
+        <width>auto</width>
+        <height>64</height>
+        <font>font13</font>
+        <textcolor>FFA1A1AD</textcolor>
+        <aligny>center</aligny>
+        <label />
+      </control>
+      <control type="image">
+        <width>12</width>
+        <height>64</height>
+        <texture />
+        <visible>!String.IsEmpty(Control.GetLabel(104))</visible>
+      </control>
+      <control type="button" id="108">
+        <width>auto</width>
+        <height>64</height>
+        <font>font13</font>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+        <texturenofocus border="32" colordiffuse="FF23232A">arc-pill-white-64.png</texturenofocus>
+        <aligny>center</aligny>
+        <align>center</align>
+        <textoffsetx>32</textoffsetx>
+        <label>$ADDON[script.arc 30287]</label>
+      </control>
+      <control type="button" id="109">
+        <width>auto</width>
+        <height>64</height>
+        <font>font13</font>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+        <texturenofocus border="32" colordiffuse="FF23232A">arc-pill-white-64.png</texturenofocus>
+        <aligny>center</aligny>
+        <align>center</align>
+        <textoffsetx>32</textoffsetx>
+        <label>$ADDON[script.arc 30288]</label>
+      </control>
+      <control type="button" id="102">
+        <width>auto</width>
+        <height>64</height>
+        <font>font13</font>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+        <texturenofocus border="32" colordiffuse="FF23232A">arc-pill-white-64.png</texturenofocus>
+        <aligny>center</aligny>
+        <align>center</align>
+        <textoffsetx>32</textoffsetx>
+        <label>$ADDON[script.arc 30123]</label>
+      </control>
+      <control type="button" id="103">
+        <width>auto</width>
+        <height>64</height>
+        <font>font13</font>
+        <textcolor>FFF5F5F7</textcolor>
+        <focusedcolor>FF000000</focusedcolor>
+        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+        <texturenofocus border="32" colordiffuse="FF23232A">arc-pill-white-64.png</texturenofocus>
+        <aligny>center</aligny>
+        <align>center</align>
+        <textoffsetx>32</textoffsetx>
+        <label>$ADDON[script.arc 30124]</label>
+      </control>
     </control>
     <control type="panel" id="100">
       <left>72</left>
@@ -212,8 +213,7 @@
       <width>1800</width>
       <height>880</height>
       <onup condition="!String.IsEmpty(Window.Property(arc.tab0))">120</onup>
-      <onup condition="String.IsEmpty(Window.Property(arc.tab0)) + Control.IsVisible(108)">108</onup>
-      <onup condition="String.IsEmpty(Window.Property(arc.tab0)) + !Control.IsVisible(108)">102</onup>
+      <onup condition="String.IsEmpty(Window.Property(arc.tab0))">110</onup>
       <orientation>vertical</orientation>
       <itemlayout width="292" height="460" condition="!String.IsEqual(Window.Property(arc.style),thumb)">
         <control type="image">

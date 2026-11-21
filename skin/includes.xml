@@ -139,6 +139,19 @@
     </definition>
   </include>
 
+  <!-- A pill in a page's top bar (Sort, Filters, the Watchlist's, Play All and Shuffle), as the
+       Android app's HeaderButton: sized to its words, glass (white at 10%) and white when
+       focused. -->
+  <include name="HeaderPill">
+    <definition>
+      <width>auto</width><height>64</height>
+      <font>arc-label</font><textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
+      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+      <texturenofocus border="32" colordiffuse="FF23232A">arc-pill-white-64.png</texturenofocus>
+      <aligny>center</aligny><align>center</align><textoffsetx>32</textoffsetx>
+    </definition>
+  </include>
+
   <!-- A pill-shaped secondary button (the round actions with words, Sort, Filter). -->
   <include name="PillButton">
     <param name="width" default="260"/>
@@ -455,61 +468,77 @@
        pill sized to its word, the one showing lit, the focused one white with black text. Three
        slots, each a "current" (121 + 2i) and an "other" (122 + 2i) button; the Python shows one
        of each slot's pair with the window property arc.tab<i>. Select switches. -->
-  <include name="LibraryTabs">
-    <param name="left" default="80"/><param name="top" default="40"/>
+  <!-- A page's heading (id 101: a library's name, or the page's), and for a library its tabs
+       beside it, as the Android app's: one glass pill holding Recommended, Library and
+       Collections (Folders for Other videos), the showing tab lighter and the focused one white.
+       Each tab is a button drawing its own slice of the holder (tools/make_media.py,
+       library_tabs), so a library has exactly three tabs: first, middle and last. Slot i's
+       "current" button is 121 + 2i, its "other" button 122 + 2i (kodi/windows/library.py). -->
+  <include name="PageHeader">
+    <param name="left" default="80"/><param name="top" default="34"/>
     <param name="ondown"/><param name="onright" default="noop"/>
     <definition>
-      <control type="grouplist" id="120">
-        <left>$PARAM[left]</left><top>$PARAM[top]</top><width>1000</width><height>64</height>
-        <orientation>horizontal</orientation><itemgap>12</itemgap>
+      <control type="grouplist" id="130">
+        <left>$PARAM[left]</left><top>$PARAM[top]</top><width>1300</width><height>76</height>
+        <orientation>horizontal</orientation><itemgap>40</itemgap>
+        <!-- The tabs sit inside this row, which takes their moves at its ends: the same as theirs. -->
         <onup>noop</onup><ondown>$PARAM[ondown]</ondown><onleft>noop</onleft><onright>$PARAM[onright]</onright>
+        <control type="label" id="101">
+          <width>auto</width><height>76</height>
+          <font>arc-title</font><textcolor>fg</textcolor><aligny>center</aligny><label></label>
+        </control>
+        <control type="grouplist" id="120">
+          <width>900</width><height>76</height>
+          <orientation>horizontal</orientation><itemgap>0</itemgap>
+          <onup>noop</onup><ondown>$PARAM[ondown]</ondown><onleft>noop</onleft><onright>$PARAM[onright]</onright>
         <control type="button" id="121">
-          <width>auto</width><height>64</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>28</textoffsetx>
+          <width>auto</width><height>76</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
           <textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-          <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
+          <texturefocus border="38,0,38,0">arc-tab-l-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-l-current.png</texturenofocus>
           <visible>String.IsEqual(Window.Property(arc.tab0),current)</visible>
         </control>
         <control type="button" id="122">
-          <width>auto</width><height>64</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>28</textoffsetx>
-          <textcolor>C8F5F5F7</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-          <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
+          <width>auto</width><height>76</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <textcolor>A6F5F5F7</textcolor><focusedcolor>black</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-l-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-l.png</texturenofocus>
           <visible>String.IsEqual(Window.Property(arc.tab0),other)</visible>
         </control>
         <control type="button" id="123">
-          <width>auto</width><height>64</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>28</textoffsetx>
+          <width>auto</width><height>76</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
           <textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-          <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
+          <texturefocus border="38,0,38,0">arc-tab-m-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-m-current.png</texturenofocus>
           <visible>String.IsEqual(Window.Property(arc.tab1),current)</visible>
         </control>
         <control type="button" id="124">
-          <width>auto</width><height>64</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>28</textoffsetx>
-          <textcolor>C8F5F5F7</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-          <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
+          <width>auto</width><height>76</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <textcolor>A6F5F5F7</textcolor><focusedcolor>black</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-m-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-m.png</texturenofocus>
           <visible>String.IsEqual(Window.Property(arc.tab1),other)</visible>
         </control>
         <control type="button" id="125">
-          <width>auto</width><height>64</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>28</textoffsetx>
+          <width>auto</width><height>76</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
           <textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-          <texturenofocus border="32" colordiffuse="FF5A5B63">arc-pill-white-64.png</texturenofocus>
+          <texturefocus border="38,0,38,0">arc-tab-r-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-r-current.png</texturenofocus>
           <visible>String.IsEqual(Window.Property(arc.tab2),current)</visible>
         </control>
         <control type="button" id="126">
-          <width>auto</width><height>64</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>28</textoffsetx>
-          <textcolor>C8F5F5F7</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-          <texturenofocus border="32" colordiffuse="A6000000">arc-pill-white-64.png</texturenofocus>
+          <width>auto</width><height>76</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
+          <textcolor>A6F5F5F7</textcolor><focusedcolor>black</focusedcolor>
+          <texturefocus border="38,0,38,0">arc-tab-r-focus.png</texturefocus>
+          <texturenofocus border="38,0,38,0">arc-tab-r.png</texturenofocus>
           <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
+        </control>
         </control>
       </control>
     </definition>

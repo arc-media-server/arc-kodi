@@ -174,7 +174,7 @@ class App(object):
         elif kind == "search":
             self._open(search.SearchWindow)
         elif kind == "watchlist":
-            self._open_grid(T(30082), self._watchlist_loader())
+            self._open(library.WatchlistWindow)
         elif kind == "playlists":
             self._open_playlists()
         elif kind == "settings":
@@ -442,9 +442,6 @@ class App(object):
             return items, len(items)
         return load
 
-    def _open_grid(self, title, loader, style="poster"):
-        self._open(library.GridWindow, title=title, loader=loader, style=style, paged=True)
-
     # MARK: - Watch Together
 
     def _together_card(self, card, with_menu=False):
@@ -551,12 +548,6 @@ class App(object):
                        paged=True, play=lambda shuffle, _ids: self._play_queue(playlist_id=pid, shuffle=shuffle))
 
     # MARK: - loaders
-
-    def _watchlist_loader(self):
-        def load(offset, limit):
-            items = self.session.api.watchlist()
-            return items, len(items)
-        return load
 
     def _playlist_loader(self, playlist_id):
         def load(offset, limit):
