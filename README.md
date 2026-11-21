@@ -63,7 +63,7 @@ More Like This and collections; seasons and episodes in the order you chose in A
 episodes that order doesn't place. Mark a whole season watched or shuffle it. Pick a version
 (4K, a Director's Cut) when a title has more than one.
 
-**📚 Libraries you can browse.** Recommended rows, Browse with Sort and Filter, Collections and
+**📚 Libraries you can browse.** Recommended rows, Library with Sort and Filters, Collections and
 folders for home videos, Play All and Shuffle, and pages for people and collections.
 
 **▶️ Arc's player over Kodi's.** Kodi decodes the video; Arc's controls sit over it: the
