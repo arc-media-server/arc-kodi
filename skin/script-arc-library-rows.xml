@@ -10,35 +10,55 @@
     <include>PageBackground</include>
     <include content="HeroBackground"><param name="id" value="61"/></include>
 
-    <control type="group">
-      <left>120</left><top>130</top><width>1300</width><height>330</height>
-      <control type="image" id="62">
-        <left>0</left><top>0</top><width>560</width><height>170</height>
-        <aspectratio align="left" aligny="bottom">keep</aspectratio>
-        <fadetime>200</fadetime>
-      </control>
-      <control type="label" id="63">
-        <left>0</left><top>70</top><width>1300</width><height>100</height>
-        <font>arc-hero</font><textcolor>fg</textcolor>
-      </control>
-      <control type="label" id="64">
-        <left>2</left><top>184</top><width>1300</width><height>40</height>
-        <font>arc-body</font><textcolor>muted</textcolor>
-      </control>
-      <control type="textbox" id="65">
-        <left>2</left><top>228</top><width>1000</width><height>76</height>
-        <font>arc-body</font><textcolor>fg</textcolor>
-      </control>
+    <!-- Once the hero has scrolled away (focus below the first row), the artwork dims behind the
+         rows, as Home's. -->
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <texture>arc-white.png</texture><colordiffuse>D10B0B10</colordiffuse>
+      <visible>String.IsEqual(Window.Property(scrolled),true)</visible>
+      <animation effect="fade" time="250">VisibleChange</animation>
     </control>
 
     <control type="grouplist" id="900">
-      <left>112</left><top>460</top><width>1808</width><height>620</height>
-      <!-- Every row (title 50 + gap 30 + list 510 + gap 30) is exactly the 620 that shows, so
-           one row shows at a time and none peeks out under the hero. The list is 60 taller than
-           its cards, so their words keep clear of the foot of the screen. -->
+      <left>112</left><top>130</top><width>1808</width><height>950</height>
+      <!-- As Home's: the hero (the focused title's logo or name, details and overview) is the
+           list's first entry, so it scrolls away above the rows under the tabs. The hero is 300
+           and every row (title 50 + gap 30 + list 510) 590, with 30 between, so the first row
+           sits at the foot of the screen; the list is 60 taller than its cards, so their words
+           keep clear of the foot of the screen. -->
       <orientation>vertical</orientation><itemgap>30</itemgap>
       <scrolltime tween="cubic" easing="out">260</scrolltime>
       <onleft>noop</onleft><onup>120</onup><ondown>noop</ondown>
+      <control type="group" id="67">
+        <width>1808</width><height>300</height>
+        <!-- Focusing this scrolls the list back to the top; it passes the focus straight on to the
+             first row (kodi/windows/home.py, HERO_SPOT). -->
+        <control type="button" id="66">
+          <left>0</left><top>0</top><width>1</width><height>1</height>
+          <texturefocus/><texturenofocus/><label/>
+          <onup>120</onup>
+        </control>
+        <control type="group" id="68">
+          <left>8</left><top>0</top><width>1300</width><height>330</height>
+          <control type="image" id="62">
+            <left>0</left><top>0</top><width>560</width><height>170</height>
+            <aspectratio align="left" aligny="bottom">keep</aspectratio>
+            <fadetime>200</fadetime>
+          </control>
+          <control type="label" id="63">
+            <left>0</left><top>70</top><width>1300</width><height>100</height>
+            <font>arc-hero</font><textcolor>fg</textcolor>
+          </control>
+          <control type="label" id="64">
+            <left>2</left><top>184</top><width>1300</width><height>40</height>
+            <font>arc-body</font><textcolor>muted</textcolor>
+          </control>
+          <control type="textbox" id="65">
+            <left>2</left><top>228</top><width>1000</width><height>76</height>
+            <font>arc-body</font><textcolor>fg</textcolor>
+          </control>
+        </control>
+      </control>
         <include content="PosterRow"><param name="title" value="3101"/><param name="list" value="3001"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
         <include content="ThumbRow"><param name="title" value="3501"/><param name="list" value="3401"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
         <include content="BackdropRow"><param name="title" value="3901"/><param name="list" value="3801"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
