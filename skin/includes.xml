@@ -8,6 +8,7 @@
   <constant name="bg">FF0B0B10</constant>
   <constant name="surface">FF15151C</constant>
   <constant name="surface2">FF1F1F28</constant>
+  <constant name="surface3">FF2A2A35</constant>
   <constant name="fg">FFF5F5F7</constant>
   <constant name="muted">FFA1A1AD</constant>
   <constant name="subtle">FF6B6B78</constant>
@@ -33,7 +34,10 @@
   <constant name="arc-code">font60</constant>
   <constant name="arc-tiny">font10</constant>         <!-- 23: an episode card's description -->
   <constant name="arc-caption">font20_title</constant> <!-- 20 bold: MORE, an episode's number -->
-  <constant name="arc-card-title">font27</constant>   <!-- 27: an episode card's title -->
+  <constant name="arc-card-title">font27</constant>
+  <constant name="arc-name">font27</constant>           <!-- 27: a profile's name -->
+  <constant name="arc-name-bold">font25_title</constant> <!-- 25 bold: the focused profile's -->
+  <constant name="arc-avatar">font60</constant>          <!-- 60: a profile's initial -->   <!-- 27: an episode card's title -->
 
   <!-- Arc's toast: a short message at the top right, over any of Arc's windows, in place of
        Kodi's notification (kodi/toast.py). It never takes the focus: it shows while the global
@@ -127,6 +131,32 @@
   </include>
 
   <!-- A pill-shaped secondary button (the round actions with words, Sort, Filter). -->
+  <!-- Android's OutlinedButton: a Surface3 edge, white with black words when focused. -->
+  <include name="OutlineButton">
+    <param name="width" default="260"/>
+    <definition>
+      <width>$PARAM[width]</width><height>76</height>
+      <font>arc-label</font>
+      <textcolor>fg</textcolor>
+      <focusedcolor>black</focusedcolor>
+      <texturefocus border="38">arc-pill-white.png</texturefocus>
+      <texturenofocus border="38" colordiffuse="surface3">arc-pill-line.png</texturenofocus>
+      <aligny>center</aligny><align>center</align>
+    </definition>
+  </include>
+  <!-- A quieter choice: muted words alone until focused. -->
+  <include name="QuietButton">
+    <param name="width" default="260"/>
+    <definition>
+      <width>$PARAM[width]</width><height>76</height>
+      <font>arc-small</font>
+      <textcolor>muted</textcolor>
+      <focusedcolor>black</focusedcolor>
+      <texturefocus border="38">arc-pill-white.png</texturefocus>
+      <texturenofocus></texturenofocus>
+      <aligny>center</aligny><align>center</align>
+    </definition>
+  </include>
   <include name="PillButton">
     <param name="width" default="260"/>
     <definition>
@@ -542,6 +572,61 @@
           <texture>$PARAM[icon]</texture><colordiffuse>black</colordiffuse>
           <visible>Control.HasFocus($PARAM[id])</visible>
         </control>
+      </control>
+    </definition>
+  </include>
+
+  <!-- A season tab, as the Android app's PillTabs (the library's tabs, batch 2): each tab draws
+       its slice of one holder pill, the left half rounded on the first tab and the right on the
+       last (ListItem.Property(edge): l, r or lr, set by the Python); the showing tab lighter, the
+       focused one white. -->
+  <include name="SeasonTab">
+    <param name="w"/><param name="half"/><param name="inner"/><param name="color" default="A6F5F5F7"/>
+    <param name="current" default="false"/><param name="focus" default="false"/>
+    <definition>
+      <control type="image">
+        <left>0</left><top>0</top><width>$PARAM[half]</width><height>76</height>
+        <texture border="38,0,38,0">arc-tab-l.png</texture>
+        <visible>String.Contains(ListItem.Property(edge),l)</visible>
+      </control>
+      <control type="image">
+        <left>0</left><top>0</top><width>$PARAM[half]</width><height>76</height>
+        <texture border="38,0,38,0">arc-tab-m.png</texture>
+        <visible>!String.Contains(ListItem.Property(edge),l)</visible>
+      </control>
+      <control type="image">
+        <left>$PARAM[half]</left><top>0</top><width>$PARAM[half]</width><height>76</height>
+        <texture border="38,0,38,0">arc-tab-r.png</texture>
+        <visible>String.Contains(ListItem.Property(edge),r)</visible>
+      </control>
+      <control type="image">
+        <left>$PARAM[half]</left><top>0</top><width>$PARAM[half]</width><height>76</height>
+        <texture border="38,0,38,0">arc-tab-m.png</texture>
+        <visible>!String.Contains(ListItem.Property(edge),r)</visible>
+      </control>
+      <control type="image">
+        <left>6</left><top>6</top><width>$PARAM[inner]</width><height>64</height>
+        <texture border="32" colordiffuse="2EFFFFFF">arc-pill-white-64.png</texture>
+        <visible>$PARAM[current]</visible>
+      </control>
+      <control type="image">
+        <left>6</left><top>6</top><width>$PARAM[inner]</width><height>64</height>
+        <texture border="32">arc-pill-white-64.png</texture>
+        <visible>$PARAM[focus]</visible>
+      </control>
+      <control type="label">
+        <left>0</left><top>0</top><width>$PARAM[w]</width><height>76</height>
+        <font>arc-label</font><align>center</align><aligny>center</aligny>
+        <textcolor>$PARAM[color]</textcolor>
+        <label>$INFO[ListItem.Label]</label>
+        <visible>!$PARAM[focus]</visible>
+      </control>
+      <control type="label">
+        <left>0</left><top>0</top><width>$PARAM[w]</width><height>76</height>
+        <font>arc-label</font><align>center</align><aligny>center</aligny>
+        <textcolor>black</textcolor>
+        <label>$INFO[ListItem.Label]</label>
+        <visible>$PARAM[focus]</visible>
       </control>
     </definition>
   </include>

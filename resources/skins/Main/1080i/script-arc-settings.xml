@@ -23,29 +23,37 @@
     </control>
     <control type="group">
       <left>120</left>
-      <top>300</top>
+      <top>220</top>
       <width>640</width>
       <control type="image">
-        <left>210</left>
+        <left>140</left>
         <top>0</top>
-        <width>220</width>
-        <height>220</height>
+        <width>360</width>
+        <height>360</height>
         <texture>arc-circle.png</texture>
-        <colordiffuse>FF1F1F28</colordiffuse>
+        <colordiffuse>$INFO[Window.Property(colorhex)]</colordiffuse>
+      </control>
+      <control type="image">
+        <left>140</left>
+        <top>0</top>
+        <width>360</width>
+        <height>360</height>
+        <texture>arc-avatar-sheen.png</texture>
       </control>
       <control type="label" id="102">
-        <left>210</left>
+        <left>140</left>
         <top>0</top>
-        <width>220</width>
-        <height>220</height>
+        <width>360</width>
+        <height>360</height>
         <font>font60</font>
-        <textcolor>FFF5F5F7</textcolor>
+        <textcolor>FFFFFFFF</textcolor>
         <align>center</align>
         <aligny>center</aligny>
+        <animation effect="zoom" start="200" end="200" center="auto" time="0" condition="true">Conditional</animation>
       </control>
       <control type="label" id="101">
         <left>0</left>
-        <top>250</top>
+        <top>396</top>
         <width>640</width>
         <height>60</height>
         <font>font52_title</font>
@@ -54,20 +62,11 @@
       </control>
       <control type="label" id="100">
         <left>0</left>
-        <top>316</top>
+        <top>464</top>
         <width>640</width>
         <height>40</height>
         <font>font13</font>
         <textcolor>FFA1A1AD</textcolor>
-        <align>center</align>
-      </control>
-      <control type="label" id="103">
-        <left>0</left>
-        <top>358</top>
-        <width>640</width>
-        <height>40</height>
-        <font>font12</font>
-        <textcolor>FF6B6B78</textcolor>
         <align>center</align>
       </control>
     </control>
@@ -90,13 +89,13 @@
       <onleft>noop</onleft>
       <onright>noop</onright>
       <scrolltime tween="cubic" easing="out">200</scrolltime>
-      <itemlayout height="76" width="960">
+      <itemlayout height="84" width="960">
         <control type="label">
-          <left>28</left>
-          <top>30</top>
+          <left>24</left>
+          <top>36</top>
           <width>900</width>
           <height>44</height>
-          <font>font13</font>
+          <font>font27</font>
           <textcolor>FFA1A1AD</textcolor>
           <aligny>center</aligny>
           <label>$INFO[ListItem.Label]</label>
@@ -114,18 +113,18 @@
         </control>
         <control type="image">
           <left>0</left>
-          <top>6</top>
+          <top>4</top>
           <width>960</width>
-          <height>64</height>
-          <texture border="32" colordiffuse="FF1F1F28">arc-pill-white-64.png</texture>
+          <height>76</height>
+          <texture border="20" colordiffuse="0FFFFFFF">arc-row.png</texture>
           <visible>String.IsEqual(ListItem.Property(kind),row)</visible>
         </control>
         <control type="label">
-          <left>36</left>
-          <top>6</top>
+          <left>28</left>
+          <top>4</top>
           <width>560</width>
-          <height>64</height>
-          <font>font13</font>
+          <height>76</height>
+          <font>font27</font>
           <aligny>center</aligny>
           <textcolor>FFF5F5F7</textcolor>
           <label>$INFO[ListItem.Label]</label>
@@ -133,24 +132,24 @@
         </control>
         <control type="label">
           <left>420</left>
-          <top>6</top>
-          <width>504</width>
-          <height>64</height>
-          <font>font13</font>
+          <top>4</top>
+          <width>512</width>
+          <height>76</height>
+          <font>font27</font>
           <aligny>center</aligny>
           <align>right</align>
-          <textcolor>FFA1A1AD</textcolor>
+          <textcolor>99FFFFFF</textcolor>
           <label>$INFO[ListItem.Label2]</label>
           <visible>String.IsEqual(ListItem.Property(kind),row)</visible>
         </control>
       </itemlayout>
-      <focusedlayout height="76" width="960">
+      <focusedlayout height="84" width="960">
         <control type="label">
-          <left>28</left>
-          <top>30</top>
+          <left>24</left>
+          <top>36</top>
           <width>900</width>
           <height>44</height>
-          <font>font13</font>
+          <font>font27</font>
           <textcolor>FFA1A1AD</textcolor>
           <aligny>center</aligny>
           <label>$INFO[ListItem.Label]</label>
@@ -168,37 +167,37 @@
         </control>
         <control type="image">
           <left>0</left>
-          <top>6</top>
+          <top>4</top>
           <width>960</width>
-          <height>64</height>
-          <texture border="32" colordiffuse="FF1F1F28">arc-pill-white-64.png</texture>
+          <height>76</height>
+          <texture border="20" colordiffuse="0FFFFFFF">arc-row.png</texture>
           <visible>String.IsEqual(ListItem.Property(kind),row) + !Control.HasFocus(110)</visible>
         </control>
         <control type="image">
           <left>0</left>
-          <top>6</top>
+          <top>4</top>
           <width>960</width>
-          <height>64</height>
-          <texture border="32">arc-pill-white-64.png</texture>
+          <height>76</height>
+          <texture border="20">arc-row.png</texture>
           <visible>String.IsEqual(ListItem.Property(kind),row) + Control.HasFocus(110)</visible>
         </control>
         <control type="label">
-          <left>36</left>
-          <top>6</top>
+          <left>28</left>
+          <top>4</top>
           <width>560</width>
-          <height>64</height>
-          <font>font13</font>
+          <height>76</height>
+          <font>font27</font>
           <aligny>center</aligny>
           <textcolor>FFF5F5F7</textcolor>
           <label>$INFO[ListItem.Label]</label>
           <visible>String.IsEqual(ListItem.Property(kind),row) + !Control.HasFocus(110)</visible>
         </control>
         <control type="label">
-          <left>36</left>
-          <top>6</top>
+          <left>28</left>
+          <top>4</top>
           <width>560</width>
-          <height>64</height>
-          <font>font13</font>
+          <height>76</height>
+          <font>font27</font>
           <aligny>center</aligny>
           <textcolor>FF000000</textcolor>
           <label>$INFO[ListItem.Label]</label>
@@ -206,22 +205,22 @@
         </control>
         <control type="label">
           <left>420</left>
-          <top>6</top>
-          <width>504</width>
-          <height>64</height>
-          <font>font13</font>
+          <top>4</top>
+          <width>512</width>
+          <height>76</height>
+          <font>font27</font>
           <aligny>center</aligny>
           <align>right</align>
-          <textcolor>FFA1A1AD</textcolor>
+          <textcolor>99FFFFFF</textcolor>
           <label>$INFO[ListItem.Label2]</label>
           <visible>String.IsEqual(ListItem.Property(kind),row) + !Control.HasFocus(110)</visible>
         </control>
         <control type="label">
           <left>420</left>
-          <top>6</top>
-          <width>504</width>
-          <height>64</height>
-          <font>font13</font>
+          <top>4</top>
+          <width>512</width>
+          <height>76</height>
+          <font>font27</font>
           <aligny>center</aligny>
           <align>right</align>
           <textcolor>FF3A3A40</textcolor>

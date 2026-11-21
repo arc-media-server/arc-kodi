@@ -13,11 +13,11 @@ from ..compat import ADDON_VERSION, T
 from ..log import log
 from . import menu
 from .base import ArcWindow, list_item
+from .signin import PROFILE_COLOURS
 
 SERVER = 100
 PROFILE = 101
 INITIALS = 102
-VERSION = 103
 ABOUT = 104
 ROWS = 110
 
@@ -57,9 +57,10 @@ class SettingsWindow(ArcWindow):
         self.entries = settings.layout(together=self.session.together.available)
         name = (self.session.profile or {}).get("name", "")
         self.set_label(PROFILE, name)
-        self.set_label(INITIALS, "".join(w[:1] for w in name.split()[:2]).upper())
+        self.set_label(INITIALS, name[:1].upper())
         self.set_label(SERVER, self.session.identity_name or "")
-        self.set_label(VERSION, T(30412) % ADDON_VERSION)
+        self.setProperty("colorhex", PROFILE_COLOURS.get(
+            (self.session.profile or {}).get("color"), PROFILE_COLOURS["violet"]))
         self.set_text(ABOUT, T(30309))
         self._fill()
         first = next(i for i, (kind, _) in enumerate(self.entries) if kind == "row")

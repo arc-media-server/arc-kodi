@@ -22,6 +22,7 @@ RES = os.path.join(ROOT, "resources")
 BG = (11, 11, 16, 255)
 SURFACE = (21, 21, 28, 255)
 SURFACE2 = (31, 31, 40, 255)
+SURFACE3 = (42, 42, 53, 255)
 WHITE = (255, 255, 255, 255)
 
 
@@ -31,9 +32,9 @@ S = 4  # supersampling for smooth edges
 SIDEBAR_LOGO_H = 40
 SIDEBAR_ICON = 44
 LOGO_STACKED_H = 190
-OSD_ICONS = {"sliders-horizontal": 34, "volume-2": 34, "captions": 34, "check": 30, "play": 26, "pause": 26,
+OSD_ICONS = {"volume-2": 34, "captions": 34, "check": 30, "play": 26, "pause": 26,
              "rotate-ccw": 34, "circle-check": 34, "bookmark": 34, "bookmark-check": 34, "circle-check-filled": 34,
-             "skip-back": 30, "shuffle": 34, "ellipsis": 34, "star": 24}
+             "skip-back": 30, "shuffle": 34, "ellipsis": 34, "star": 24, "gauge": 34}
 
 
 def _rounded(size, radius, fill=None, outline=None, width=0):
@@ -335,6 +336,30 @@ def fanart():
     img.save(os.path.join(RES, "fanart.jpg"), quality=88)
 
 
+def sign_in():
+    # Sign-in and Profiles, as Android's: the code's boxes (Surface with a Surface3 edge, 12 dp
+    # corners), an outlined pill (Android's OutlinedButton; tinted in the skin) and the spinner.
+    _rounded((48, 48), 20, fill=WHITE).save(os.path.join(MEDIA, "arc-row.png"))  # Settings' rows (10 dp)
+    _rounded((64, 64), 24, fill=SURFACE, outline=SURFACE3, width=4).save(os.path.join(MEDIA, "arc-code-box.png"))
+    _rounded((76, 76), 38, outline=WHITE, width=3).save(os.path.join(MEDIA, "arc-pill-line.png"))
+    n = 64
+    img = _canvas(n)
+    ImageDraw.Draw(img).arc([3 * S, 3 * S, (n - 3) * S, (n - 3) * S], 0, 270, fill=WHITE, width=6 * S)
+    _save_small(img, "arc-spinner.png", n)
+    # A profile's avatar is a gradient in Android (lighter at the top left); over the profile's
+    # colour this sheen does the same.
+    n = 224
+    shade = Image.new("L", (n, n))
+    shade.putdata([int(max(0, 1 - (x + y) / (2 * n)) * 110) for y in range(n) for x in range(n)])
+    disc = Image.new("L", (n * S, n * S))
+    ImageDraw.Draw(disc).ellipse([0, 0, n * S - 1, n * S - 1], fill=255)
+    disc = disc.resize((n, n), Image.LANCZOS)
+    from PIL import ImageChops
+    sheen = Image.new("RGBA", (n, n), WHITE)
+    sheen.putalpha(ImageChops.multiply(shade, disc))
+    sheen.save(os.path.join(MEDIA, "arc-avatar-sheen.png"))
+
+
 def main():
     os.makedirs(MEDIA, exist_ok=True)
     for name in os.listdir(MEDIA):
@@ -357,6 +382,7 @@ def main():
     side_panel()
     player()
     title_page()
+    sign_in()
     write_rating_stars(MEDIA)  # Star rating
     brand_renders()
     fanart()

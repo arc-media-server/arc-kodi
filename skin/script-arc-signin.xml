@@ -1,58 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Sign in, as the Android app's SignInScreen: the steps on the left, the code on the right. -->
 <window>
   <defaultcontrol always="true">102</defaultcontrol>
   <controls>
     <include>PageBackground</include>
-    <control type="group">
-      <left>560</left><top>300</top><width>800</width>
-      <control type="image">
-        <left>310</left><top>-230</top><width>180</width><height>190</height>
-        <texture>arc-logo-stacked.png</texture>
-      </control>
-      <control type="label">
-        <left>0</left><top>0</top><width>800</width><height>60</height>
-        <font>arc-title</font><textcolor>fg</textcolor>
-        <label>$ADDON[script.arc 30040]</label>
-      </control>
-      <control type="label">
-        <left>0</left><top>80</top><width>800</width><height>80</height>
-        <font>arc-body</font><textcolor>muted</textcolor><wrapmultiline>true</wrapmultiline>
-        <label>$ADDON[script.arc 30041]</label>
-      </control>
-      <control type="label">
-        <left>0</left><top>180</top><width>800</width><height>36</height>
-        <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
-        <label>$ADDON[script.arc 30042]</label>
-      </control>
-      <control type="label" id="100">
-        <left>0</left><top>220</top><width>800</width><height>120</height>
-        <font>arc-code</font><textcolor>fg</textcolor><align>center</align>
-        <label></label>
-      </control>
-      <control type="label" id="101">
-        <left>0</left><top>360</top><width>800</width><height>40</height>
-        <font>arc-small</font><textcolor>muted</textcolor><align>center</align>
-        <label>$ADDON[script.arc 30043]</label>
-      </control>
+    <control type="image">
+      <left>192</left><top>158</top><width>361</width><height>96</height>
+      <texture>arc-logo.png</texture><aspectratio align="left">keep</aspectratio>
+    </control>
+    <control type="label">
+      <left>192</left><top>290</top><width>704</width><height>80</height>
+      <font>arc-hero</font><textcolor>fg</textcolor>
+      <label>$ADDON[script.arc 30040]</label>
+    </control>
+    <control type="image">
+      <left>192</left><top>428</top><width>56</width><height>56</height>
+      <texture>arc-circle.png</texture><colordiffuse>surface3</colordiffuse>
+    </control>
+    <control type="label">
+      <left>192</left><top>428</top><width>56</width><height>56</height>
+      <font>arc-label</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+      <label>$NUMBER[1]</label>
+    </control>
+    <control type="label">
+      <left>276</left><top>434</top><width>620</width><height>84</height>
+      <font>arc-body</font><textcolor>fg</textcolor><wrapmultiline>true</wrapmultiline>
+      <label>$ADDON[script.arc 30041]</label>
+    </control>
+    <control type="image">
+      <left>192</left><top>540</top><width>56</width><height>56</height>
+      <texture>arc-circle.png</texture><colordiffuse>surface3</colordiffuse>
+    </control>
+    <control type="label">
+      <left>192</left><top>540</top><width>56</width><height>56</height>
+      <font>arc-label</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+      <label>$NUMBER[2]</label>
+    </control>
+    <control type="label" id="105">
+      <left>276</left><top>546</top><width>620</width><height>44</height>
+      <font>arc-body</font><textcolor>fg</textcolor><wrapmultiline>true</wrapmultiline>
+      <label></label>
+    </control>
+    <control type="image">
+      <left>192</left><top>624</top><width>56</width><height>56</height>
+      <texture>arc-circle.png</texture><colordiffuse>surface3</colordiffuse>
+    </control>
+    <control type="label">
+      <left>192</left><top>624</top><width>56</width><height>56</height>
+      <font>arc-label</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+      <label>$NUMBER[3]</label>
+    </control>
+    <control type="label">
+      <left>276</left><top>630</top><width>620</width><height>44</height>
+      <font>arc-body</font><textcolor>fg</textcolor><wrapmultiline>true</wrapmultiline>
+      <label>$ADDON[script.arc 30042]</label>
+    </control>
+    <control type="group" id="120">
+      <left>192</left><top>752</top>
       <control type="button" id="102">
         <onright>103</onright><ondown>104</ondown>
-        <include content="PrimaryButton"><param name="width" value="390"/></include>
-        <top>430</top>
+        <include content="OutlineButton"><param name="width" value="300"/></include>
         <label>$ADDON[script.arc 30045]</label>
       </control>
       <control type="button" id="103">
         <onleft>102</onleft><ondown>104</ondown>
-        <include content="PillButton"><param name="width" value="390"/></include>
-        <left>410</left><top>430</top><width>390</width>
+        <include content="OutlineButton"><param name="width" value="340"/></include>
+        <left>328</left>
         <label>$ADDON[script.arc 30046]</label>
       </control>
-      <!-- For a keyboard (Kodi on a PC): the household password instead of a code. -->
+      <!-- For a keyboard (Kodi on a PC): the household password instead of a code; quieter. -->
       <control type="button" id="104">
         <onup>102</onup>
-        <include content="PillButton"><param name="width" value="800"/></include>
-        <top>526</top><width>800</width>
+        <include content="QuietButton"><param name="width" value="360"/></include>
+        <top>96</top>
         <label>$ADDON[script.arc 30311]</label>
       </control>
+    </control>
+    <control type="image">
+      <left>1026</left><top>350</top><width>160</width><height>208</height>
+      <texture border="24">arc-code-box.png</texture>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="label" id="110">
+      <left>1026</left><top>350</top><width>160</width><height>208</height>
+      <font>arc-code</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="image">
+      <left>1206</left><top>350</top><width>160</width><height>208</height>
+      <texture border="24">arc-code-box.png</texture>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="label" id="111">
+      <left>1206</left><top>350</top><width>160</width><height>208</height>
+      <font>arc-code</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="image">
+      <left>1386</left><top>350</top><width>160</width><height>208</height>
+      <texture border="24">arc-code-box.png</texture>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="label" id="112">
+      <left>1386</left><top>350</top><width>160</width><height>208</height>
+      <font>arc-code</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="image">
+      <left>1566</left><top>350</top><width>160</width><height>208</height>
+      <texture border="24">arc-code-box.png</texture>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="label" id="113">
+      <left>1566</left><top>350</top><width>160</width><height>208</height>
+      <font>arc-code</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <!-- A code that isn't four characters, whole. -->
+    <control type="label" id="100">
+      <left>1024</left><top>350</top><width>704</width><height>208</height>
+      <font>arc-code</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+      <visible>!String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="group">
+      <left>1024</left><top>614</top><width>704</width>
+      <control type="image" id="106">
+        <left>0</left><top>8</top><width>32</width><height>32</height>
+        <texture>arc-spinner.png</texture><colordiffuse>muted</colordiffuse>
+        <animation effect="rotate" end="-360" center="auto" time="1100" loop="true" reversible="false" condition="true">Conditional</animation>
+      </control>
+      <control type="label" id="101">
+        <left>0</left><top>0</top><width>704</width><height>48</height>
+        <font>arc-body</font><textcolor>muted</textcolor><aligny>center</aligny>
+      </control>
+    </control>
+    <control type="label" id="107">
+      <left>1024</left><top>686</top><width>704</width><height>40</height>
+      <font>arc-small</font><textcolor>subtle</textcolor><align>center</align>
     </control>
     <include>ArcToast</include>
   </controls>
