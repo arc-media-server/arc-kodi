@@ -1,7 +1,9 @@
 # Arc for Kodi: notes for AI agents
 
-The Kodi client for Arc Media Server: a full-screen add-on (`script.arc`) that draws its own interface with WindowXML and never touches Kodi's library. Its
-look follows Arc's design (arc-apple is the fullest version); how it behaves inside Kodi follows Kodi's own conventions and settings. Read `README.md`; `docs/DEVELOPING.md` has the layout, running it in Kodi, the Kodi gotchas
+The Kodi client for Arc Media Server: a full-screen add-on (`script.arc`) that
+draws its own interface with WindowXML and never touches Kodi's library. Its
+look follows Arc's design (arc-apple is the fullest version); how it behaves inside Kodi follows
+Kodi's own conventions and settings. Read `README.md`; `docs/DEVELOPING.md` has the layout, running it in Kodi, the Kodi gotchas
 and the full design notes summarised below.
 
 **Shared rules:** arc-media-server's `docs/AGENT-RULES.md` applies here (workflow, decisions, Arc's

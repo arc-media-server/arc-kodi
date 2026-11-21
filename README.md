@@ -28,6 +28,8 @@ A full-screen [Kodi](https://kodi.tv) add-on for
 interface rather than using Kodi's library: Home, your libraries, title pages, search and the
 player all look like Arc's other apps, and Kodi's own player plays the video.
 
+Heavily inspired by [PM4K](https://github.com/pannal/plex-for-kodi) and pannal.
+
 Everything comes from your Arc server through its stable `/api/v1`, and your watch history,
 resume points and settings are the same as on every other Arc app.
 

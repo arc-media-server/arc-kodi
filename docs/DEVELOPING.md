@@ -116,8 +116,8 @@ The full form of the rules `CLAUDE.md` summarises.
   Symbols, which may only be used on Apple's platforms. No colour anywhere (owner, 1 November; the new logo, 13 November): chosen and main
   controls are white with black text, and the logo is white. Dark only; artwork-led Home (no
   banner). Colours live only in `skin/includes.xml` (and the media `tools/make_media.py` draws).
-- **Plex first:** for Kodi-specific behaviour (keys, the player,
-  refresh-rate switching, passthrough), follow Kodi's own settings and conventions rather than adding
+- **Plex first:** for Kodi-specific behaviour (keys, the player, refresh-rate switching,
+  passthrough), follow Kodi's own settings and conventions rather than adding
   options; for product behaviour follow Arc's design (the other Arc apps) and Plex. Settings come from the server
   (the profile's prefs) wherever Arc already has them; the add-on's own settings are only what
   only Kodi can know. Note differences in the PR.
