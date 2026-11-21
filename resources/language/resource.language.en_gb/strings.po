@@ -1509,3 +1509,7 @@ msgstr ""
 msgctxt "#30616"
 msgid "Top Results"
 msgstr ""
+
+msgctxt "#30617"
+msgid "Kodi's Player Info"
+msgstr ""

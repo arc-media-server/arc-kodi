@@ -36,6 +36,7 @@ HERO_LOGO = 62
 HERO_TITLE = 63
 HERO_INFO = 64
 HERO_OVERVIEW = 65
+HERO_GROUP, HERO_TEXT_GROUP = 67, 68
 
 # Watch Together's row, first while there are rooms (it shows only once it has cards).
 TOGETHER_ROW = {"id": "together", "source": ("together",), "style": homerows.THUMB, "season_posters": False}
@@ -116,6 +117,13 @@ class HomeWindow(ArcWindow):
         return None
 
     def _layout_rows(self):
+        # The hero fills the screen above the first row, its text moving down with it.
+        height = homerows.hero_height(self.rows[0].get("style") if self.rows else homerows.POSTER)
+        try:
+            self.getControl(HERO_GROUP).setHeight(height)
+            self.getControl(HERO_TEXT_GROUP).setPosition(8, height - homerows.HERO_TEXT)
+        except Exception:
+            pass
         for i in range(MAX_ROWS):
             if i < len(self.rows):
                 self.set_label(self._bases(self.rows[i])[1] + 1 + i, self._row_title(self.rows[i]))

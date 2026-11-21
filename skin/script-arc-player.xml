@@ -734,6 +734,14 @@
           </control>
         </focusedlayout>
       </control>
+      <!-- Kodi's own Player Process Info (CoreELEC's shows more, such as Dolby Vision FEL/MEL):
+           focused while the panel shows; the Python places it under the rows. -->
+      <control type="button" id="854">
+        <left>40</left><top>500</top>
+        <include content="OutlineButton"><param name="width" value="360"/></include>
+        <label>$ADDON[script.arc 30617]</label>
+        <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>noop</onright>
+      </control>
     </control>
   </controls>
 </window>

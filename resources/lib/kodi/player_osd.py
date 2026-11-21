@@ -52,7 +52,7 @@ INFO_IMAGE, INFO_TITLE, RESTART, PREVIOUS, INFO_OVERVIEW, INFO_META, INFO_HOW, I
 CHAPTERS_LIST, CAST_LIST, EPISODES_LIST = 531, 541, 551
 CARD_FOCUS = {"info": RESTART, "chapters": CHAPTERS_LIST, "cast": CAST_LIST, "episodes": EPISODES_LIST}
 CONTROLS, MENU = 200, 600
-INFO, INFO_LIST, INFO_BACK = 850, 852, 853   # Player Info's panel (700s are the lobby's)
+INFO, INFO_LIST, INFO_BACK, INFO_KODI = 850, 852, 853, 854   # Player Info's panel (700s are the lobby's)
 INFO_ROW, INFO_EVERY = 40, 1.0              # its rows; how often it reads Kodi again (seconds)
 INFO_NAMES = {"video": 30461, "decoder": 30462, "picture": 30463, "pixformat": 30464, "hdr": 30465,
               "deint": 30466, "dolby_vision": 30467, "dv_profile": 30468, "dv_layers": 30469,
@@ -159,6 +159,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         self._up_next = False
         self._was_paused = False    # for showing the controls when playback pauses
         self._info_at = None        # Player Info: when it last read Kodi (None while closed)
+        self._kodi_info = False     # Kodi's own Player Process Info is open in its place
         self._card = None           # the tab whose card is open ("info", ...), or None
         self._tabs = ["info"]       # the tabs that show
         self._details = None        # the whole title (its cast and files), fetched once per title
@@ -228,6 +229,11 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         # Keep ordinary film errors visible.
         if self.pb.preroll_pending or self.pb.preroll_active:
             dialogs += ("okdialog",)
+        if getattr(self, "_kodi_info", False):
+            if xbmc.getCondVisibility("Window.IsVisible(playerprocessinfo)"):
+                dialogs = tuple(d for d in dialogs if d != "playerprocessinfo")
+            else:
+                self._kodi_info = False   # Kodi closed it itself
         for name in dialogs:
             if xbmc.getCondVisibility("Window.IsVisible(%s)" % name):
                 xbmc.executebuiltin("Dialog.Close(%s,true)" % name)
@@ -803,10 +809,27 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         if self._info_at is None:
             self._draw_info()
             self.setProperty("arc.info", "1")
+            self._focus(INFO_KODI)
             log.debug("player info shown")
         else:
             self._info_at = None
             self.setProperty("arc.info", "")
+            self.setFocusId(CATCHER)
+
+    def _open_kodi_info(self):
+        """Kodi's own Player Process Info in place of Arc's panel (CoreELEC's shows more). Arc's
+        window stays open but shows nothing over it; Back, Info or O closes it."""
+        if self._info_at is not None:
+            self._toggle_info()
+        self._hide()
+        self._kodi_info = True
+        if not xbmc.getCondVisibility("Window.IsVisible(playerprocessinfo)"):
+            xbmc.executebuiltin("ActivateWindow(playerprocessinfo)")
+        log.debug("Kodi's player info shown")
+
+    def _close_kodi_info(self):
+        self._kodi_info = False
+        xbmc.executebuiltin("Dialog.Close(playerprocessinfo,true)")
 
     def _draw_info(self):
         """Reads what Kodi's player reports now and shows it (once a second while open)."""
@@ -830,7 +853,8 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
                 li.setProperty("key", e[1])
                 items.append(li)
             ctrl.addItems(items)
-            self.getControl(INFO_BACK).setHeight(76 + len(entries) * INFO_ROW + 24)
+            self.getControl(INFO_BACK).setHeight(76 + len(entries) * INFO_ROW + 24 + 96)
+            self.getControl(INFO_KODI).setPosition(40, 76 + len(entries) * INFO_ROW + 24)
         except Exception as e:
             log.debug("player info not drawn (%s)", type(e).__name__)
 
@@ -892,6 +916,8 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             self._invite_more()
         elif control_id == LOBBY_LEAVE:
             self.pb.stop()
+        elif control_id == INFO_KODI:
+            self._open_kodi_info()
         elif control_id == SKIP and self._marker:
             end = self._marker.get("end_ms") or 0
             self._skipped.add(self._marker.get("start_ms"))
@@ -948,8 +974,20 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             if code in A_BACK:
                 self.pb.stop()   # closing the player leaves the room
             return               # the lobby's buttons move by themselves; Select is onClick
+        if self._kodi_info:
+            # Kodi's dialog is over the video; Arc's window still hears the keys first.
+            if code in A_BACK or code in A_PROCESS_INFO or code in A_INFO:
+                self._close_kodi_info()
+            return
+        if code in A_INFO and self._info_at is not None:
+            self._open_kodi_info()   # the remote's Info button while Arc's panel shows
+            return
         if code in A_PROCESS_INFO:
-            self._toggle_info()
+            # The first press opens Arc's Player Info; a second, Kodi's own.
+            if self._info_at is None:
+                self._toggle_info()
+            else:
+                self._open_kodi_info()
             return
         if code in A_BACK:
             if self._menu is not None:
