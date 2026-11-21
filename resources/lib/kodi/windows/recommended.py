@@ -24,6 +24,7 @@ TITLE_STRINGS = {
 
 class RecommendedWindow(TabsMixin, home.HomeWindow):
     xml = "script-arc-library-rows.xml"
+    HERO_SPOT = None    # its rows have no hero above them
     ABOVE_ROWS = TABS   # Up from the first row: the library's tabs
 
     def __init__(self, *args, **kwargs):

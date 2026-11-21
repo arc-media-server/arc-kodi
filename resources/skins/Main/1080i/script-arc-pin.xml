@@ -121,7 +121,7 @@
             <width>96</width>
             <height>96</height>
             <texture>arc-key.png</texture>
-            <colordiffuse>FF2F3038</colordiffuse>
+            <colordiffuse>FF1F1F28</colordiffuse>
             <visible>!String.IsEmpty(ListItem.Label)</visible>
           </control>
           <control type="label">

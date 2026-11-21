@@ -38,7 +38,7 @@
         <top>88</top>
         <width>1040</width>
         <height>72</height>
-        <texture border="32" colordiffuse="FF2F3038">arc-pill-white-64.png</texture>
+        <texture border="32" colordiffuse="FF1F1F28">arc-pill-white-64.png</texture>
       </control>
       <control type="label" id="704">
         <left>72</left>
@@ -67,7 +67,7 @@
             <width>94</width>
             <height>70</height>
             <texture border="28">arc-pill-white-56.png</texture>
-            <colordiffuse>FF2F3038</colordiffuse>
+            <colordiffuse>FF1F1F28</colordiffuse>
           </control>
           <control type="label">
             <left>0</left>
@@ -88,7 +88,7 @@
             <width>94</width>
             <height>70</height>
             <texture border="28">arc-pill-white-56.png</texture>
-            <colordiffuse>FF2F3038</colordiffuse>
+            <colordiffuse>FF1F1F28</colordiffuse>
             <visible>!Control.HasFocus(702)</visible>
           </control>
           <control type="image">
@@ -134,7 +134,7 @@
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
         <texturefocus border="28">arc-pill-white-56.png</texturefocus>
-        <texturenofocus border="28" colordiffuse="FF2F3038">arc-pill-white-56.png</texturenofocus>
+        <texturenofocus border="28" colordiffuse="FF1F1F28">arc-pill-white-56.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
         <label>$ADDON[script.arc 30450]</label>
@@ -152,7 +152,7 @@
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
         <texturefocus border="28">arc-pill-white-56.png</texturefocus>
-        <texturenofocus border="28" colordiffuse="FF2F3038">arc-pill-white-56.png</texturenofocus>
+        <texturenofocus border="28" colordiffuse="FF1F1F28">arc-pill-white-56.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
         <label />
@@ -170,7 +170,7 @@
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
         <texturefocus border="28">arc-pill-white-56.png</texturefocus>
-        <texturenofocus border="28" colordiffuse="FF2F3038">arc-pill-white-56.png</texturenofocus>
+        <texturenofocus border="28" colordiffuse="FF1F1F28">arc-pill-white-56.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
         <label>$ADDON[script.arc 30316]</label>
@@ -188,7 +188,7 @@
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
         <texturefocus border="28">arc-pill-white-56.png</texturefocus>
-        <texturenofocus border="28" colordiffuse="FF2F3038">arc-pill-white-56.png</texturenofocus>
+        <texturenofocus border="28" colordiffuse="FF1F1F28">arc-pill-white-56.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
         <label>$ADDON[script.arc 30310]</label>
@@ -206,7 +206,7 @@
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
         <texturefocus border="28">arc-pill-white-56.png</texturefocus>
-        <texturenofocus border="28" colordiffuse="FF2F3038">arc-pill-white-56.png</texturenofocus>
+        <texturenofocus border="28" colordiffuse="FF1F1F28">arc-pill-white-56.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
         <label>$ADDON[script.arc 30317]</label>
@@ -224,7 +224,7 @@
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
         <texturefocus border="28">arc-pill-white-56.png</texturefocus>
-        <texturenofocus border="28" colordiffuse="FF2F3038">arc-pill-white-56.png</texturenofocus>
+        <texturenofocus border="28" colordiffuse="FF1F1F28">arc-pill-white-56.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
         <label>$ADDON[script.arc 30453]</label>

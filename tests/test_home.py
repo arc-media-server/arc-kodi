@@ -83,3 +83,12 @@ def test_spoilers():
     assert c["thumb"] == "/show" and c["show_art"]
     bare = home.without_spoilers(home.card(dict(ep, images={"primary": "/still"})))
     assert bare["thumb"] is None and home.card_art(bare, home.THUMB) is None
+
+
+def test_card_title_is_the_show_for_an_episode():
+    # The Android app's cardTitle: an episode's card is labelled with its show (its number goes on
+    # the line under it), anything else with its own title.
+    ep = {"kind": "episode", "title": "Half Loop", "series_title": "Severance"}
+    assert home.card_title(ep) == "Severance"
+    assert home.card_title({"kind": "episode", "title": "Half Loop"}) == "Half Loop"
+    assert home.card_title({"kind": "movie", "title": "Dune: Part Two"}) == "Dune: Part Two"
