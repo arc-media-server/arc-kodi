@@ -10,7 +10,7 @@ import time
 import xbmcgui
 
 from arc import home as homerows
-from arc import models, titlepage
+from arc import models, settings, titlepage
 
 from ..thememusic import ThemeMusic
 from .. import toast
@@ -100,7 +100,6 @@ class DetailsWindow(ArcWindow):
         self.seasons = []       # the order's seasons (Play follows these)
         self.tabs = []          # the season tabs: the seasons, then Not in This Order
         self.season_index = 0
-        self.show_missing = False
         self._seasons_request = 0
         self.related = []
         self.cast = []
@@ -360,8 +359,9 @@ class DetailsWindow(ArcWindow):
 
     # MARK: - seasons / episodes
 
-    def _load_seasons(self, show_missing=None):
-        missing = self.show_missing if show_missing is None else show_missing
+    def _load_seasons(self):
+        # Missing episodes are one profile setting (Settings), as Android's and the web's.
+        missing = settings.value(self.session.prefs, "show_missing_episodes")
         self._seasons_request += 1
         request = self._seasons_request
 
@@ -371,7 +371,6 @@ class DetailsWindow(ArcWindow):
             if error is not None or not data:
                 toast.show(T(30004))
                 return
-            self.show_missing = missing
             self._show_seasons(data, None)
 
         self.run_async(lambda: self.session.api.seasons(self.item_id, missing=missing), loaded)
@@ -703,23 +702,21 @@ class DetailsWindow(ArcWindow):
 
     def _season_menu(self):
         """OK or Context Menu on a season tab, as the Android app's: Mark Season as Watched (or
-        Unwatched), Shuffle Season and Show/Hide Missing Episodes. The visibility
-        toggle also works on empty seasons and Not in This Order."""
+        Unwatched) and Shuffle Season. Missing episodes are a setting in Settings."""
         index = self.list_control(SEASONS).getSelectedPosition()
         if not 0 <= index < len(self.tabs):
             return False
         if index != self.season_index:
             self._show_episodes(index)
         tab = self.tabs[index]
-        actions = titlepage.season_actions(tab) + ["hide_missing" if self.show_missing else "show_missing"]
-        words = {"watched": 30430, "unwatched": 30431, "shuffle": 30432,
-                 "show_missing": 30600, "hide_missing": 30601}
+        actions = titlepage.season_actions(tab)
+        if not actions:
+            return True
+        words = {"watched": 30430, "unwatched": 30431, "shuffle": 30432}
         choice = menu.choose(self._tab_name(tab), [T(words[a]) for a in actions])
         if not 0 <= choice < len(actions):
             return True
-        if actions[choice] in ("show_missing", "hide_missing"):
-            self._load_seasons(show_missing=actions[choice] == "show_missing")
-        elif actions[choice] == "shuffle":
+        if actions[choice] == "shuffle":
             ids = titlepage.season_episode_ids(tab)
             if self.nav and ids:
                 self.nav("queue", {"item_ids": ids, "shuffle": True})

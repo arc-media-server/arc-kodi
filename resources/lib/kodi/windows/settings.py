@@ -29,6 +29,7 @@ NAMES = {"auto_play": 30297, "auto_skip": 30298, "hide_spoilers": 30390, "audio_
          "switch_profile": 30202, "sign_out": 30063, "change_server": 30305, "about": 30307}
 # Theme music
 NAMES["theme_music"] = 30540
+NAMES["show_missing_episodes"] = 30614
 HEADINGS = {"playback": 30296, "subtitles": 30185, "together": 30330, "profile": 30308, "about": 30307}
 NOTES = {"playback_note": 30410, "style_note": 30411}
 VALUE_NAMES = {
