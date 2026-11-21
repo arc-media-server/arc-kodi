@@ -286,6 +286,7 @@ class HomeWindow(ArcWindow):
     # MARK: - background follows focus
 
     def onFocus(self, control_id):
+        self.restore_focus(control_id)
         if self.HERO_SPOT is not None and control_id == self.HERO_SPOT:
             self._leave_hero_spot()
             return

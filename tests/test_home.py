@@ -98,3 +98,12 @@ def test_hero_leaves_the_first_row_at_the_foot():
     from arc import home
     assert home.hero_height(home.THUMB) == 580 and home.hero_height(home.BACKDROP) == 580
     assert home.hero_height(home.POSTER) == 460 and home.hero_height(None) == 460
+
+
+def test_series_recent_batches_keep_count_and_added_time_identity():
+    show = {"id": "s", "kind": "series", "title": "Show"}
+    first = home.recent_card({"type": "series", "item": show, "episodes": 6, "added_at": 2000})
+    second = home.recent_card({"type": "series", "item": show, "episodes": 2, "added_at": 1000})
+    assert first["new_episodes"] == 6
+    assert first["id"] != second["id"]
+    assert first.get("season_number") is None

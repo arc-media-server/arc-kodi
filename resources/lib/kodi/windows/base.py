@@ -7,6 +7,8 @@ import threading
 import xbmc
 import xbmcgui
 
+from arc.focus import FocusMemory
+
 from .. import compat
 from ..log import log
 
@@ -39,6 +41,7 @@ class ArcWindow(xbmcgui.WindowXML):
         self.session = kwargs.pop("session")
         self.result = None
         self._closing = False
+        self._focus_memory = FocusMemory()
         xbmcgui.WindowXML.__init__(self)
 
     @classmethod
@@ -70,6 +73,12 @@ class ArcWindow(xbmcgui.WindowXML):
         code = action.getId()
         before = getattr(self, "_last_focus", None)
         try:
+            if code in (ACTION_UP, ACTION_DOWN) and before == self.getFocusId():
+                control = self.getFocusId()
+                columns = self.grid_columns(control)
+                if columns:
+                    ctrl = self.list_control(control)
+                    ctrl.selectItem(self._focus_memory.vertical(control, ctrl.getSelectedPosition(), ctrl.size(), columns))
             handled = self.on_action(action, code)
             if not handled and self.ROW_STOPS:
                 handled = self._step_rows(code, before)
@@ -83,10 +92,24 @@ class ArcWindow(xbmcgui.WindowXML):
             moved_to, self._moved_to = getattr(self, "_moved_to", None), None
             try:
                 self._last_focus = moved_to if moved_to is not None else self.getFocusId()
+                ctrl = self.list_control(self.getFocusId())
+                self._focus_memory.remember(self.getFocusId(), ctrl.getSelectedPosition(), self.grid_columns(self.getFocusId()))
             except Exception:
                 pass
         if code in ACTION_BACK:
             self.on_back()
+
+    def grid_columns(self, control_id):
+        return 0
+
+    def restore_focus(self, control_id):
+        """Restore a list before the window updates its artwork or season from the selection."""
+        try:
+            ctrl = self.list_control(control_id)
+            pos = self._focus_memory.enter(control_id, ctrl.getSelectedPosition(), ctrl.size())
+            ctrl.selectItem(pos)
+        except (AttributeError, RuntimeError):
+            self._focus_memory.enter(control_id, -1, 0)  # a button/section, not a list
 
     def _step_rows(self, code, before):
         """Up/Down between ROW_STOPS when Kodi didn't move the focus (see ROW_STOPS)."""

@@ -34,87 +34,99 @@
         <width>900</width>
         <height>76</height>
         <orientation>horizontal</orientation>
-        <itemgap>0</itemgap>
+        <itemgap>20</itemgap>
         <onup>noop</onup>
         <ondown>100</ondown>
         <onleft>noop</onleft>
         <onright>110</onright>
         <control type="button" id="121">
           <width>auto</width>
-          <height>76</height>
+          <height>72</height>
           <font>font13</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textoffsetx>36</textoffsetx>
           <textcolor>FFF5F5F7</textcolor>
           <focusedcolor>FF000000</focusedcolor>
-          <texturefocus border="38,0,38,0">arc-tab-l-focus.png</texturefocus>
-          <texturenofocus border="38,0,38,0">arc-tab-l-current.png</texturenofocus>
+          <texturefocus border="36">arc-pill-white.png</texturefocus>
+          <texturenofocus border="36" colordiffuse="2EFFFFFF">arc-pill-white.png</texturenofocus>
+          <aligny>center</aligny>
+          <align>center</align>
+          <textoffsetx>32</textoffsetx>
+          <animation effect="zoom" start="100" end="104" center="auto" time="120">Focus</animation>
+          <animation effect="zoom" start="104" end="100" center="auto" time="120">UnFocus</animation>
           <visible>String.IsEqual(Window.Property(arc.tab0),current)</visible>
         </control>
         <control type="button" id="122">
           <width>auto</width>
-          <height>76</height>
+          <height>72</height>
           <font>font13</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textoffsetx>36</textoffsetx>
-          <textcolor>A6F5F5F7</textcolor>
+          <textcolor>FFF5F5F7</textcolor>
           <focusedcolor>FF000000</focusedcolor>
-          <texturefocus border="38,0,38,0">arc-tab-l-focus.png</texturefocus>
-          <texturenofocus border="38,0,38,0">arc-tab-l.png</texturenofocus>
+          <texturefocus border="36">arc-pill-white.png</texturefocus>
+          <texturenofocus border="36" colordiffuse="1AFFFFFF">arc-pill-white.png</texturenofocus>
+          <aligny>center</aligny>
+          <align>center</align>
+          <textoffsetx>32</textoffsetx>
+          <animation effect="zoom" start="100" end="104" center="auto" time="120">Focus</animation>
+          <animation effect="zoom" start="104" end="100" center="auto" time="120">UnFocus</animation>
           <visible>String.IsEqual(Window.Property(arc.tab0),other)</visible>
         </control>
         <control type="button" id="123">
           <width>auto</width>
-          <height>76</height>
+          <height>72</height>
           <font>font13</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textoffsetx>36</textoffsetx>
           <textcolor>FFF5F5F7</textcolor>
           <focusedcolor>FF000000</focusedcolor>
-          <texturefocus border="38,0,38,0">arc-tab-m-focus.png</texturefocus>
-          <texturenofocus border="38,0,38,0">arc-tab-m-current.png</texturenofocus>
+          <texturefocus border="36">arc-pill-white.png</texturefocus>
+          <texturenofocus border="36" colordiffuse="2EFFFFFF">arc-pill-white.png</texturenofocus>
+          <aligny>center</aligny>
+          <align>center</align>
+          <textoffsetx>32</textoffsetx>
+          <animation effect="zoom" start="100" end="104" center="auto" time="120">Focus</animation>
+          <animation effect="zoom" start="104" end="100" center="auto" time="120">UnFocus</animation>
           <visible>String.IsEqual(Window.Property(arc.tab1),current)</visible>
         </control>
         <control type="button" id="124">
           <width>auto</width>
-          <height>76</height>
+          <height>72</height>
           <font>font13</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textoffsetx>36</textoffsetx>
-          <textcolor>A6F5F5F7</textcolor>
+          <textcolor>FFF5F5F7</textcolor>
           <focusedcolor>FF000000</focusedcolor>
-          <texturefocus border="38,0,38,0">arc-tab-m-focus.png</texturefocus>
-          <texturenofocus border="38,0,38,0">arc-tab-m.png</texturenofocus>
+          <texturefocus border="36">arc-pill-white.png</texturefocus>
+          <texturenofocus border="36" colordiffuse="1AFFFFFF">arc-pill-white.png</texturenofocus>
+          <aligny>center</aligny>
+          <align>center</align>
+          <textoffsetx>32</textoffsetx>
+          <animation effect="zoom" start="100" end="104" center="auto" time="120">Focus</animation>
+          <animation effect="zoom" start="104" end="100" center="auto" time="120">UnFocus</animation>
           <visible>String.IsEqual(Window.Property(arc.tab1),other)</visible>
         </control>
         <control type="button" id="125">
           <width>auto</width>
-          <height>76</height>
+          <height>72</height>
           <font>font13</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textoffsetx>36</textoffsetx>
           <textcolor>FFF5F5F7</textcolor>
           <focusedcolor>FF000000</focusedcolor>
-          <texturefocus border="38,0,38,0">arc-tab-r-focus.png</texturefocus>
-          <texturenofocus border="38,0,38,0">arc-tab-r-current.png</texturenofocus>
+          <texturefocus border="36">arc-pill-white.png</texturefocus>
+          <texturenofocus border="36" colordiffuse="2EFFFFFF">arc-pill-white.png</texturenofocus>
+          <aligny>center</aligny>
+          <align>center</align>
+          <textoffsetx>32</textoffsetx>
+          <animation effect="zoom" start="100" end="104" center="auto" time="120">Focus</animation>
+          <animation effect="zoom" start="104" end="100" center="auto" time="120">UnFocus</animation>
           <visible>String.IsEqual(Window.Property(arc.tab2),current)</visible>
         </control>
         <control type="button" id="126">
           <width>auto</width>
-          <height>76</height>
+          <height>72</height>
           <font>font13</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textoffsetx>36</textoffsetx>
-          <textcolor>A6F5F5F7</textcolor>
+          <textcolor>FFF5F5F7</textcolor>
           <focusedcolor>FF000000</focusedcolor>
-          <texturefocus border="38,0,38,0">arc-tab-r-focus.png</texturefocus>
-          <texturenofocus border="38,0,38,0">arc-tab-r.png</texturenofocus>
+          <texturefocus border="36">arc-pill-white.png</texturefocus>
+          <texturenofocus border="36" colordiffuse="1AFFFFFF">arc-pill-white.png</texturenofocus>
+          <aligny>center</aligny>
+          <align>center</align>
+          <textoffsetx>32</textoffsetx>
+          <animation effect="zoom" start="100" end="104" center="auto" time="120">Focus</animation>
+          <animation effect="zoom" start="104" end="100" center="auto" time="120">UnFocus</animation>
           <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
         </control>
       </control>
@@ -156,54 +168,62 @@
       </control>
       <control type="button" id="108">
         <width>auto</width>
-        <height>64</height>
+        <height>72</height>
         <font>font13</font>
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="FF23232A">arc-pill-white-64.png</texturenofocus>
+        <texturefocus border="36">arc-pill-white.png</texturefocus>
+        <texturenofocus border="36" colordiffuse="1AFFFFFF">arc-pill-white.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
         <textoffsetx>32</textoffsetx>
+        <animation effect="zoom" start="100" end="104" center="auto" time="120">Focus</animation>
+        <animation effect="zoom" start="104" end="100" center="auto" time="120">UnFocus</animation>
         <label>$ADDON[script.arc 30287]</label>
       </control>
       <control type="button" id="109">
         <width>auto</width>
-        <height>64</height>
+        <height>72</height>
         <font>font13</font>
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="FF23232A">arc-pill-white-64.png</texturenofocus>
+        <texturefocus border="36">arc-pill-white.png</texturefocus>
+        <texturenofocus border="36" colordiffuse="1AFFFFFF">arc-pill-white.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
         <textoffsetx>32</textoffsetx>
+        <animation effect="zoom" start="100" end="104" center="auto" time="120">Focus</animation>
+        <animation effect="zoom" start="104" end="100" center="auto" time="120">UnFocus</animation>
         <label>$ADDON[script.arc 30288]</label>
       </control>
       <control type="button" id="102">
         <width>auto</width>
-        <height>64</height>
+        <height>72</height>
         <font>font13</font>
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="FF23232A">arc-pill-white-64.png</texturenofocus>
+        <texturefocus border="36">arc-pill-white.png</texturefocus>
+        <texturenofocus border="36" colordiffuse="1AFFFFFF">arc-pill-white.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
         <textoffsetx>32</textoffsetx>
+        <animation effect="zoom" start="100" end="104" center="auto" time="120">Focus</animation>
+        <animation effect="zoom" start="104" end="100" center="auto" time="120">UnFocus</animation>
         <label>$ADDON[script.arc 30123]</label>
       </control>
       <control type="button" id="103">
         <width>auto</width>
-        <height>64</height>
+        <height>72</height>
         <font>font13</font>
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
-        <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-        <texturenofocus border="32" colordiffuse="FF23232A">arc-pill-white-64.png</texturenofocus>
+        <texturefocus border="36">arc-pill-white.png</texturefocus>
+        <texturenofocus border="36" colordiffuse="1AFFFFFF">arc-pill-white.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
         <textoffsetx>32</textoffsetx>
+        <animation effect="zoom" start="100" end="104" center="auto" time="120">Focus</animation>
+        <animation effect="zoom" start="104" end="100" center="auto" time="120">UnFocus</animation>
         <label>$ADDON[script.arc 30124]</label>
       </control>
     </control>

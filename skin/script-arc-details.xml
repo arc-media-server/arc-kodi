@@ -305,16 +305,16 @@
         <height>124</height>
         <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
       <control type="list" id="200">
-        <!-- Tabs joined into one pill, as the library's (Not in This Order wider). -->
+        <!-- Standalone pills; each layout reserves 20px after its 72px-high pill. -->
         <left>8</left><top>24</top><width>1700</width><height>76</height>
         <!-- Its own condition too: ROW_STOPS asks whether the list itself is visible. -->
         <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>0</itemgap>
         <onup>100</onup>
-        <itemlayout width="300" height="76" condition="String.IsEqual(ListItem.Property(unplaced),true)"><include content="SeasonTab"><param name="w" value="300"/><param name="half" value="150"/><param name="inner" value="288"/></include></itemlayout>
-        <itemlayout width="210" height="76"><include content="SeasonTab"><param name="w" value="210"/><param name="half" value="105"/><param name="inner" value="198"/></include></itemlayout>
-        <focusedlayout width="300" height="76" condition="String.IsEqual(ListItem.Property(unplaced),true)"><include content="SeasonTab"><param name="w" value="300"/><param name="half" value="150"/><param name="inner" value="288"/><param name="current" value="!Control.HasFocus(200)"/><param name="focus" value="Control.HasFocus(200)"/><param name="color" value="fg"/></include></focusedlayout>
-        <focusedlayout width="210" height="76"><include content="SeasonTab"><param name="w" value="210"/><param name="half" value="105"/><param name="inner" value="198"/><param name="current" value="!Control.HasFocus(200)"/><param name="focus" value="Control.HasFocus(200)"/><param name="color" value="fg"/></include></focusedlayout>
+        <itemlayout width="300" height="76" condition="String.IsEqual(ListItem.Property(unplaced),true)"><include content="SeasonTab"><param name="w" value="300"/><param name="half" value="150"/><param name="inner" value="280"/><param name="textwidth" value="216"/></include></itemlayout>
+        <itemlayout width="210" height="76"><include content="SeasonTab"><param name="w" value="210"/><param name="half" value="105"/><param name="inner" value="190"/></include></itemlayout>
+        <focusedlayout width="300" height="76" condition="String.IsEqual(ListItem.Property(unplaced),true)"><include content="SeasonTab"><param name="w" value="300"/><param name="half" value="150"/><param name="inner" value="280"/><param name="textwidth" value="216"/><param name="current" value="!Control.HasFocus(200)"/><param name="focus" value="Control.HasFocus(200)"/><param name="color" value="fg"/></include></focusedlayout>
+        <focusedlayout width="210" height="76"><include content="SeasonTab"><param name="w" value="210"/><param name="half" value="105"/><param name="inner" value="190"/><param name="current" value="!Control.HasFocus(200)"/><param name="focus" value="Control.HasFocus(200)"/><param name="color" value="fg"/></include></focusedlayout>
       </control>
       </control>
       <!-- The season's episodes, as the Android app's cards (the description is in each card). -->
