@@ -40,7 +40,11 @@
 
     <control type="grouplist" id="900">
       <left>112</left><top>0</top><width>1808</width><height>1080</height>
-      <orientation>vertical</orientation><itemgap>24</itemgap>
+      <!-- As Home's (skin/script-arc-home.xml): the focused row always lands at the foot of the
+           screen, going down or up. Each row is a screen-tall group with the row at its foot; the
+           -540 gap overlaps them and the spacer before each row (the row's height plus 24) spaces
+           them. The season bar and the episodes share one group, so they move together. -->
+      <orientation>vertical</orientation><itemgap>-540</itemgap>
       <scrolltime tween="cubic" easing="out">300</scrolltime>
       <onup>noop</onup><ondown>noop</ondown>
 
@@ -300,8 +304,11 @@
         </control>
       </control>
 
+      <control type="group"><height>668</height><visible>Integer.IsGreater(Container(200).NumItems,0) | Integer.IsGreater(Container(201).NumItems,0)</visible></control>
+      <control type="group"><height>1080</height><visible>Integer.IsGreater(Container(200).NumItems,0) | Integer.IsGreater(Container(201).NumItems,0)</visible>
       <!-- A show's season bar: just this shows under the header on the first screen. -->
       <control type="group" id="131">
+        <top>436</top>
         <height>124</height>
         <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
       <control type="list" id="200">
@@ -320,6 +327,7 @@
       <!-- The season's episodes, as the Android app's cards (the description is in each card). -->
       <control type="group">
         <defaultcontrol always="true">201</defaultcontrol>
+        <top>584</top>
         <height>496</height>
         <visible>Integer.IsGreater(Container(201).NumItems,0)</visible>
       <control type="list" id="201">
@@ -334,11 +342,15 @@
       </control>
       </control>
 
+      </control>
       <!-- The rows in the Apple app's order: the cast first (owner, 7 November), then trailers
            and extras, Related and Collections. -->
       <!-- Cast & Crew: round photos, name and part. -->
+      <control type="group"><height>388</height><visible>Integer.IsGreater(Container(330).NumItems,0)</visible></control>
+      <control type="group"><height>1080</height><visible>Integer.IsGreater(Container(330).NumItems,0)</visible>
       <control type="group">
         <defaultcontrol always="true">330</defaultcontrol>
+        <top>716</top>
         <height>364</height>
         <visible>Integer.IsGreater(Container(330).NumItems,0)</visible>
       <control type="label" id="331">
@@ -357,17 +369,23 @@
         </focusedlayout>
       </control>
       </control>
+      </control>
 
-      <include content="ThumbRow"><param name="title" value="351"/><param name="list" value="350"/><param name="width" value="1808"/></include>
+      <control type="group"><height>554</height><visible>Integer.IsGreater(Container(350).NumItems,0)</visible></control>
+      <include content="ThumbRow"><param name="title" value="351"/><param name="list" value="350"/><param name="width" value="1808"/><param name="group_height" value="1080"/><param name="title_top" value="550"/><param name="list_top" value="630"/></include>
 
-      <include content="PosterRow"><param name="title" value="311"/><param name="list" value="300"/><param name="width" value="1808"/></include>
-      <include content="PosterRow"><param name="title" value="341"/><param name="list" value="340"/><param name="width" value="1808"/></include>
+      <control type="group"><height>554</height><visible>Integer.IsGreater(Container(300).NumItems,0)</visible></control>
+      <include content="PosterRow"><param name="title" value="311"/><param name="list" value="300"/><param name="width" value="1808"/><param name="group_height" value="1080"/><param name="title_top" value="550"/><param name="list_top" value="630"/></include>
+      <control type="group"><height>554</height><visible>Integer.IsGreater(Container(340).NumItems,0)</visible></control>
+      <include content="PosterRow"><param name="title" value="341"/><param name="list" value="340"/><param name="width" value="1808"/><param name="group_height" value="1080"/><param name="title_top" value="550"/><param name="list_top" value="630"/></include>
 
       <!-- About, Details, Crew, Playback. -->
       <!-- About, Details, Crew, Playback: 40 apart, with room under them inside the list (the
            page scrolls only until the list's foot meets the screen's). -->
+      <control type="group"><height>444</height><visible>Integer.IsGreater(Container(360).NumItems,0)</visible></control>
+      <control type="group"><height>1080</height><visible>Integer.IsGreater(Container(360).NumItems,0)</visible>
       <control type="list" id="360">
-        <left>-10</left><width>1818</width><height>420</height>
+        <left>-10</left><top>660</top><width>1818</width><height>420</height>
         <visible>Integer.IsGreater(Container(360).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>0</itemgap>
         <itemlayout width="440" height="420"><include>InfoCard</include></itemlayout>
@@ -375,7 +393,9 @@
           <include content="InfoCard"><param name="focused" value="Control.HasFocus(360)"/></include>
         </focusedlayout>
       </control>
-      <control type="group"><height>40</height></control>
+      </control>
+      <!-- After the last row: with the -540 gap, its foot meets the screen's like every row's. -->
+      <control type="group"><height>540</height></control>
     </control>
     <include>ArcToast</include>
   </controls>
