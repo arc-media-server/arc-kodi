@@ -54,6 +54,31 @@ def pill(name, fill, size=76):
     _rounded((size, size), size // 2, fill).save(os.path.join(MEDIA, name))
 
 
+def library_tabs():
+    """A library's tabs as the Android app's PillTabs: one glass pill holding the three tabs, the
+    showing one lighter and the focused one white. Each tab is a button with its own slice of the
+    holder (rounded on the left for the first, on the right for the last), so the three join into
+    one pill whatever their widths; used with border="38,0,38,0" on buttons 76 high. The holder
+    is Surface2, nearly opaque, so the words stay readable over the Recommended tab's artwork."""
+    h, w, r = 76, 80, 38
+    holder = SURFACE2[:3] + (235,)
+    # The showing tab: white at 18% over the holder, as Android's indicator.
+    current = tuple(int(c + 0.18 * (255 - c)) for c in SURFACE2[:3]) + (255,)
+    for end in ("l", "m", "r"):
+        if end == "m":
+            base = Image.new("RGBA", (w, h), holder)
+        else:
+            wide = _rounded((w * 2, h), r, holder)
+            base = wide.crop((0, 0, w, h)) if end == "l" else wide.crop((w, 0, w * 2, h))
+        base.save(os.path.join(MEDIA, "arc-tab-%s.png" % end))
+        for state, fill in (("current", current), ("focus", WHITE)):
+            img = base.copy()
+            inner = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+            inner.paste(_rounded((w - 12, h - 12), (h - 12) // 2, fill), (6, 6))
+            img.alpha_composite(inner)
+            img.save(os.path.join(MEDIA, "arc-tab-%s-%s.png" % (end, state)))
+
+
 # Cards are drawn at the exact size the skin shows them (skin/includes.xml), so Kodi never
 # stretches their corners: a mask that rounds the picture, and the focus ring around it.
 CARDS = {"poster": (244, 366), "thumb": (464, 261), "backdrop": (400, 300)}
@@ -321,6 +346,7 @@ def main():
     pill("arc-pill-surface-64.png", SURFACE, 64)  # the smaller buttons (title page, library pills)
     pill("arc-pill-white-56.png", WHITE, 56)   # Settings' rows
     pill("arc-key.png", WHITE, 96)               # the PIN pad's round keys (tinted when not focused)
+    library_tabs()
     cards()
     backdrop_fade()
     backdrop_wide_mask()

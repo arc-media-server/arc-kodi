@@ -1,12 +1,14 @@
-"""A library's grid: its titles in a chosen sort and filter, six posters across (Browse). Sort and
-Filter are Arc menus; paging loads more as you reach the end. A library's Collections tab, a
-collection, a playlist and a person's titles reuse GridWindow with a loader. A library's tabs
-(Recommended, Browse, Collections) are a pill row at the top; choosing another closes this window
-with ("tab", name) and the app opens that one in its place."""
+"""A library's grid: its titles in a chosen sort and filter, six posters across (its Library tab).
+Sort and Filters are Arc menus; paging loads more as you reach the end. A library's Collections
+tab, a collection, a playlist, the Watchlist and a person's titles reuse GridWindow with a loader.
+The top bar is the Android app's: the heading on the left, with a library's tabs (Recommended,
+Library, Collections) beside it; the count and the page's pills on the right. Choosing another tab
+closes this window with ("tab", name) and the app opens that one in its place."""
 
 import xbmcgui
 
 from arc import browse
+from arc.browse import WATCHLIST_SHOWS, WATCHLIST_SORTS
 from arc import home as homerows
 from arc import models
 
@@ -26,6 +28,7 @@ OVERVIEW = 107
 PLAY_ALL = 108
 SHUFFLE = 109
 TABS = 120
+PILLS = 110             # the right of the top bar: the count and the pills
 TAB_BASE = 121          # slot i: "current" button 121 + 2i, "other" button 122 + 2i
 TAB_SLOTS = 3
 
@@ -33,14 +36,15 @@ PAGE_SIZE = 60
 
 # The Kodi side's words for arc/browse.py's sorts.
 SORT_NAMES = {"title": 30128, "added": 30250, "released": 30251, "year": 30129, "rating": 30130,
-              "runtime": 30252, "watched": 30253}
+              "runtime": 30252, "watched": 30253, "shuffle": 30288}
 DIRECTION_NAMES = {"a_to_z": 30263, "z_to_a": 30264, "newest": 30265, "oldest": 30266, "highest": 30267,
                    "lowest": 30268, "longest": 30269, "shortest": 30270, "recent": 30271, "least_recent": 30272}
 
 
 def library_tabs(library):
-    """A library's tabs, as the Apple app's: Recommended (not for Other videos), Browse, Collections,
-    and for Other videos, Folders."""
+    """A library's tabs, as the Android and Apple apps': Recommended (not for Other videos), Library,
+    Collections, and for Other videos, Folders. Always three: the skin draws a first, a middle and
+    a last tab (skin/includes.xml, PageHeader)."""
     videos = library.get("kind") == "videos"
     tabs = [] if videos else [("recommended", T(30120))]
     tabs += [("browse", T(30121)), ("collections", T(30122))]
@@ -56,6 +60,7 @@ class TabsMixin(object):
     """The tab pills for a window showing one of a library's tabs (`self.library`, `self.tab`)."""
 
     def show_tabs(self):
+        self.set_label(TITLE, self.library.get("name", ""))
         self.tabs = library_tabs(self.library)
         for slot in range(TAB_SLOTS):
             if slot < len(self.tabs):
@@ -107,6 +112,9 @@ class GridWindow(TabsMixin, ArcWindow):
         # Play All and Shuffle: play(shuffle, item_ids) plays the grid's titles, in the order
         # shown, through a play queue.
         self.play = kwargs.pop("play", None)
+        # "24 titles" at the right of the top bar, as the Android app's: not on a library's
+        # Collections tab (nor the Watchlist, which sets it off).
+        self.counted = kwargs.pop("counted", self.tab in (None, "browse"))
         ArcWindow.__init__(self, *args, **kwargs)
         self.items = []
         self.total = None
@@ -159,9 +167,7 @@ class GridWindow(TabsMixin, ArcWindow):
 
     def _show_count(self):
         count = self.total or len(self.items)
-        text = str(count) if count else ""
-        if self.library is not None:
-            text = "  ·  ".join(t for t in (self.library.get("name", ""), text) if t)
+        text = (T(30604) if count == 1 else T(30605)) % count if count and self.counted else ""
         self.set_label(COUNT, text)
 
     # MARK: - refreshing
@@ -242,10 +248,6 @@ class GridWindow(TabsMixin, ArcWindow):
         if offset == 0 and self.play and self.items:
             self.set_visible(PLAY_ALL, True)
             self.set_visible(SHUFFLE, True)
-            try:
-                self.getControl(TITLE).setWidth(740)  # the name stops short of the pills
-            except Exception:
-                pass
 
     def on_action(self, action, code):
         if code in (xbmcgui.ACTION_MOVE_DOWN, xbmcgui.ACTION_PAGE_DOWN) and self.getFocusId() == GRID:
@@ -328,8 +330,10 @@ class LibraryWindow(GridWindow):
 
     def on_init(self):
         self.setProperty("arc.style", self.style)
-        self.set_label(TITLE, self.library.get("name", ""))
         self.show_tabs()
+        # No Play All or Shuffle here, as the Android app's library: Shuffle is a sort.
+        self.set_visible(PLAY_ALL, False)
+        self.set_visible(SHUFFLE, False)
         self._refresh_pills()
         self.set_visible(SORT, True)
         self.set_visible(FILTER, True)
@@ -348,10 +352,10 @@ class LibraryWindow(GridWindow):
         return T(SORT_NAMES[dict(browse.SORTS)[key]]) if key in dict(browse.SORTS) else key
 
     def _refresh_pills(self):
-        self.set_label(SORT, "%s: %s" % (T(30123), self._sort_name(self.query.sort)))
-        kind, value = self.query.filter_name()
-        names = {"all": T(30125), "filtered": T(30261), "unwatched": T(30126)}
-        self.set_label(FILTER, "%s: %s" % (T(30124), names[kind] if kind in names else filter_value_name(kind, value)))
+        """As the Android app's: the sort's name ("Title"), and "Filters" ("Filters, 2 on")."""
+        self.set_label(SORT, self._sort_name(self.query.sort))
+        n = self.query.filter_count
+        self.set_label(FILTER, T(30606) % n if n else T(30124))
 
     def _items(self, offset, limit):
         page = self.session.api.items(self.query.parameters(self.library, offset, limit))
@@ -372,7 +376,8 @@ class LibraryWindow(GridWindow):
     def _sort_menu(self):
         keys = [key for key, _ in browse.SORTS]
         # The sort in use names its direction; choosing it again turns it round.
-        options = [(self._sort_name(k), T(DIRECTION_NAMES[self.query.direction()]) if k == self.query.sort else "")
+        direction = DIRECTION_NAMES.get(self.query.direction())
+        options = [(self._sort_name(k), T(direction) if k == self.query.sort and direction else "")
                    for k in keys]
         choice = menu.choose(T(30123), options, selected=keys.index(self.query.sort))
         if choice >= 0:
@@ -522,18 +527,13 @@ class CollectionWindow(GridWindow):
                 self.getControl(GRID).setHeight(800)
             except Exception:
                 pass
-        if len(self.loaded) > 1:
-            try:
-                self.getControl(SORT).setPosition(1540, 40)  # in Filter's place, right of Shuffle
-            except Exception:
-                pass
         self.set_visible(SORT, len(self.loaded) > 1)
 
     def _show_empty(self):
         self.set_label(EMPTY, T(30286))
 
     def _refresh_sort(self):
-        self.set_label(SORT, "%s: %s" % (T(30123), T(30128) if self.by_title else T(30251)))
+        self.set_label(SORT, T(30128) if self.by_title else T(30251))
 
     def on_click(self, control_id):
         if control_id == SORT:
@@ -544,5 +544,61 @@ class CollectionWindow(GridWindow):
                 self.items, self.total, self.offset = [], None, 0
                 self.list_control(GRID).reset()
                 GridWindow._load_more(self)
+        else:
+            GridWindow.on_click(self, control_id)
+
+
+class WatchlistWindow(GridWindow):
+    """The Watchlist, as the Android app's: its heading, then two pills on the right, what it shows
+    (All, Movies, TV Shows) and its order (Date Added, Title, Release Date); no count."""
+
+    SHOW_NAMES = {"all": 30125, "movies": 30279, "shows": 30280}
+    SORT_NAMES = {"added": 30250, "title": 30128, "released": 30251}
+
+    def __init__(self, *args, **kwargs):
+        self.show, self.sort = "all", "added"
+        self.loaded = None      # the Watchlist as Arc sends it, newest first
+        kwargs.update(title=T(30082), style="poster", counted=False)
+        GridWindow.__init__(self, *args, loader=self._items, **kwargs)
+
+    def forget(self):
+        self.loaded = None
+
+    def _items(self, offset, limit):
+        if self.loaded is None:
+            self.loaded = list(self.session.api.watchlist() or [])
+        items = browse.watchlist_view(self.loaded, self.show, self.sort)
+        return items, len(items)
+
+    def page_loaded(self, offset):
+        if offset == 0:
+            self._refresh_pills()
+
+    def _refresh_pills(self):
+        self.set_label(SORT, T(self.SHOW_NAMES[self.show]))
+        self.set_label(FILTER, T(self.SORT_NAMES[self.sort]))
+        shown = bool(self.loaded)
+        self.set_visible(SORT, shown)
+        self.set_visible(FILTER, shown)
+
+    def _show_empty(self):
+        self.set_label(EMPTY, T(30106))
+
+    def on_click(self, control_id):
+        if control_id in (SORT, FILTER):
+            keys, names = (WATCHLIST_SHOWS, self.SHOW_NAMES) if control_id == SORT else (WATCHLIST_SORTS, self.SORT_NAMES)
+            current = self.show if control_id == SORT else self.sort
+            choice = menu.choose(T(30082), [T(names[k]) for k in keys], selected=keys.index(current))
+            if choice < 0 or keys[choice] == current:
+                return
+            if control_id == SORT:
+                self.show = keys[choice]
+            else:
+                self.sort = keys[choice]
+            self._refresh_pills()
+            self.items, self.total, self.offset = [], None, 0
+            self.list_control(GRID).reset()
+            self.set_label(EMPTY, "")
+            self._load_more()
         else:
             GridWindow.on_click(self, control_id)

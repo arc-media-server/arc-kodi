@@ -5,8 +5,9 @@ format, audio channels), from GET /libraries/{id}/facets. Plain Python, so the t
 Kodi side words and draws the menus."""
 
 # The sorts, in the menu's order: (the value /items takes, its string key for the Kodi side).
+# Shuffle is Arc's daily shuffle (the same order all day), with no direction, as the Android app's.
 SORTS = [("title", "title"), ("added", "added"), ("release", "released"), ("year", "year"),
-         ("rating", "rating"), ("runtime", "runtime"), ("watched", "watched")]
+         ("rating", "rating"), ("runtime", "runtime"), ("watched", "watched"), ("shuffle", "shuffle")]
 
 # How each sort runs, as the server orders it (internal/store/items.go itemOrdering): Title A to Z,
 # the rest newest, highest or longest first; reversed, the other way. (normal, reversed) keys.
@@ -36,7 +37,8 @@ _FILTERS = ("genre", "decade", "resolution", "watch_state") + tuple(k for k, _ i
 
 
 class LibraryQuery(object):
-    def __init__(self, sort="added"):
+    # Title first, as the Android app's library (and Plex's).
+    def __init__(self, sort="title"):
         self.sort = sort
         self.reversed = False
         self.unwatched = False
@@ -51,8 +53,9 @@ class LibraryQuery(object):
         self.audio_channels = None
 
     def choose_sort(self, sort):
-        """Choosing the sort already in use turns it round (Z to A, oldest first), as the Apple app."""
-        if sort == self.sort:
+        """Choosing the sort already in use turns it round (Z to A, oldest first), as the Apple app.
+        Shuffle has no other way round."""
+        if sort == self.sort and sort != "shuffle":
             self.reversed = not self.reversed
         else:
             self.sort, self.reversed = sort, False
@@ -65,6 +68,11 @@ class LibraryQuery(object):
     @property
     def filtered(self):
         return bool(self.unwatched or any(getattr(self, k) for k in _FILTERS))
+
+    @property
+    def filter_count(self):
+        """How many filters are on, for the Filters pill ("Filters, 2 on")."""
+        return int(bool(self.unwatched)) + sum(1 for k in _FILTERS if getattr(self, k))
 
     def clear_filters(self):
         self.unwatched = False
@@ -87,7 +95,7 @@ class LibraryQuery(object):
         """The /items parameters for `library`'s grid, `limit` titles from `offset`."""
         p = {"library_id": str(library.get("id")), "kind": "series" if library.get("kind") == "shows" else "movie",
              "sort": self.sort, "offset": str(offset), "limit": str(limit)}
-        if self.reversed:
+        if self.reversed and self.sort != "shuffle":
             p["reverse"] = "1"
         if self.unwatched:
             p["unwatched"] = "1"
@@ -96,17 +104,6 @@ class LibraryQuery(object):
                 p[key] = str(getattr(self, key))
         return p
 
-    def filter_name(self):
-        """What the Filter pill says: ("all", None), ("filtered", None), or the one filter chosen as
-        (kind, value) with kind unwatched or one of the filters' attributes (genre, decade,
-        resolution, watch_state, dynamic_range, video_codec, audio_codec, audio_channels)."""
-        chosen = [("unwatched", True)] if self.unwatched else []
-        chosen += [(k, getattr(self, k)) for k in _FILTERS if getattr(self, k)]
-        if not chosen:
-            return "all", None
-        if len(chosen) > 1:
-            return "filtered", None
-        return chosen[0]
 
 
 def shows_resolution(library):
@@ -154,3 +151,36 @@ def video_codec_name(value):
 
 def audio_codec_name(value):
     return AUDIO_CODECS.get(value, (value or "").upper())
+
+
+# The Watchlist's pills, as the Android and Apple TV apps': what it shows, and in which order.
+# Date Added is Arc's own order (newest first); the others sort here.
+WATCHLIST_SHOWS = ["all", "movies", "shows"]
+WATCHLIST_SORTS = ["added", "title", "released"]
+
+
+def sort_title(item):
+    """A title as libraries sort it: lower case, without a leading "The", "A" or "An"."""
+    title = (item.get("sort_title") or item.get("title") or "").lower()
+    for word in ("the ", "a ", "an "):
+        if title.startswith(word):
+            return title[len(word):]
+    return title
+
+
+def watchlist_view(items, show="all", sort="added"):
+    """The Watchlist's titles for its two pills: all, movies or shows; by date added (as Arc sends
+    them), title, or release date (newest first, then by title)."""
+    if show == "movies":
+        items = [it for it in items if it.get("kind") == "movie"]
+    elif show == "shows":
+        items = [it for it in items if it.get("kind") == "series"]
+    else:
+        items = list(items)
+    if sort == "title":
+        return sorted(items, key=sort_title)
+    if sort == "released":
+        items = sorted(items, key=sort_title)
+        return sorted(items, key=lambda it: it.get("release_date") or (str(it["year"]) if it.get("year") else ""),
+                      reverse=True)
+    return items
