@@ -99,7 +99,8 @@ You need Kodi 19 (Matrix) or newer and an Arc server you can reach from it. Noth
 installing: the add-on uses only Python's standard library, so it runs on Windows, Linux and
 LibreELEC, Android and macOS alike.
 
-1. Get the add-on zip: `python3 tools/package.py` writes `dist/script.arc-<version>.zip`.
+1. Get the add-on zip from the [Releases](../../releases) page, or make it yourself:
+   `python3 tools/package.py` writes `dist/script.arc-<version>.zip`.
 2. In Kodi, allow unknown sources (**Settings → System → Add-ons**), then choose
    **Add-ons → Install from zip file** and pick the zip.
 3. Open **Arc** from your add-ons. Enter your server's address (the one you use for Arc in a
@@ -107,6 +108,15 @@ LibreELEC, Android and macOS alike.
    computer, choose **Link a Device** and enter the code shown.
 
 A Kodi repository, so updates arrive without a zip, is planned.
+
+### Releases
+
+To make a release, open **Actions → Build → Run workflow** on `main`: once the tests and checks
+pass it publishes a pre-release named `kodi-build-<run>` with the zip and a `SHA256SUMS.txt`.
+Pushing a `v*` tag (`v0.2.0`) makes a normal release with that version. A build's version is
+`addon.xml`'s major.minor plus the run number (`0.1.57`), so Kodi sees each one as newer; raise
+`addon.xml`'s version when a release starts a new minor or major. Nothing runs on pull requests
+or ordinary pushes; a push whose message contains `[build]` makes a run artifact only.
 
 ## Playback
 
