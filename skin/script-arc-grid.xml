@@ -13,34 +13,36 @@
       <font>arc-small</font><textcolor>muted</textcolor>
     </control>
     <control type="grouplist" id="110">
-      <left>80</left><top>40</top><width>1760</width><height>64</height>
-      <orientation>horizontal</orientation><align>right</align><itemgap>20</itemgap>
+      <!-- Taller than the pills (72), with room for their focus zoom: a grouplist cuts off what
+           goes past its edges. Each control sits 8 down (usecontrolcoords). -->
+      <left>80</left><top>28</top><width>1760</width><height>88</height>
+      <orientation>horizontal</orientation><align>right</align><itemgap>20</itemgap><usecontrolcoords>true</usecontrolcoords>
       <onup>noop</onup><ondown>100</ondown><onright>noop</onright>
       <onleft condition="!String.IsEmpty(Window.Property(arc.tab0))">120</onleft><onleft condition="String.IsEmpty(Window.Property(arc.tab0))">noop</onleft>
       <control type="label" id="104">
-        <width>auto</width><height>64</height>
+        <top>8</top><width>auto</width><height>72</height>
         <font>arc-body</font><textcolor>muted</textcolor><aligny>center</aligny><label></label>
       </control>
       <control type="image">
-        <width>12</width><height>64</height><texture></texture>
+        <top>8</top><width>12</width><height>72</height><texture></texture>
         <visible>!String.IsEmpty(Control.GetLabel(104))</visible>
       </control>
       <!-- Play All and Shuffle, for a collection or a playlist (hidden elsewhere). -->
       <control type="button" id="108">
-        <include>HeaderPill</include>
+        <top>8</top><include>HeaderPill</include>
         <label>$ADDON[script.arc 30287]</label>
       </control>
       <control type="button" id="109">
-        <include>HeaderPill</include>
+        <top>8</top><include>HeaderPill</include>
         <label>$ADDON[script.arc 30288]</label>
       </control>
       <!-- Sort and Filters (a library), or the Watchlist's All and Date Added. -->
       <control type="button" id="102">
-        <include>HeaderPill</include>
+        <top>8</top><include>HeaderPill</include>
         <label>$ADDON[script.arc 30123]</label>
       </control>
       <control type="button" id="103">
-        <include>HeaderPill</include>
+        <top>8</top><include>HeaderPill</include>
         <label>$ADDON[script.arc 30124]</label>
       </control>
     </control>

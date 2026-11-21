@@ -141,32 +141,36 @@
     </control>
     <control type="grouplist" id="110">
       <left>80</left>
-      <top>40</top>
+      <top>28</top>
       <width>1760</width>
-      <height>64</height>
+      <height>88</height>
       <orientation>horizontal</orientation>
       <align>right</align>
       <itemgap>20</itemgap>
+      <usecontrolcoords>true</usecontrolcoords>
       <onup>noop</onup>
       <ondown>100</ondown>
       <onright>noop</onright>
       <onleft condition="!String.IsEmpty(Window.Property(arc.tab0))">120</onleft>
       <onleft condition="String.IsEmpty(Window.Property(arc.tab0))">noop</onleft>
       <control type="label" id="104">
+        <top>8</top>
         <width>auto</width>
-        <height>64</height>
+        <height>72</height>
         <font>font13</font>
         <textcolor>FFA1A1AD</textcolor>
         <aligny>center</aligny>
         <label />
       </control>
       <control type="image">
+        <top>8</top>
         <width>12</width>
-        <height>64</height>
+        <height>72</height>
         <texture />
         <visible>!String.IsEmpty(Control.GetLabel(104))</visible>
       </control>
       <control type="button" id="108">
+        <top>8</top>
         <width>auto</width>
         <height>72</height>
         <font>font13</font>
@@ -182,6 +186,7 @@
         <label>$ADDON[script.arc 30287]</label>
       </control>
       <control type="button" id="109">
+        <top>8</top>
         <width>auto</width>
         <height>72</height>
         <font>font13</font>
@@ -197,6 +202,7 @@
         <label>$ADDON[script.arc 30288]</label>
       </control>
       <control type="button" id="102">
+        <top>8</top>
         <width>auto</width>
         <height>72</height>
         <font>font13</font>
@@ -212,6 +218,7 @@
         <label>$ADDON[script.arc 30123]</label>
       </control>
       <control type="button" id="103">
+        <top>8</top>
         <width>auto</width>
         <height>72</height>
         <font>font13</font>
