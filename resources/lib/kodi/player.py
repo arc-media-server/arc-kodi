@@ -1,6 +1,6 @@
 """Playing a title. Kodi's own player (xbmc.Player) decodes and shows the stream; Arc's player
-window (kodi/player_osd.py) stays over the video for the whole playback and owns the remote, as
-PM4K's does: its controls, seeking, Skip Intro/Recap/Credits, Up Next, audio and subtitles.
+window (kodi/player_osd.py) stays over the video for the whole playback and owns the remote:
+its controls, seeking, Skip Intro/Recap/Credits, Up Next, audio and subtitles.
 
 Progress goes to Arc on the source file's timeline every 10 s and on pause/stop; conversions are
 pinged while paused and deleted on stop; Kodi's own resume points are ignored (Arc's are the

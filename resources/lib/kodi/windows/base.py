@@ -1,6 +1,5 @@
 """The base for Arc's full-screen windows: loaded from the skin (resources/skins/Main), carrying
-the Session, with helpers for controls, lists, background work and the artwork proxy. Mirrors
-PM4K's kodigui base in spirit, kept small."""
+the Session, with helpers for controls, lists, background work and the artwork proxy. Kept small."""
 
 import threading
 

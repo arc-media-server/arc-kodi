@@ -1,6 +1,6 @@
 # Arc for Kodi: the first version
 
-The start of the Kodi client for Arc, following PM4K's shape (an add-on that draws its own
+The start of the Kodi client for Arc, as an add-on that draws its own
 full-screen interface with WindowXML and never touches Kodi's library) and the Apple TV app's
 look (artwork-led, dark, white focus, an icon sidebar). It uses only Arc's stable `/api/v1`.
 

@@ -229,7 +229,7 @@ def player():
             px[x, y] = (0, 0, 0, int(255 * a))
     img.save(os.path.join(MEDIA, "arc-osd-scrim.png"))
     # The shading at the top while the controls show: solid for the first 120 of 360 (where
-    # skins draw their own "Paused" bar, which Arc's player covers, as PM4K's does), then fading.
+    # skins draw their own "Paused" bar, which Arc's player covers), then fading.
     top = Image.new("RGBA", (w, 360))
     px = top.load()
     for y in range(360):

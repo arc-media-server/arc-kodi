@@ -1,9 +1,9 @@
 # Arc for Kodi: notes for AI agents
 
-The Kodi client for Arc Media Server: a full-screen add-on (`script.arc`) in the style of PM4K
-(Plex for Kodi). It draws its own interface with WindowXML and never touches Kodi's library. Its
+The Kodi client for Arc Media Server: a full-screen add-on (`script.arc`) that
+draws its own interface with WindowXML and never touches Kodi's library. Its
 look follows Arc's design (arc-apple is the fullest version); how it behaves inside Kodi follows
-PM4K. Read `README.md`; `docs/DEVELOPING.md` has the layout, running it in Kodi, the Kodi gotchas
+Kodi's own conventions and settings. Read `README.md`; `docs/DEVELOPING.md` has the layout, running it in Kodi, the Kodi gotchas
 and the full design notes summarised below.
 
 **Shared rules:** arc-media-server's `docs/AGENT-RULES.md` applies here (workflow, decisions, Arc's
@@ -36,7 +36,7 @@ when the server is checked out beside this one, otherwise from GitHub. The essen
   `url|Authorization=...` with the session token.
 - **Feel:** menus and questions are Arc's own (`kodi/windows/menu.py`, `pin.py`), never Kodi's
   dialogs. Colours live only in `skin/includes.xml` (and `tools/make_media.py`). Kodi-specific
-  behaviour (keys, player, refresh rate, passthrough) follows PM4K and Kodi's settings; product
+  behaviour (keys, player, refresh rate, passthrough) follows Kodi's own settings; product
   behaviour follows Arc's design and Plex. The add-on's own settings are only what only Kodi knows.
 - **Text:** every string in `resources/language/resource.language.en_gb/strings.po` (ids
   30000–30999), via `T(id)` and `$ADDON[script.arc id]`.

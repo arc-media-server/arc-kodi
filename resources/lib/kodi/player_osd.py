@@ -1,5 +1,5 @@
 """Arc's player window (skin/script-arc-player.xml): over Kodi's video for the whole playback, it
-owns the remote, as PM4K's does, and behaves as the Apple and Android players:
+owns the remote and behaves as the Apple and Android players:
 
 - with the controls hidden, Left and Right skip 10 s back and forward (presses add up, then it
   seeks), Select or Down shows the controls on the timeline, Up shows them on the Subtitles
@@ -77,7 +77,7 @@ STEP_MS = 10000                 # Left/Right
 BIG_STEP_MS = 60000             # the remote's skip keys
 SEEK_SETTLE = 0.8               # seconds after the last press before it seeks
 # Kodi's own player dialogs opened by a key or an action (its OSD, its info, its delay slider):
-# Arc's player is the interface, so they're closed as they appear, as PM4K's player does. (The
+# Arc's player is the interface, so they're closed as they appear. (The
 # skin's seek bar isn't here: the skin reopens it at once while paused, so Arc's player draws
 # over it instead; see the skin.)
 KODI_DIALOGS = ("videoosd", "fullscreeninfo", "sliderdialog", "playerprocessinfo")
@@ -238,7 +238,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
             if xbmc.getCondVisibility("Window.IsVisible(%s)" % name):
                 xbmc.executebuiltin("Dialog.Close(%s,true)" % name)
                 log.debug("closed Kodi's %s", name)
-        # A busy spinner left open once playing (Kodi's own, not Arc's): as PM4K does.
+        # A busy spinner left open once playing (Kodi's own, not Arc's).
         if self.pb._started and xbmc.getCondVisibility("Window.IsActive(busydialog) + !Player.Caching"):
             xbmc.executebuiltin("Dialog.Close(busydialog,true)")
             log.debug("closed a stuck busy dialog")

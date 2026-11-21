@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Search, as the Apple app's, with PM4K's keyboard: what's typed and a grid of keys at the left,
+<!-- Search, as the Apple app's, with its own keyboard: what's typed and a grid of keys at the left,
      the matches in rows at the right (Movies, TV Shows, Episodes, Collections, People, Genres),
      each showing only when it has matches. -->
 <window>

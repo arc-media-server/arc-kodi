@@ -1,4 +1,4 @@
-"""Search, as the Apple app's, with PM4K's keyboard: Arc's own keys at the left for a remote, and
+"""Search, as the Apple app's, with its own keyboard: Arc's own keys at the left for a remote, and
 above them the search box, a Kodi text field (a keyboard types straight into it while it has focus,
 OK opens Kodi's keyboard, phone remotes type into it). The matches are in rows at the right:
 Movies, TV Shows, Episodes, Collections, People and Genres. Arc searches once typing pauses. The

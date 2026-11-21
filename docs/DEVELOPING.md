@@ -77,7 +77,7 @@ The full form of the rules `CLAUDE.md` summarises.
   models, Home rows, playback decisions, the player's clock and choices. It's what the tests
   cover. `resources/lib/kodi/` is the Kodi side (windows, the player, the artwork proxy,
   settings). Put logic in `arc/` whenever it can be tested without Kodi.
-- **Own interface, PM4K-style:** every screen is a `WindowXML` from `resources/skins/Main/1080i/`
+- **Own interface:** every screen is a `WindowXML` from `resources/skins/Main/1080i/`
   (1920x1080, no dependency on the user's skin beyond its standard font names). Kodi reads
   includes, colours and fonts only from the user's skin, so windows are written in `skin/` with
   our shared pieces (`skin/includes.xml`) and `tools/build_skin.py` expands them into the files
@@ -91,7 +91,7 @@ The full form of the rules `CLAUDE.md` summarises.
   and existing playback-error fallback. This policy does not certify native HDR/Atmos output.
 - **Player:** Kodi's own player (`xbmc.Player`) decodes and shows the stream; Arc's player
   window (`kodi/player_osd.py`, `script-arc-player.xml`) is open, modal, over the video for the
-  whole playback and owns the remote, as PM4K's does: the controls in the Apple/Android layout
+  whole playback and owns the remote: the controls in the Apple/Android layout
   (title, Playback/Audio/Subtitles buttons, timeline), seeking, Skip Intro/Recap/Credits, Up Next,
   the menus. Keep it modal: a modeless window lets keys fall through to Kodi's own full-screen
   player and OSD. Kodi pauses and stops by itself for Play/Pause and Stop; don't repeat those.
@@ -116,8 +116,8 @@ The full form of the rules `CLAUDE.md` summarises.
   Symbols, which may only be used on Apple's platforms. No colour anywhere (owner, 1 November; the new logo, 13 November): chosen and main
   controls are white with black text, and the logo is white. Dark only; artwork-led Home (no
   banner). Colours live only in `skin/includes.xml` (and the media `tools/make_media.py` draws).
-- **Plex first:** where Arc's apps and PM4K differ on Kodi-specific behaviour (keys, the player,
-  refresh-rate switching, passthrough), follow PM4K and Kodi's own settings rather than adding
+- **Plex first:** for Kodi-specific behaviour (keys, the player, refresh-rate switching,
+  passthrough), follow Kodi's own settings and conventions rather than adding
   options; for product behaviour follow Arc's design (the other Arc apps) and Plex. Settings come from the server
   (the profile's prefs) wherever Arc already has them; the add-on's own settings are only what
   only Kodi can know. Note differences in the PR.

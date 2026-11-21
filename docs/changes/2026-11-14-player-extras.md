@@ -61,7 +61,7 @@ Continue Watching had moved on to 3-second clips.
   step, stopping if Kodi doesn't move.
 - Kodi changes speed through its audio, so it offers tempo only when it can: not with audio
   passthrough, without an audio device, or with "Sync playback to display". The add-on asks Kodi
-  (`Player.TempoEnabled`) and shows Speed only then, following Kodi's own settings (PM4K's way)
+  (`Player.TempoEnabled`) and shows Speed only then, following Kodi's own settings
   rather than adding one.
 - **Not checked:** the virtual display has no audio device, so Kodi reports tempo as unavailable
   there and Speed doesn't show. The menu was checked to open as before without it. Speed needs

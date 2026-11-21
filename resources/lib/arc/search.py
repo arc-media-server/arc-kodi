@@ -4,7 +4,7 @@ matches. Arc forgives accents, case and small typos; the app searches once typin
 
 Plain Python: the Kodi window (kodi/windows/search.py) draws the keys and rows."""
 
-# The keyboard: letters, then digits, six keys across (as PM4K's grid); Space, Delete and Clear
+# The keyboard: letters, then digits, six keys across; Space, Delete and Clear
 # sit under it.
 LETTERS = "abcdefghijklmnopqrstuvwxyz"
 DIGITS = "1234567890"

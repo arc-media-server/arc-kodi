@@ -82,7 +82,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Subtitles chosen by the profile's mode and language | Both | Done | Yes | |
 | Quality and Version menus | Both | Done | Yes | |
 | Playback speed | Android | Done | Part | Kodi's tempo, 0.8x to 1.5x, shown where Kodi allows it; not yet tried on hardware. |
-| Subtitle style (size, colour, background) | Both | Missing | Part | Kodi draws subtitles with its own style settings; follow Kodi's (PM4K does). |
+| Subtitle style (size, colour, background) | Both | Missing | Part | Kodi draws subtitles with its own style settings; follow Kodi's. |
 | Audio and subtitle delay | — | Done | Yes | Audio Offset and Subtitle Timing in the player's Playback menu (Kodi's own OSD can't be reached under Arc's player). The audio offset is kept for the device. |
 | Skip Intro / Recap / Credits; skip by itself | Both | Done | Yes | Not yet seen with real markers (the test library has none). |
 | Up Next with countdown | Both | Done | Yes | |
@@ -99,14 +99,14 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Passthrough (AC3, E-AC3, DTS, TrueHD, DTS-HD) | Both | Yes (Kodi) | Yes | Kodi's own audio output settings (owner, 13 November); not yet checked on hardware. |
 | HDR10 / HLG / HDR10+ | Both | Yes (Kodi) | Yes | The original is sent and Kodi handles HDR output and tone mapping (owner, 13 November); not yet checked on hardware. |
 | Dolby Vision (profile 5, 7 with FEL, 8) | Both (by device) | Yes (Kodi) | Part | The add-on no longer limits DV profiles: the original is sent and Kodi (e.g. CoreELEC on the AM6B+) plays or converts it (owner, 13 November). Not a promise of native DV output; not yet checked on hardware. |
-| Refresh rate / resolution matching | Both | Yes (Kodi) | Yes | Kodi's own "Adjust display refresh rate" setting, as PM4K. |
+| Refresh rate / resolution matching | Both | Yes (Kodi) | Yes | Kodi's own "Adjust display refresh rate" setting. |
 
 ## Platform integration
 
 | Feature | Apple / Android | Kodi now | Kodi can | Notes |
 |---|---|---|---|---|
 | Top Shelf (Apple) / Watch Next channel (Android) | Both | Not planned | — | Owner, 16 November: not for Kodi (its nearest, skin home widgets, would need a `plugin://` source). |
-| Updates without a zip (a Kodi repository) | Stores | Missing | Yes | A repository add-on, as PM4K ships. |
+| Updates without a zip (a Kodi repository) | Stores | Missing | Yes | A repository add-on, as other Kodi add-ons ship. |
 | Automatic build of the install zip | — | Missing | Yes | A GitHub Action on push. |
 
 ## Suggested order
