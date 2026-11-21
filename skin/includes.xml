@@ -31,6 +31,9 @@
   <constant name="arc-title">font52_title</constant>  <!-- 52 bold -->
   <constant name="arc-hero">font60</constant>         <!-- 60 -->
   <constant name="arc-code">font60</constant>
+  <constant name="arc-tiny">font10</constant>         <!-- 23: an episode card's description -->
+  <constant name="arc-caption">font20_title</constant> <!-- 20 bold: MORE, an episode's number -->
+  <constant name="arc-card-title">font27</constant>   <!-- 27: an episode card's title -->
 
   <!-- Arc's toast: a short message at the top right, over any of Arc's windows, in place of
        Kodi's notification (kodi/toast.py). It never takes the focus: it shows while the global
@@ -107,35 +110,6 @@
       <texturefocus border="28">arc-pill-white-56.png</texturefocus>
       <texturenofocus border="28" colordiffuse="surface2">arc-pill-white-56.png</texturenofocus>
       <aligny>center</aligny><align>center</align>
-    </definition>
-  </include>
-
-  <!-- The smaller buttons (64 high): a title page's Play, a library's pills. -->
-  <include name="SmallPrimaryButton">
-    <param name="width" default="280"/>
-    <definition>
-      <width>$PARAM[width]</width><height>64</height>
-      <font>arc-label</font>
-      <textcolor>fg</textcolor>
-      <focusedcolor>black</focusedcolor>
-      <disabledcolor>subtle</disabledcolor>
-      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-      <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
-      <aligny>center</aligny><align>center</align>
-    </definition>
-  </include>
-
-  <include name="SmallPillButton">
-    <param name="width" default="220"/>
-    <definition>
-      <width>$PARAM[width]</width><height>64</height>
-      <font>arc-label</font>
-      <textcolor>fg</textcolor>
-      <focusedcolor>black</focusedcolor>
-      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-      <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
-      <aligny>center</aligny><align>center</align>
-      <textoffsetx>24</textoffsetx>
     </definition>
   </include>
 
@@ -545,16 +519,18 @@
   </include>
 
   <include name="RoundIconButton">
-    <param name="id"/><param name="icon"/><param name="left"/><param name="right"/><param name="x" default="0"/>
+    <!-- A round button on the title page, as the Android app's: glass (white at 16%) and white
+         when focused, the icon black then. `group` is the id the Python places it by (the
+         buttons showing depend on the title) and `x` where it starts. -->
+    <param name="id"/><param name="group"/><param name="icon"/><param name="x" default="0"/>
     <definition>
-      <control type="group">
+      <control type="group" id="$PARAM[group]">
         <left>$PARAM[x]</left><top>8</top><width>64</width><height>64</height>
         <control type="button" id="$PARAM[id]">
           <left>0</left><top>0</top><width>64</width><height>64</height>
           <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-          <texturenofocus border="32">arc-pill-surface-64.png</texturenofocus>
-          <onup>noop</onup><ondown>200</ondown>
-          <onleft>$PARAM[left]</onleft><onright>$PARAM[right]</onright>
+          <texturenofocus border="32" colordiffuse="29FFFFFF">arc-pill-white-64.png</texturenofocus>
+          <onup>noop</onup><ondown>noop</ondown>
         </control>
         <control type="image">
           <left>17</left><top>17</top><width>30</width><height>30</height>
@@ -566,6 +542,72 @@
           <texture>$PARAM[icon]</texture><colordiffuse>black</colordiffuse>
           <visible>Control.HasFocus($PARAM[id])</visible>
         </control>
+      </control>
+    </definition>
+  </include>
+
+  <!-- An episode on a show's page, as the Android app's EpisodeCard: the picture (with progress,
+       the tick and the Not on disk dimming), then "S1 · E3" small and muted, the title on one
+       line, and a few lines of the description with its length (or what's left) under it. The
+       Python breaks the description into up to three lines and puts the length after it
+       (`body`), so the length follows a short description up instead of sitting under a gap. -->
+  <include name="EpisodeCard">
+    <param name="focused" default="false"/>
+    <param name="labelcolor" default="DDF5F5F7"/>
+    <definition>
+      <control type="image">
+        <left>8</left><top>8</top><width>464</width><height>261</height>
+        <texture>arc-mask-thumb.png</texture>
+        <colordiffuse>surface</colordiffuse>
+      </control>
+      <control type="image">
+        <left>8</left><top>8</top><width>464</width><height>261</height>
+        <aspectratio>scale</aspectratio>
+        <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
+      </control>
+      <control type="image">
+        <left>8</left><top>8</top><width>464</width><height>261</height>
+        <texture>arc-mask-thumb.png</texture><colordiffuse>99000000</colordiffuse>
+        <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
+      </control>
+      <control type="image">
+        <left>20</left><top>20</top><width>230</width><height>44</height>
+        <texture border="22">arc-pill-white-56.png</texture><colordiffuse>A6000000</colordiffuse>
+        <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+      </control>
+      <control type="label">
+        <left>20</left><top>20</top><width>230</width><height>44</height>
+        <font>arc-small</font><textcolor>fg</textcolor><align>center</align><aligny>center</aligny>
+        <label>$INFO[ListItem.Property(tag)]</label>
+        <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
+      </control>
+      <control type="image">
+        <left>2</left><top>2</top><width>476</width><height>273</height>
+        <texture>arc-ring-thumb.png</texture>
+        <visible>$PARAM[focused]</visible>
+      </control>
+      <include content="WatchBadge"><param name="tick" value="416"/><param name="one" value="420"/><param name="two" value="406"/><param name="three" value="392"/></include>
+      <control type="progress">
+        <left>20</left><top>250</top><width>440</width><height>8</height>
+        <texturebg border="4">arc-bar-bg.png</texturebg>
+        <midtexture border="4">arc-bar-fg.png</midtexture>
+        <info>ListItem.PercentPlayed</info>
+        <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
+      </control>
+      <control type="label">
+        <left>10</left><top>284</top><width>460</width><height>28</height>
+        <font>arc-caption</font><textcolor>muted</textcolor><shadowcolor>99000000</shadowcolor>
+        <label>$INFO[ListItem.Property(number)]</label>
+      </control>
+      <control type="label">
+        <left>10</left><top>312</top><width>460</width><height>38</height>
+        <font>arc-card-title</font><textcolor>$PARAM[labelcolor]</textcolor><shadowcolor>99000000</shadowcolor>
+        <label>$INFO[ListItem.Label]</label>
+      </control>
+      <control type="label">
+        <left>10</left><top>352</top><width>460</width><height>128</height>
+        <font>arc-tiny</font><textcolor>A6F5F5F7</textcolor><shadowcolor>99000000</shadowcolor>
+        <label>$INFO[ListItem.Property(body)]</label>
       </control>
     </definition>
   </include>

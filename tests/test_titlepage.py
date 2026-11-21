@@ -161,3 +161,87 @@ def test_versions():
     assert "play_version" in menus.card_actions(film, on_page=True)
     assert "play_version" not in menus.card_actions(dict(film, files=[uhd, gone]))
     assert "play_version" not in menus.card_actions({"kind": "series", "files": [uhd, hd]})
+
+
+# MARK: - Play's words, the meta line and fitting the overview
+
+def _ep(s, e, pos=0, played=False):
+    return {"kind": "episode", "season_number": s, "episode_number": e, "id": "e%d%d" % (s, e),
+            "files": [{"duration_ms": 3000000}], "user_data": {"position_ms": pos, "played": played}}
+
+
+def test_clock():
+    assert titlepage.clock(6012000) == "1:40:12"
+    assert titlepage.clock(754000) == "12:34"
+    assert titlepage.clock(0) == "0:00"
+
+
+def test_play_label_for_a_film():
+    film = {"kind": "movie", "files": [{"duration_ms": 7200000}], "user_data": {"position_ms": 6012000}}
+    assert titlepage.play_label(film, titlepage.play_action(film)) == ("resume_from", "1:40:12")
+    film["user_data"] = {}
+    assert titlepage.play_label(film, titlepage.play_action(film)) == ("play", None)
+    assert titlepage.play_label(film, None) == ("play", None)
+
+
+def test_play_label_for_a_show():
+    show = {"kind": "series"}
+    resume = _ep(1, 3, pos=1000)
+    assert titlepage.play_label(show, titlepage.play_action(show, resume)) == ("resume_episode", resume)
+    first = _ep(1, 1)
+    assert titlepage.play_label(show, titlepage.play_action(show, first)) == ("start_watching", first)
+    later = _ep(1, 4)
+    assert titlepage.play_label(show, titlepage.play_action(show, later)) == ("play_episode", later)
+    special = _ep(0, 1)
+    assert titlepage.play_label(show, titlepage.play_action(show, special)) == ("play_episode", special)
+    # Outside the show's order (Arc's 0/0) an episode has no number to show.
+    unplaced = _ep(0, 0, pos=5000)
+    assert titlepage.play_label(show, titlepage.play_action(show, unplaced)) == ("resume_from", "0:05")
+
+
+def test_meta_line():
+    left = lambda n: "%d episodes left" % n
+    film = {"kind": "movie", "year": 2024, "runtime_min": 166, "rating": 8.24}
+    assert titlepage.meta_line(film, left) == ("2024 \u00b7 2h 46m \u00b7", "8.2")
+    show = {"kind": "series", "year": 2008, "unwatched_count": 12, "runtime_min": 47}
+    assert titlepage.meta_line(show, left) == ("2008 \u00b7 12 episodes left", "")
+    show["unwatched_count"] = 0
+    show["rating"] = 0
+    assert titlepage.meta_line(show, left) == ("2008", "")
+    assert titlepage.meta_line({"kind": "movie", "rating": 7}, left) == ("", "7.0")
+    episode = {"kind": "episode", "year": 2008, "runtime_min": 47}
+    assert titlepage.meta_line(episode, left) == ("47m", "")
+
+
+def test_time_left():
+    assert titlepage.time_left(_ep(1, 1)) == (False, "50m")
+    assert titlepage.time_left(_ep(1, 1, pos=1200000)) == (True, "30m")
+    assert titlepage.time_left(_ep(1, 1, pos=2990000)) == (True, "1m")
+    assert titlepage.time_left({"kind": "episode"}) == (False, "")
+
+
+def test_clip_keeps_short_text_and_cuts_long_text():
+    text, cut, lines = titlepage.clip("A short overview.", 1000)
+    assert (text, cut, lines) == ("A short overview.", False, 1)
+    long = " ".join(["Paul Atreides unites with Chani and the Fremen"] * 12)
+    text, cut, lines = titlepage.clip(long, 1000)
+    assert cut and lines == 3 and text.endswith("…")
+    assert len(titlepage.wrap_lines(text, 1000)) == 3
+    assert titlepage.clip("", 1000) == ("", False, 0)
+
+
+def test_hero_layout_sits_low_on_the_screen():
+    film = titlepage.hero_layout(False, starring_lines=1, director_lines=1)
+    assert film["height"] == 1080 and film["row"] == 920 and film["hint"] == 1000
+    assert film["directors"] + titlepage.SMALL_LINE == 992      # level with the buttons' foot
+    assert film["starring"] < film["directors"]
+    assert film["meta"] + 40 + 16 == film["row"] - 12          # the block ends 12 over the row
+    assert film["overview"] + 3 * titlepage.BODY_LINE + 16 == film["meta"]
+    assert film["genres"] + 44 == film["block"] and film["logo"] + 240 + 32 == film["genres"]
+    show = titlepage.hero_layout(True, overview_lines=1, cut=False)
+    assert show["height"] == 932 and show["row"] == 836
+    assert "more" not in show
+    cut = titlepage.hero_layout(True, cut=True)
+    assert cut["more"] + 32 + 16 == cut["meta"] and cut["block"] < show["block"]
+    bare = titlepage.hero_layout(False, rating_row=False, overview_lines=0, meta_row=False)
+    assert "overview" not in bare and bare["logo"] + 240 + 32 == bare["block"]

@@ -1475,3 +1475,29 @@ msgstr ""
 msgctxt "#30606"
 msgid "Filters, %d on"
 msgstr ""
+
+# The title page (Kodi visual batch 3): Play's words, the line under the overview, episode cards,
+# and MORE under a cut description (also the ⋯ button's name).
+msgctxt "#30607"
+msgid "Resume from %s"
+msgstr ""
+
+msgctxt "#30608"
+msgid "Start watching · %s"
+msgstr ""
+
+msgctxt "#30609"
+msgid "%d episode left"
+msgstr ""
+
+msgctxt "#30610"
+msgid "%d episodes left"
+msgstr ""
+
+msgctxt "#30611"
+msgid "%s left"
+msgstr ""
+
+msgctxt "#30612"
+msgid "More"
+msgstr ""

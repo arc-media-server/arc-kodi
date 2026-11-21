@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- A title's page, as the Apple app's: the artwork over the title's own four colours (Kodi tints
-     the corner glows with the palette), fading into them at the left and the foot. One column
-     scrolls: the hero (logo, info, badges, overview, Starring), Play and the round buttons, a
-     show's seasons and episodes, Related, Cast, Collections, Trailers & Extras, and the About,
-     Details, Crew and Playback cards. Up/Down is Kodi's own grouplist navigation. -->
+<!-- A title's page, as the Android app's: the artwork over the title's own four colours (Kodi
+     tints the corner glows with the palette), fading into them at the left and the foot. One
+     column scrolls: the header low on the first screen (logo, rating and genres, overview, the
+     year and length with the quality capsules, Play and the round buttons, Starring and Directed
+     by at the right), a show's season bar just under it and the episodes below, then Cast,
+     Trailers & Extras, Related, Collections and the About, Details, Crew and Playback cards. The
+     header's parts are placed from the foot up by the Python (kodi/windows/details.py, from
+     arc/titlepage.py's hero_layout), as Kodi can't stack controls of varying heights upwards. -->
 <window>
   <defaultcontrol>100</defaultcontrol>
   <controls>
@@ -25,6 +28,15 @@
       <left>0</left><top>0</top><width>1920</width><height>1080</height>
       <texture>arc-title-scrim.png</texture>
     </control>
+    <!-- Once the page has scrolled past the header (focus on the episodes or below), the artwork
+         dims behind the rows, as Home's and the Android app's HeroBackdrop (82% of the page's
+         colour). -->
+    <control type="image">
+      <left>0</left><top>0</top><width>1920</width><height>1080</height>
+      <texture>arc-white.png</texture><colordiffuse>D10B0B10</colordiffuse>
+      <visible>String.IsEqual(Window.Property(scrolled),true)</visible>
+      <animation effect="fade" time="250">VisibleChange</animation>
+    </control>
 
     <control type="grouplist" id="900">
       <left>112</left><top>0</top><width>1808</width><height>1080</height>
@@ -32,23 +44,33 @@
       <scrolltime tween="cubic" easing="out">300</scrolltime>
       <onup>noop</onup><ondown>noop</ondown>
 
-      <!-- The hero, as the Apple app's: the logo (or title); the rating boxed with the genres;
-           the overview; the year and length with the file's quality capsules. Not focusable; it
-           scrolls away as the page moves down. -->
+      <!-- The header: a film's fills the first screen (a margin at the foot), a show's leaves
+           room for its season bar under it. Not focusable itself (the description, when cut,
+           and the buttons are); its parts are placed by the Python, these are a film's. -->
       <control type="group" id="130">
-        <width>1808</width><height>640</height>
+        <width>1808</width><height>1080</height>
         <control type="image" id="110">
-          <left>8</left><top>90</top><width>640</width><height>200</height>
+          <left>8</left><top>400</top><width>920</width><height>240</height>
           <aspectratio align="left" aligny="bottom">keep</aspectratio>
         </control>
         <control type="label" id="111">
           <shadowcolor>CC000000</shadowcolor>
-          <left>8</left><top>190</top><width>1100</width><height>100</height>
+          <left>8</left><top>556</top><width>1300</width><height>84</height>
           <font>arc-hero</font><textcolor>fg</textcolor>
         </control>
+        <!-- An episode's own page: "S1 · E4 · Pilot" under the show's logo. -->
+        <control type="label" id="117">
+          <left>10</left><top>656</top><width>1300</width><height>40</height>
+          <font>arc-body</font><textcolor>fg</textcolor><shadowcolor>CC000000</shadowcolor>
+        </control>
+        <!-- The age rating boxed, then the genres. -->
+        <!-- (Grouplists sit in plain groups the Python can move: Kodi's Python can't take hold of
+             a grouplist.) -->
+        <control type="group" id="143">
+          <left>8</left><top>672</top><width>1150</width><height>40</height>
         <control type="grouplist" id="140">
-          <left>8</left><top>316</top><width>1150</width><height>40</height>
-          <orientation>horizontal</orientation><itemgap>14</itemgap><usecontrolcoords>false</usecontrolcoords>
+          <left>0</left><top>0</top><width>1150</width><height>40</height>
+          <orientation>horizontal</orientation><itemgap>24</itemgap><usecontrolcoords>false</usecontrolcoords>
           <control type="button" id="141">
             <width>auto</width><height>40</height><enable>false</enable>
             <font>arc-small</font><align>center</align><aligny>center</aligny><textoffsetx>16</textoffsetx>
@@ -61,17 +83,50 @@
             <font>arc-body</font><textcolor>fg</textcolor><aligny>center</aligny>
           </control>
         </control>
+        </control>
+        <!-- The description (three lines) and, when that cuts it, MORE under it; then the year,
+             length and score with the quality capsules. When cut, the whole block takes the
+             focus (glass behind it) and opens the full text, as the Android app's. -->
+        <control type="button" id="114">
+          <left>-12</left><top>716</top><width>1100</width><height>196</height>
+          <texturefocus border="32" colordiffuse="33FFFFFF">arc-pill-white-64.png</texturefocus><texturenofocus/>
+          <label/>
+          <onup>noop</onup><ondown>100</ondown><onleft>noop</onleft><onright>noop</onright>
+        </control>
         <control type="textbox" id="113">
           <shadowcolor>CC000000</shadowcolor>
-          <left>10</left><top>376</top><width>1000</width><height>160</height>
-          <font>arc-body</font><textcolor>DDF5F5F7</textcolor>
+          <left>10</left><top>732</top><width>1040</width><height>126</height>
+          <font>arc-body</font><textcolor>D9F5F5F7</textcolor>
         </control>
+        <control type="label" id="116">
+          <left>10</left><top>858</top><width>400</width><height>30</height>
+          <font>arc-caption</font><textcolor>fg</textcolor><shadowcolor>CC000000</shadowcolor>
+        </control>
+        <control type="group" id="151">
+          <left>10</left><top>856</top><width>1150</width><height>40</height>
+        <!-- The year and length, then the score after a star (Kodi's font has no ★), then the
+             capsules a little further on. -->
         <control type="grouplist" id="150">
-          <left>8</left><top>556</top><width>1150</width><height>40</height>
-          <orientation>horizontal</orientation><itemgap>14</itemgap>
+          <left>0</left><top>0</top><width>1150</width><height>40</height>
+          <orientation>horizontal</orientation><itemgap>10</itemgap><usecontrolcoords>false</usecontrolcoords>
           <control type="label" id="112">
             <width>auto</width><height>40</height><shadowcolor>CC000000</shadowcolor>
-            <font>arc-body</font><textcolor>DDF5F5F7</textcolor><aligny>center</aligny>
+            <font>arc-body</font><textcolor>D9F5F5F7</textcolor><aligny>center</aligny>
+          </control>
+          <control type="image">
+            <width>22</width><height>40</height><aspectratio>keep</aspectratio>
+            <texture>arc-osd-star.png</texture><colordiffuse>D9F5F5F7</colordiffuse>
+            <visible>!String.IsEmpty(Window.Property(arc.score))</visible>
+          </control>
+          <control type="label" id="118">
+            <width>auto</width><height>40</height><shadowcolor>CC000000</shadowcolor>
+            <font>arc-body</font><textcolor>D9F5F5F7</textcolor><aligny>center</aligny>
+            <label>$INFO[Window.Property(arc.score)]</label>
+            <visible>!String.IsEmpty(Window.Property(arc.score))</visible>
+          </control>
+          <control type="image">
+            <width>8</width><height>40</height><texture/>
+            <visible>!String.IsEmpty(Window.Property(arc.cap0))</visible>
           </control>
           <control type="button" id="160">
             <width>auto</width><height>40</height><enable>false</enable>
@@ -158,51 +213,106 @@
             <visible>String.IsEqual(Window.Property(arc.cap5),o)</visible>
           </control>
         </control>
-      </control>
-
-      <!-- Play, then round buttons; the focused one's name shows beside the row. -->
-      <control type="group" id="98">
-        <width>1808</width><height>80</height>
-        <!-- A plain group, not a grouplist: a horizontal grouplist takes over Left/Right and can't
-             move into the round buttons' groups. -->
-        <control type="group" id="99">
-          <left>8</left><top>0</top><width>1300</width><height>80</height>
-          <control type="button" id="100">
-            <include content="SmallPrimaryButton"><param name="width" value="280"/></include>
-            <top>8</top>
-            <onup>noop</onup><ondown>200</ondown><onleft>noop</onleft><onright>101</onright>
-            <label>$ADDON[script.arc 30005]</label>
-          </control>
-          <include content="RoundIconButton"><param name="id" value="101"/><param name="icon" value="arc-osd-rotate-ccw.png"/><param name="left" value="100"/><param name="right" value="102"/><param name="x" value="296"/></include>
-          <include content="RoundIconButton"><param name="id" value="102"/><param name="icon" value="$INFO[Window.Property(arc.watchedicon)]"/><param name="left" value="101"/><param name="right" value="103"/><param name="x" value="376"/></include>
-          <include content="RoundIconButton"><param name="id" value="103"/><param name="icon" value="$INFO[Window.Property(arc.watchlisticon)]"/><param name="left" value="102"/><param name="right" value="noop"/><param name="x" value="456"/></include>
         </control>
-        <!-- Starring and Director at the right, level with the buttons, as the Apple app's. -->
+
+        <!-- Play, then the round buttons (Play from the Beginning, Shuffle, Watched, Watchlist,
+             ⋯), as the Android app's; the Python places the ones this title shows and links
+             their Left/Right. A plain group, not a grouplist: a horizontal grouplist takes over
+             Left/Right and can't move into the round buttons' groups. -->
+        <control type="group" id="99">
+          <left>8</left><top>920</top><width>1300</width><height>80</height>
+          <!-- Play: a glass pill, white when focused, with the play icon, how far through (part
+               watched) and what it plays. The words are labels (186, 187) so they can follow the
+               bar. -->
+          <control type="button" id="100">
+            <left>0</left><top>8</top><width>280</width><height>64</height>
+            <texturefocus border="32">arc-pill-white-64.png</texturefocus>
+            <texturenofocus border="32" colordiffuse="29FFFFFF">arc-pill-white-64.png</texturenofocus>
+            <label/>
+            <onup>noop</onup><ondown>noop</ondown><onleft>noop</onleft><onright>101</onright>
+          </control>
+          <control type="image">
+            <left>34</left><top>27</top><width>26</width><height>26</height>
+            <texture>arc-osd-play.png</texture><colordiffuse>white</colordiffuse>
+            <visible>!Control.HasFocus(100)</visible>
+          </control>
+          <control type="image">
+            <left>34</left><top>27</top><width>26</width><height>26</height>
+            <texture>arc-osd-play.png</texture><colordiffuse>black</colordiffuse>
+            <visible>Control.HasFocus(100)</visible>
+          </control>
+          <control type="group" id="188">
+            <left>76</left><top>36</top><width>72</width><height>8</height>
+            <control type="image">
+              <left>0</left><top>0</top><width>72</width><height>8</height>
+              <texture border="4">arc-bar-fg.png</texture><colordiffuse>4DFFFFFF</colordiffuse>
+              <visible>!Control.HasFocus(100)</visible>
+            </control>
+            <control type="image">
+              <left>0</left><top>0</top><width>72</width><height>8</height>
+              <texture border="4">arc-bar-fg.png</texture><colordiffuse>4D000000</colordiffuse>
+              <visible>Control.HasFocus(100)</visible>
+            </control>
+            <control type="image" id="189">
+              <left>0</left><top>0</top><width>36</width><height>8</height>
+              <texture border="4">arc-bar-fg.png</texture><colordiffuse>white</colordiffuse>
+              <visible>!Control.HasFocus(100)</visible>
+            </control>
+            <control type="image" id="190">
+              <left>0</left><top>0</top><width>36</width><height>8</height>
+              <texture border="4">arc-bar-fg.png</texture><colordiffuse>black</colordiffuse>
+              <visible>Control.HasFocus(100)</visible>
+            </control>
+          </control>
+          <control type="label" id="186">
+            <left>76</left><top>8</top><width>800</width><height>64</height>
+            <font>arc-label</font><textcolor>fg</textcolor><aligny>center</aligny>
+            <visible>!Control.HasFocus(100)</visible>
+          </control>
+          <control type="label" id="187">
+            <left>76</left><top>8</top><width>800</width><height>64</height>
+            <font>arc-label</font><textcolor>black</textcolor><aligny>center</aligny>
+            <visible>Control.HasFocus(100)</visible>
+          </control>
+          <include content="RoundIconButton"><param name="id" value="101"/><param name="group" value="191"/><param name="icon" value="arc-osd-rotate-ccw.png"/><param name="x" value="300"/></include>
+          <include content="RoundIconButton"><param name="id" value="104"/><param name="group" value="192"/><param name="icon" value="arc-osd-shuffle.png"/><param name="x" value="384"/></include>
+          <include content="RoundIconButton"><param name="id" value="102"/><param name="group" value="193"/><param name="icon" value="$INFO[Window.Property(arc.watchedicon)]"/><param name="x" value="468"/></include>
+          <include content="RoundIconButton"><param name="id" value="103"/><param name="group" value="194"/><param name="icon" value="$INFO[Window.Property(arc.watchlisticon)]"/><param name="x" value="552"/></include>
+          <include content="RoundIconButton"><param name="id" value="105"/><param name="group" value="195"/><param name="icon" value="arc-osd-ellipsis.png"/><param name="x" value="636"/></include>
+        </control>
+        <!-- The focused button's name under the row, in the margin below it. -->
+        <control type="label" id="97">
+          <left>10</left><top>1004</top><width>800</width><height>36</height>
+          <font>arc-small</font><textcolor>CCF5F5F7</textcolor><shadowcolor>CC000000</shadowcolor>
+          <label>$INFO[Window.Property(arc.hint)]</label>
+          <visible>Control.HasFocus(101) | Control.HasFocus(102) | Control.HasFocus(103) | Control.HasFocus(104) | Control.HasFocus(105)</visible>
+        </control>
+        <!-- Starring and Directed by at the right, their foot level with the buttons'. -->
         <control type="label" id="95">
-          <left>1120</left><top>-2</top><width>620</width><height>40</height>
-          <font>arc-small</font><textcolor>fg</textcolor><align>right</align><aligny>top</aligny>
+          <left>1100</left><top>880</top><width>596</width><height>40</height>
+          <font>arc-small</font><textcolor>fg</textcolor><align>right</align>
           <wrapmultiline>true</wrapmultiline>
           <shadowcolor>CC000000</shadowcolor>
         </control>
         <control type="label" id="96">
-          <left>1120</left><top>36</top><width>620</width><height>40</height>
-          <font>arc-small</font><textcolor>fg</textcolor><align>right</align><aligny>center</aligny>
+          <left>1100</left><top>942</top><width>596</width><height>40</height>
+          <font>arc-small</font><textcolor>fg</textcolor><align>right</align>
+          <wrapmultiline>true</wrapmultiline>
           <shadowcolor>CC000000</shadowcolor>
-        </control>
-        <control type="label" id="97">
-          <left>540</left><top>0</top><width>360</width><height>80</height>
-          <font>arc-small</font><textcolor>fg</textcolor><aligny>center</aligny><shadowcolor>CC000000</shadowcolor>
-          <label>$INFO[Window.Property(arc.hint)]</label>
-          <visible>Control.HasFocus(101) | Control.HasFocus(102) | Control.HasFocus(103)</visible>
         </control>
       </control>
 
-      <!-- A show's seasons and episodes. -->
+      <!-- A show's season bar: just this shows under the header on the first screen. -->
+      <control type="group" id="131">
+        <height>124</height>
+        <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
       <control type="list" id="200">
         <!-- Tabs 280 wide: room for "Not in This Order" (episodes outside the show's order). -->
-        <left>8</left><width>1700</width><height>76</height>
+        <left>8</left><top>24</top><width>1700</width><height>76</height>
+        <!-- Its own condition too: ROW_STOPS asks whether the list itself is visible. -->
         <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>12</itemgap>
+        <onup>100</onup>
         <itemlayout width="280" height="76">
           <control type="label"><left>0</left><top>0</top><width>280</width><height>76</height>
             <font>arc-label</font><align>center</align><aligny>center</aligny><textcolor>C8F5F5F7</textcolor>
@@ -220,33 +330,23 @@
             <shadowcolor>CC000000</shadowcolor><label>$INFO[ListItem.Label]</label><visible>!Control.HasFocus(200)</visible></control>
         </focusedlayout>
       </control>
-      <!-- The episodes and, under them, the focused one's description, as one unit: the
-           grouplist scrolls the whole group into view, so the description shows the first time
-           the focus lands on the episodes (it used to sit below the screen's foot until the page
-           had scrolled further). -->
+      </control>
+      <!-- The season's episodes, as the Android app's cards (the description is in each card). -->
       <control type="group">
         <defaultcontrol always="true">201</defaultcontrol>
-        <height>500</height>
+        <height>496</height>
         <visible>Integer.IsGreater(Container(201).NumItems,0)</visible>
       <control type="list" id="201">
-        <top>0</top><width>1808</width><height>350</height>
+        <top>0</top><width>1808</width><height>496</height>
         <visible>Integer.IsGreater(Container(201).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>8</itemgap>
         <scrolltime tween="cubic" easing="out">220</scrolltime>
-        <itemlayout width="488" height="350"><include>ThumbCard</include></itemlayout>
-        <focusedlayout width="488" height="350">
-          <include content="ThumbCard"><param name="focused" value="Control.HasFocus(201)"/><param name="labelcolor" value="fg"/></include>
+        <itemlayout width="488" height="496"><include>EpisodeCard</include></itemlayout>
+        <focusedlayout width="488" height="496">
+          <include content="EpisodeCard"><param name="focused" value="Control.HasFocus(201)"/><param name="labelcolor" value="fg"/></include>
         </focusedlayout>
       </control>
-      <control type="textbox" id="202">
-        <left>8</left><top>360</top><width>1400</width><height>114</height>
-        <font>arc-small</font><textcolor>DDF5F5F7</textcolor><shadowcolor>CC000000</shadowcolor>
-        <label>$INFO[Container(201).ListItem.Property(overview)]</label>
-        <visible>Control.HasFocus(201) + !String.IsEmpty(Container(201).ListItem.Property(overview))</visible>
       </control>
-      </control>
-
-
 
       <!-- The rows in the Apple app's order: the cast first (owner, 7 November), then trailers
            and extras, Related and Collections. -->
