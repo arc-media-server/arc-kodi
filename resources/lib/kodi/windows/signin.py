@@ -9,11 +9,13 @@ import xbmcgui
 
 from arc.api import ArcAPI, APIError, Unreachable, normalise_address
 from arc.discovery import DiscoveryState, scan
+from arc.titlepage import plain_width
 
 from .. import toast
 from ..compat import T
 from ..log import log
 from . import keyboard
+from . import menu
 from . import pin as pin_pad
 from .base import ArcWindow, list_item
 
@@ -211,21 +213,48 @@ class SignInWindow(ArcWindow):
         self._stop = threading.Event()
         self._poll = None
 
+    LINK_STEP, SPINNER, SERVER = 105, 106, 107
+    CODE_BOXES = (110, 111, 112, 113)
+
     def on_init(self):
         self.set_label(self.NEW_CODE, T(30045))
         self.set_label(self.CHANGE_SERVER, T(30046))
-        self.set_text(self.STATUS, T(30043))
+        server = display_address(self.session.base_url)
+        self.set_label(self.LINK_STEP, T(30613) % (server + "/link"))
+        self.set_label(self.SERVER, T(30200) % server)
+        self._status(T(30043))
         self._begin()
+
+    def _status(self, text, waiting=True):
+        """The line under the code, with the spinner beside it while waiting, the two centred
+        together as Android's row (Kodi can't centre a row of controls itself)."""
+        self.set_text(self.STATUS, text)
+        width = plain_width(text, 30) + (52 if waiting else 0)
+        left = max(0, int((704 - width) / 2))
+        self.set_visible(self.SPINNER, waiting)
+        try:
+            self.getControl(self.SPINNER).setPosition(left, 8)
+            self.getControl(self.STATUS).setPosition(left + (52 if waiting else 0), 0)
+        except Exception:
+            pass
+
+    def _show_digits(self, code):
+        # Four characters go in Android's four boxes; any other code shows whole.
+        boxed = len(code) == len(self.CODE_BOXES)
+        self.set_bool("boxes", boxed)
+        for i, cid in enumerate(self.CODE_BOXES):
+            self.set_label(cid, code[i] if boxed else "")
+        self.set_label(self.CODE, "" if boxed else code)
 
     def _begin(self):
         self.run_async(lambda: self.session.api.start_link("Kodi"), self._show_code)
 
     def _show_code(self, result, error):
         if error is not None or not isinstance(result, dict) or not result.get("code"):
-            self.set_text(self.STATUS, T(30047))
+            self._status(T(30047), waiting=False)
             return
-        self.set_label(self.CODE, result["code"])
-        self.set_text(self.STATUS, T(30043))
+        self._show_digits(result["code"])
+        self._status(T(30043))
         self._stop.clear()
         self._poll = threading.Thread(target=self._poll_loop, args=(result["poll"],), daemon=True)
         self._poll.start()
@@ -244,7 +273,7 @@ class SignInWindow(ArcWindow):
                 self.close()
                 return
             if state == "expired":
-                self.set_text(self.STATUS, T(30044))
+                self._status(T(30044))
                 self._begin()
                 return
 
@@ -265,7 +294,7 @@ class SignInWindow(ArcWindow):
         password = keyboard.type_text(T(30312), kind="password")
         if not password:
             return
-        self.set_text(self.STATUS, T(30314))
+        self._status(T(30314))
 
         def done(token, error):
             if error is None and token:
@@ -277,7 +306,7 @@ class SignInWindow(ArcWindow):
                 return
             wrong = isinstance(error, APIError) and error.status in (401, 403)
             log.info("password sign-in failed (%s)", "wrong password" if wrong else type(error).__name__)
-            self.set_text(self.STATUS, T(30313) if wrong else T(30004))
+            self._status(T(30313) if wrong else T(30004), waiting=False)
 
         self.run_async(lambda: self.session.api.login(password, "Kodi"), done)
 
@@ -289,6 +318,15 @@ class SignInWindow(ArcWindow):
     def close(self):
         self._stop.set()
         ArcWindow.close(self)
+
+
+def display_address(base_url):
+    """The server as people type it: no scheme, no trailing slash (Android's display())."""
+    text = base_url or ""
+    for prefix in ("http://", "https://"):
+        if text.startswith(prefix):
+            text = text[len(prefix):]
+    return text.rstrip("/")
 
 
 # A profile's colour (web/src/components/Avatar.tsx; the deeper end of its gradient), as ARGB.
@@ -305,9 +343,11 @@ class ProfilesWindow(ArcWindow):
 
     LIST = 100
     SERVER = 101
+    SIGN_OUT = 102
 
     def on_init(self):
-        self.set_label(self.SERVER, T(30200) % (self.session.identity_name or ""))
+        # The server's name (as set in Arc), under the title, as Android's.
+        self.set_label(self.SERVER, self.session.identity_name or "")
         self._load()
 
     def _load(self):
@@ -328,12 +368,17 @@ class ProfilesWindow(ArcWindow):
                 "colorhex": PROFILE_COLOURS.get(p.get("color"), PROFILE_COLOURS["violet"]),
                 "initial": name[:1].upper(), "haspin": p.get("has_pin"), "admin": p.get("is_admin")}))
         # Centre the row of avatars (a Kodi list can't centre its own items).
-        width = len(self._profiles) * 240 + max(0, len(self._profiles) - 1) * 40
+        width = len(self._profiles) * 256 + max(0, len(self._profiles) - 1) * 64
         ctrl.setWidth(min(width, 1760))
-        ctrl.setPosition(int((1920 - min(width, 1760)) / 2), 420)
+        ctrl.setPosition(int((1920 - min(width, 1760)) / 2), 464)
         self.focus_id(self.LIST)
 
     def on_click(self, control_id):
+        if control_id == self.SIGN_OUT:
+            if menu.confirm(T(30063), T(30178) % (self.session.identity_name or "Arc"), T(30063)):
+                self.result = "sign_out"
+                self.close()
+            return
         if control_id == self.LIST:
             pos = self.list_control(self.LIST).getSelectedPosition()
             if 0 <= pos < len(self._profiles):
@@ -351,7 +396,7 @@ class ProfilesWindow(ArcWindow):
 
         def done(result, error):
             if error is None:
-                self.session.set_profile(result if isinstance(result, dict) else profile)
+                self.session.set_profile(dict(profile, **result) if isinstance(result, dict) else profile)
                 self.result = "chosen"
                 self.close()
                 return

@@ -1501,3 +1501,7 @@ msgstr ""
 msgctxt "#30612"
 msgid "More"
 msgstr ""
+
+msgctxt "#30613"
+msgid "Or go to %s"
+msgstr ""

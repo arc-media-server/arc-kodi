@@ -91,6 +91,12 @@ class App(object):
     def _ensure_profile(self):
         while not self.session.has_profile:
             result = signin.ProfilesWindow.open(self.session)
+            if result == "sign_out":
+                # Sign Out under the profiles, as Android's: back to the sign-in code.
+                self.session.sign_out()
+                if not self._ensure_signed_in():
+                    return False
+                continue
             if result != "chosen":
                 return False
         return True

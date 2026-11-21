@@ -1,61 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Who's watching?, as the Android app's ProfilesScreen: the wordmark, the title, the server's
+     name, the avatars (gradient circles; a white ring and the name bold when focused), Sign Out. -->
 <window>
   <defaultcontrol always="true">100</defaultcontrol>
   <controls>
     <include>PageBackground</include>
-    <control type="label" id="101">
-      <left>0</left><top>160</top><width>1920</width><height>40</height>
-      <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
-      <label></label>
+    <control type="image">
+      <left>0</left><top>150</top><width>1920</width><height>80</height>
+      <texture>arc-logo.png</texture><aspectratio>keep</aspectratio>
     </control>
     <control type="label">
-      <left>0</left><top>210</top><width>1920</width><height>70</height>
-      <font>arc-hero</font><textcolor>fg</textcolor><align>center</align>
+      <left>0</left><top>286</top><width>1920</width><height>64</height>
+      <font>arc-title</font><textcolor>fg</textcolor><align>center</align>
       <label>$ADDON[script.arc 30060]</label>
     </control>
+    <control type="label" id="101">
+      <left>0</left><top>356</top><width>1920</width><height>40</height>
+      <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
+    </control>
     <control type="list" id="100">
-      <left>360</left><top>420</top><width>1200</width><height>340</height>
+      <left>360</left><top>464</top><width>1200</width><height>330</height>
       <orientation>horizontal</orientation>
-      <itemgap>40</itemgap>
+      <itemgap>64</itemgap>
       <focusposition>0</focusposition>
-      <itemlayout width="240" height="320">
-        <control type="image">
-          <left>30</left><top>16</top><width>180</width><height>180</height>
-          <texture>arc-circle.png</texture>
-          <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
+      <ondown>102</ondown>
+      <itemlayout width="256" height="330">
+        <control type="group">
+          <control type="image">
+            <left>16</left><top>8</top><width>224</width><height>224</height>
+            <texture>arc-circle.png</texture>
+            <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
+          </control>
+          <control type="image">
+            <left>16</left><top>8</top><width>224</width><height>224</height>
+            <texture>arc-avatar-sheen.png</texture>
+          </control>
+          <control type="label">
+            <left>16</left><top>8</top><width>224</width><height>224</height>
+            <font>arc-avatar</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor>
+            <label>$INFO[ListItem.Property(initial)]</label>
+          </control>
         </control>
         <control type="label">
-          <left>30</left><top>16</top><width>180</width><height>180</height>
-          <font>arc-title</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor>
-          <label>$INFO[ListItem.Property(initial)]</label>
-        </control>
-        <control type="label">
-          <left>0</left><top>226</top><width>240</width><height>40</height>
-          <font>arc-label</font><align>center</align><textcolor>muted</textcolor>
+          <left>0</left><top>268</top><width>256</width><height>40</height>
+          <font>arc-name</font><align>center</align><textcolor>muted</textcolor>
           <label>$INFO[ListItem.Label]</label>
         </control>
       </itemlayout>
-      <focusedlayout width="240" height="320">
-        <control type="image">
-          <left>14</left><top>0</top><width>212</width><height>212</height>
-          <texture>arc-ring.png</texture>
-        </control>
-        <control type="image">
-          <left>30</left><top>16</top><width>180</width><height>180</height>
-          <texture>arc-circle.png</texture>
-          <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
+      <focusedlayout width="256" height="330">
+        <control type="group">
+          <control type="image">
+            <left>8</left><top>0</top><width>240</width><height>240</height>
+            <texture>arc-ring.png</texture>
+          </control>
+          <control type="image">
+            <left>16</left><top>8</top><width>224</width><height>224</height>
+            <texture>arc-circle.png</texture>
+            <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
+          </control>
+          <control type="image">
+            <left>16</left><top>8</top><width>224</width><height>224</height>
+            <texture>arc-avatar-sheen.png</texture>
+          </control>
+          <control type="label">
+            <left>16</left><top>8</top><width>224</width><height>224</height>
+            <font>arc-avatar</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor>
+            <label>$INFO[ListItem.Property(initial)]</label>
+          </control>
+          <animation effect="zoom" start="100" end="106" center="128,120" time="150">Focus</animation>
         </control>
         <control type="label">
-          <left>30</left><top>16</top><width>180</width><height>180</height>
-          <font>arc-title</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor>
-          <label>$INFO[ListItem.Property(initial)]</label>
-        </control>
-        <control type="label">
-          <left>0</left><top>226</top><width>240</width><height>40</height>
-          <font>arc-label</font><align>center</align><textcolor>fg</textcolor>
+          <left>0</left><top>268</top><width>256</width><height>40</height>
+          <font>arc-name-bold</font><align>center</align><textcolor>fg</textcolor>
           <label>$INFO[ListItem.Label]</label>
         </control>
       </focusedlayout>
+    </control>
+    <control type="button" id="102">
+      <left>840</left><top>842</top>
+      <onup>100</onup>
+      <include content="OutlineButton"><param name="width" value="240"/></include>
+      <label>$ADDON[script.arc 30063]</label>
     </control>
     <include>ArcToast</include>
   </controls>

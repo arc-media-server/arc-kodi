@@ -11,103 +11,145 @@
       <texture>arc-white.png</texture>
       <colordiffuse>FF0B0B10</colordiffuse>
     </control>
+    <control type="image">
+      <left>0</left>
+      <top>150</top>
+      <width>1920</width>
+      <height>80</height>
+      <texture>arc-logo.png</texture>
+      <aspectratio>keep</aspectratio>
+    </control>
+    <control type="label">
+      <left>0</left>
+      <top>286</top>
+      <width>1920</width>
+      <height>64</height>
+      <font>font52_title</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <align>center</align>
+      <label>$ADDON[script.arc 30060]</label>
+    </control>
     <control type="label" id="101">
       <left>0</left>
-      <top>160</top>
+      <top>356</top>
       <width>1920</width>
       <height>40</height>
       <font>font13</font>
       <textcolor>FFA1A1AD</textcolor>
       <align>center</align>
-      <label />
-    </control>
-    <control type="label">
-      <left>0</left>
-      <top>210</top>
-      <width>1920</width>
-      <height>70</height>
-      <font>font60</font>
-      <textcolor>FFF5F5F7</textcolor>
-      <align>center</align>
-      <label>$ADDON[script.arc 30060]</label>
     </control>
     <control type="list" id="100">
       <left>360</left>
-      <top>420</top>
+      <top>464</top>
       <width>1200</width>
-      <height>340</height>
+      <height>330</height>
       <orientation>horizontal</orientation>
-      <itemgap>40</itemgap>
+      <itemgap>64</itemgap>
       <focusposition>0</focusposition>
-      <itemlayout width="240" height="320">
-        <control type="image">
-          <left>30</left>
-          <top>16</top>
-          <width>180</width>
-          <height>180</height>
-          <texture>arc-circle.png</texture>
-          <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
-        </control>
-        <control type="label">
-          <left>30</left>
-          <top>16</top>
-          <width>180</width>
-          <height>180</height>
-          <font>font52_title</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textcolor>FFFFFFFF</textcolor>
-          <label>$INFO[ListItem.Property(initial)]</label>
+      <ondown>102</ondown>
+      <itemlayout width="256" height="330">
+        <control type="group">
+          <control type="image">
+            <left>16</left>
+            <top>8</top>
+            <width>224</width>
+            <height>224</height>
+            <texture>arc-circle.png</texture>
+            <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
+          </control>
+          <control type="image">
+            <left>16</left>
+            <top>8</top>
+            <width>224</width>
+            <height>224</height>
+            <texture>arc-avatar-sheen.png</texture>
+          </control>
+          <control type="label">
+            <left>16</left>
+            <top>8</top>
+            <width>224</width>
+            <height>224</height>
+            <font>font60</font>
+            <align>center</align>
+            <aligny>center</aligny>
+            <textcolor>FFFFFFFF</textcolor>
+            <label>$INFO[ListItem.Property(initial)]</label>
+          </control>
         </control>
         <control type="label">
           <left>0</left>
-          <top>226</top>
-          <width>240</width>
+          <top>268</top>
+          <width>256</width>
           <height>40</height>
-          <font>font13</font>
+          <font>font27</font>
           <align>center</align>
           <textcolor>FFA1A1AD</textcolor>
           <label>$INFO[ListItem.Label]</label>
         </control>
       </itemlayout>
-      <focusedlayout width="240" height="320">
-        <control type="image">
-          <left>14</left>
-          <top>0</top>
-          <width>212</width>
-          <height>212</height>
-          <texture>arc-ring.png</texture>
-        </control>
-        <control type="image">
-          <left>30</left>
-          <top>16</top>
-          <width>180</width>
-          <height>180</height>
-          <texture>arc-circle.png</texture>
-          <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
-        </control>
-        <control type="label">
-          <left>30</left>
-          <top>16</top>
-          <width>180</width>
-          <height>180</height>
-          <font>font52_title</font>
-          <align>center</align>
-          <aligny>center</aligny>
-          <textcolor>FFFFFFFF</textcolor>
-          <label>$INFO[ListItem.Property(initial)]</label>
+      <focusedlayout width="256" height="330">
+        <control type="group">
+          <control type="image">
+            <left>8</left>
+            <top>0</top>
+            <width>240</width>
+            <height>240</height>
+            <texture>arc-ring.png</texture>
+          </control>
+          <control type="image">
+            <left>16</left>
+            <top>8</top>
+            <width>224</width>
+            <height>224</height>
+            <texture>arc-circle.png</texture>
+            <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
+          </control>
+          <control type="image">
+            <left>16</left>
+            <top>8</top>
+            <width>224</width>
+            <height>224</height>
+            <texture>arc-avatar-sheen.png</texture>
+          </control>
+          <control type="label">
+            <left>16</left>
+            <top>8</top>
+            <width>224</width>
+            <height>224</height>
+            <font>font60</font>
+            <align>center</align>
+            <aligny>center</aligny>
+            <textcolor>FFFFFFFF</textcolor>
+            <label>$INFO[ListItem.Property(initial)]</label>
+          </control>
+          <animation effect="zoom" start="100" end="106" center="128,120" time="150">Focus</animation>
         </control>
         <control type="label">
           <left>0</left>
-          <top>226</top>
-          <width>240</width>
+          <top>268</top>
+          <width>256</width>
           <height>40</height>
-          <font>font13</font>
+          <font>font25_title</font>
           <align>center</align>
           <textcolor>FFF5F5F7</textcolor>
           <label>$INFO[ListItem.Label]</label>
         </control>
       </focusedlayout>
+    </control>
+    <control type="button" id="102">
+      <left>840</left>
+      <top>842</top>
+      <onup>100</onup>
+      <width>240</width>
+      <height>76</height>
+      <font>font13</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <focusedcolor>FF000000</focusedcolor>
+      <texturefocus border="38">arc-pill-white.png</texturefocus>
+      <texturenofocus border="38" colordiffuse="FF2A2A35">arc-pill-line.png</texturenofocus>
+      <aligny>center</aligny>
+      <align>center</align>
+      <label>$ADDON[script.arc 30063]</label>
     </control>
     <control type="group">
       <left>1060</left>

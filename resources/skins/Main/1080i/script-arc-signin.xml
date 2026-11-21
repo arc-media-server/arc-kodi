@@ -11,114 +11,275 @@
       <texture>arc-white.png</texture>
       <colordiffuse>FF0B0B10</colordiffuse>
     </control>
-    <control type="group">
-      <left>560</left>
-      <top>300</top>
-      <width>800</width>
-      <control type="image">
-        <left>310</left>
-        <top>-230</top>
-        <width>180</width>
-        <height>190</height>
-        <texture>arc-logo-stacked.png</texture>
-      </control>
-      <control type="label">
-        <left>0</left>
-        <top>0</top>
-        <width>800</width>
-        <height>60</height>
-        <font>font52_title</font>
-        <textcolor>FFF5F5F7</textcolor>
-        <label>$ADDON[script.arc 30040]</label>
-      </control>
-      <control type="label">
-        <left>0</left>
-        <top>80</top>
-        <width>800</width>
-        <height>80</height>
-        <font>font13</font>
-        <textcolor>FFA1A1AD</textcolor>
-        <wrapmultiline>true</wrapmultiline>
-        <label>$ADDON[script.arc 30041]</label>
-      </control>
-      <control type="label">
-        <left>0</left>
-        <top>180</top>
-        <width>800</width>
-        <height>36</height>
-        <font>font13</font>
-        <textcolor>FFA1A1AD</textcolor>
-        <align>center</align>
-        <label>$ADDON[script.arc 30042]</label>
-      </control>
-      <control type="label" id="100">
-        <left>0</left>
-        <top>220</top>
-        <width>800</width>
-        <height>120</height>
-        <font>font60</font>
-        <textcolor>FFF5F5F7</textcolor>
-        <align>center</align>
-        <label />
-      </control>
-      <control type="label" id="101">
-        <left>0</left>
-        <top>360</top>
-        <width>800</width>
-        <height>40</height>
-        <font>font12</font>
-        <textcolor>FFA1A1AD</textcolor>
-        <align>center</align>
-        <label>$ADDON[script.arc 30043]</label>
-      </control>
+    <control type="image">
+      <left>192</left>
+      <top>158</top>
+      <width>361</width>
+      <height>96</height>
+      <texture>arc-logo.png</texture>
+      <aspectratio align="left">keep</aspectratio>
+    </control>
+    <control type="label">
+      <left>192</left>
+      <top>290</top>
+      <width>704</width>
+      <height>80</height>
+      <font>font60</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <label>$ADDON[script.arc 30040]</label>
+    </control>
+    <control type="image">
+      <left>192</left>
+      <top>428</top>
+      <width>56</width>
+      <height>56</height>
+      <texture>arc-circle.png</texture>
+      <colordiffuse>FF2A2A35</colordiffuse>
+    </control>
+    <control type="label">
+      <left>192</left>
+      <top>428</top>
+      <width>56</width>
+      <height>56</height>
+      <font>font13</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <align>center</align>
+      <aligny>center</aligny>
+      <label>$NUMBER[1]</label>
+    </control>
+    <control type="label">
+      <left>276</left>
+      <top>434</top>
+      <width>620</width>
+      <height>84</height>
+      <font>font13</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <wrapmultiline>true</wrapmultiline>
+      <label>$ADDON[script.arc 30041]</label>
+    </control>
+    <control type="image">
+      <left>192</left>
+      <top>540</top>
+      <width>56</width>
+      <height>56</height>
+      <texture>arc-circle.png</texture>
+      <colordiffuse>FF2A2A35</colordiffuse>
+    </control>
+    <control type="label">
+      <left>192</left>
+      <top>540</top>
+      <width>56</width>
+      <height>56</height>
+      <font>font13</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <align>center</align>
+      <aligny>center</aligny>
+      <label>$NUMBER[2]</label>
+    </control>
+    <control type="label" id="105">
+      <left>276</left>
+      <top>546</top>
+      <width>620</width>
+      <height>44</height>
+      <font>font13</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <wrapmultiline>true</wrapmultiline>
+      <label />
+    </control>
+    <control type="image">
+      <left>192</left>
+      <top>624</top>
+      <width>56</width>
+      <height>56</height>
+      <texture>arc-circle.png</texture>
+      <colordiffuse>FF2A2A35</colordiffuse>
+    </control>
+    <control type="label">
+      <left>192</left>
+      <top>624</top>
+      <width>56</width>
+      <height>56</height>
+      <font>font13</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <align>center</align>
+      <aligny>center</aligny>
+      <label>$NUMBER[3]</label>
+    </control>
+    <control type="label">
+      <left>276</left>
+      <top>630</top>
+      <width>620</width>
+      <height>44</height>
+      <font>font13</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <wrapmultiline>true</wrapmultiline>
+      <label>$ADDON[script.arc 30042]</label>
+    </control>
+    <control type="group" id="120">
+      <left>192</left>
+      <top>752</top>
       <control type="button" id="102">
         <onright>103</onright>
         <ondown>104</ondown>
-        <width>390</width>
+        <width>300</width>
         <height>76</height>
         <font>font13</font>
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
-        <disabledcolor>FF6B6B78</disabledcolor>
         <texturefocus border="38">arc-pill-white.png</texturefocus>
-        <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+        <texturenofocus border="38" colordiffuse="FF2A2A35">arc-pill-line.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
-        <top>430</top>
         <label>$ADDON[script.arc 30045]</label>
       </control>
       <control type="button" id="103">
         <onleft>102</onleft>
         <ondown>104</ondown>
+        <width>340</width>
         <height>76</height>
         <font>font13</font>
         <textcolor>FFF5F5F7</textcolor>
         <focusedcolor>FF000000</focusedcolor>
         <texturefocus border="38">arc-pill-white.png</texturefocus>
-        <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+        <texturenofocus border="38" colordiffuse="FF2A2A35">arc-pill-line.png</texturenofocus>
         <aligny>center</aligny>
         <align>center</align>
-        <textoffsetx>28</textoffsetx>
-        <left>410</left>
-        <top>430</top>
-        <width>390</width>
+        <left>328</left>
         <label>$ADDON[script.arc 30046]</label>
       </control>
       <control type="button" id="104">
         <onup>102</onup>
+        <width>360</width>
         <height>76</height>
-        <font>font13</font>
-        <textcolor>FFF5F5F7</textcolor>
+        <font>font12</font>
+        <textcolor>FFA1A1AD</textcolor>
         <focusedcolor>FF000000</focusedcolor>
         <texturefocus border="38">arc-pill-white.png</texturefocus>
-        <texturenofocus border="38">arc-pill-surface.png</texturenofocus>
+        <texturenofocus />
         <aligny>center</aligny>
         <align>center</align>
-        <textoffsetx>28</textoffsetx>
-        <top>526</top>
-        <width>800</width>
+        <top>96</top>
         <label>$ADDON[script.arc 30311]</label>
       </control>
+    </control>
+    <control type="image">
+      <left>1026</left>
+      <top>350</top>
+      <width>160</width>
+      <height>208</height>
+      <texture border="24">arc-code-box.png</texture>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="label" id="110">
+      <left>1026</left>
+      <top>350</top>
+      <width>160</width>
+      <height>208</height>
+      <font>font60</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <align>center</align>
+      <aligny>center</aligny>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="image">
+      <left>1206</left>
+      <top>350</top>
+      <width>160</width>
+      <height>208</height>
+      <texture border="24">arc-code-box.png</texture>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="label" id="111">
+      <left>1206</left>
+      <top>350</top>
+      <width>160</width>
+      <height>208</height>
+      <font>font60</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <align>center</align>
+      <aligny>center</aligny>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="image">
+      <left>1386</left>
+      <top>350</top>
+      <width>160</width>
+      <height>208</height>
+      <texture border="24">arc-code-box.png</texture>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="label" id="112">
+      <left>1386</left>
+      <top>350</top>
+      <width>160</width>
+      <height>208</height>
+      <font>font60</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <align>center</align>
+      <aligny>center</aligny>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="image">
+      <left>1566</left>
+      <top>350</top>
+      <width>160</width>
+      <height>208</height>
+      <texture border="24">arc-code-box.png</texture>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="label" id="113">
+      <left>1566</left>
+      <top>350</top>
+      <width>160</width>
+      <height>208</height>
+      <font>font60</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <align>center</align>
+      <aligny>center</aligny>
+      <visible>String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="label" id="100">
+      <left>1024</left>
+      <top>350</top>
+      <width>704</width>
+      <height>208</height>
+      <font>font60</font>
+      <textcolor>FFF5F5F7</textcolor>
+      <align>center</align>
+      <aligny>center</aligny>
+      <visible>!String.IsEqual(Window.Property(boxes),true)</visible>
+    </control>
+    <control type="group">
+      <left>1024</left>
+      <top>614</top>
+      <width>704</width>
+      <control type="image" id="106">
+        <left>0</left>
+        <top>8</top>
+        <width>32</width>
+        <height>32</height>
+        <texture>arc-spinner.png</texture>
+        <colordiffuse>FFA1A1AD</colordiffuse>
+        <animation effect="rotate" end="-360" center="auto" time="1100" loop="true" reversible="false" condition="true">Conditional</animation>
+      </control>
+      <control type="label" id="101">
+        <left>0</left>
+        <top>0</top>
+        <width>704</width>
+        <height>48</height>
+        <font>font13</font>
+        <textcolor>FFA1A1AD</textcolor>
+        <aligny>center</aligny>
+      </control>
+    </control>
+    <control type="label" id="107">
+      <left>1024</left>
+      <top>686</top>
+      <width>704</width>
+      <height>40</height>
+      <font>font12</font>
+      <textcolor>FF6B6B78</textcolor>
+      <align>center</align>
     </control>
     <control type="group">
       <left>1060</left>

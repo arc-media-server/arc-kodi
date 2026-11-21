@@ -707,35 +707,221 @@
           <height>76</height>
           <visible>Integer.IsGreater(Container(200).NumItems,0)</visible>
           <orientation>horizontal</orientation>
-          <itemgap>12</itemgap>
+          <itemgap>0</itemgap>
           <onup>100</onup>
-          <itemlayout width="280" height="76">
+          <itemlayout width="300" height="76" condition="String.IsEqual(ListItem.Property(unplaced),true)">
+            <control type="image">
+              <left>0</left>
+              <top>0</top>
+              <width>150</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-l.png</texture>
+              <visible>String.Contains(ListItem.Property(edge),l)</visible>
+            </control>
+            <control type="image">
+              <left>0</left>
+              <top>0</top>
+              <width>150</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-m.png</texture>
+              <visible>!String.Contains(ListItem.Property(edge),l)</visible>
+            </control>
+            <control type="image">
+              <left>150</left>
+              <top>0</top>
+              <width>150</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-r.png</texture>
+              <visible>String.Contains(ListItem.Property(edge),r)</visible>
+            </control>
+            <control type="image">
+              <left>150</left>
+              <top>0</top>
+              <width>150</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-m.png</texture>
+              <visible>!String.Contains(ListItem.Property(edge),r)</visible>
+            </control>
+            <control type="image">
+              <left>6</left>
+              <top>6</top>
+              <width>288</width>
+              <height>64</height>
+              <texture border="32" colordiffuse="2EFFFFFF">arc-pill-white-64.png</texture>
+              <visible>false</visible>
+            </control>
+            <control type="image">
+              <left>6</left>
+              <top>6</top>
+              <width>288</width>
+              <height>64</height>
+              <texture border="32">arc-pill-white-64.png</texture>
+              <visible>false</visible>
+            </control>
             <control type="label">
               <left>0</left>
               <top>0</top>
-              <width>280</width>
+              <width>300</width>
               <height>76</height>
               <font>font13</font>
               <align>center</align>
               <aligny>center</aligny>
-              <textcolor>C8F5F5F7</textcolor>
-              <shadowcolor>CC000000</shadowcolor>
+              <textcolor>A6F5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
+              <visible>!false</visible>
+            </control>
+            <control type="label">
+              <left>0</left>
+              <top>0</top>
+              <width>300</width>
+              <height>76</height>
+              <font>font13</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>FF000000</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>false</visible>
             </control>
           </itemlayout>
-          <focusedlayout width="280" height="76">
+          <itemlayout width="210" height="76">
             <control type="image">
               <left>0</left>
               <top>0</top>
-              <width>280</width>
+              <width>105</width>
               <height>76</height>
-              <texture border="38">arc-pill-white.png</texture>
+              <texture border="38,0,38,0">arc-tab-l.png</texture>
+              <visible>String.Contains(ListItem.Property(edge),l)</visible>
+            </control>
+            <control type="image">
+              <left>0</left>
+              <top>0</top>
+              <width>105</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-m.png</texture>
+              <visible>!String.Contains(ListItem.Property(edge),l)</visible>
+            </control>
+            <control type="image">
+              <left>105</left>
+              <top>0</top>
+              <width>105</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-r.png</texture>
+              <visible>String.Contains(ListItem.Property(edge),r)</visible>
+            </control>
+            <control type="image">
+              <left>105</left>
+              <top>0</top>
+              <width>105</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-m.png</texture>
+              <visible>!String.Contains(ListItem.Property(edge),r)</visible>
+            </control>
+            <control type="image">
+              <left>6</left>
+              <top>6</top>
+              <width>198</width>
+              <height>64</height>
+              <texture border="32" colordiffuse="2EFFFFFF">arc-pill-white-64.png</texture>
+              <visible>false</visible>
+            </control>
+            <control type="image">
+              <left>6</left>
+              <top>6</top>
+              <width>198</width>
+              <height>64</height>
+              <texture border="32">arc-pill-white-64.png</texture>
+              <visible>false</visible>
+            </control>
+            <control type="label">
+              <left>0</left>
+              <top>0</top>
+              <width>210</width>
+              <height>76</height>
+              <font>font13</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>A6F5F5F7</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>!false</visible>
+            </control>
+            <control type="label">
+              <left>0</left>
+              <top>0</top>
+              <width>210</width>
+              <height>76</height>
+              <font>font13</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>FF000000</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>false</visible>
+            </control>
+          </itemlayout>
+          <focusedlayout width="300" height="76" condition="String.IsEqual(ListItem.Property(unplaced),true)">
+            <control type="image">
+              <left>0</left>
+              <top>0</top>
+              <width>150</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-l.png</texture>
+              <visible>String.Contains(ListItem.Property(edge),l)</visible>
+            </control>
+            <control type="image">
+              <left>0</left>
+              <top>0</top>
+              <width>150</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-m.png</texture>
+              <visible>!String.Contains(ListItem.Property(edge),l)</visible>
+            </control>
+            <control type="image">
+              <left>150</left>
+              <top>0</top>
+              <width>150</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-r.png</texture>
+              <visible>String.Contains(ListItem.Property(edge),r)</visible>
+            </control>
+            <control type="image">
+              <left>150</left>
+              <top>0</top>
+              <width>150</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-m.png</texture>
+              <visible>!String.Contains(ListItem.Property(edge),r)</visible>
+            </control>
+            <control type="image">
+              <left>6</left>
+              <top>6</top>
+              <width>288</width>
+              <height>64</height>
+              <texture border="32" colordiffuse="2EFFFFFF">arc-pill-white-64.png</texture>
+              <visible>!Control.HasFocus(200)</visible>
+            </control>
+            <control type="image">
+              <left>6</left>
+              <top>6</top>
+              <width>288</width>
+              <height>64</height>
+              <texture border="32">arc-pill-white-64.png</texture>
               <visible>Control.HasFocus(200)</visible>
             </control>
             <control type="label">
               <left>0</left>
               <top>0</top>
-              <width>280</width>
+              <width>300</width>
+              <height>76</height>
+              <font>font13</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>FFF5F5F7</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>!Control.HasFocus(200)</visible>
+            </control>
+            <control type="label">
+              <left>0</left>
+              <top>0</top>
+              <width>300</width>
               <height>76</height>
               <font>font13</font>
               <align>center</align>
@@ -744,18 +930,79 @@
               <label>$INFO[ListItem.Label]</label>
               <visible>Control.HasFocus(200)</visible>
             </control>
+          </focusedlayout>
+          <focusedlayout width="210" height="76">
+            <control type="image">
+              <left>0</left>
+              <top>0</top>
+              <width>105</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-l.png</texture>
+              <visible>String.Contains(ListItem.Property(edge),l)</visible>
+            </control>
+            <control type="image">
+              <left>0</left>
+              <top>0</top>
+              <width>105</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-m.png</texture>
+              <visible>!String.Contains(ListItem.Property(edge),l)</visible>
+            </control>
+            <control type="image">
+              <left>105</left>
+              <top>0</top>
+              <width>105</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-r.png</texture>
+              <visible>String.Contains(ListItem.Property(edge),r)</visible>
+            </control>
+            <control type="image">
+              <left>105</left>
+              <top>0</top>
+              <width>105</width>
+              <height>76</height>
+              <texture border="38,0,38,0">arc-tab-m.png</texture>
+              <visible>!String.Contains(ListItem.Property(edge),r)</visible>
+            </control>
+            <control type="image">
+              <left>6</left>
+              <top>6</top>
+              <width>198</width>
+              <height>64</height>
+              <texture border="32" colordiffuse="2EFFFFFF">arc-pill-white-64.png</texture>
+              <visible>!Control.HasFocus(200)</visible>
+            </control>
+            <control type="image">
+              <left>6</left>
+              <top>6</top>
+              <width>198</width>
+              <height>64</height>
+              <texture border="32">arc-pill-white-64.png</texture>
+              <visible>Control.HasFocus(200)</visible>
+            </control>
             <control type="label">
               <left>0</left>
               <top>0</top>
-              <width>280</width>
+              <width>210</width>
               <height>76</height>
               <font>font13</font>
               <align>center</align>
               <aligny>center</aligny>
               <textcolor>FFF5F5F7</textcolor>
-              <shadowcolor>CC000000</shadowcolor>
               <label>$INFO[ListItem.Label]</label>
               <visible>!Control.HasFocus(200)</visible>
+            </control>
+            <control type="label">
+              <left>0</left>
+              <top>0</top>
+              <width>210</width>
+              <height>76</height>
+              <font>font13</font>
+              <align>center</align>
+              <aligny>center</aligny>
+              <textcolor>FF000000</textcolor>
+              <label>$INFO[ListItem.Label]</label>
+              <visible>Control.HasFocus(200)</visible>
             </control>
           </focusedlayout>
         </control>
