@@ -16,7 +16,7 @@ when you return to the first row. Up from the first row still goes to the librar
 ## Checks
 
 `python3 tools/build_skin.py`, `python3 tools/check.py` (all good) and `python3 -m pytest -q`
-(180 passed). Real Kodi (21, Linux, Xvfb at 1920×1080) against the shared screenshot library:
+(180 passed). Real Kodi (20.5, Linux, Xvfb at 1920×1080) against the shared screenshot library:
 Movies → Recommended, Down twice (hero gone, artwork dimmed, rows line up under the tabs), Up
 twice (hero back), Up again (focus on the Recommended tab). [Pictures](2026-11-21-recommended-hero/).
 Not tried on real hardware or with a physical remote.
