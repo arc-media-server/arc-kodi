@@ -160,6 +160,14 @@ def card(item, card_id=None):
     }
 
 
+def card_title(item):
+    """A card's first line: the show's name for an episode (its number goes on the line under
+    it), as Plex and the Android app label them; otherwise the title's own."""
+    if models.is_episode(item):
+        return (item or {}).get("series_title") or (item or {}).get("title", "")
+    return (item or {}).get("title", "")
+
+
 def recent_card(recent):
     """A TV library's Recently Added card: a new show, new episodes of a season, or one episode."""
     item = recent.get("item") or {}
