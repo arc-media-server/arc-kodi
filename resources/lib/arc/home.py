@@ -177,6 +177,8 @@ def recent_card(recent):
         c["season_number"] = recent.get("season_number")
         c["new_episodes"] = int(recent.get("episodes") or 0)
         c["season_poster"] = recent.get("season_poster") or c["poster"]
+    elif recent.get("type") == "series":
+        c["new_episodes"] = int(recent.get("episodes") or 0)
     return c
 
 

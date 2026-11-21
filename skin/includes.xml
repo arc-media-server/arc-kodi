@@ -14,6 +14,8 @@
   <constant name="subtle">FF6B6B78</constant>
   <constant name="white">FFFFFFFF</constant>
   <constant name="black">FF000000</constant>
+  <constant name="pill">1AFFFFFF</constant>
+  <constant name="pill-selected">2EFFFFFF</constant>
   <!-- Second line of words on a white (focused) row. -->
   <constant name="on-white-muted">FF3A3A40</constant>
   <!-- The title page's wash when a title has no palette (the Apple app's ArcColor.wash):
@@ -121,12 +123,15 @@
        Android app's HeaderButton: sized to its words, glass (white at 10%) and white when
        focused. -->
   <include name="HeaderPill">
+    <param name="tone" default="pill"/>
     <definition>
-      <width>auto</width><height>64</height>
+      <width>auto</width><height>72</height>
       <font>arc-label</font><textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
-      <texturefocus border="32">arc-pill-white-64.png</texturefocus>
-      <texturenofocus border="32" colordiffuse="FF23232A">arc-pill-white-64.png</texturenofocus>
+      <texturefocus border="36">arc-pill-white.png</texturefocus>
+      <texturenofocus border="36" colordiffuse="$PARAM[tone]">arc-pill-white.png</texturenofocus>
       <aligny>center</aligny><align>center</align><textoffsetx>32</textoffsetx>
+      <animation effect="zoom" start="100" end="104" center="auto" time="120">Focus</animation>
+      <animation effect="zoom" start="104" end="100" center="auto" time="120">UnFocus</animation>
     </definition>
   </include>
 
@@ -491,16 +496,7 @@
     </definition>
   </include>
 
-  <!-- A library's tabs (Recommended, Browse, Collections), as the Apple app's pill bar: each a
-       pill sized to its word, the one showing lit, the focused one white with black text. Three
-       slots, each a "current" (121 + 2i) and an "other" (122 + 2i) button; the Python shows one
-       of each slot's pair with the window property arc.tab<i>. Select switches. -->
-  <!-- A page's heading (id 101: a library's name, or the page's), and for a library its tabs
-       beside it, as the Android app's: one glass pill holding Recommended, Library and
-       Collections (Folders for Other videos), the showing tab lighter and the focused one white.
-       Each tab is a button drawing its own slice of the holder (tools/make_media.py,
-       library_tabs), so a library has exactly three tabs: first, middle and last. Slot i's
-       "current" button is 121 + 2i, its "other" button 122 + 2i (kodi/windows/library.py). -->
+  <!-- Standalone header-style tabs, retaining the current/other control ids for navigation. -->
   <include name="PageHeader">
     <param name="left" default="80"/><param name="top" default="34"/>
     <param name="ondown"/><param name="onright" default="noop"/>
@@ -516,54 +512,30 @@
         </control>
         <control type="grouplist" id="120">
           <width>900</width><height>76</height>
-          <orientation>horizontal</orientation><itemgap>0</itemgap>
+          <orientation>horizontal</orientation><itemgap>20</itemgap>
           <onup>noop</onup><ondown>$PARAM[ondown]</ondown><onleft>noop</onleft><onright>$PARAM[onright]</onright>
         <control type="button" id="121">
-          <width>auto</width><height>76</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
-          <textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="38,0,38,0">arc-tab-l-focus.png</texturefocus>
-          <texturenofocus border="38,0,38,0">arc-tab-l-current.png</texturenofocus>
+          <include content="HeaderPill"><param name="tone" value="pill-selected"/></include>
           <visible>String.IsEqual(Window.Property(arc.tab0),current)</visible>
         </control>
         <control type="button" id="122">
-          <width>auto</width><height>76</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
-          <textcolor>A6F5F5F7</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="38,0,38,0">arc-tab-l-focus.png</texturefocus>
-          <texturenofocus border="38,0,38,0">arc-tab-l.png</texturenofocus>
+          <include content="HeaderPill"><param name="tone" value="pill"/></include>
           <visible>String.IsEqual(Window.Property(arc.tab0),other)</visible>
         </control>
         <control type="button" id="123">
-          <width>auto</width><height>76</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
-          <textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="38,0,38,0">arc-tab-m-focus.png</texturefocus>
-          <texturenofocus border="38,0,38,0">arc-tab-m-current.png</texturenofocus>
+          <include content="HeaderPill"><param name="tone" value="pill-selected"/></include>
           <visible>String.IsEqual(Window.Property(arc.tab1),current)</visible>
         </control>
         <control type="button" id="124">
-          <width>auto</width><height>76</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
-          <textcolor>A6F5F5F7</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="38,0,38,0">arc-tab-m-focus.png</texturefocus>
-          <texturenofocus border="38,0,38,0">arc-tab-m.png</texturenofocus>
+          <include content="HeaderPill"><param name="tone" value="pill"/></include>
           <visible>String.IsEqual(Window.Property(arc.tab1),other)</visible>
         </control>
         <control type="button" id="125">
-          <width>auto</width><height>76</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
-          <textcolor>fg</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="38,0,38,0">arc-tab-r-focus.png</texturefocus>
-          <texturenofocus border="38,0,38,0">arc-tab-r-current.png</texturenofocus>
+          <include content="HeaderPill"><param name="tone" value="pill-selected"/></include>
           <visible>String.IsEqual(Window.Property(arc.tab2),current)</visible>
         </control>
         <control type="button" id="126">
-          <width>auto</width><height>76</height>
-          <font>arc-label</font><align>center</align><aligny>center</aligny><textoffsetx>36</textoffsetx>
-          <textcolor>A6F5F5F7</textcolor><focusedcolor>black</focusedcolor>
-          <texturefocus border="38,0,38,0">arc-tab-r-focus.png</texturefocus>
-          <texturenofocus border="38,0,38,0">arc-tab-r.png</texturenofocus>
+          <include content="HeaderPill"><param name="tone" value="pill"/></include>
           <visible>String.IsEqual(Window.Property(arc.tab2),other)</visible>
         </control>
         </control>
@@ -599,57 +571,40 @@
     </definition>
   </include>
 
-  <!-- A season tab, as the Android app's PillTabs (the library's tabs, batch 2): each tab draws
-       its slice of one holder pill, the left half rounded on the first tab and the right on the
-       last (ListItem.Property(edge): l, r or lr, set by the Python); the showing tab lighter, the
-       focused one white. -->
+  <!-- Each season is its own pill, with 20px reserved after it in the list layout. -->
   <include name="SeasonTab">
-    <param name="w"/><param name="half"/><param name="inner"/><param name="color" default="A6F5F5F7"/>
+    <param name="textwidth" default="126"/><param name="w"/><param name="half"/><param name="inner"/><param name="color" default="fg"/>
     <param name="current" default="false"/><param name="focus" default="false"/>
     <definition>
-      <control type="image">
-        <left>0</left><top>0</top><width>$PARAM[half]</width><height>76</height>
-        <texture border="38,0,38,0">arc-tab-l.png</texture>
-        <visible>String.Contains(ListItem.Property(edge),l)</visible>
-      </control>
-      <control type="image">
-        <left>0</left><top>0</top><width>$PARAM[half]</width><height>76</height>
-        <texture border="38,0,38,0">arc-tab-m.png</texture>
-        <visible>!String.Contains(ListItem.Property(edge),l)</visible>
-      </control>
-      <control type="image">
-        <left>$PARAM[half]</left><top>0</top><width>$PARAM[half]</width><height>76</height>
-        <texture border="38,0,38,0">arc-tab-r.png</texture>
-        <visible>String.Contains(ListItem.Property(edge),r)</visible>
-      </control>
-      <control type="image">
-        <left>$PARAM[half]</left><top>0</top><width>$PARAM[half]</width><height>76</height>
-        <texture border="38,0,38,0">arc-tab-m.png</texture>
-        <visible>!String.Contains(ListItem.Property(edge),r)</visible>
-      </control>
-      <control type="image">
-        <left>6</left><top>6</top><width>$PARAM[inner]</width><height>64</height>
-        <texture border="32" colordiffuse="2EFFFFFF">arc-pill-white-64.png</texture>
-        <visible>$PARAM[current]</visible>
-      </control>
-      <control type="image">
-        <left>6</left><top>6</top><width>$PARAM[inner]</width><height>64</height>
-        <texture border="32">arc-pill-white-64.png</texture>
-        <visible>$PARAM[focus]</visible>
-      </control>
-      <control type="label">
-        <left>0</left><top>0</top><width>$PARAM[w]</width><height>76</height>
-        <font>arc-label</font><align>center</align><aligny>center</aligny>
-        <textcolor>$PARAM[color]</textcolor>
-        <label>$INFO[ListItem.Label]</label>
-        <visible>!$PARAM[focus]</visible>
-      </control>
-      <control type="label">
-        <left>0</left><top>0</top><width>$PARAM[w]</width><height>76</height>
-        <font>arc-label</font><align>center</align><aligny>center</aligny>
-        <textcolor>black</textcolor>
-        <label>$INFO[ListItem.Label]</label>
-        <visible>$PARAM[focus]</visible>
+      <control type="group">
+        <width>$PARAM[inner]</width><height>72</height>
+        <animation effect="zoom" start="100" end="104" center="auto" time="120" reversible="true" condition="$PARAM[focus]">Conditional</animation>
+        <control type="image">
+          <width>$PARAM[inner]</width><height>72</height>
+          <texture border="36" colordiffuse="pill">arc-pill-white.png</texture>
+        </control>
+        <control type="image">
+          <width>$PARAM[inner]</width><height>72</height>
+          <texture border="36" colordiffuse="pill-selected">arc-pill-white.png</texture>
+          <visible>$PARAM[current]</visible>
+        </control>
+        <control type="image">
+          <width>$PARAM[inner]</width><height>72</height>
+          <texture border="36">arc-pill-white.png</texture>
+          <visible>$PARAM[focus]</visible>
+        </control>
+        <control type="label">
+          <left>32</left><width>$PARAM[textwidth]</width><height>72</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny>
+          <textcolor>fg</textcolor><label>$INFO[ListItem.Label]</label>
+          <visible>!$PARAM[focus]</visible>
+        </control>
+        <control type="label">
+          <left>32</left><width>$PARAM[textwidth]</width><height>72</height>
+          <font>arc-label</font><align>center</align><aligny>center</aligny>
+          <textcolor>black</textcolor><label>$INFO[ListItem.Label]</label>
+          <visible>$PARAM[focus]</visible>
+        </control>
       </control>
     </definition>
   </include>

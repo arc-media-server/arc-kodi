@@ -341,6 +341,7 @@ class DetailsWindow(ArcWindow):
         return [i for s in self.seasons for i in titlepage.season_episode_ids(s)]
 
     def onFocus(self, control_id):
+        self.restore_focus(control_id)
         self._hint(control_id)
         # Past the header the artwork dims, as the Android app's; back on it, it brightens.
         if control_id in self.BELOW_HEADER:

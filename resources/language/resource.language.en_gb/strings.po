@@ -198,7 +198,7 @@ msgid "Nothing here yet."
 msgstr ""
 
 msgctxt "#30107"
-msgid "%d new"
+msgid "%d new episodes"
 msgstr ""
 
 # library
