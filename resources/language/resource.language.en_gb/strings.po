@@ -618,7 +618,7 @@ msgid "Top Unwatched"
 msgstr ""
 
 msgctxt "#30250"
-msgid "Date Added"
+msgid "Recently Added"
 msgstr ""
 
 msgctxt "#30251"
@@ -626,11 +626,11 @@ msgid "Release Date"
 msgstr ""
 
 msgctxt "#30252"
-msgid "Duration"
+msgid "Length"
 msgstr ""
 
 msgctxt "#30253"
-msgid "Last Watched"
+msgid "Recently Watched"
 msgstr ""
 
 msgctxt "#30254"
@@ -1499,5 +1499,13 @@ msgid "Or go to %s"
 msgstr ""
 
 msgctxt "#30614"
-msgid "Show missing episodes"
+msgid "Show Missing Episodes"
+msgstr ""
+
+msgctxt "#30615"
+msgid "Passthrough"
+msgstr ""
+
+msgctxt "#30616"
+msgid "Top Results"
 msgstr ""

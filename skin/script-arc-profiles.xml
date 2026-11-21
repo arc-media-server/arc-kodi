@@ -14,10 +14,6 @@
       <font>arc-title</font><textcolor>fg</textcolor><align>center</align>
       <label>$ADDON[script.arc 30060]</label>
     </control>
-    <control type="label" id="101">
-      <left>0</left><top>356</top><width>1920</width><height>40</height>
-      <font>arc-body</font><textcolor>muted</textcolor><align>center</align>
-    </control>
     <control type="list" id="100">
       <left>360</left><top>464</top><width>1200</width><height>330</height>
       <orientation>horizontal</orientation>

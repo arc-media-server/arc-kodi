@@ -18,7 +18,6 @@ from .signin import PROFILE_COLOURS
 SERVER = 100
 PROFILE = 101
 INITIALS = 102
-ABOUT = 104
 ROWS = 110
 
 A_UP, A_DOWN, A_PAGE_UP, A_PAGE_DOWN = 3, 4, 5, 6
@@ -62,7 +61,6 @@ class SettingsWindow(ArcWindow):
         self.set_label(SERVER, self.session.identity_name or "")
         self.setProperty("colorhex", PROFILE_COLOURS.get(
             (self.session.profile or {}).get("color"), PROFILE_COLOURS["violet"]))
-        self.set_text(ABOUT, T(30309))
         self._fill()
         first = next(i for i, (kind, _) in enumerate(self.entries) if kind == "row")
         self.list_control(ROWS).selectItem(first)
@@ -171,6 +169,9 @@ class SettingsWindow(ArcWindow):
             if menu.confirm(T(30063), T(30178) % (self.session.identity_name or "Arc"), T(30063)):
                 self.result = "sign_out"
                 self.close()
+        elif key == "about":
+            # The TMDB/TheTVDB credit lives here, as Android's About.
+            menu.choose(T(30307), [T(30000)], message=T(30309))
         elif key == "change_server":
             if menu.confirm(T(30305), T(30178) % (self.session.identity_name or "Arc"), T(30305)):
                 self.result = "change_server"

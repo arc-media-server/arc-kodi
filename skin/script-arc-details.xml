@@ -290,14 +290,12 @@
         <!-- Starring and Directed by at the right, their foot level with the buttons'. -->
         <control type="label" id="95">
           <left>1100</left><top>880</top><width>596</width><height>40</height>
-          <font>arc-small</font><textcolor>fg</textcolor><align>right</align>
-          <wrapmultiline>true</wrapmultiline>
+          <font>arc-small</font><textcolor>fg</textcolor><align>left</align>
           <shadowcolor>CC000000</shadowcolor>
         </control>
         <control type="label" id="96">
           <left>1100</left><top>942</top><width>596</width><height>40</height>
-          <font>arc-small</font><textcolor>fg</textcolor><align>right</align>
-          <wrapmultiline>true</wrapmultiline>
+          <font>arc-small</font><textcolor>fg</textcolor><align>left</align>
           <shadowcolor>CC000000</shadowcolor>
         </control>
       </control>

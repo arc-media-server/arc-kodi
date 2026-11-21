@@ -15,8 +15,9 @@ SPACE, DELETE, CLEAR = "space", "delete", "clear"
 
 MAX_LENGTH = 100
 
-# Rows in the Apple app's order, with the kind of card each shows.
-ROWS = [("movies", "poster"), ("shows", "poster"), ("episodes", "thumb"),
+# Rows in the Apple app's order, with the kind of card each shows. "top" is Top Results: movies
+# and shows together, alternating, each keeping Arc's best-first order (as Android and Apple TV).
+ROWS = [("top", "poster"), ("episodes", "thumb"),
         ("collections", "poster"), ("people", "face"), ("genres", "pill")]
 
 def edit(text, key):
@@ -45,7 +46,13 @@ def rows(data):
     data = data if isinstance(data, dict) else {}
     out = []
     for kind, style in ROWS:
-        entries = [e for e in data.get(kind) or [] if isinstance(e, dict)]
+        if kind == "top":
+            movies, shows = data.get("movies") or [], data.get("shows") or []
+            mixed = [e for pair in zip(movies, shows) for e in pair]
+            longer = movies if len(movies) > len(shows) else shows
+            entries = [e for e in mixed + longer[min(len(movies), len(shows)):] if isinstance(e, dict)]
+        else:
+            entries = [e for e in data.get(kind) or [] if isinstance(e, dict)]
         if kind == "people":
             entries = [e for e in entries if e.get("id") and e.get("name")]
         elif kind == "genres":

@@ -813,7 +813,7 @@ class PlayerControls(xbmcgui.WindowXMLDialog):
         self._info_at = time.time()
         values = {k: xbmc.getInfoLabel(label) for k, label in playerinfo.LABELS.items()}
         hw = xbmc.getCondVisibility(playerinfo.CONDITIONS["hw"])
-        entries = playerinfo.rows(values, hw=hw, plan=self.pb.plan)
+        entries = playerinfo.rows(values, hw=hw, plan=self.pb.plan, passthrough_word=T(30615))
         try:
             ctrl = self.getControl(INFO_LIST)
             if ctrl.size() == len(entries) and all(

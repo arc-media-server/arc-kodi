@@ -10655,6 +10655,28 @@
             <height>44</height>
             <texture>arc-icon-$INFO[ListItem.Property(icon)].png</texture>
             <colordiffuse>FFA1A1AD</colordiffuse>
+            <visible>!String.IsEqual(ListItem.Property(place),profile)</visible>
+          </control>
+          <control type="image">
+            <left>42</left>
+            <top>20</top>
+            <width>44</width>
+            <height>44</height>
+            <texture>arc-circle.png</texture>
+            <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
+            <visible>String.IsEqual(ListItem.Property(place),profile)</visible>
+          </control>
+          <control type="label">
+            <left>42</left>
+            <top>20</top>
+            <width>44</width>
+            <height>44</height>
+            <font>font12</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <align>center</align>
+            <aligny>center</aligny>
+            <label>$INFO[ListItem.Property(initial)]</label>
+            <visible>String.IsEqual(ListItem.Property(place),profile)</visible>
           </control>
           <control type="label">
             <left>112</left>
@@ -10684,7 +10706,7 @@
             <height>44</height>
             <texture>arc-icon-$INFO[ListItem.Property(icon)].png</texture>
             <colordiffuse>FF000000</colordiffuse>
-            <visible>Control.HasFocus(50)</visible>
+            <visible>Control.HasFocus(50) + !String.IsEqual(ListItem.Property(place),profile)</visible>
           </control>
           <control type="image">
             <left>42</left>
@@ -10693,7 +10715,28 @@
             <height>44</height>
             <texture>arc-icon-$INFO[ListItem.Property(icon)].png</texture>
             <colordiffuse>FFF5F5F7</colordiffuse>
-            <visible>!Control.HasFocus(50)</visible>
+            <visible>!Control.HasFocus(50) + !String.IsEqual(ListItem.Property(place),profile)</visible>
+          </control>
+          <control type="image">
+            <left>42</left>
+            <top>20</top>
+            <width>44</width>
+            <height>44</height>
+            <texture>arc-circle.png</texture>
+            <colordiffuse>$INFO[ListItem.Property(colorhex)]</colordiffuse>
+            <visible>String.IsEqual(ListItem.Property(place),profile)</visible>
+          </control>
+          <control type="label">
+            <left>42</left>
+            <top>20</top>
+            <width>44</width>
+            <height>44</height>
+            <font>font12</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <align>center</align>
+            <aligny>center</aligny>
+            <label>$INFO[ListItem.Property(initial)]</label>
+            <visible>String.IsEqual(ListItem.Property(place),profile)</visible>
           </control>
           <control type="label">
             <left>112</left>
