@@ -1,0 +1,87 @@
+# Tests and packages the add-on zip. To save Actions minutes it runs only when asked:
+#   - Actions > Build > Run workflow. On main this also publishes a pre-release
+#     (kodi-build-<run number>) on the Releases page; on another branch, a run artifact only.
+#   - A pushed v* tag: a normal release with that version.
+#   - A push whose commit message contains [build]: a run artifact only, never a release.
+# Pull requests and ordinary pushes run nothing. A release is made only after the checks pass.
+# Install the zip with Kodi's Add-ons > Install from zip file (README).
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+    branches: ['**']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v') || contains(github.event.head_commit.message, '[build]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pytest
+      - name: Tests
+        run: python3 -m pytest -q
+      - name: Checks
+        run: python3 tools/check.py
+      - name: Version
+        id: version
+        # A v* tag gives its own version (v0.2.0 -> 0.2.0). Any other build is addon.xml's
+        # major.minor plus the run number (0.1.57), so Kodi sees each build as newer.
+        # Raise addon.xml's version when a release starts a new major or minor.
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then v="${GITHUB_REF_NAME#v}"
+          else v="$(python3 -c "import xml.etree.ElementTree as E; print('.'.join(E.parse('addon.xml').getroot().get('version').split('.')[:2]))").${{ github.run_number }}"; fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          sed -i -E "s/(<addon [^>]* version=\")[^\"]*\"/\1$v\"/" addon.xml
+          grep -n '<addon ' addon.xml
+      - name: Package
+        run: |
+          python3 tools/package.py
+          mkdir -p release
+          cp "dist/script.arc-${{ steps.version.outputs.version }}.zip" release/
+          cd release && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arc-kodi-${{ steps.version.outputs.version }}
+          path: release/
+          retention-days: 30
+
+  release:
+    needs: build
+    if: (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') || startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: arc-kodi-${{ needs.build.outputs.version }}
+          path: release
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            gh release create "$GITHUB_REF_NAME" release/* --repo "$GITHUB_REPOSITORY" \
+              --title "Arc for Kodi $VERSION" --generate-notes --verify-tag
+          else
+            gh release create "kodi-build-${{ github.run_number }}" release/* --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" --prerelease \
+              --title "Arc for Kodi $VERSION (build ${{ github.run_number }})" --generate-notes
+          fi
