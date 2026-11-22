@@ -2,7 +2,8 @@
 these is made at start-up and passed to every window. It owns the ArcAPI and the artwork proxy."""
 
 from arc import home as homerows
-from arc.api import ArcAPI, APIError, Unreachable
+from arc.api import ArcAPI, APIError
+from arc.launch import launch_profile
 
 from . import storage
 from .artwork import ArtworkProxy
@@ -15,6 +16,7 @@ class Session(object):
         saved = storage.load()
         self.base_url = saved.get("base_url")
         self._token = saved.get("token")
+        self.auto_profile_id = saved.get("auto_profile_id")
         self.profile = None
         if saved.get("profile_id"):
             self.profile = {"id": saved["profile_id"], "name": saved.get("profile_name", ""),
@@ -54,9 +56,42 @@ class Session(object):
 
     def set_profile(self, profile):
         self.profile = {"id": profile.get("id"), "name": profile.get("name", ""),
-                        "is_admin": profile.get("is_admin", False), "color": profile.get("color", "")}
+                        "is_admin": profile.get("is_admin", False), "color": profile.get("color", ""), "has_pin": profile.get("has_pin", False)}
         storage.update(profile_id=profile.get("id"), profile_name=profile.get("name", ""),
                        profile_admin=profile.get("is_admin", False), profile_color=profile.get("color", ""))
+
+    def set_auto_profile(self, profile_id):
+        saved = storage.load()
+        saved["auto_profile_id"] = profile_id
+        if not storage.save(saved):
+            return False
+        self.auto_profile_id = profile_id
+        return True
+
+    def prepare_launch(self):
+        status = self.api.auth_status()
+        if not status.get("signed_in"):
+            self.clear_sign_in()
+            return
+        profile = launch_profile(status, self.auto_profile_id)
+        current = status.get("profile") or {}
+        if profile and profile.get("id") != current.get("id"):
+            try:
+                answer = self.api.choose_profile(profile["id"])
+                if isinstance(answer, dict):
+                    profile = dict(profile, **answer)
+            except APIError as error:
+                log.warning("automatic profile sign-in failed (HTTP %s)", error.status)
+                profile = None
+        if profile:
+            self.set_profile(profile)
+            if not status.get("friend") and profile.get("id") == self.auto_profile_id:
+                log.info("signing in automatically as the saved profile")
+        else:
+            if current and not status.get("friend"):
+                self.api.leave_profile()
+            self.forget_profile()
+            log.info("starting at Who's watching")
 
     def forget_profile(self):
         self.profile = None
@@ -71,6 +106,10 @@ class Session(object):
 
     def sign_out(self):
         self.api.sign_out()
+        self.clear_sign_in()
+
+    def clear_sign_in(self):
+        self.auto_profile_id = None
         self._token = None
         self.profile = None
         storage.clear()
@@ -89,7 +128,11 @@ class Session(object):
             self.identity_name = ident["name"]
             storage.update(server_name=self.identity_name)
         try:
-            self.local = (self.api.auth_status() or {}).get("local")  # on the server's home network
+            status = self.api.auth_status() or {}
+            self.local = status.get("local")
+            current = status.get("profile") or {}
+            if self.profile and current.get("id") == self.profile.get("id"):
+                self.profile["has_pin"] = current.get("has_pin", False)
         except Exception:
             self.local = None
         self.prefs = self.api.prefs() or {}

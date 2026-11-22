@@ -27,6 +27,7 @@ NAMES = {"auto_play": 30297, "auto_skip": 30298, "hide_spoilers": 30390, "audio_
          "subtitle_background": 30397, "subtitle_position": 30398, "join_code": 30342,
          "switch_profile": 30202, "sign_out": 30063, "change_server": 30305, "about": 30307}
 # Theme music
+NAMES["auto_sign_in"] = 30618
 NAMES["theme_music"] = 30540
 NAMES["show_missing_episodes"] = 30614
 HEADINGS = {"playback": 30296, "subtitles": 30185, "together": 30330, "profile": 30308, "about": 30307}
@@ -77,7 +78,20 @@ class SettingsWindow(ArcWindow):
             return language_name(v)
         return T(VALUE_NAMES[key][v]) if key in VALUE_NAMES and v in VALUE_NAMES[key] else (v or "")
 
+    def _auto_sign_in_enabled(self):
+        profile = self.session.profile or {}
+        return bool(profile.get("id") and not profile.get("has_pin") and
+                    self.session.auto_profile_id == profile["id"])
+
+    def _note(self, key):
+        if key == "auto_sign_in_note":
+            profile = self.session.profile or {}
+            return T(30620) if profile.get("has_pin") else T(30619) % profile.get("name", "")
+        return T(NOTES[key])
+
     def _detail(self, key):
+        if key == "auto_sign_in":
+            return T(30303) if self._auto_sign_in_enabled() else T(30304)
         v = settings.value(self.session.prefs, key)
         if key in settings.SWITCHES:
             return T(30303) if v else T(30304)
@@ -97,6 +111,8 @@ class SettingsWindow(ArcWindow):
             for i, (kind, key) in enumerate(self.entries):
                 if kind == "row":
                     ctrl.getListItem(i).setLabel2(self._detail(key))
+                elif kind == "note" and key == "auto_sign_in_note":
+                    ctrl.getListItem(i).setLabel(self._note(key))
             return
         ctrl.reset()
         items = []
@@ -104,7 +120,7 @@ class SettingsWindow(ArcWindow):
             if kind == "heading":
                 items.append(list_item(T(HEADINGS[key]), props={"kind": "heading"}))
             elif kind == "note":
-                items.append(list_item(T(NOTES[key]), props={"kind": "note"}))
+                items.append(list_item(self._note(key), props={"kind": "note"}))
             else:
                 items.append(list_item(T(NAMES[key]), self._detail(key), props={"kind": "row"}))
         ctrl.addItems(items)
@@ -151,7 +167,16 @@ class SettingsWindow(ArcWindow):
             return
         key = self.entries[pos][1]
         values = settings.choices(key)
-        if key in settings.SWITCHES:
+        if key == "auto_sign_in":
+            profile = self.session.profile or {}
+            if not profile.get("id") or profile.get("has_pin"):
+                return
+            target = None if self._auto_sign_in_enabled() else profile["id"]
+            if self.session.set_auto_profile(target):
+                self._fill()
+            else:
+                menu.choose(T(30084), [T(30000)], message=T(30306))
+        elif key in settings.SWITCHES:
             self._save(settings.change(self.session.prefs, key))
         elif values is not None:
             current = settings.value(self.session.prefs, key)

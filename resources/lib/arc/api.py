@@ -134,6 +134,9 @@ class ArcAPI(object):
             body["pin"] = pin
         return self.send("POST", "auth/profile", body)
 
+    def leave_profile(self):
+        self.send("DELETE", "auth/profile", None, expect_body=False)
+
     def sign_out(self):
         try:
             self.raw("POST", "auth/logout", body={}, route="auth/logout")
