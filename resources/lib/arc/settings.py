@@ -34,7 +34,7 @@ SECTIONS = [
     ("subtitles", ["subtitle_mode", "subtitle_language", "subtitle_size", "subtitle_color",
                    "subtitle_background", "subtitle_position"], "style_note"),
     ("together", ["join_code"], None),
-    ("profile", ["switch_profile", "sign_out", "change_server"], None),
+    ("profile", ["auto_sign_in", "switch_profile", "sign_out", "change_server"], None),
     ("about", ["about"], None),
 ]
 
@@ -47,7 +47,10 @@ def layout(together=False):
         if section == "together" and not together:
             continue
         out.append(("heading", section))
-        out += [("row", key) for key in rows]
+        for key in rows:
+            out.append(("row", key))
+            if key == "auto_sign_in":
+                out.append(("note", "auto_sign_in_note"))
         if note:
             out.append(("note", note))
     return out

@@ -37,7 +37,7 @@ def test_layout_has_headings_rows_and_notes():
     assert ("heading", "together") not in entries and "join_code" not in settings.rows()
     assert entries.index(("note", "style_note")) == entries.index(("row", "subtitle_position")) + 1
     rows = settings.rows(together=True)
-    assert rows.index("join_code") == rows.index("switch_profile") - 1
+    assert rows.index("join_code") == rows.index("auto_sign_in") - 1
     assert rows[-1] == "about"
     for key in rows:
         c = settings.choices(key)

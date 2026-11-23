@@ -37,6 +37,14 @@ class App(object):
     def run(self):
         try:
             while True:
+                if self.session.signed_in:
+                    launch = self._prepare_launch()
+                    if launch == "change_server":
+                        self.session.sign_out()
+                        self.session.forget_server()
+                        continue
+                    if not launch:
+                        return
                 if not self._ensure_signed_in():
                     return
                 if not self._ensure_profile():
@@ -74,6 +82,25 @@ class App(object):
         log.info("closed")
 
     # MARK: - sign-in flow
+
+    def _prepare_launch(self):
+        # Each invocation opens a new window. Kodi's Home/screensaver resume stays inside run().
+        while True:
+            try:
+                self.session.prepare_launch()
+                return True
+            except Unreachable:
+                log.warning("Arc can't be reached at start-up")
+                result = signin.UnavailableWindow.open(self.session)
+                if result == "retry":
+                    continue
+                return "change_server" if result == "change_server" else False
+            except APIError as error:
+                if error.status == 401:
+                    self.session.clear_sign_in()
+                    return True
+                toast.show(error.message)
+                return False
 
     def _ensure_signed_in(self):
         while not self.session.signed_in:

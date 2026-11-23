@@ -1513,3 +1513,15 @@ msgstr ""
 msgctxt "#30617"
 msgid "Kodi's Player Info"
 msgstr ""
+
+msgctxt "#30618"
+msgid "Sign in automatically"
+msgstr ""
+
+msgctxt "#30619"
+msgid "Open as %s on this device, without asking who's watching."
+msgstr ""
+
+msgctxt "#30620"
+msgid "Not available for a profile with a PIN: it's asked for each time."
+msgstr ""
