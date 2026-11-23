@@ -8,6 +8,7 @@ from arc.launch import launch_profile
 from . import storage
 from .artwork import ArtworkProxy
 from .compat import ADDON_VERSION
+from .device_logs import journal
 from .log import log
 
 
@@ -45,6 +46,8 @@ class Session(object):
         return self.signed_in and self.profile is not None
 
     def set_server(self, base_url, name=""):
+        if self.base_url != base_url:
+            journal().clear()
         self.base_url = base_url
         self.identity_name = name
         self.api.base_url = base_url.rstrip("/")
@@ -109,6 +112,7 @@ class Session(object):
         self.clear_sign_in()
 
     def clear_sign_in(self):
+        journal().clear()
         self.auto_profile_id = None
         self._token = None
         self.profile = None

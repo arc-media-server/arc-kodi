@@ -34,7 +34,7 @@ SECTIONS = [
     ("subtitles", ["subtitle_mode", "subtitle_language", "subtitle_size", "subtitle_color",
                    "subtitle_background", "subtitle_position"], "style_note"),
     ("together", ["join_code"], None),
-    ("profile", ["auto_sign_in", "switch_profile", "sign_out", "change_server"], None),
+    ("profile", ["auto_sign_in", "switch_profile", "sign_out", "change_server", "detailed_logging", "send_logs"], None),
     ("about", ["about"], None),
 ]
 

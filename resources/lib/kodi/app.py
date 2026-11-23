@@ -35,6 +35,10 @@ class App(object):
         self.session.together = self.together
 
     def run(self):
+        from .device_logs import journal, send_and_notify
+
+        logs = journal()
+        logs.record("info", "app_started")
         try:
             while True:
                 if self.session.signed_in:
@@ -57,10 +61,22 @@ class App(object):
                     continue
                 if not loaded:
                     return
+                if logs.crash:
+                    if menu.confirm(T(30621), T(30627), T(30621)):
+                        if send_and_notify(self.session.api):
+                            logs.set_crash(False)
+                    else:
+                        logs.set_crash(False)
                 self._home()
                 return
+        except Exception:
+            logs.set_crash(True)
+            raise
         finally:
-            self._shut_down()
+            try:
+                self._shut_down()
+            finally:
+                logs.flush()
 
     def _shut_down(self):
         """Ends what still runs when the add-on closes: playback, then the artwork proxy's server.

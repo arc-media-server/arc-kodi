@@ -1525,3 +1525,35 @@ msgstr ""
 msgctxt "#30620"
 msgid "Not available for a profile with a PIN: it's asked for each time."
 msgstr ""
+
+msgctxt "#30621"
+msgid "Send logs"
+msgstr ""
+
+msgctxt "#30622"
+msgid "Detailed logging (two hours)"
+msgstr ""
+
+msgctxt "#30623"
+msgid "Logs sent."
+msgstr ""
+
+msgctxt "#30624"
+msgid "Could not send logs. Try again."
+msgstr ""
+
+msgctxt "#30625"
+msgid "Update your Arc server to send logs."
+msgstr ""
+
+msgctxt "#30626"
+msgid "There are no app logs to send."
+msgstr ""
+
+msgctxt "#30627"
+msgid "Arc encountered an error last time. Send logs to your server?"
+msgstr ""
+
+msgctxt "#30628"
+msgid "Send recent app events to this server’s admin?"
+msgstr ""
