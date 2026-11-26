@@ -52,7 +52,6 @@ class HomeWindow(ArcWindow):
     # back to the hero, and it hands the focus straight on to the first row. None in windows
     # whose rows have no hero above them.
     HERO_SPOT = 66
-    episode_titles = True
     rows_height = 1080  # the row list's height (the skin's grouplist 900)
     hero_text = homerows.HERO_TEXT   # the hero's text block's height (the skin's group 68)
 
@@ -255,8 +254,7 @@ class HomeWindow(ArcWindow):
         keep = ctrl.getSelectedPosition() if self._refreshing else 0
         had_focus = self._refreshing and self._focused_once and self._row == idx
         ctrl.reset()
-        ctrl.addItems([card_list_item(self.session, card, row["style"], row.get("season_posters", False),
-                                      episode_titles=self.episode_titles)
+        ctrl.addItems([card_list_item(self.session, card, row["style"], row.get("season_posters", False))
                        for card in cards or []])
         row["cards"] = cards or []
         if keep > 0 and cards:

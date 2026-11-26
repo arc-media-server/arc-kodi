@@ -18,11 +18,10 @@ def item_art(session, item):
     }
 
 
-def card_list_item(session, card, style, season_posters=False, *, episode_titles=False):
+def card_list_item(session, card, style, season_posters=False):
     """A card (from arc.home.card / recent_card) as a ListItem with the right picture for `style`."""
     item = card["item"]
-    hide_spoilers = models.spoiler_hidden(session.prefs, item)
-    if hide_spoilers:
+    if models.spoiler_hidden(session.prefs, item):
         card = homerows.without_spoilers(card)
     picture = homerows.card_art(card, style, season_posters)
     art = {"thumb": session.art(picture), "poster": session.art(card.get("poster")),
@@ -41,11 +40,6 @@ def card_list_item(session, card, style, season_posters=False, *, episode_titles
         "showart": "true" if card.get("show_art") else "",
         "subtitle": sub,
     }
-    if episode_titles and not hide_spoilers and models.is_episode(item) and not card.get("new_episodes"):
-        title = item.get("title")
-        if title and title != label:
-            props["episode_code"] = sub
-            sub = title
     if card.get("season_number") is not None and card.get("new_episodes"):
         props["unwatched"] = card["new_episodes"]
         props["watched"] = ""

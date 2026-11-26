@@ -35,7 +35,12 @@ class App(object):
         self.session.together = self.together
 
     def run(self):
+        loading = signin.LoadingWindow(signin.LoadingWindow.xml, self._path(), "Main", "1080i",
+                                       session=self.session)
         try:
+            # Keep an Arc window beneath the login screens and Home. Closing a Kodi window
+            # returns to the previous window while the next screen is getting ready.
+            loading.show()
             while True:
                 if self.session.signed_in:
                     launch = self._prepare_launch()
@@ -57,9 +62,10 @@ class App(object):
                     continue
                 if not loaded:
                     return
-                self._home()
-                return
+                if self._home() != "restart":
+                    return
         finally:
+            loading.close()
             self._shut_down()
 
     def _shut_down(self):
@@ -173,12 +179,12 @@ class App(object):
                 return
             if result == "sign_out":
                 self.session.sign_out()
-                return self.run()
+                return "restart"
             if result == "change_server":
                 # Signed out of this server and it's forgotten: the add-on asks for one again.
                 self.session.sign_out()
                 self.session.forget_server()
-                return self.run()
+                return "restart"
             if result == "switch_profile":
                 self.session.forget_profile()
                 if not self._ensure_profile() or not self._load():

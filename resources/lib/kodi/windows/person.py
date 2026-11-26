@@ -23,7 +23,6 @@ ROLE_NAMES = {"director": 30282, "writer": 30283, "producer": 30284}
 class PersonWindow(home.HomeWindow):
     xml = "script-arc-person.xml"
     HERO_SPOT = None    # its rows have no hero above them
-    episode_titles = False
 
     def __init__(self, *args, **kwargs):
         self.person = kwargs.pop("person")   # {"person_id" or "id", "name", "image"?}
