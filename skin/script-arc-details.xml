@@ -324,7 +324,7 @@
         <focusedlayout width="210" height="76"><include content="SeasonTab"><param name="w" value="210"/><param name="half" value="105"/><param name="inner" value="190"/><param name="current" value="!Control.HasFocus(200)"/><param name="focus" value="Control.HasFocus(200)"/><param name="color" value="fg"/></include></focusedlayout>
       </control>
       </control>
-      <!-- The season's episodes, as the Android app's cards (the description is in each card). -->
+      <!-- Four episodes and a peek of the fifth, as on Android TV. -->
       <control type="group">
         <defaultcontrol always="true">201</defaultcontrol>
         <top>584</top>
@@ -335,8 +335,8 @@
         <visible>Integer.IsGreater(Container(201).NumItems,0)</visible>
         <orientation>horizontal</orientation><itemgap>8</itemgap>
         <scrolltime tween="cubic" easing="out">220</scrolltime>
-        <itemlayout width="488" height="496"><include>EpisodeCard</include></itemlayout>
-        <focusedlayout width="488" height="496">
+        <itemlayout width="432" height="496"><include>EpisodeCard</include></itemlayout>
+        <focusedlayout width="432" height="496">
           <include content="EpisodeCard"><param name="focused" value="Control.HasFocus(201)"/><param name="labelcolor" value="fg"/></include>
         </focusedlayout>
       </control>
