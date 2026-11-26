@@ -1,136 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- A library's Recommended tab, as the Apple app's: the tabs, then Home's hero and rows (the
-     server's Recommended rows), without the sidebar. Built like Home, so the Python is Home's.
-     (Home: the icon sidebar, the focused title's artwork and details, and the profile's rows.)
-     Each of the 12 row slots exists as posters (3001+), wide cards (3401+) and backdrop cards
-     (3801+, the web's "Backdrops"); the Python fills the one the row's style asks for. -->
+<!-- A library's Recommended tab, as on Android TV: poster, thumbnail or Backdrop shelves
+     directly below the library tabs. Home's shared row code fills the requested style. -->
 <window>
-  <defaultcontrol>900</defaultcontrol>
+  <defaultcontrol>120</defaultcontrol>
   <controls>
     <include>PageBackground</include>
-    <include content="HeroBackground"><param name="id" value="61"/></include>
-
-    <!-- Once the hero has scrolled away (focus below the first row), the artwork dims behind the
-         rows, as Home's. -->
-    <control type="image">
-      <left>0</left><top>0</top><width>1920</width><height>1080</height>
-      <texture>arc-white.png</texture><colordiffuse>D10B0B10</colordiffuse>
-      <visible>String.IsEqual(Window.Property(scrolled),true)</visible>
-      <animation effect="fade" time="250">VisibleChange</animation>
+    <control type="label" id="69">
+      <left>120</left><top>144</top><width>1300</width><height>44</height>
+      <font>arc-body</font><textcolor>muted</textcolor>
     </control>
 
     <control type="grouplist" id="900">
       <left>112</left><top>130</top><width>1808</width><height>950</height>
-      <!-- As Home's (skin/script-arc-home.xml): the hero is the list's first entry and scrolls
-           away above the rows under the tabs, and the focused row always lands at the foot of the
-           list, going down or up. Each row is a list-tall group (950) with the row at its foot,
-           the -475 gap overlaps them and the spacer before each row spaces them; rows are Home's
-           sizes (poster 620, thumb or backdrop 500), and home.py sizes the hero to the rest. -->
-      <orientation>vertical</orientation><itemgap>-475</itemgap>
+      <orientation>vertical</orientation><itemgap>24</itemgap>
       <scrolltime tween="cubic" easing="out">260</scrolltime>
       <onleft>noop</onleft><onup>120</onup><ondown>noop</ondown>
-      <control type="group" id="67">
-        <width>1808</width><height>300</height>
-        <!-- Focusing this scrolls the list back to the top; it passes the focus straight on to the
-             first row (kodi/windows/home.py, HERO_SPOT). -->
-        <control type="button" id="66">
-          <left>0</left><top>0</top><width>1</width><height>1</height>
-          <texturefocus/><texturenofocus/><label/>
-          <onup>120</onup>
-        </control>
-        <control type="group" id="68">
-          <left>8</left><top>0</top><width>1300</width><height>330</height>
-          <control type="image" id="62">
-            <left>0</left><top>0</top><width>560</width><height>170</height>
-            <aspectratio align="left" aligny="bottom">keep</aspectratio>
-            <fadetime>200</fadetime>
-          </control>
-          <control type="label" id="63">
-            <left>0</left><top>70</top><width>1300</width><height>100</height>
-            <font>arc-hero</font><textcolor>fg</textcolor>
-          </control>
-          <control type="label" id="64">
-            <left>2</left><top>184</top><width>1300</width><height>40</height>
-            <font>arc-body</font><textcolor>muted</textcolor>
-          </control>
-          <control type="textbox" id="65">
-            <left>2</left><top>228</top><width>1000</width><height>76</height>
-            <font>arc-body</font><textcolor>fg</textcolor>
-          </control>
-        </control>
-      </control>
-        <control type="group"><height>620</height><visible>Integer.IsGreater(Container(3001).NumItems,0)</visible></control>
-        <include content="PosterRow"><param name="title" value="3101"/><param name="list" value="3001"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="950"/><param name="title_top" value="330"/><param name="list_top" value="410"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3401).NumItems,0)</visible></control>
-        <include content="ThumbRow"><param name="title" value="3501"/><param name="list" value="3401"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3801).NumItems,0)</visible></control>
-        <include content="BackdropRow"><param name="title" value="3901"/><param name="list" value="3801"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>620</height><visible>Integer.IsGreater(Container(3002).NumItems,0)</visible></control>
-        <include content="PosterRow"><param name="title" value="3102"/><param name="list" value="3002"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="950"/><param name="title_top" value="330"/><param name="list_top" value="410"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3402).NumItems,0)</visible></control>
-        <include content="ThumbRow"><param name="title" value="3502"/><param name="list" value="3402"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3802).NumItems,0)</visible></control>
-        <include content="BackdropRow"><param name="title" value="3902"/><param name="list" value="3802"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>620</height><visible>Integer.IsGreater(Container(3003).NumItems,0)</visible></control>
-        <include content="PosterRow"><param name="title" value="3103"/><param name="list" value="3003"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="950"/><param name="title_top" value="330"/><param name="list_top" value="410"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3403).NumItems,0)</visible></control>
-        <include content="ThumbRow"><param name="title" value="3503"/><param name="list" value="3403"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3803).NumItems,0)</visible></control>
-        <include content="BackdropRow"><param name="title" value="3903"/><param name="list" value="3803"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>620</height><visible>Integer.IsGreater(Container(3004).NumItems,0)</visible></control>
-        <include content="PosterRow"><param name="title" value="3104"/><param name="list" value="3004"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="950"/><param name="title_top" value="330"/><param name="list_top" value="410"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3404).NumItems,0)</visible></control>
-        <include content="ThumbRow"><param name="title" value="3504"/><param name="list" value="3404"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3804).NumItems,0)</visible></control>
-        <include content="BackdropRow"><param name="title" value="3904"/><param name="list" value="3804"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>620</height><visible>Integer.IsGreater(Container(3005).NumItems,0)</visible></control>
-        <include content="PosterRow"><param name="title" value="3105"/><param name="list" value="3005"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="950"/><param name="title_top" value="330"/><param name="list_top" value="410"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3405).NumItems,0)</visible></control>
-        <include content="ThumbRow"><param name="title" value="3505"/><param name="list" value="3405"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3805).NumItems,0)</visible></control>
-        <include content="BackdropRow"><param name="title" value="3905"/><param name="list" value="3805"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>620</height><visible>Integer.IsGreater(Container(3006).NumItems,0)</visible></control>
-        <include content="PosterRow"><param name="title" value="3106"/><param name="list" value="3006"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="950"/><param name="title_top" value="330"/><param name="list_top" value="410"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3406).NumItems,0)</visible></control>
-        <include content="ThumbRow"><param name="title" value="3506"/><param name="list" value="3406"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3806).NumItems,0)</visible></control>
-        <include content="BackdropRow"><param name="title" value="3906"/><param name="list" value="3806"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>620</height><visible>Integer.IsGreater(Container(3007).NumItems,0)</visible></control>
-        <include content="PosterRow"><param name="title" value="3107"/><param name="list" value="3007"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="950"/><param name="title_top" value="330"/><param name="list_top" value="410"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3407).NumItems,0)</visible></control>
-        <include content="ThumbRow"><param name="title" value="3507"/><param name="list" value="3407"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3807).NumItems,0)</visible></control>
-        <include content="BackdropRow"><param name="title" value="3907"/><param name="list" value="3807"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>620</height><visible>Integer.IsGreater(Container(3008).NumItems,0)</visible></control>
-        <include content="PosterRow"><param name="title" value="3108"/><param name="list" value="3008"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="950"/><param name="title_top" value="330"/><param name="list_top" value="410"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3408).NumItems,0)</visible></control>
-        <include content="ThumbRow"><param name="title" value="3508"/><param name="list" value="3408"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3808).NumItems,0)</visible></control>
-        <include content="BackdropRow"><param name="title" value="3908"/><param name="list" value="3808"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>620</height><visible>Integer.IsGreater(Container(3009).NumItems,0)</visible></control>
-        <include content="PosterRow"><param name="title" value="3109"/><param name="list" value="3009"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="950"/><param name="title_top" value="330"/><param name="list_top" value="410"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3409).NumItems,0)</visible></control>
-        <include content="ThumbRow"><param name="title" value="3509"/><param name="list" value="3409"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3809).NumItems,0)</visible></control>
-        <include content="BackdropRow"><param name="title" value="3909"/><param name="list" value="3809"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>620</height><visible>Integer.IsGreater(Container(3010).NumItems,0)</visible></control>
-        <include content="PosterRow"><param name="title" value="3110"/><param name="list" value="3010"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="950"/><param name="title_top" value="330"/><param name="list_top" value="410"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3410).NumItems,0)</visible></control>
-        <include content="ThumbRow"><param name="title" value="3510"/><param name="list" value="3410"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3810).NumItems,0)</visible></control>
-        <include content="BackdropRow"><param name="title" value="3910"/><param name="list" value="3810"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>620</height><visible>Integer.IsGreater(Container(3011).NumItems,0)</visible></control>
-        <include content="PosterRow"><param name="title" value="3111"/><param name="list" value="3011"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="950"/><param name="title_top" value="330"/><param name="list_top" value="410"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3411).NumItems,0)</visible></control>
-        <include content="ThumbRow"><param name="title" value="3511"/><param name="list" value="3411"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3811).NumItems,0)</visible></control>
-        <include content="BackdropRow"><param name="title" value="3911"/><param name="list" value="3811"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>620</height><visible>Integer.IsGreater(Container(3012).NumItems,0)</visible></control>
-        <include content="PosterRow"><param name="title" value="3112"/><param name="list" value="3012"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="950"/><param name="title_top" value="330"/><param name="list_top" value="410"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3412).NumItems,0)</visible></control>
-        <include content="ThumbRow"><param name="title" value="3512"/><param name="list" value="3412"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
-        <control type="group"><height>500</height><visible>Integer.IsGreater(Container(3812).NumItems,0)</visible></control>
-        <include content="BackdropRow"><param name="title" value="3912"/><param name="list" value="3812"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="950"/><param name="title_top" value="450"/><param name="list_top" value="530"/></include>
+        <include content="PosterRow"><param name="title" value="3101"/><param name="list" value="3001"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
+        <include content="ThumbRow"><param name="title" value="3501"/><param name="list" value="3401"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="BackdropRow"><param name="title" value="3901"/><param name="list" value="3801"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="PosterRow"><param name="title" value="3102"/><param name="list" value="3002"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
+        <include content="ThumbRow"><param name="title" value="3502"/><param name="list" value="3402"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="BackdropRow"><param name="title" value="3902"/><param name="list" value="3802"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="PosterRow"><param name="title" value="3103"/><param name="list" value="3003"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
+        <include content="ThumbRow"><param name="title" value="3503"/><param name="list" value="3403"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="BackdropRow"><param name="title" value="3903"/><param name="list" value="3803"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="PosterRow"><param name="title" value="3104"/><param name="list" value="3004"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
+        <include content="ThumbRow"><param name="title" value="3504"/><param name="list" value="3404"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="BackdropRow"><param name="title" value="3904"/><param name="list" value="3804"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="PosterRow"><param name="title" value="3105"/><param name="list" value="3005"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
+        <include content="ThumbRow"><param name="title" value="3505"/><param name="list" value="3405"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="BackdropRow"><param name="title" value="3905"/><param name="list" value="3805"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="PosterRow"><param name="title" value="3106"/><param name="list" value="3006"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
+        <include content="ThumbRow"><param name="title" value="3506"/><param name="list" value="3406"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="BackdropRow"><param name="title" value="3906"/><param name="list" value="3806"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="PosterRow"><param name="title" value="3107"/><param name="list" value="3007"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
+        <include content="ThumbRow"><param name="title" value="3507"/><param name="list" value="3407"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="BackdropRow"><param name="title" value="3907"/><param name="list" value="3807"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="PosterRow"><param name="title" value="3108"/><param name="list" value="3008"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
+        <include content="ThumbRow"><param name="title" value="3508"/><param name="list" value="3408"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="BackdropRow"><param name="title" value="3908"/><param name="list" value="3808"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="PosterRow"><param name="title" value="3109"/><param name="list" value="3009"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
+        <include content="ThumbRow"><param name="title" value="3509"/><param name="list" value="3409"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="BackdropRow"><param name="title" value="3909"/><param name="list" value="3809"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="PosterRow"><param name="title" value="3110"/><param name="list" value="3010"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
+        <include content="ThumbRow"><param name="title" value="3510"/><param name="list" value="3410"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="BackdropRow"><param name="title" value="3910"/><param name="list" value="3810"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="PosterRow"><param name="title" value="3111"/><param name="list" value="3011"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
+        <include content="ThumbRow"><param name="title" value="3511"/><param name="list" value="3411"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="BackdropRow"><param name="title" value="3911"/><param name="list" value="3811"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="PosterRow"><param name="title" value="3112"/><param name="list" value="3012"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="510"/><param name="group_height" value="590"/></include>
+        <include content="ThumbRow"><param name="title" value="3512"/><param name="list" value="3412"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
+        <include content="BackdropRow"><param name="title" value="3912"/><param name="list" value="3812"/><param name="onleft" value="noop"/><param name="width" value="1808"/><param name="height" value="400"/><param name="group_height" value="480"/></include>
     </control>
 
     <include content="PageHeader"><param name="left" value="112"/><param name="ondown" value="900"/></include>

@@ -754,7 +754,7 @@
     <!-- The title's 50 and a 30 gap above the list; the group is the row's whole height. Kodi's
          includes can't add, so a row with another list height passes group_height too. -->
     <param name="list_top" default="80"/><param name="group_height" default="530"/>
-    <!-- Home and Recommended put the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
+    <!-- Home puts the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
     <param name="title_top" default="0"/>
     <definition>
       <!-- One group per row, its title on top of its list, so the grouplist scrolls the whole row
@@ -795,7 +795,7 @@
     <!-- The title's 50 and a 30 gap above the list; the group is the row's whole height. Kodi's
          includes can't add, so a row with another list height passes group_height too. -->
     <param name="list_top" default="80"/><param name="group_height" default="530"/>
-    <!-- Home and Recommended put the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
+    <!-- Home puts the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
     <param name="title_top" default="0"/>
     <definition>
       <!-- One group per row, its title on top of its list, so the grouplist scrolls the whole row
@@ -835,7 +835,7 @@
     <!-- The title's 50 and a 30 gap above the list; the group is the row's whole height. Kodi's
          includes can't add, so a row with another list height passes group_height too. -->
     <param name="list_top" default="80"/><param name="group_height" default="530"/>
-    <!-- Home and Recommended put the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
+    <!-- Home puts the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
     <param name="title_top" default="0"/>
     <definition>
       <!-- One group per row, its title on top of its list, so the grouplist scrolls the whole row
