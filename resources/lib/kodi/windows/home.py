@@ -119,14 +119,15 @@ class HomeWindow(ArcWindow):
         return None
 
     def _layout_rows(self):
-        # The hero fills the list above the first row, its text moving down with it.
-        first = self.rows[0].get("style") if self.rows else homerows.POSTER
-        height = homerows.hero_height(first, self.rows_height)
-        try:
-            self.getControl(HERO_GROUP).setHeight(height)
-            self.getControl(HERO_TEXT_GROUP).setPosition(8, height - self.hero_text)
-        except Exception:
-            pass
+        if self.HERO_SPOT is not None:
+            # The hero fills the list above the first row, its text moving down with it.
+            first = self.rows[0].get("style") if self.rows else homerows.POSTER
+            height = homerows.hero_height(first, self.rows_height)
+            try:
+                self.getControl(HERO_GROUP).setHeight(height)
+                self.getControl(HERO_TEXT_GROUP).setPosition(8, height - self.hero_text)
+            except Exception:
+                pass
         for i in range(MAX_ROWS):
             if i < len(self.rows):
                 self.set_label(self._bases(self.rows[i])[1] + 1 + i, self._row_title(self.rows[i]))
