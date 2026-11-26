@@ -4,7 +4,7 @@
     <include>PageBackground</include>
     <control type="image">
       <left>0</left><top>490</top><width>1920</width><height>100</height>
-      <texture>arc-logo.png</texture><aspectratio>keep</aspectratio>
+      <texture>arc-logo-large.png</texture><aspectratio>keep</aspectratio>
     </control>
   </controls>
 </window>

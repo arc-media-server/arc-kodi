@@ -7,7 +7,7 @@
     <include>PageBackground</include>
     <control type="image">
       <left>0</left><top>150</top><width>1920</width><height>80</height>
-      <texture>arc-logo.png</texture><aspectratio>keep</aspectratio>
+      <texture>arc-logo-large.png</texture><aspectratio>keep</aspectratio>
     </control>
     <control type="label">
       <left>0</left><top>286</top><width>1920</width><height>64</height>

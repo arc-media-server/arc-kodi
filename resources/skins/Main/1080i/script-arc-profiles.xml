@@ -16,7 +16,7 @@
       <top>150</top>
       <width>1920</width>
       <height>80</height>
-      <texture>arc-logo.png</texture>
+      <texture>arc-logo-large.png</texture>
       <aspectratio>keep</aspectratio>
     </control>
     <control type="label">
