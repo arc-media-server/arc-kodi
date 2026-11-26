@@ -44,7 +44,8 @@ def card_list_item(session, card, style, season_posters=False, *, episode_titles
     if episode_titles and not hide_spoilers and models.is_episode(item) and not card.get("new_episodes"):
         title = item.get("title")
         if title and title != label:
-            props["episode_title"] = title
+            props["episode_code"] = sub
+            sub = title
     if card.get("season_number") is not None and card.get("new_episodes"):
         props["unwatched"] = card["new_episodes"]
         props["watched"] = ""

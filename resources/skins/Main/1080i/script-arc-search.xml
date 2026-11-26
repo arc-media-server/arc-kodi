@@ -347,8 +347,8 @@
               <shadowcolor>99000000</shadowcolor>
               <align>left</align>
               <textcolor>FF6B6B78</textcolor>
-              <label>$INFO[ListItem.Property(episode_title)]</label>
-              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
+              <label>$INFO[ListItem.Property(episode_code)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -477,8 +477,8 @@
               <shadowcolor>99000000</shadowcolor>
               <align>left</align>
               <textcolor>FF6B6B78</textcolor>
-              <label>$INFO[ListItem.Property(episode_title)]</label>
-              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
+              <label>$INFO[ListItem.Property(episode_code)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -649,8 +649,8 @@
               <shadowcolor>99000000</shadowcolor>
               <align>left</align>
               <textcolor>FF6B6B78</textcolor>
-              <label>$INFO[ListItem.Property(episode_title)]</label>
-              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
+              <label>$INFO[ListItem.Property(episode_code)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -795,8 +795,8 @@
               <shadowcolor>99000000</shadowcolor>
               <align>left</align>
               <textcolor>FF6B6B78</textcolor>
-              <label>$INFO[ListItem.Property(episode_title)]</label>
-              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
+              <label>$INFO[ListItem.Property(episode_code)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -951,8 +951,8 @@
               <shadowcolor>99000000</shadowcolor>
               <align>left</align>
               <textcolor>FF6B6B78</textcolor>
-              <label>$INFO[ListItem.Property(episode_title)]</label>
-              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
+              <label>$INFO[ListItem.Property(episode_code)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -1081,8 +1081,8 @@
               <shadowcolor>99000000</shadowcolor>
               <align>left</align>
               <textcolor>FF6B6B78</textcolor>
-              <label>$INFO[ListItem.Property(episode_title)]</label>
-              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
+              <label>$INFO[ListItem.Property(episode_code)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
             </control>
           </focusedlayout>
         </control>

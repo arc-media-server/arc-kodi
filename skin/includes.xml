@@ -267,8 +267,8 @@
       <control type="label">
         <left>8</left><top>427</top><width>244</width><height>23</height>
         <font>arc-tiny</font><shadowcolor>99000000</shadowcolor><align>left</align><textcolor>subtle</textcolor>
-        <label>$INFO[ListItem.Property(episode_title)]</label>
-        <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
+        <label>$INFO[ListItem.Property(episode_code)]</label>
+        <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
       </control>
     </definition>
   </include>
@@ -332,8 +332,8 @@
       <control type="label">
         <left>8</left><top>340</top><width>464</width><height>23</height>
         <font>arc-tiny</font><shadowcolor>99000000</shadowcolor><align>left</align><textcolor>subtle</textcolor>
-        <label>$INFO[ListItem.Property(episode_title)]</label>
-        <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
+        <label>$INFO[ListItem.Property(episode_code)]</label>
+        <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
       </control>
     </definition>
   </include>
@@ -946,8 +946,8 @@
       <control type="label">
         <left>8</left><top>372</top><width>400</width><height>23</height>
         <font>arc-tiny</font><shadowcolor>99000000</shadowcolor><align>left</align><textcolor>subtle</textcolor>
-        <label>$INFO[ListItem.Property(episode_title)]</label>
-        <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
+        <label>$INFO[ListItem.Property(episode_code)]</label>
+        <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
       </control>
     </definition>
   </include>

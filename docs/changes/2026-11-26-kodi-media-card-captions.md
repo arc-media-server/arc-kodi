@@ -5,7 +5,7 @@ left edge of the artwork. The shared layouts cover Home, Recommended, Library,
 Collections and other media shelves and grids.
 
 Individual episodes on Home and Recommended can show the series name, the
-season and episode number, and the episode title on separate lines. Grouped
+episode title, and the season and episode number on separate lines. Grouped
 updates keep their existing captions. Hide Spoilers conceals episode titles for
 unstarted episodes.
 
