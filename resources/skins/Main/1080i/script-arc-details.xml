@@ -2192,9 +2192,8 @@
         <height>1080</height>
         <visible>Integer.IsGreater(Container(360).NumItems,0)</visible>
         <control type="list" id="360">
-          <left>-10</left>
           <top>660</top>
-          <width>1818</width>
+          <width>1808</width>
           <height>420</height>
           <visible>Integer.IsGreater(Container(360).NumItems,0)</visible>
           <orientation>horizontal</orientation>
