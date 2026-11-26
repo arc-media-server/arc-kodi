@@ -135,7 +135,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -253,7 +253,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -1011,7 +1011,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -1129,7 +1129,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -1887,7 +1887,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -2005,7 +2005,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -2763,7 +2763,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -2881,7 +2881,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -3639,7 +3639,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -3757,7 +3757,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -4515,7 +4515,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -4633,7 +4633,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -5391,7 +5391,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -5509,7 +5509,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -6267,7 +6267,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -6385,7 +6385,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -7143,7 +7143,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -7261,7 +7261,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -8019,7 +8019,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -8137,7 +8137,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -8895,7 +8895,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -9013,7 +9013,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -9771,7 +9771,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -9889,7 +9889,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">

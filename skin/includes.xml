@@ -230,7 +230,8 @@
       </control>
       <control type="image">
         <left>8</left><top>8</top><width>244</width><height>366</height>
-        <aspectratio>scale</aspectratio>
+        <!-- Crop the art to fill the card, while keeping the corner mask fitted to the card. -->
+        <aspectratio scalediffuse="false">scale</aspectratio>
         <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
       </control>
       <control type="image">
@@ -862,6 +863,22 @@
           <include content="BackdropCard"><param name="focused" value="Control.HasFocus($PARAM[list])"/><param name="labelcolor" value="fg"/></include>
         </focusedlayout>
       </control>
+      </control>
+    </definition>
+  </include>
+  <!-- Recommended shelves start at the top of a group as tall as their viewport. -->
+  <include name="RecommendedShelf">
+    <param name="row"/><param name="title"/><param name="list"/>
+    <param name="height" default="400"/><param name="stride" default="504"/>
+    <definition>
+      <include content="$PARAM[row]">
+        <param name="title" value="$PARAM[title]"/><param name="list" value="$PARAM[list]"/>
+        <param name="onleft" value="noop"/><param name="width" value="1808"/>
+        <param name="height" value="$PARAM[height]"/><param name="group_height" value="950"/>
+      </include>
+      <control type="group">
+        <height>$PARAM[stride]</height>
+        <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
     </definition>
   </include>
