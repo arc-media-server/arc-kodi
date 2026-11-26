@@ -2,7 +2,8 @@
 
 Season shelves show four full episode cards and a sliver of the fifth at
 1080p, following Arc for Android TV. Episode artwork keeps its 16:9 proportions.
-The episode number, title, synopsis and duration use the narrower card width.
+The episode number, title, synopsis and duration align with the thumbnail’s
+left edge and use the narrower card width.
 The shelf still scrolls to bring the focused card fully into view.
 
 The change applies to series episode cards. Card sizes elsewhere use their

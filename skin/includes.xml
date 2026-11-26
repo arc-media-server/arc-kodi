@@ -658,17 +658,17 @@
         <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
       </control>
       <control type="label">
-        <left>10</left><top>253</top><width>404</width><height>28</height>
+        <left>8</left><top>253</top><width>404</width><height>28</height>
         <font>arc-caption</font><textcolor>muted</textcolor><shadowcolor>99000000</shadowcolor>
         <label>$INFO[ListItem.Property(number)]</label>
       </control>
       <control type="label">
-        <left>10</left><top>281</top><width>404</width><height>38</height>
+        <left>8</left><top>281</top><width>404</width><height>38</height>
         <font>arc-card-title</font><textcolor>$PARAM[labelcolor]</textcolor><shadowcolor>99000000</shadowcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label">
-        <left>10</left><top>321</top><width>404</width><height>128</height>
+        <left>8</left><top>321</top><width>404</width><height>128</height>
         <font>arc-tiny</font><textcolor>A6F5F5F7</textcolor><shadowcolor>99000000</shadowcolor>
         <label>$INFO[ListItem.Property(body)]</label>
       </control>

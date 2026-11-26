@@ -1026,7 +1026,7 @@
                 <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
               </control>
               <control type="label">
-                <left>10</left>
+                <left>8</left>
                 <top>253</top>
                 <width>404</width>
                 <height>28</height>
@@ -1036,7 +1036,7 @@
                 <label>$INFO[ListItem.Property(number)]</label>
               </control>
               <control type="label">
-                <left>10</left>
+                <left>8</left>
                 <top>281</top>
                 <width>404</width>
                 <height>38</height>
@@ -1046,7 +1046,7 @@
                 <label>$INFO[ListItem.Label]</label>
               </control>
               <control type="label">
-                <left>10</left>
+                <left>8</left>
                 <top>321</top>
                 <width>404</width>
                 <height>128</height>
@@ -1168,7 +1168,7 @@
                 <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
               </control>
               <control type="label">
-                <left>10</left>
+                <left>8</left>
                 <top>253</top>
                 <width>404</width>
                 <height>28</height>
@@ -1178,7 +1178,7 @@
                 <label>$INFO[ListItem.Property(number)]</label>
               </control>
               <control type="label">
-                <left>10</left>
+                <left>8</left>
                 <top>281</top>
                 <width>404</width>
                 <height>38</height>
@@ -1188,7 +1188,7 @@
                 <label>$INFO[ListItem.Label]</label>
               </control>
               <control type="label">
-                <left>10</left>
+                <left>8</left>
                 <top>321</top>
                 <width>404</width>
                 <height>128</height>
