@@ -224,25 +224,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -342,25 +354,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -511,7 +535,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -522,9 +546,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -645,7 +681,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -656,9 +692,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -817,25 +865,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="424" height="450">
@@ -964,25 +1024,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -1112,25 +1184,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -1230,25 +1314,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -1399,7 +1495,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -1410,9 +1506,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -1533,7 +1641,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -1544,9 +1652,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -1705,25 +1825,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="424" height="450">
@@ -1852,25 +1984,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -2000,25 +2144,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -2118,25 +2274,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -2287,7 +2455,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -2298,9 +2466,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -2421,7 +2601,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -2432,9 +2612,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -2593,25 +2785,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="424" height="450">
@@ -2740,25 +2944,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -2888,25 +3104,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -3006,25 +3234,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -3175,7 +3415,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -3186,9 +3426,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -3309,7 +3561,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -3320,9 +3572,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -3481,25 +3745,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="424" height="450">
@@ -3628,25 +3904,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -3776,25 +4064,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -3894,25 +4194,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -4063,7 +4375,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -4074,9 +4386,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -4197,7 +4521,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -4208,9 +4532,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -4369,25 +4705,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="424" height="450">
@@ -4516,25 +4864,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -4664,25 +5024,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -4782,25 +5154,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -4951,7 +5335,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -4962,9 +5346,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -5085,7 +5481,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -5096,9 +5492,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -5257,25 +5665,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="424" height="450">
@@ -5404,25 +5824,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -5552,25 +5984,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -5670,25 +6114,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -5839,7 +6295,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -5850,9 +6306,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -5973,7 +6441,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -5984,9 +6452,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -6145,25 +6625,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="424" height="450">
@@ -6292,25 +6784,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -6440,25 +6944,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -6558,25 +7074,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -6727,7 +7255,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -6738,9 +7266,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -6861,7 +7401,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -6872,9 +7412,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -7033,25 +7585,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="424" height="450">
@@ -7180,25 +7744,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -7328,25 +7904,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -7446,25 +8034,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -7615,7 +8215,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -7626,9 +8226,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -7749,7 +8361,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -7760,9 +8372,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -7921,25 +8545,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="424" height="450">
@@ -8068,25 +8704,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -8216,25 +8864,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -8334,25 +8994,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -8503,7 +9175,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -8514,9 +9186,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -8637,7 +9321,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -8648,9 +9332,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -8809,25 +9505,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="424" height="450">
@@ -8956,25 +9664,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -9104,25 +9824,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -9222,25 +9954,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -9391,7 +10135,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -9402,9 +10146,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -9525,7 +10281,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -9536,9 +10292,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -9697,25 +10465,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="424" height="450">
@@ -9844,25 +10624,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -9992,25 +10784,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="268" height="450">
@@ -10110,25 +10914,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>384</top>
+              <top>380</top>
               <width>244</width>
-              <height>34</height>
+              <height>26</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>416</top>
+              <top>405</top>
               <width>244</width>
-              <height>30</height>
-              <font>font12</font>
+              <height>22</height>
+              <font>font10</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>427</top>
+              <width>244</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -10279,7 +11095,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -10290,9 +11106,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="488" height="450">
@@ -10413,7 +11241,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -10424,9 +11252,21 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>340</top>
+              <width>464</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>
@@ -10585,25 +11425,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </itemlayout>
           <focusedlayout width="424" height="450">
@@ -10732,25 +11584,37 @@
             </control>
             <control type="label">
               <left>8</left>
-              <top>318</top>
+              <top>316</top>
               <width>400</width>
-              <height>34</height>
+              <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
               <left>8</left>
-              <top>350</top>
+              <top>345</top>
               <width>400</width>
-              <height>30</height>
+              <height>25</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
+            </control>
+            <control type="label">
+              <left>8</left>
+              <top>372</top>
+              <width>400</width>
+              <height>23</height>
+              <font>font10</font>
+              <shadowcolor>99000000</shadowcolor>
+              <align>left</align>
+              <textcolor>FF6B6B78</textcolor>
+              <label>$INFO[ListItem.Property(episode_title)]</label>
+              <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
             </control>
           </focusedlayout>
         </control>

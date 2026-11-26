@@ -254,15 +254,21 @@
         <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
       </control>
       <control type="label">
-        <left>8</left><top>384</top><width>244</width><height>34</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align>
+        <left>8</left><top>380</top><width>244</width><height>26</height>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>left</align>
         <textcolor>$PARAM[labelcolor]</textcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label">
-        <left>8</left><top>416</top><width>244</width><height>30</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><textcolor>subtle</textcolor>
+        <left>8</left><top>405</top><width>244</width><height>22</height>
+        <font>arc-tiny</font><shadowcolor>99000000</shadowcolor><align>left</align><textcolor>subtle</textcolor>
         <label>$INFO[ListItem.Label2]</label>
+      </control>
+      <control type="label">
+        <left>8</left><top>427</top><width>244</width><height>23</height>
+        <font>arc-tiny</font><shadowcolor>99000000</shadowcolor><align>left</align><textcolor>subtle</textcolor>
+        <label>$INFO[ListItem.Property(episode_title)]</label>
+        <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
       </control>
     </definition>
   </include>
@@ -314,14 +320,20 @@
       </control>
       <control type="label">
         <left>8</left><top>278</top><width>464</width><height>34</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>left</align>
         <textcolor>$PARAM[labelcolor]</textcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label">
         <left>8</left><top>310</top><width>464</width><height>30</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><textcolor>subtle</textcolor>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>left</align><textcolor>subtle</textcolor>
         <label>$INFO[ListItem.Label2]</label>
+      </control>
+      <control type="label">
+        <left>8</left><top>340</top><width>464</width><height>23</height>
+        <font>arc-tiny</font><shadowcolor>99000000</shadowcolor><align>left</align><textcolor>subtle</textcolor>
+        <label>$INFO[ListItem.Property(episode_title)]</label>
+        <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
       </control>
     </definition>
   </include>
@@ -921,15 +933,21 @@
         <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
       </control>
       <control type="label">
-        <left>8</left><top>318</top><width>400</width><height>34</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align>
+        <left>8</left><top>316</top><width>400</width><height>30</height>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>left</align>
         <textcolor>$PARAM[labelcolor]</textcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label">
-        <left>8</left><top>350</top><width>400</width><height>30</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><textcolor>subtle</textcolor>
+        <left>8</left><top>345</top><width>400</width><height>25</height>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>left</align><textcolor>subtle</textcolor>
         <label>$INFO[ListItem.Label2]</label>
+      </control>
+      <control type="label">
+        <left>8</left><top>372</top><width>400</width><height>23</height>
+        <font>arc-tiny</font><shadowcolor>99000000</shadowcolor><align>left</align><textcolor>subtle</textcolor>
+        <label>$INFO[ListItem.Property(episode_title)]</label>
+        <visible>!String.IsEmpty(ListItem.Property(episode_title))</visible>
       </control>
     </definition>
   </include>
