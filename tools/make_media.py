@@ -32,7 +32,7 @@ S = 4  # supersampling for smooth edges
 SIDEBAR_LOGO_H = 40
 SIDEBAR_ICON = 44
 LOGO_STACKED_H = 190
-LOADING_LOGO_H = 200  # the 100-pixel loading logo at 4K
+LARGE_LOGO_H = 200  # up to 100 skin pixels at 4K
 OSD_ICONS = {"volume-2": 34, "captions": 34, "check": 30, "play": 26, "pause": 26,
              "rotate-ccw": 34, "circle-check": 34, "bookmark": 34, "bookmark-check": 34, "circle-check-filled": 34,
              "skip-back": 30, "shuffle": 34, "ellipsis": 34, "star": 24, "gauge": 34}
@@ -188,7 +188,7 @@ def brand_renders():
     jobs = [  # (svg, png, shown height in pixels; None keeps the size)
         ("arc-logo-stacked-white.svg", os.path.join(MEDIA, "arc-logo-stacked.png"), LOGO_STACKED_H),
         ("arc-logo-white.svg", os.path.join(MEDIA, "arc-logo.png"), SIDEBAR_LOGO_H),
-        ("arc-logo-white.svg", os.path.join(MEDIA, "arc-logo-loading.png"), LOADING_LOGO_H),
+        ("arc-logo-white.svg", os.path.join(MEDIA, "arc-logo-large.png"), LARGE_LOGO_H),
         ("arc-mark-white.svg", os.path.join(MEDIA, "arc-mark.png"), SIDEBAR_LOGO_H),
         ("arc-icon-square.svg", os.path.join(RES, "icon.png"), None),
     ]
