@@ -914,28 +914,28 @@
             <orientation>horizontal</orientation>
             <itemgap>8</itemgap>
             <scrolltime tween="cubic" easing="out">220</scrolltime>
-            <itemlayout width="488" height="496">
+            <itemlayout width="432" height="496">
               <control type="image">
                 <left>8</left>
                 <top>8</top>
-                <width>464</width>
-                <height>261</height>
+                <width>408</width>
+                <height>230</height>
                 <texture>arc-mask-thumb.png</texture>
                 <colordiffuse>FF15151C</colordiffuse>
               </control>
               <control type="image">
                 <left>8</left>
                 <top>8</top>
-                <width>464</width>
-                <height>261</height>
+                <width>408</width>
+                <height>230</height>
                 <aspectratio>scale</aspectratio>
                 <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
               </control>
               <control type="image">
                 <left>8</left>
                 <top>8</top>
-                <width>464</width>
-                <height>261</height>
+                <width>408</width>
+                <height>230</height>
                 <texture>arc-mask-thumb.png</texture>
                 <colordiffuse>99000000</colordiffuse>
                 <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
@@ -964,13 +964,13 @@
               <control type="image">
                 <left>2</left>
                 <top>2</top>
-                <width>476</width>
-                <height>273</height>
+                <width>420</width>
+                <height>242</height>
                 <texture>arc-ring-thumb.png</texture>
                 <visible>false</visible>
               </control>
               <control type="image">
-                <left>416</left>
+                <left>360</left>
                 <top>20</top>
                 <width>44</width>
                 <height>44</height>
@@ -980,7 +980,7 @@
               <control type="group">
                 <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
                 <control type="image">
-                  <left>420</left>
+                  <left>364</left>
                   <top>20</top>
                   <width>40</width>
                   <height>36</height>
@@ -988,7 +988,7 @@
                   <visible>!Integer.IsGreater(ListItem.Property(unwatched),9)</visible>
                 </control>
                 <control type="image">
-                  <left>406</left>
+                  <left>350</left>
                   <top>20</top>
                   <width>54</width>
                   <height>36</height>
@@ -996,7 +996,7 @@
                   <visible>Integer.IsGreater(ListItem.Property(unwatched),9) + !Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
                 </control>
                 <control type="image">
-                  <left>392</left>
+                  <left>336</left>
                   <top>20</top>
                   <width>68</width>
                   <height>36</height>
@@ -1004,7 +1004,7 @@
                   <visible>Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
                 </control>
                 <control type="label">
-                  <left>392</left>
+                  <left>336</left>
                   <top>20</top>
                   <width>54</width>
                   <height>36</height>
@@ -1017,8 +1017,8 @@
               </control>
               <control type="progress">
                 <left>20</left>
-                <top>250</top>
-                <width>440</width>
+                <top>219</top>
+                <width>384</width>
                 <height>8</height>
                 <texturebg border="4">arc-bar-bg.png</texturebg>
                 <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -1026,9 +1026,9 @@
                 <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
               </control>
               <control type="label">
-                <left>10</left>
-                <top>284</top>
-                <width>460</width>
+                <left>8</left>
+                <top>253</top>
+                <width>404</width>
                 <height>28</height>
                 <font>font20_title</font>
                 <textcolor>FFA1A1AD</textcolor>
@@ -1036,9 +1036,9 @@
                 <label>$INFO[ListItem.Property(number)]</label>
               </control>
               <control type="label">
-                <left>10</left>
-                <top>312</top>
-                <width>460</width>
+                <left>8</left>
+                <top>281</top>
+                <width>404</width>
                 <height>38</height>
                 <font>font27</font>
                 <textcolor>DDF5F5F7</textcolor>
@@ -1046,9 +1046,9 @@
                 <label>$INFO[ListItem.Label]</label>
               </control>
               <control type="label">
-                <left>10</left>
-                <top>352</top>
-                <width>460</width>
+                <left>8</left>
+                <top>321</top>
+                <width>404</width>
                 <height>128</height>
                 <font>font10</font>
                 <textcolor>A6F5F5F7</textcolor>
@@ -1056,28 +1056,28 @@
                 <label>$INFO[ListItem.Property(body)]</label>
               </control>
             </itemlayout>
-            <focusedlayout width="488" height="496">
+            <focusedlayout width="432" height="496">
               <control type="image">
                 <left>8</left>
                 <top>8</top>
-                <width>464</width>
-                <height>261</height>
+                <width>408</width>
+                <height>230</height>
                 <texture>arc-mask-thumb.png</texture>
                 <colordiffuse>FF15151C</colordiffuse>
               </control>
               <control type="image">
                 <left>8</left>
                 <top>8</top>
-                <width>464</width>
-                <height>261</height>
+                <width>408</width>
+                <height>230</height>
                 <aspectratio>scale</aspectratio>
                 <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
               </control>
               <control type="image">
                 <left>8</left>
                 <top>8</top>
-                <width>464</width>
-                <height>261</height>
+                <width>408</width>
+                <height>230</height>
                 <texture>arc-mask-thumb.png</texture>
                 <colordiffuse>99000000</colordiffuse>
                 <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
@@ -1106,13 +1106,13 @@
               <control type="image">
                 <left>2</left>
                 <top>2</top>
-                <width>476</width>
-                <height>273</height>
+                <width>420</width>
+                <height>242</height>
                 <texture>arc-ring-thumb.png</texture>
                 <visible>Control.HasFocus(201)</visible>
               </control>
               <control type="image">
-                <left>416</left>
+                <left>360</left>
                 <top>20</top>
                 <width>44</width>
                 <height>44</height>
@@ -1122,7 +1122,7 @@
               <control type="group">
                 <visible>!String.IsEmpty(ListItem.Property(unwatched)) + !String.IsEqual(ListItem.Property(watched),true)</visible>
                 <control type="image">
-                  <left>420</left>
+                  <left>364</left>
                   <top>20</top>
                   <width>40</width>
                   <height>36</height>
@@ -1130,7 +1130,7 @@
                   <visible>!Integer.IsGreater(ListItem.Property(unwatched),9)</visible>
                 </control>
                 <control type="image">
-                  <left>406</left>
+                  <left>350</left>
                   <top>20</top>
                   <width>54</width>
                   <height>36</height>
@@ -1138,7 +1138,7 @@
                   <visible>Integer.IsGreater(ListItem.Property(unwatched),9) + !Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
                 </control>
                 <control type="image">
-                  <left>392</left>
+                  <left>336</left>
                   <top>20</top>
                   <width>68</width>
                   <height>36</height>
@@ -1146,7 +1146,7 @@
                   <visible>Integer.IsGreater(ListItem.Property(unwatched),99)</visible>
                 </control>
                 <control type="label">
-                  <left>392</left>
+                  <left>336</left>
                   <top>20</top>
                   <width>54</width>
                   <height>36</height>
@@ -1159,8 +1159,8 @@
               </control>
               <control type="progress">
                 <left>20</left>
-                <top>250</top>
-                <width>440</width>
+                <top>219</top>
+                <width>384</width>
                 <height>8</height>
                 <texturebg border="4">arc-bar-bg.png</texturebg>
                 <midtexture border="4">arc-bar-fg.png</midtexture>
@@ -1168,9 +1168,9 @@
                 <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
               </control>
               <control type="label">
-                <left>10</left>
-                <top>284</top>
-                <width>460</width>
+                <left>8</left>
+                <top>253</top>
+                <width>404</width>
                 <height>28</height>
                 <font>font20_title</font>
                 <textcolor>FFA1A1AD</textcolor>
@@ -1178,9 +1178,9 @@
                 <label>$INFO[ListItem.Property(number)]</label>
               </control>
               <control type="label">
-                <left>10</left>
-                <top>312</top>
-                <width>460</width>
+                <left>8</left>
+                <top>281</top>
+                <width>404</width>
                 <height>38</height>
                 <font>font27</font>
                 <textcolor>FFF5F5F7</textcolor>
@@ -1188,9 +1188,9 @@
                 <label>$INFO[ListItem.Label]</label>
               </control>
               <control type="label">
-                <left>10</left>
-                <top>352</top>
-                <width>460</width>
+                <left>8</left>
+                <top>321</top>
+                <width>404</width>
                 <height>128</height>
                 <font>font10</font>
                 <textcolor>A6F5F5F7</textcolor>
