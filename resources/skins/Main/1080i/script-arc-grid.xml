@@ -339,9 +339,9 @@
         </control>
         <control type="label">
           <left>8</left>
-          <top>380</top>
+          <top>384</top>
           <width>244</width>
-          <height>26</height>
+          <height>34</height>
           <font>font12</font>
           <shadowcolor>99000000</shadowcolor>
           <align>left</align>
@@ -350,26 +350,14 @@
         </control>
         <control type="label">
           <left>8</left>
-          <top>405</top>
+          <top>416</top>
           <width>244</width>
-          <height>22</height>
-          <font>font10</font>
+          <height>30</height>
+          <font>font12</font>
           <shadowcolor>99000000</shadowcolor>
           <align>left</align>
           <textcolor>FF6B6B78</textcolor>
           <label>$INFO[ListItem.Label2]</label>
-        </control>
-        <control type="label">
-          <left>8</left>
-          <top>427</top>
-          <width>244</width>
-          <height>23</height>
-          <font>font10</font>
-          <shadowcolor>99000000</shadowcolor>
-          <align>left</align>
-          <textcolor>FF6B6B78</textcolor>
-          <label>$INFO[ListItem.Property(episode_code)]</label>
-          <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
         </control>
       </itemlayout>
       <focusedlayout width="292" height="460" condition="!String.IsEqual(Window.Property(arc.style),thumb)">
@@ -469,9 +457,9 @@
         </control>
         <control type="label">
           <left>8</left>
-          <top>380</top>
+          <top>384</top>
           <width>244</width>
-          <height>26</height>
+          <height>34</height>
           <font>font12</font>
           <shadowcolor>99000000</shadowcolor>
           <align>left</align>
@@ -480,26 +468,14 @@
         </control>
         <control type="label">
           <left>8</left>
-          <top>405</top>
+          <top>416</top>
           <width>244</width>
-          <height>22</height>
-          <font>font10</font>
+          <height>30</height>
+          <font>font12</font>
           <shadowcolor>99000000</shadowcolor>
           <align>left</align>
           <textcolor>FF6B6B78</textcolor>
           <label>$INFO[ListItem.Label2]</label>
-        </control>
-        <control type="label">
-          <left>8</left>
-          <top>427</top>
-          <width>244</width>
-          <height>23</height>
-          <font>font10</font>
-          <shadowcolor>99000000</shadowcolor>
-          <align>left</align>
-          <textcolor>FF6B6B78</textcolor>
-          <label>$INFO[ListItem.Property(episode_code)]</label>
-          <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
         </control>
       </focusedlayout>
       <itemlayout width="488" height="370" condition="String.IsEqual(Window.Property(arc.style),thumb)">
@@ -635,18 +611,6 @@
           <textcolor>FF6B6B78</textcolor>
           <label>$INFO[ListItem.Label2]</label>
         </control>
-        <control type="label">
-          <left>8</left>
-          <top>340</top>
-          <width>464</width>
-          <height>23</height>
-          <font>font10</font>
-          <shadowcolor>99000000</shadowcolor>
-          <align>left</align>
-          <textcolor>FF6B6B78</textcolor>
-          <label>$INFO[ListItem.Property(episode_code)]</label>
-          <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
-        </control>
       </itemlayout>
       <focusedlayout width="488" height="370" condition="String.IsEqual(Window.Property(arc.style),thumb)">
         <control type="image">
@@ -780,18 +744,6 @@
           <align>left</align>
           <textcolor>FF6B6B78</textcolor>
           <label>$INFO[ListItem.Label2]</label>
-        </control>
-        <control type="label">
-          <left>8</left>
-          <top>340</top>
-          <width>464</width>
-          <height>23</height>
-          <font>font10</font>
-          <shadowcolor>99000000</shadowcolor>
-          <align>left</align>
-          <textcolor>FF6B6B78</textcolor>
-          <label>$INFO[ListItem.Property(episode_code)]</label>
-          <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
         </control>
       </focusedlayout>
     </control>

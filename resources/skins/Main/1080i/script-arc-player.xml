@@ -1251,18 +1251,6 @@
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
-            <control type="label">
-              <left>8</left>
-              <top>340</top>
-              <width>464</width>
-              <height>23</height>
-              <font>font10</font>
-              <shadowcolor>99000000</shadowcolor>
-              <align>left</align>
-              <textcolor>FF6B6B78</textcolor>
-              <label>$INFO[ListItem.Property(episode_code)]</label>
-              <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
-            </control>
           </itemlayout>
           <focusedlayout width="488" height="350">
             <control type="image">
@@ -1396,18 +1384,6 @@
               <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label">
-              <left>8</left>
-              <top>340</top>
-              <width>464</width>
-              <height>23</height>
-              <font>font10</font>
-              <shadowcolor>99000000</shadowcolor>
-              <align>left</align>
-              <textcolor>FF6B6B78</textcolor>
-              <label>$INFO[ListItem.Property(episode_code)]</label>
-              <visible>!String.IsEmpty(ListItem.Property(episode_code))</visible>
             </control>
           </focusedlayout>
         </control>
