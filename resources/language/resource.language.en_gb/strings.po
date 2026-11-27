@@ -1525,3 +1525,43 @@ msgstr ""
 msgctxt "#30620"
 msgid "Not available for a profile with a PIN: it's asked for each time."
 msgstr ""
+
+msgctxt "#30621"
+msgid "Play Next"
+msgstr ""
+
+msgctxt "#30622"
+msgid "Add to Queue"
+msgstr ""
+
+msgctxt "#30623"
+msgid "“%s” plays next"
+msgstr ""
+
+msgctxt "#30624"
+msgid "Added “%s” to the queue"
+msgstr ""
+
+msgctxt "#30625"
+msgid "Couldn't queue “%s”. Try again."
+msgstr ""
+
+msgctxt "#30626"
+msgid "Move Earlier"
+msgstr ""
+
+msgctxt "#30627"
+msgid "Move Later"
+msgstr ""
+
+msgctxt "#30628"
+msgid "Remove from Queue"
+msgstr ""
+
+msgctxt "#30629"
+msgid "Couldn't change the queue. Try again."
+msgstr ""
+
+msgctxt "#30630"
+msgid "Queue"
+msgstr ""
