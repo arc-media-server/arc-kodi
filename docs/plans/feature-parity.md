@@ -35,6 +35,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Watch Together row | Apple | Done | Yes | First on Home while there are rooms; then Join with a Code. |
 | Library: Recommended / Browse / Collections / Folders pills | Both | Done | Yes | Folders for Other videos libraries, which show as wide cards. |
 | Library sort and filter (genre, unwatched, decade, resolution...) | Both | Done | Yes | Seven reversible sorts; Unwatched, Genre, Decade, Resolution (films) from the facets. |
+| Library A–Z bar (jump to a letter) | Both | Done | Yes | Sorted by Title: the letters that have titles down the right; Select loads up to that letter if needed and moves there. |
 | Posters: unwatched count tab, progress bar, watched tick, year · length | Both | Done | Yes | |
 | Paging large libraries | Both | Done | Yes | |
 | Collection, playlist, person and folder pages | Both | Done | Yes | Person (photo, part, rows) and collection (overview, sort) pages; folders in the Folders tab. Playlists are a grid with Play All / Shuffle. |
