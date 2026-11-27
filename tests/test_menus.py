@@ -51,3 +51,10 @@ def test_add_to_playlist_for_what_a_playlist_holds():
     assert "add_to_playlist" in menus.card_actions(s, playlists=True)
     assert "add_to_playlist" not in menus.card_actions({"id": "c", "kind": "collection"}, playlists=True)
     assert "add_to_playlist" not in menus.card_actions(m)
+
+
+def test_queue_actions():
+    m = {"id": "m", "kind": "movie"}
+    assert menus.card_actions(m, queue=True)[-2:] == ["play_next", "add_to_queue"]
+    edit = {"earlier": True, "later": False, "remove": True}
+    assert menus.card_actions(m, queue_edit=edit)[-2:] == ["queue_earlier", "queue_remove"]

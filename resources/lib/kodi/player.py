@@ -306,8 +306,9 @@ class Playback(object):
             self._open_controls()  # over the full-screen video, once it's showing
         if self.controls:
             self.controls.on_plan(self.plan)
-        if self.queue is not None:
-            self.next_item = self.queue.peek_next()
+        queued = self.queue.peek_next() if self.queue is not None else None
+        if queued is not None:
+            self.next_item = queued
             if models.is_episode(self.item) and not self.season_episodes:
                 threading.Thread(target=self._fetch_season, daemon=True).start()
         elif models.is_episode(self.item) and self.next_item is None:
@@ -500,6 +501,7 @@ class Playback(object):
         elif finished and self._should_play_next():
             self._play_next()
         else:
+            self._end_queue()
             self._finish()
 
     def on_error(self):
@@ -719,27 +721,48 @@ class Playback(object):
             self._open_player()
 
     def _should_play_next(self):
-        auto = (self.session.prefs or {}).get("auto_play", True)
-        if self.queue is not None:
-            return auto and self.queue.peek_next() is not None
-        return models.is_episode(self.item) and auto
+        # A queued title plays on whatever Auto-Play says (it was queued on purpose), as the
+        # Android and Apple apps; otherwise Auto-Play's next episode.
+        if self.queue is not None and self.queue.peek_next() is not None:
+            return True
+        return models.is_episode(self.item) and (self.session.prefs or {}).get("auto_play", True)
 
     def _play_next(self):
         nxt = self.next_item
-        if self.queue is not None:
+        if self.queue is not None and self.queue.peek_next() is not None:
             try:
                 nxt = self.queue.advance()   # the queue moves on with the player
             except Exception as e:
                 log.warning("play queue didn't advance: %s", type(e).__name__)
                 nxt = None
-        elif nxt is None:
-            try:
-                nxt = self.api.next_episode(self.item_id)
-            except Exception:
-                nxt = None
+        else:
+            if nxt is None and models.is_episode(self.item):
+                try:
+                    nxt = self.api.next_episode(self.item_id)
+                except Exception:
+                    nxt = None
+            if nxt is not None and self.queue is not None:
+                # Auto-Play's next episode joins the end of the queue, so it stays a true record.
+                try:
+                    self.queue.add([nxt.get("id")])
+                    self.queue.advance()
+                except Exception as e:
+                    log.warning("adding the next episode to the queue failed: %s", type(e).__name__)
         self.next_item = None
         if not self._switch_to(nxt):
+            self._end_queue()
             self._finish()
+
+    def _end_queue(self):
+        """A queue played to its end is deleted (Back keeps it, for Home's Queue row)."""
+        if self.queue is None or not self._ended_naturally:
+            return
+        try:
+            self.queue.delete()
+            log.info("play queue finished")
+        except Exception as e:
+            log.debug("play queue not deleted: %s", type(e).__name__)
+        self.queue = None
 
     def play_episode(self, episode):
         """Plays another episode in place of this one (the player's Episodes list)."""
@@ -760,8 +783,25 @@ class Playback(object):
         self._report("stopped")
         self._release_session()
         self.next_item = None
+        self._queue_switch(episode)
         if not self._switch_to(episode, models.resume_ms(episode)):
             self._finish()
+
+    def _queue_switch(self, episode):
+        """Another episode chosen in the player: the queue moves on if it's the queue's next one;
+        otherwise it's a title played by choice, so it starts a new queue, as on Android."""
+        if self.queue is None:
+            return
+        from arc.queues import PlayQueue
+        nxt = self.queue.peek_next()
+        try:
+            if nxt is not None and nxt.get("id") == episode.get("id"):
+                self.queue.advance()
+            else:
+                self.queue = PlayQueue.create(self.api, item_ids=[episode.get("id")])
+        except Exception as e:
+            log.warning("play queue didn't follow the episode: %s", type(e).__name__)
+            self.queue = None
 
     def _switch_to(self, nxt, resume_ms=0):
         """Plays `nxt` in this playback (the same player window), from `resume_ms`; False if it

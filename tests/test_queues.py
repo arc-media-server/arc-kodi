@@ -60,3 +60,30 @@ def test_an_existing_queue_is_replaced():
     q = PlayQueue.create(api, item_ids=["a"])
     assert calls[1] == {"item_ids": ["a"], "replace_id": "q1", "revision": 7}
     assert q.current_item()["id"] == "a"
+
+
+def test_moved_keeps_the_playing_entry_first():
+    from arc.queues import moved
+    assert moved(["a", "b", "c"], 1, "c", -1) == ["a", "c", "b"]
+    assert moved(["a", "b", "c"], 1, "b", -1) is None      # not in front of the one playing
+    assert moved(["a", "b", "c"], 1, "c", 1) is None
+    assert moved(["a", "b", "c"], 1, "a", 1) is None       # the one playing doesn't move
+
+
+def test_edit_retries_once_after_a_conflict():
+    state = {"n": 0}
+
+    def patch(_q, body):
+        state["n"] += 1
+        if state["n"] == 1:
+            return 409, {"error": "changed"}
+        assert body["revision"] == 5 and body["operation"] == "next"
+        return 200, queue(E, "e1", 6)
+
+    api, _ = make({("PATCH", "play-queues/q1"): patch, ("GET", "play-queues/q1"): (200, queue(E, "e1", 5))})
+    from arc.queues import PlayQueue as Q
+    q = Q(api, queue(E, "e1"))
+    q.add(["x"], next_=True)
+    assert q.revision == 6 and state["n"] == 2
+    assert [eid for eid, _ in q.upcoming()] == ["e1", "e3"]
+    assert q.editable("e3") == {"earlier": True, "later": False, "remove": True}

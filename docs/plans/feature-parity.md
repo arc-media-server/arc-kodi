@@ -66,6 +66,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Pre-roll before initial movie play | Android | Done | Yes | Requires server #485; skips resume, Watch Together and queue advancement. |
 | Versions (editions) choice before playing | Android | Done | Yes | Play Version… in the title's ⋯ menu (Context Menu), as Android and Plex; Play itself plays Arc's pick. Also in the player's Playback menu. |
 | Play All / Shuffle (play queues) | Android | Done | Yes | Collections and playlists, through Arc's play queues. |
+| Play Next, Add to Queue, Queue row (reorder, remove) | Both | Done | Yes | As Android: playing starts a queue; Home's Queue row plays on from a card, its menu moves or removes upcoming titles. |
 | Context menu on any card (Play, watched, watchlist, go to show) | Both | Done | Yes | Arc's own menu on Home, grids, search and the title page. |
 
 ## Player
