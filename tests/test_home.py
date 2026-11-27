@@ -107,3 +107,14 @@ def test_series_recent_batches_keep_count_and_added_time_identity():
     assert first["new_episodes"] == 6
     assert first["id"] != second["id"]
     assert first.get("season_number") is None
+
+
+def test_watch_together_sits_under_continue_watching():
+    rooms = {"id": "together"}
+    ids = lambda rows: [r["id"] for r in home.place_rooms_row([{"id": i} for i in rows], rooms)]
+    assert ids(["continue", "recent:1"]) == ["continue", "together", "recent:1"]
+    # Continue Watching further down (the profile's order) still has the rooms under it.
+    assert ids(["recent:1", "continue", "recent:2"]) == ["recent:1", "continue", "together", "recent:2"]
+    # No Continue Watching: under the first row, so titles keep the top.
+    assert ids(["recent:1", "recent:2"]) == ["recent:1", "together", "recent:2"]
+    assert ids([]) == ["together"]

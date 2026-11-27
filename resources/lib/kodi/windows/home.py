@@ -38,7 +38,8 @@ HERO_INFO = 64
 HERO_OVERVIEW = 65
 HERO_GROUP, HERO_TEXT_GROUP = 67, 68
 
-# Watch Together's row, first while there are rooms (it shows only once it has cards).
+# Watch Together's row, under Continue Watching while there are rooms (it shows only once it has
+# cards).
 TOGETHER_ROW = {"id": "together", "source": ("together",), "style": homerows.THUMB, "season_posters": False}
 # The play queue's row, first while there's a queue, as the Android app's: the title playing and
 # what follows. Selecting a card plays on from it; its menu arranges the queue.
@@ -165,7 +166,7 @@ class HomeWindow(ArcWindow):
     def _wanted_rows(self):
         rows = self.session.home_rows()
         if self.session.together.available:
-            rows = [dict(TOGETHER_ROW)] + rows
+            rows = homerows.place_rooms_row(rows, dict(TOGETHER_ROW))
         if self.session.queues_available:
             rows = [dict(QUEUE_ROW)] + rows
         return rows[:MAX_ROWS]
@@ -370,8 +371,9 @@ class HomeWindow(ArcWindow):
         bits = []
         if models.is_episode(item):
             bits.append(episode_heading(item))
-        if item.get("year"):
-            bits.append(str(item["year"]))
+        subtitle = models.year_and_edition(item)
+        if subtitle:
+            bits.append(subtitle)
         for g in (item.get("genres") or [])[:3]:
             bits.append(g)
         return "  ·  ".join(bits)
