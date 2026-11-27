@@ -91,8 +91,7 @@ def _subtitle(card):
     if models.is_episode(item):
         # Just the number: the card's other line already has the title (owner's rule).
         return episode_code(item)
-    # Just the year, as the Android app's cards (its cardSubtitle).
-    return str(item["year"]) if item.get("year") else ""
+    return models.year_and_edition(item)
 
 
 def item_list_item(session, item, style="poster"):

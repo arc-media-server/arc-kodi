@@ -14,6 +14,13 @@ def is_episode(item):
     return (item or {}).get("kind") == "episode"
 
 
+def year_and_edition(item):
+    """The year and named cut shown on a card or in its title details."""
+    year = str(item["year"]) if item.get("year") else ""
+    edition = item.get("edition") if item.get("kind") == "movie" else None
+    return " · ".join(part for part in (year, edition) if part)
+
+
 def is_series(item):
     return (item or {}).get("kind") == "series"
 

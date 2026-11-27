@@ -351,8 +351,9 @@ class HomeWindow(ArcWindow):
         bits = []
         if models.is_episode(item):
             bits.append(episode_heading(item))
-        if item.get("year"):
-            bits.append(str(item["year"]))
+        subtitle = models.year_and_edition(item)
+        if subtitle:
+            bits.append(subtitle)
         for g in (item.get("genres") or [])[:3]:
             bits.append(g)
         return "  ·  ".join(bits)
