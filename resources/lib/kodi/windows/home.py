@@ -38,7 +38,8 @@ HERO_INFO = 64
 HERO_OVERVIEW = 65
 HERO_GROUP, HERO_TEXT_GROUP = 67, 68
 
-# Watch Together's row, first while there are rooms (it shows only once it has cards).
+# Watch Together's row, under Continue Watching while there are rooms (it shows only once it has
+# cards).
 TOGETHER_ROW = {"id": "together", "source": ("together",), "style": homerows.THUMB, "season_posters": False}
 
 MOVE_ACTIONS = (1, 2, 5, 6)  # left, right, page up, page down
@@ -162,7 +163,7 @@ class HomeWindow(ArcWindow):
     def _wanted_rows(self):
         rows = self.session.home_rows()
         if self.session.together.available:
-            rows = [dict(TOGETHER_ROW)] + rows
+            rows = homerows.place_rooms_row(rows, dict(TOGETHER_ROW))
         return rows[:MAX_ROWS]
 
     def _layout_key(self):
