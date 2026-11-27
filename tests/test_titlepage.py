@@ -203,6 +203,8 @@ def test_meta_line():
     left = lambda n: "%d episodes left" % n
     film = {"kind": "movie", "year": 2024, "runtime_min": 166, "rating": 8.24}
     assert titlepage.meta_line(film, left) == ("2024 \u00b7 2h 46m \u00b7", "8.2")
+    assert titlepage.meta_line(dict(film, edition="IMAX"), left) == ("2024 · IMAX · 2h 46m ·", "8.2")
+    assert titlepage.meta_line({"kind": "movie", "edition": "IMAX"}, left) == ("IMAX", "")
     show = {"kind": "series", "year": 2008, "unwatched_count": 12, "runtime_min": 47}
     assert titlepage.meta_line(show, left) == ("2008 \u00b7 12 episodes left", "")
     show["unwatched_count"] = 0
