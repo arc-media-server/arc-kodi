@@ -91,10 +91,18 @@ class LibraryQuery(object):
         if state:
             self.unwatched = False
 
-    def parameters(self, library, offset, limit):
-        """The /items parameters for `library`'s grid, `limit` titles from `offset`."""
+    @property
+    def shows_letters(self):
+        """The A–Z bar is offered with the title sort only, as on the web, Android and Apple."""
+        return self.sort == "title"
+
+    def parameters(self, library, offset, limit, letters=False):
+        """The /items parameters for `library`'s grid, `limit` titles from `offset`. `letters` asks
+        for the A–Z bar's counts too (only sorted by title, where letters mean something)."""
         p = {"library_id": str(library.get("id")), "kind": "series" if library.get("kind") == "shows" else "movie",
              "sort": self.sort, "offset": str(offset), "limit": str(limit)}
+        if letters and self.shows_letters:
+            p["letters"] = "1"
         if self.reversed and self.sort != "shuffle":
             p["reverse"] = "1"
         if self.unwatched:
@@ -104,6 +112,37 @@ class LibraryQuery(object):
                 p[key] = str(getattr(self, key))
         return p
 
+
+
+def letter_jumps(letters, reversed_=False):
+    """Where each letter's first title is in a title-sorted list (GET /items with letters=1), in
+    the list's own order (Z to A when reversed), as the web's, Android's and Apple's: a list of
+    (letter as shown, offset). "a" to "z" show as capitals, anything else as "#". Letters with no
+    titles are left out, and a "#" that comes twice (digits before A, other scripts after Z)
+    keeps its first place."""
+    out, seen, at = [], set(), 0
+    for entry in reversed(letters or []) if reversed_ else (letters or []):
+        letter = str(entry.get("letter") or "")
+        count = int(entry.get("count") or 0)
+        shown = letter.upper() if len(letter) == 1 and "a" <= letter.lower() <= "z" else "#"
+        if count > 0 and shown not in seen:
+            seen.add(shown)
+            out.append((shown, at))
+        at += count
+    return out
+
+
+def pages_to_reach(target, have, total, page, max_limit=500):
+    """The requests that load a grid from the `have` titles it holds through `target` and a page
+    past it, so a jump to a letter lands on a full screen of titles: (offset, limit) pairs, at
+    most `max_limit` each (/items takes up to 500)."""
+    end = min(total, target + page)
+    out, at = [], have
+    while at < end:
+        limit = min(max_limit, end - at)
+        out.append((at, limit))
+        at += limit
+    return out
 
 
 def shows_resolution(library):

@@ -230,7 +230,8 @@
       </control>
       <control type="image">
         <left>8</left><top>8</top><width>244</width><height>366</height>
-        <aspectratio>scale</aspectratio>
+        <!-- Crop the art to fill the card, while keeping the corner mask fitted to the card. -->
+        <aspectratio scalediffuse="false">scale</aspectratio>
         <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
       </control>
       <control type="image">
@@ -255,13 +256,13 @@
       </control>
       <control type="label">
         <left>8</left><top>384</top><width>244</width><height>34</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>left</align>
         <textcolor>$PARAM[labelcolor]</textcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label">
         <left>8</left><top>416</top><width>244</width><height>30</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><textcolor>subtle</textcolor>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>left</align><textcolor>subtle</textcolor>
         <label>$INFO[ListItem.Label2]</label>
       </control>
     </definition>
@@ -314,13 +315,13 @@
       </control>
       <control type="label">
         <left>8</left><top>278</top><width>464</width><height>34</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>left</align>
         <textcolor>$PARAM[labelcolor]</textcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label">
         <left>8</left><top>310</top><width>464</width><height>30</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><textcolor>subtle</textcolor>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>left</align><textcolor>subtle</textcolor>
         <label>$INFO[ListItem.Label2]</label>
       </control>
     </definition>
@@ -619,17 +620,17 @@
     <param name="labelcolor" default="DDF5F5F7"/>
     <definition>
       <control type="image">
-        <left>8</left><top>8</top><width>464</width><height>261</height>
+        <left>8</left><top>8</top><width>408</width><height>230</height>
         <texture>arc-mask-thumb.png</texture>
         <colordiffuse>surface</colordiffuse>
       </control>
       <control type="image">
-        <left>8</left><top>8</top><width>464</width><height>261</height>
+        <left>8</left><top>8</top><width>408</width><height>230</height>
         <aspectratio>scale</aspectratio>
         <texture background="true" diffuse="arc-mask-thumb.png">$INFO[ListItem.Art(thumb)]</texture>
       </control>
       <control type="image">
-        <left>8</left><top>8</top><width>464</width><height>261</height>
+        <left>8</left><top>8</top><width>408</width><height>230</height>
         <texture>arc-mask-thumb.png</texture><colordiffuse>99000000</colordiffuse>
         <visible>!String.IsEmpty(ListItem.Property(releases))</visible>
       </control>
@@ -645,30 +646,30 @@
         <visible>!String.IsEmpty(ListItem.Property(tag))</visible>
       </control>
       <control type="image">
-        <left>2</left><top>2</top><width>476</width><height>273</height>
+        <left>2</left><top>2</top><width>420</width><height>242</height>
         <texture>arc-ring-thumb.png</texture>
         <visible>$PARAM[focused]</visible>
       </control>
-      <include content="WatchBadge"><param name="tick" value="416"/><param name="one" value="420"/><param name="two" value="406"/><param name="three" value="392"/></include>
+      <include content="WatchBadge"><param name="tick" value="360"/><param name="one" value="364"/><param name="two" value="350"/><param name="three" value="336"/></include>
       <control type="progress">
-        <left>20</left><top>250</top><width>440</width><height>8</height>
+        <left>20</left><top>219</top><width>384</width><height>8</height>
         <texturebg border="4">arc-bar-bg.png</texturebg>
         <midtexture border="4">arc-bar-fg.png</midtexture>
         <info>ListItem.PercentPlayed</info>
         <visible>!String.IsEmpty(ListItem.Property(progress))</visible>
       </control>
       <control type="label">
-        <left>10</left><top>284</top><width>460</width><height>28</height>
+        <left>8</left><top>253</top><width>404</width><height>28</height>
         <font>arc-caption</font><textcolor>muted</textcolor><shadowcolor>99000000</shadowcolor>
         <label>$INFO[ListItem.Property(number)]</label>
       </control>
       <control type="label">
-        <left>10</left><top>312</top><width>460</width><height>38</height>
+        <left>8</left><top>281</top><width>404</width><height>38</height>
         <font>arc-card-title</font><textcolor>$PARAM[labelcolor]</textcolor><shadowcolor>99000000</shadowcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label">
-        <left>10</left><top>352</top><width>460</width><height>128</height>
+        <left>8</left><top>321</top><width>404</width><height>128</height>
         <font>arc-tiny</font><textcolor>A6F5F5F7</textcolor><shadowcolor>99000000</shadowcolor>
         <label>$INFO[ListItem.Property(body)]</label>
       </control>
@@ -754,7 +755,7 @@
     <!-- The title's 50 and a 30 gap above the list; the group is the row's whole height. Kodi's
          includes can't add, so a row with another list height passes group_height too. -->
     <param name="list_top" default="80"/><param name="group_height" default="530"/>
-    <!-- Home and Recommended put the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
+    <!-- Home puts the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
     <param name="title_top" default="0"/>
     <definition>
       <!-- One group per row, its title on top of its list, so the grouplist scrolls the whole row
@@ -795,7 +796,7 @@
     <!-- The title's 50 and a 30 gap above the list; the group is the row's whole height. Kodi's
          includes can't add, so a row with another list height passes group_height too. -->
     <param name="list_top" default="80"/><param name="group_height" default="530"/>
-    <!-- Home and Recommended put the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
+    <!-- Home puts the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
     <param name="title_top" default="0"/>
     <definition>
       <!-- One group per row, its title on top of its list, so the grouplist scrolls the whole row
@@ -835,7 +836,7 @@
     <!-- The title's 50 and a 30 gap above the list; the group is the row's whole height. Kodi's
          includes can't add, so a row with another list height passes group_height too. -->
     <param name="list_top" default="80"/><param name="group_height" default="530"/>
-    <!-- Home and Recommended put the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
+    <!-- Home puts the row at the foot of a screen-tall group (skin/script-arc-home.xml). -->
     <param name="title_top" default="0"/>
     <definition>
       <!-- One group per row, its title on top of its list, so the grouplist scrolls the whole row
@@ -862,6 +863,22 @@
           <include content="BackdropCard"><param name="focused" value="Control.HasFocus($PARAM[list])"/><param name="labelcolor" value="fg"/></include>
         </focusedlayout>
       </control>
+      </control>
+    </definition>
+  </include>
+  <!-- Recommended shelves start at the top of a group as tall as their viewport. -->
+  <include name="RecommendedShelf">
+    <param name="row"/><param name="title"/><param name="list"/>
+    <param name="height" default="400"/><param name="stride" default="504"/>
+    <definition>
+      <include content="$PARAM[row]">
+        <param name="title" value="$PARAM[title]"/><param name="list" value="$PARAM[list]"/>
+        <param name="onleft" value="noop"/><param name="width" value="1808"/>
+        <param name="height" value="$PARAM[height]"/><param name="group_height" value="950"/>
+      </include>
+      <control type="group">
+        <height>$PARAM[stride]</height>
+        <visible>Integer.IsGreater(Container($PARAM[list]).NumItems,0)</visible>
       </control>
     </definition>
   </include>
@@ -922,13 +939,13 @@
       </control>
       <control type="label">
         <left>8</left><top>318</top><width>400</width><height>34</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>left</align>
         <textcolor>$PARAM[labelcolor]</textcolor>
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label">
         <left>8</left><top>350</top><width>400</width><height>30</height>
-        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>center</align><textcolor>subtle</textcolor>
+        <font>arc-small</font><shadowcolor>99000000</shadowcolor><align>left</align><textcolor>subtle</textcolor>
         <label>$INFO[ListItem.Label2]</label>
       </control>
     </definition>

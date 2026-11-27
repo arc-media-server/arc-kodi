@@ -29,8 +29,8 @@ NAMES = {"auto_play": 30297, "auto_skip": 30298, "hide_spoilers": 30390, "audio_
          "switch_profile": 30202, "sign_out": 30063, "change_server": 30305, "about": 30307}
 # Theme music
 NAMES["auto_sign_in"] = 30618
-NAMES["send_logs"] = 30621
-NAMES["detailed_logging"] = 30622
+NAMES["send_logs"] = 30631
+NAMES["detailed_logging"] = 30632
 NAMES["theme_music"] = 30540
 NAMES["show_missing_episodes"] = 30614
 HEADINGS = {"playback": 30296, "subtitles": 30185, "together": 30330, "profile": 30308, "about": 30307}
@@ -193,10 +193,10 @@ class SettingsWindow(ArcWindow):
             journal().toggle()
             self._fill()
         elif key == "send_logs":
-            if menu.confirm(T(30621), T(30628), T(30621)):
+            if menu.confirm(T(30631), T(30638), T(30631)):
                 self.run_async(lambda: send(self.session.api),
-                               lambda result, error: menu.choose(T(30621), [T(30000)],
-                                                                message=T(30624) if error else result[1]))
+                               lambda result, error: menu.choose(T(30631), [T(30000)],
+                                                                message=T(30634) if error else result[1]))
         elif key == "join_code":
             self.result = "join_code"
             self.close()

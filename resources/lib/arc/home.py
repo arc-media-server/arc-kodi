@@ -119,6 +119,15 @@ CUSTOM_KEYS = ["library_id", "genre", "language", "label", "decade", "resolution
                "min_runtime", "max_runtime", "min_rating", "sort"]
 
 
+def place_rooms_row(rows, rooms):
+    """Home's rows with Watch Together's row `rooms` placed under Continue Watching, or under the
+    first row without it, so titles keep the top and the hero in every Arc app (owner,
+    27 November). Before, the rooms came first."""
+    rows = list(rows)
+    at = next((i for i, r in enumerate(rows) if r.get("id") == "continue"), 0)
+    return rows[:at + 1] + [rooms] + rows[at + 1:]
+
+
 def custom_row_query(flt, library, limit=24):
     """/items query parameters for a custom row's filter (web/src/lib/home.ts rowQuery)."""
     out = {}

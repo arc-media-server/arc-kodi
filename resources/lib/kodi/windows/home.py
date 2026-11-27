@@ -38,8 +38,12 @@ HERO_INFO = 64
 HERO_OVERVIEW = 65
 HERO_GROUP, HERO_TEXT_GROUP = 67, 68
 
-# Watch Together's row, first while there are rooms (it shows only once it has cards).
+# Watch Together's row, under Continue Watching while there are rooms (it shows only once it has
+# cards).
 TOGETHER_ROW = {"id": "together", "source": ("together",), "style": homerows.THUMB, "season_posters": False}
+# The play queue's row, first while there's a queue, as the Android app's: the title playing and
+# what follows. Selecting a card plays on from it; its menu arranges the queue.
+QUEUE_ROW = {"id": "queue", "source": ("queue",), "style": homerows.THUMB, "season_posters": False}
 
 MOVE_ACTIONS = (1, 2, 5, 6)  # left, right, page up, page down
 ACTION_UP, ACTION_DOWN = 3, 4
@@ -119,14 +123,15 @@ class HomeWindow(ArcWindow):
         return None
 
     def _layout_rows(self):
-        # The hero fills the list above the first row, its text moving down with it.
-        first = self.rows[0].get("style") if self.rows else homerows.POSTER
-        height = homerows.hero_height(first, self.rows_height)
-        try:
-            self.getControl(HERO_GROUP).setHeight(height)
-            self.getControl(HERO_TEXT_GROUP).setPosition(8, height - self.hero_text)
-        except Exception:
-            pass
+        if self.HERO_SPOT is not None:
+            # The hero fills the list above the first row, its text moving down with it.
+            first = self.rows[0].get("style") if self.rows else homerows.POSTER
+            height = homerows.hero_height(first, self.rows_height)
+            try:
+                self.getControl(HERO_GROUP).setHeight(height)
+                self.getControl(HERO_TEXT_GROUP).setPosition(8, height - self.hero_text)
+            except Exception:
+                pass
         for i in range(MAX_ROWS):
             if i < len(self.rows):
                 self.set_label(self._bases(self.rows[i])[1] + 1 + i, self._row_title(self.rows[i]))
@@ -161,7 +166,9 @@ class HomeWindow(ArcWindow):
     def _wanted_rows(self):
         rows = self.session.home_rows()
         if self.session.together.available:
-            rows = [dict(TOGETHER_ROW)] + rows
+            rows = homerows.place_rooms_row(rows, dict(TOGETHER_ROW))
+        if self.session.queues_available:
+            rows = [dict(QUEUE_ROW)] + rows
         return rows[:MAX_ROWS]
 
     def _layout_key(self):
@@ -172,7 +179,8 @@ class HomeWindow(ArcWindow):
     def _row_title(self, row):
         source = row["source"]
         kind = source[0]
-        titles = {"continue": T(30100), "next-up": T(30101), "watchlist": T(30082), "together": T(30330)}
+        titles = {"continue": T(30100), "next-up": T(30101), "watchlist": T(30082), "together": T(30330),
+                  "queue": T(30630)}
         if kind in titles:
             return titles[kind]
         if kind == "recent":
@@ -193,6 +201,8 @@ class HomeWindow(ArcWindow):
         name = kind[0]
         if name == "together":
             return self._room_cards()
+        if name == "queue":
+            return self._queue_cards()
         if name == "continue":
             return [homerows.with_show_art(homerows.card(it)) for it in api.continue_watching(with_up_next=kind[1])]
         if name == "next-up":
@@ -218,6 +228,17 @@ class HomeWindow(ArcWindow):
             data = api.playlist(kind[1]) or {}
             return [homerows.card(entry.get("item", {})) for entry in data.get("entries", [])]
         return []
+
+    def _queue_cards(self):
+        from arc.queues import PlayQueue
+        queue = PlayQueue.current(self.session.api)
+        cards = []
+        for entry_id, item in (queue.upcoming() if queue is not None else []):
+            card = homerows.with_show_art(homerows.card(item, card_id="queue:%s" % entry_id))
+            card["queue_entry"] = entry_id
+            card["queue_edit"] = queue.editable(entry_id)
+            cards.append(card)
+        return cards
 
     def _room_cards(self):
         """Watch Together's row: a card per room (the title's picture, who's hosting), then
@@ -350,8 +371,9 @@ class HomeWindow(ArcWindow):
         bits = []
         if models.is_episode(item):
             bits.append(episode_heading(item))
-        if item.get("year"):
-            bits.append(str(item["year"]))
+        subtitle = models.year_and_edition(item)
+        if subtitle:
+            bits.append(subtitle)
         for g in (item.get("genres") or [])[:3]:
             bits.append(g)
         return "  ·  ".join(bits)
@@ -383,7 +405,9 @@ class HomeWindow(ArcWindow):
         if idx >= len(self.rows) or not self.nav:
             return
         card = self._focused_card(idx)
-        if card:
+        if card and card.get("queue_entry"):
+            self.nav("queue_entry", {"entry_id": card["queue_entry"]})
+        elif card:
             self.nav("card", card)
 
     def _focused_card(self, idx):
@@ -443,7 +467,11 @@ class HomeWindow(ArcWindow):
             source = self.rows[idx]["source"]
             continue_row = source[0] == "continue" or source == ("recommended", "continue")
             self.nav("context", {"item": card["item"], "continue_row": continue_row,
+                                 "queue_entry": card.get("queue_entry"), "queue_edit": card.get("queue_edit"),
                                  "on_changed": lambda _item, _act: self.on_return()})
+            return True
+        if card and self.nav and code in ACTION_PLAY and card.get("queue_entry"):
+            self.nav("queue_entry", {"entry_id": card["queue_entry"]})
             return True
         if card and self.nav and code in ACTION_PLAY and models.playable(card["item"]):
             self.nav("play", {"item": card["item"], "resume": models.resume_ms(card["item"])})

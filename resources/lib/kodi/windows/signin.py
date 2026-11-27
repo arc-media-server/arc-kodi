@@ -20,6 +20,16 @@ from . import pin as pin_pad
 from .base import ArcWindow, list_item
 
 
+class LoadingWindow(ArcWindow):
+    """The Arc screen underneath the current page during navigation between windows."""
+
+    xml = "script-arc-loading.xml"
+
+    def on_back(self):
+        # The active page owns Back. A gap between pages must not dismiss its background.
+        pass
+
+
 class ConnectWindow(ArcWindow):
     """Type the server address; checks it answers and is an Arc server."""
 

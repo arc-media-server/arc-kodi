@@ -19,18 +19,18 @@ def journal():
 def send(api):
     body = journal().payload()
     if not body["entries"]:
-        return False, T(30626)
+        return False, T(30636)
     try:
         api.send("POST", "client-logs", body, expect_body=False)
     except APIError as error:
-        return False, T(30625 if error.status == 404 else 30624)
-    return True, T(30623)
+        return False, T(30635 if error.status == 404 else 30634)
+    return True, T(30633)
 
 
 def send_and_notify(api):
     try:
         sent, label = send(api)
     except Exception:
-        sent, label = False, T(30624)
+        sent, label = False, T(30634)
     toast.show(label)
     return sent

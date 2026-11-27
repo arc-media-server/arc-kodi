@@ -1236,7 +1236,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -1247,7 +1247,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -1370,7 +1370,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -1381,7 +1381,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>

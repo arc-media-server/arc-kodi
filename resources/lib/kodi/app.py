@@ -39,7 +39,13 @@ class App(object):
 
         logs = journal()
         logs.record("info", "app_started")
+
+        loading = signin.LoadingWindow(signin.LoadingWindow.xml, self._path(), "Main", "1080i",
+                                       session=self.session)
         try:
+            # Keep an Arc window beneath the login screens and Home. Closing a Kodi window
+            # returns to the previous window while the next screen is getting ready.
+            loading.show()
             while True:
                 if self.session.signed_in:
                     launch = self._prepare_launch()
@@ -62,18 +68,19 @@ class App(object):
                 if not loaded:
                     return
                 if logs.crash:
-                    if menu.confirm(T(30621), T(30627), T(30621)):
+                    if menu.confirm(T(30631), T(30637), T(30631)):
                         if send_and_notify(self.session.api):
                             logs.set_crash(False)
                     else:
                         logs.set_crash(False)
-                self._home()
-                return
+                if self._home() != "restart":
+                    return
         except Exception:
             logs.set_crash(True)
             raise
         finally:
             try:
+                loading.close()
                 self._shut_down()
             finally:
                 logs.flush()
@@ -189,12 +196,12 @@ class App(object):
                 return
             if result == "sign_out":
                 self.session.sign_out()
-                return self.run()
+                return "restart"
             if result == "change_server":
                 # Signed out of this server and it's forgotten: the add-on asks for one again.
                 self.session.sign_out()
                 self.session.forget_server()
-                return self.run()
+                return "restart"
             if result == "switch_profile":
                 self.session.forget_profile()
                 if not self._ensure_profile() or not self._load():
@@ -234,6 +241,8 @@ class App(object):
             self._open_collection(payload)
         elif kind == "extra":
             self._play_extra(payload)
+        elif kind == "queue_entry":
+            self.play_from_queue(payload["entry_id"])
         elif kind == "queue":
             self._play_queue(item_ids=payload.get("item_ids"), shuffle=payload.get("shuffle", False))
         elif kind == "folder":
@@ -334,11 +343,15 @@ class App(object):
         actions = menus.card_actions(item, continue_row=payload.get("continue_row", False),
                                      on_page=payload.get("on_page", False),
                                      in_show=payload.get("in_show", False),
-                                     together=self.together.available, playlists=True)
+                                     together=self.together.available, playlists=True,
+                                     queue=self.session.queues_available,
+                                     queue_edit=payload.get("queue_edit"))
         labels = {"play": T(30005), "resume": T(30006), "from_start": T(30213),
                   "watched": T(30150), "unwatched": T(30151), "watchlist_add": T(30152),
                   "watchlist_remove": T(30153), "go_to_show": T(30176), "remove_continue": T(30177),
-                  "watch_together": T(30331), "play_version": T(30441), "add_to_playlist": T(30590)}
+                  "watch_together": T(30331), "play_version": T(30441), "add_to_playlist": T(30590),
+                  "play_next": T(30621), "add_to_queue": T(30622), "queue_earlier": T(30626),
+                  "queue_later": T(30627), "queue_remove": T(30628)}
         # Star rating: title pages only, using the same title menu as Android #34.
         if payload.get("on_page") and item.get("kind") in ("movie", "series", "episode"):
             actions.append("rate")
@@ -361,8 +374,68 @@ class App(object):
             self._invite(item)
         elif act == "add_to_playlist":
             self._add_to_playlist(item)
+        elif act in ("play_next", "add_to_queue"):
+            self._enqueue(item, act == "play_next", payload.get("on_changed"))
+        elif act in ("queue_earlier", "queue_later", "queue_remove"):
+            self._edit_queue(payload.get("queue_entry"), act, payload.get("on_changed"), item)
         else:
             self._change(item, act, payload.get("on_changed"))
+
+    def _enqueue(self, item, next_, on_changed=None):
+        """Play Next / Add to Queue, as the Android and Apple apps: added to this device's queue
+        (a show adds its episodes); with no queue yet, one is started without playing, and Home's
+        Queue row shows it. A note says what happened."""
+        from arc.queues import PlayQueue
+        api, title = self.session.api, item.get("title", "")
+        try:
+            queue = PlayQueue.current(api)
+            if queue is None:
+                PlayQueue.create(api, item_ids=[item.get("id")])
+            else:
+                queue.add([item.get("id")], next_=next_)
+        except Exception as e:
+            log.warning("adding to the queue failed: %s", type(e).__name__)
+            toast.show(T(30625) % title)
+            return
+        log.info("queued a title (%s)", "next" if next_ else "at the end")
+        toast.show((T(30623) if next_ else T(30624)) % title)
+        if on_changed:
+            on_changed(item, "play_next" if next_ else "add_to_queue")
+
+    def _edit_queue(self, entry_id, act, on_changed, item):
+        """Move Earlier, Move Later or Remove from Queue, from a card on Home's Queue row."""
+        from arc.queues import PlayQueue
+        try:
+            queue = PlayQueue.current(self.session.api)
+            if queue is None:
+                return
+            if act == "queue_remove":
+                queue.remove(entry_id)
+            else:
+                queue.move(entry_id, -1 if act == "queue_earlier" else 1)
+        except Exception as e:
+            log.warning("queue edit %s failed: %s", act, type(e).__name__)
+            toast.show(T(30629))
+            return
+        log.debug("queue edit done: %s", act)
+        if on_changed:
+            on_changed(item, act)
+
+    def play_from_queue(self, entry_id):
+        """A card on Home's Queue row: the queue plays on from that entry."""
+        from arc.queues import PlayQueue
+        try:
+            queue = PlayQueue.current(self.session.api)
+            if queue is not None:
+                queue.select(entry_id)
+        except Exception as e:
+            log.warning("play queue select failed: %s", type(e).__name__)
+            queue = None
+        item = queue.current_item() if queue is not None else None
+        if not item:
+            toast.show(T(30289))
+            return
+        self._play(item, models.resume_ms(item), queue=queue)
 
     def _add_to_playlist(self, item):
         """Add to Playlist…, as the web's picker and the other TV apps': the profile's playlists with
@@ -614,6 +687,15 @@ class App(object):
         self._stop_theme_music()
         if self.playback is not None:
             self.playback.stop()
+        if queue is None and not together and self.session.queues_available and models.playable(item):
+            # Playing a title starts a new queue of it, as the web player and the other TV apps:
+            # Play Next and Add to Queue then add after it, and Auto-Play's next episode joins it.
+            from arc.queues import PlayQueue
+            try:
+                queue = PlayQueue.create(self.session.api, item_ids=[item.get("id")])
+            except Exception as e:
+                log.warning("starting a play queue failed: %s", type(e).__name__)
+                queue = None
 
         def finished():
             if self.playback is pb:

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Built by tools/build_skin.py from skin/script-arc-library-rows.xml: edit that, not this. -->
 <window>
-  <defaultcontrol>900</defaultcontrol>
+  <defaultcontrol>120</defaultcontrol>
   <controls>
     <control type="image">
       <left>0</left>
@@ -11,30 +11,13 @@
       <texture>arc-white.png</texture>
       <colordiffuse>FF0B0B10</colordiffuse>
     </control>
-    <control type="image" id="61">
-      <left>0</left>
-      <top>0</top>
-      <width>1920</width>
-      <height>1080</height>
-      <aspectratio>scale</aspectratio>
-      <fadetime>300</fadetime>
-    </control>
-    <control type="image">
-      <left>0</left>
-      <top>0</top>
-      <width>1920</width>
-      <height>1080</height>
-      <texture>arc-scrim.png</texture>
-    </control>
-    <control type="image">
-      <left>0</left>
-      <top>0</top>
-      <width>1920</width>
-      <height>1080</height>
-      <texture>arc-white.png</texture>
-      <colordiffuse>D10B0B10</colordiffuse>
-      <visible>String.IsEqual(Window.Property(scrolled),true)</visible>
-      <animation effect="fade" time="250">VisibleChange</animation>
+    <control type="label" id="69">
+      <left>120</left>
+      <top>144</top>
+      <width>1300</width>
+      <height>44</height>
+      <font>font13</font>
+      <textcolor>FFA1A1AD</textcolor>
     </control>
     <control type="grouplist" id="900">
       <left>112</left>
@@ -47,69 +30,13 @@
       <onleft>noop</onleft>
       <onup>120</onup>
       <ondown>noop</ondown>
-      <control type="group" id="67">
-        <width>1808</width>
-        <height>300</height>
-        <control type="button" id="66">
-          <left>0</left>
-          <top>0</top>
-          <width>1</width>
-          <height>1</height>
-          <texturefocus />
-          <texturenofocus />
-          <label />
-          <onup>120</onup>
-        </control>
-        <control type="group" id="68">
-          <left>8</left>
-          <top>0</top>
-          <width>1300</width>
-          <height>330</height>
-          <control type="image" id="62">
-            <left>0</left>
-            <top>0</top>
-            <width>560</width>
-            <height>170</height>
-            <aspectratio align="left" aligny="bottom">keep</aspectratio>
-            <fadetime>200</fadetime>
-          </control>
-          <control type="label" id="63">
-            <left>0</left>
-            <top>70</top>
-            <width>1300</width>
-            <height>100</height>
-            <font>font60</font>
-            <textcolor>FFF5F5F7</textcolor>
-          </control>
-          <control type="label" id="64">
-            <left>2</left>
-            <top>184</top>
-            <width>1300</width>
-            <height>40</height>
-            <font>font13</font>
-            <textcolor>FFA1A1AD</textcolor>
-          </control>
-          <control type="textbox" id="65">
-            <left>2</left>
-            <top>228</top>
-            <width>1000</width>
-            <height>76</height>
-            <font>font13</font>
-            <textcolor>FFF5F5F7</textcolor>
-          </control>
-        </control>
-      </control>
-      <control type="group">
-        <height>620</height>
-        <visible>Integer.IsGreater(Container(3001).NumItems,0)</visible>
-      </control>
       <control type="group">
         <defaultcontrol always="true">3001</defaultcontrol>
         <height>950</height>
         <visible>Integer.IsGreater(Container(3001).NumItems,0)</visible>
         <control type="label" id="3101">
           <left>8</left>
-          <top>330</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -118,7 +45,7 @@
           <visible>Integer.IsGreater(Container(3001).NumItems,0)</visible>
         </control>
         <control type="list" id="3001">
-          <top>410</top>
+          <top>80</top>
           <width>1808</width>
           <height>510</height>
           <visible>Integer.IsGreater(Container(3001).NumItems,0)</visible>
@@ -141,7 +68,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -229,7 +156,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -240,7 +167,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -259,7 +186,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -347,7 +274,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -358,7 +285,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -366,8 +293,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3401).NumItems,0)</visible>
+        <height>614</height>
+        <visible>Integer.IsGreater(Container(3001).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3401</defaultcontrol>
@@ -375,7 +302,7 @@
         <visible>Integer.IsGreater(Container(3401).NumItems,0)</visible>
         <control type="label" id="3501">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -384,7 +311,7 @@
           <visible>Integer.IsGreater(Container(3401).NumItems,0)</visible>
         </control>
         <control type="list" id="3401">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3401).NumItems,0)</visible>
@@ -511,7 +438,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -522,7 +449,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -645,7 +572,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -656,7 +583,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -664,8 +591,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3801).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3401).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3801</defaultcontrol>
@@ -673,7 +600,7 @@
         <visible>Integer.IsGreater(Container(3801).NumItems,0)</visible>
         <control type="label" id="3901">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -682,7 +609,7 @@
           <visible>Integer.IsGreater(Container(3801).NumItems,0)</visible>
         </control>
         <control type="list" id="3801">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3801).NumItems,0)</visible>
@@ -822,7 +749,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -833,7 +760,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -969,7 +896,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -980,7 +907,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -988,8 +915,8 @@
         </control>
       </control>
       <control type="group">
-        <height>620</height>
-        <visible>Integer.IsGreater(Container(3002).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3801).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3002</defaultcontrol>
@@ -997,7 +924,7 @@
         <visible>Integer.IsGreater(Container(3002).NumItems,0)</visible>
         <control type="label" id="3102">
           <left>8</left>
-          <top>330</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -1006,7 +933,7 @@
           <visible>Integer.IsGreater(Container(3002).NumItems,0)</visible>
         </control>
         <control type="list" id="3002">
-          <top>410</top>
+          <top>80</top>
           <width>1808</width>
           <height>510</height>
           <visible>Integer.IsGreater(Container(3002).NumItems,0)</visible>
@@ -1029,7 +956,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -1117,7 +1044,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -1128,7 +1055,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -1147,7 +1074,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -1235,7 +1162,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -1246,7 +1173,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -1254,8 +1181,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3402).NumItems,0)</visible>
+        <height>614</height>
+        <visible>Integer.IsGreater(Container(3002).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3402</defaultcontrol>
@@ -1263,7 +1190,7 @@
         <visible>Integer.IsGreater(Container(3402).NumItems,0)</visible>
         <control type="label" id="3502">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -1272,7 +1199,7 @@
           <visible>Integer.IsGreater(Container(3402).NumItems,0)</visible>
         </control>
         <control type="list" id="3402">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3402).NumItems,0)</visible>
@@ -1399,7 +1326,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -1410,7 +1337,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -1533,7 +1460,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -1544,7 +1471,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -1552,8 +1479,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3802).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3402).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3802</defaultcontrol>
@@ -1561,7 +1488,7 @@
         <visible>Integer.IsGreater(Container(3802).NumItems,0)</visible>
         <control type="label" id="3902">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -1570,7 +1497,7 @@
           <visible>Integer.IsGreater(Container(3802).NumItems,0)</visible>
         </control>
         <control type="list" id="3802">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3802).NumItems,0)</visible>
@@ -1710,7 +1637,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -1721,7 +1648,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -1857,7 +1784,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -1868,7 +1795,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -1876,8 +1803,8 @@
         </control>
       </control>
       <control type="group">
-        <height>620</height>
-        <visible>Integer.IsGreater(Container(3003).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3802).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3003</defaultcontrol>
@@ -1885,7 +1812,7 @@
         <visible>Integer.IsGreater(Container(3003).NumItems,0)</visible>
         <control type="label" id="3103">
           <left>8</left>
-          <top>330</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -1894,7 +1821,7 @@
           <visible>Integer.IsGreater(Container(3003).NumItems,0)</visible>
         </control>
         <control type="list" id="3003">
-          <top>410</top>
+          <top>80</top>
           <width>1808</width>
           <height>510</height>
           <visible>Integer.IsGreater(Container(3003).NumItems,0)</visible>
@@ -1917,7 +1844,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -2005,7 +1932,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -2016,7 +1943,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -2035,7 +1962,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -2123,7 +2050,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -2134,7 +2061,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -2142,8 +2069,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3403).NumItems,0)</visible>
+        <height>614</height>
+        <visible>Integer.IsGreater(Container(3003).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3403</defaultcontrol>
@@ -2151,7 +2078,7 @@
         <visible>Integer.IsGreater(Container(3403).NumItems,0)</visible>
         <control type="label" id="3503">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -2160,7 +2087,7 @@
           <visible>Integer.IsGreater(Container(3403).NumItems,0)</visible>
         </control>
         <control type="list" id="3403">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3403).NumItems,0)</visible>
@@ -2287,7 +2214,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -2298,7 +2225,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -2421,7 +2348,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -2432,7 +2359,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -2440,8 +2367,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3803).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3403).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3803</defaultcontrol>
@@ -2449,7 +2376,7 @@
         <visible>Integer.IsGreater(Container(3803).NumItems,0)</visible>
         <control type="label" id="3903">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -2458,7 +2385,7 @@
           <visible>Integer.IsGreater(Container(3803).NumItems,0)</visible>
         </control>
         <control type="list" id="3803">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3803).NumItems,0)</visible>
@@ -2598,7 +2525,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -2609,7 +2536,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -2745,7 +2672,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -2756,7 +2683,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -2764,8 +2691,8 @@
         </control>
       </control>
       <control type="group">
-        <height>620</height>
-        <visible>Integer.IsGreater(Container(3004).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3803).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3004</defaultcontrol>
@@ -2773,7 +2700,7 @@
         <visible>Integer.IsGreater(Container(3004).NumItems,0)</visible>
         <control type="label" id="3104">
           <left>8</left>
-          <top>330</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -2782,7 +2709,7 @@
           <visible>Integer.IsGreater(Container(3004).NumItems,0)</visible>
         </control>
         <control type="list" id="3004">
-          <top>410</top>
+          <top>80</top>
           <width>1808</width>
           <height>510</height>
           <visible>Integer.IsGreater(Container(3004).NumItems,0)</visible>
@@ -2805,7 +2732,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -2893,7 +2820,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -2904,7 +2831,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -2923,7 +2850,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -3011,7 +2938,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -3022,7 +2949,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -3030,8 +2957,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3404).NumItems,0)</visible>
+        <height>614</height>
+        <visible>Integer.IsGreater(Container(3004).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3404</defaultcontrol>
@@ -3039,7 +2966,7 @@
         <visible>Integer.IsGreater(Container(3404).NumItems,0)</visible>
         <control type="label" id="3504">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -3048,7 +2975,7 @@
           <visible>Integer.IsGreater(Container(3404).NumItems,0)</visible>
         </control>
         <control type="list" id="3404">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3404).NumItems,0)</visible>
@@ -3175,7 +3102,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -3186,7 +3113,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -3309,7 +3236,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -3320,7 +3247,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -3328,8 +3255,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3804).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3404).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3804</defaultcontrol>
@@ -3337,7 +3264,7 @@
         <visible>Integer.IsGreater(Container(3804).NumItems,0)</visible>
         <control type="label" id="3904">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -3346,7 +3273,7 @@
           <visible>Integer.IsGreater(Container(3804).NumItems,0)</visible>
         </control>
         <control type="list" id="3804">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3804).NumItems,0)</visible>
@@ -3486,7 +3413,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -3497,7 +3424,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -3633,7 +3560,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -3644,7 +3571,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -3652,8 +3579,8 @@
         </control>
       </control>
       <control type="group">
-        <height>620</height>
-        <visible>Integer.IsGreater(Container(3005).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3804).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3005</defaultcontrol>
@@ -3661,7 +3588,7 @@
         <visible>Integer.IsGreater(Container(3005).NumItems,0)</visible>
         <control type="label" id="3105">
           <left>8</left>
-          <top>330</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -3670,7 +3597,7 @@
           <visible>Integer.IsGreater(Container(3005).NumItems,0)</visible>
         </control>
         <control type="list" id="3005">
-          <top>410</top>
+          <top>80</top>
           <width>1808</width>
           <height>510</height>
           <visible>Integer.IsGreater(Container(3005).NumItems,0)</visible>
@@ -3693,7 +3620,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -3781,7 +3708,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -3792,7 +3719,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -3811,7 +3738,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -3899,7 +3826,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -3910,7 +3837,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -3918,8 +3845,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3405).NumItems,0)</visible>
+        <height>614</height>
+        <visible>Integer.IsGreater(Container(3005).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3405</defaultcontrol>
@@ -3927,7 +3854,7 @@
         <visible>Integer.IsGreater(Container(3405).NumItems,0)</visible>
         <control type="label" id="3505">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -3936,7 +3863,7 @@
           <visible>Integer.IsGreater(Container(3405).NumItems,0)</visible>
         </control>
         <control type="list" id="3405">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3405).NumItems,0)</visible>
@@ -4063,7 +3990,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -4074,7 +4001,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -4197,7 +4124,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -4208,7 +4135,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -4216,8 +4143,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3805).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3405).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3805</defaultcontrol>
@@ -4225,7 +4152,7 @@
         <visible>Integer.IsGreater(Container(3805).NumItems,0)</visible>
         <control type="label" id="3905">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -4234,7 +4161,7 @@
           <visible>Integer.IsGreater(Container(3805).NumItems,0)</visible>
         </control>
         <control type="list" id="3805">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3805).NumItems,0)</visible>
@@ -4374,7 +4301,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -4385,7 +4312,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -4521,7 +4448,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -4532,7 +4459,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -4540,8 +4467,8 @@
         </control>
       </control>
       <control type="group">
-        <height>620</height>
-        <visible>Integer.IsGreater(Container(3006).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3805).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3006</defaultcontrol>
@@ -4549,7 +4476,7 @@
         <visible>Integer.IsGreater(Container(3006).NumItems,0)</visible>
         <control type="label" id="3106">
           <left>8</left>
-          <top>330</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -4558,7 +4485,7 @@
           <visible>Integer.IsGreater(Container(3006).NumItems,0)</visible>
         </control>
         <control type="list" id="3006">
-          <top>410</top>
+          <top>80</top>
           <width>1808</width>
           <height>510</height>
           <visible>Integer.IsGreater(Container(3006).NumItems,0)</visible>
@@ -4581,7 +4508,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -4669,7 +4596,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -4680,7 +4607,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -4699,7 +4626,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -4787,7 +4714,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -4798,7 +4725,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -4806,8 +4733,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3406).NumItems,0)</visible>
+        <height>614</height>
+        <visible>Integer.IsGreater(Container(3006).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3406</defaultcontrol>
@@ -4815,7 +4742,7 @@
         <visible>Integer.IsGreater(Container(3406).NumItems,0)</visible>
         <control type="label" id="3506">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -4824,7 +4751,7 @@
           <visible>Integer.IsGreater(Container(3406).NumItems,0)</visible>
         </control>
         <control type="list" id="3406">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3406).NumItems,0)</visible>
@@ -4951,7 +4878,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -4962,7 +4889,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -5085,7 +5012,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -5096,7 +5023,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -5104,8 +5031,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3806).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3406).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3806</defaultcontrol>
@@ -5113,7 +5040,7 @@
         <visible>Integer.IsGreater(Container(3806).NumItems,0)</visible>
         <control type="label" id="3906">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -5122,7 +5049,7 @@
           <visible>Integer.IsGreater(Container(3806).NumItems,0)</visible>
         </control>
         <control type="list" id="3806">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3806).NumItems,0)</visible>
@@ -5262,7 +5189,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -5273,7 +5200,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -5409,7 +5336,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -5420,7 +5347,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -5428,8 +5355,8 @@
         </control>
       </control>
       <control type="group">
-        <height>620</height>
-        <visible>Integer.IsGreater(Container(3007).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3806).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3007</defaultcontrol>
@@ -5437,7 +5364,7 @@
         <visible>Integer.IsGreater(Container(3007).NumItems,0)</visible>
         <control type="label" id="3107">
           <left>8</left>
-          <top>330</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -5446,7 +5373,7 @@
           <visible>Integer.IsGreater(Container(3007).NumItems,0)</visible>
         </control>
         <control type="list" id="3007">
-          <top>410</top>
+          <top>80</top>
           <width>1808</width>
           <height>510</height>
           <visible>Integer.IsGreater(Container(3007).NumItems,0)</visible>
@@ -5469,7 +5396,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -5557,7 +5484,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -5568,7 +5495,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -5587,7 +5514,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -5675,7 +5602,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -5686,7 +5613,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -5694,8 +5621,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3407).NumItems,0)</visible>
+        <height>614</height>
+        <visible>Integer.IsGreater(Container(3007).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3407</defaultcontrol>
@@ -5703,7 +5630,7 @@
         <visible>Integer.IsGreater(Container(3407).NumItems,0)</visible>
         <control type="label" id="3507">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -5712,7 +5639,7 @@
           <visible>Integer.IsGreater(Container(3407).NumItems,0)</visible>
         </control>
         <control type="list" id="3407">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3407).NumItems,0)</visible>
@@ -5839,7 +5766,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -5850,7 +5777,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -5973,7 +5900,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -5984,7 +5911,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -5992,8 +5919,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3807).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3407).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3807</defaultcontrol>
@@ -6001,7 +5928,7 @@
         <visible>Integer.IsGreater(Container(3807).NumItems,0)</visible>
         <control type="label" id="3907">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -6010,7 +5937,7 @@
           <visible>Integer.IsGreater(Container(3807).NumItems,0)</visible>
         </control>
         <control type="list" id="3807">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3807).NumItems,0)</visible>
@@ -6150,7 +6077,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -6161,7 +6088,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -6297,7 +6224,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -6308,7 +6235,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -6316,8 +6243,8 @@
         </control>
       </control>
       <control type="group">
-        <height>620</height>
-        <visible>Integer.IsGreater(Container(3008).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3807).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3008</defaultcontrol>
@@ -6325,7 +6252,7 @@
         <visible>Integer.IsGreater(Container(3008).NumItems,0)</visible>
         <control type="label" id="3108">
           <left>8</left>
-          <top>330</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -6334,7 +6261,7 @@
           <visible>Integer.IsGreater(Container(3008).NumItems,0)</visible>
         </control>
         <control type="list" id="3008">
-          <top>410</top>
+          <top>80</top>
           <width>1808</width>
           <height>510</height>
           <visible>Integer.IsGreater(Container(3008).NumItems,0)</visible>
@@ -6357,7 +6284,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -6445,7 +6372,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -6456,7 +6383,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -6475,7 +6402,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -6563,7 +6490,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -6574,7 +6501,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -6582,8 +6509,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3408).NumItems,0)</visible>
+        <height>614</height>
+        <visible>Integer.IsGreater(Container(3008).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3408</defaultcontrol>
@@ -6591,7 +6518,7 @@
         <visible>Integer.IsGreater(Container(3408).NumItems,0)</visible>
         <control type="label" id="3508">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -6600,7 +6527,7 @@
           <visible>Integer.IsGreater(Container(3408).NumItems,0)</visible>
         </control>
         <control type="list" id="3408">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3408).NumItems,0)</visible>
@@ -6727,7 +6654,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -6738,7 +6665,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -6861,7 +6788,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -6872,7 +6799,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -6880,8 +6807,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3808).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3408).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3808</defaultcontrol>
@@ -6889,7 +6816,7 @@
         <visible>Integer.IsGreater(Container(3808).NumItems,0)</visible>
         <control type="label" id="3908">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -6898,7 +6825,7 @@
           <visible>Integer.IsGreater(Container(3808).NumItems,0)</visible>
         </control>
         <control type="list" id="3808">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3808).NumItems,0)</visible>
@@ -7038,7 +6965,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -7049,7 +6976,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -7185,7 +7112,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -7196,7 +7123,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -7204,8 +7131,8 @@
         </control>
       </control>
       <control type="group">
-        <height>620</height>
-        <visible>Integer.IsGreater(Container(3009).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3808).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3009</defaultcontrol>
@@ -7213,7 +7140,7 @@
         <visible>Integer.IsGreater(Container(3009).NumItems,0)</visible>
         <control type="label" id="3109">
           <left>8</left>
-          <top>330</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -7222,7 +7149,7 @@
           <visible>Integer.IsGreater(Container(3009).NumItems,0)</visible>
         </control>
         <control type="list" id="3009">
-          <top>410</top>
+          <top>80</top>
           <width>1808</width>
           <height>510</height>
           <visible>Integer.IsGreater(Container(3009).NumItems,0)</visible>
@@ -7245,7 +7172,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -7333,7 +7260,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -7344,7 +7271,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -7363,7 +7290,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -7451,7 +7378,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -7462,7 +7389,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -7470,8 +7397,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3409).NumItems,0)</visible>
+        <height>614</height>
+        <visible>Integer.IsGreater(Container(3009).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3409</defaultcontrol>
@@ -7479,7 +7406,7 @@
         <visible>Integer.IsGreater(Container(3409).NumItems,0)</visible>
         <control type="label" id="3509">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -7488,7 +7415,7 @@
           <visible>Integer.IsGreater(Container(3409).NumItems,0)</visible>
         </control>
         <control type="list" id="3409">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3409).NumItems,0)</visible>
@@ -7615,7 +7542,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -7626,7 +7553,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -7749,7 +7676,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -7760,7 +7687,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -7768,8 +7695,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3809).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3409).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3809</defaultcontrol>
@@ -7777,7 +7704,7 @@
         <visible>Integer.IsGreater(Container(3809).NumItems,0)</visible>
         <control type="label" id="3909">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -7786,7 +7713,7 @@
           <visible>Integer.IsGreater(Container(3809).NumItems,0)</visible>
         </control>
         <control type="list" id="3809">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3809).NumItems,0)</visible>
@@ -7926,7 +7853,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -7937,7 +7864,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -8073,7 +8000,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -8084,7 +8011,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -8092,8 +8019,8 @@
         </control>
       </control>
       <control type="group">
-        <height>620</height>
-        <visible>Integer.IsGreater(Container(3010).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3809).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3010</defaultcontrol>
@@ -8101,7 +8028,7 @@
         <visible>Integer.IsGreater(Container(3010).NumItems,0)</visible>
         <control type="label" id="3110">
           <left>8</left>
-          <top>330</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -8110,7 +8037,7 @@
           <visible>Integer.IsGreater(Container(3010).NumItems,0)</visible>
         </control>
         <control type="list" id="3010">
-          <top>410</top>
+          <top>80</top>
           <width>1808</width>
           <height>510</height>
           <visible>Integer.IsGreater(Container(3010).NumItems,0)</visible>
@@ -8133,7 +8060,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -8221,7 +8148,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -8232,7 +8159,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -8251,7 +8178,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -8339,7 +8266,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -8350,7 +8277,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -8358,8 +8285,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3410).NumItems,0)</visible>
+        <height>614</height>
+        <visible>Integer.IsGreater(Container(3010).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3410</defaultcontrol>
@@ -8367,7 +8294,7 @@
         <visible>Integer.IsGreater(Container(3410).NumItems,0)</visible>
         <control type="label" id="3510">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -8376,7 +8303,7 @@
           <visible>Integer.IsGreater(Container(3410).NumItems,0)</visible>
         </control>
         <control type="list" id="3410">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3410).NumItems,0)</visible>
@@ -8503,7 +8430,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -8514,7 +8441,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -8637,7 +8564,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -8648,7 +8575,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -8656,8 +8583,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3810).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3410).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3810</defaultcontrol>
@@ -8665,7 +8592,7 @@
         <visible>Integer.IsGreater(Container(3810).NumItems,0)</visible>
         <control type="label" id="3910">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -8674,7 +8601,7 @@
           <visible>Integer.IsGreater(Container(3810).NumItems,0)</visible>
         </control>
         <control type="list" id="3810">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3810).NumItems,0)</visible>
@@ -8814,7 +8741,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -8825,7 +8752,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -8961,7 +8888,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -8972,7 +8899,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -8980,8 +8907,8 @@
         </control>
       </control>
       <control type="group">
-        <height>620</height>
-        <visible>Integer.IsGreater(Container(3011).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3810).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3011</defaultcontrol>
@@ -8989,7 +8916,7 @@
         <visible>Integer.IsGreater(Container(3011).NumItems,0)</visible>
         <control type="label" id="3111">
           <left>8</left>
-          <top>330</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -8998,7 +8925,7 @@
           <visible>Integer.IsGreater(Container(3011).NumItems,0)</visible>
         </control>
         <control type="list" id="3011">
-          <top>410</top>
+          <top>80</top>
           <width>1808</width>
           <height>510</height>
           <visible>Integer.IsGreater(Container(3011).NumItems,0)</visible>
@@ -9021,7 +8948,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -9109,7 +9036,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -9120,7 +9047,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -9139,7 +9066,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -9227,7 +9154,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -9238,7 +9165,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -9246,8 +9173,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3411).NumItems,0)</visible>
+        <height>614</height>
+        <visible>Integer.IsGreater(Container(3011).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3411</defaultcontrol>
@@ -9255,7 +9182,7 @@
         <visible>Integer.IsGreater(Container(3411).NumItems,0)</visible>
         <control type="label" id="3511">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -9264,7 +9191,7 @@
           <visible>Integer.IsGreater(Container(3411).NumItems,0)</visible>
         </control>
         <control type="list" id="3411">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3411).NumItems,0)</visible>
@@ -9391,7 +9318,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -9402,7 +9329,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -9525,7 +9452,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -9536,7 +9463,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -9544,8 +9471,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3811).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3411).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3811</defaultcontrol>
@@ -9553,7 +9480,7 @@
         <visible>Integer.IsGreater(Container(3811).NumItems,0)</visible>
         <control type="label" id="3911">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -9562,7 +9489,7 @@
           <visible>Integer.IsGreater(Container(3811).NumItems,0)</visible>
         </control>
         <control type="list" id="3811">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3811).NumItems,0)</visible>
@@ -9702,7 +9629,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -9713,7 +9640,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -9849,7 +9776,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -9860,7 +9787,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -9868,8 +9795,8 @@
         </control>
       </control>
       <control type="group">
-        <height>620</height>
-        <visible>Integer.IsGreater(Container(3012).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3811).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3012</defaultcontrol>
@@ -9877,7 +9804,7 @@
         <visible>Integer.IsGreater(Container(3012).NumItems,0)</visible>
         <control type="label" id="3112">
           <left>8</left>
-          <top>330</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -9886,7 +9813,7 @@
           <visible>Integer.IsGreater(Container(3012).NumItems,0)</visible>
         </control>
         <control type="list" id="3012">
-          <top>410</top>
+          <top>80</top>
           <width>1808</width>
           <height>510</height>
           <visible>Integer.IsGreater(Container(3012).NumItems,0)</visible>
@@ -9909,7 +9836,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -9997,7 +9924,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -10008,7 +9935,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -10027,7 +9954,7 @@
               <top>8</top>
               <width>244</width>
               <height>366</height>
-              <aspectratio>scale</aspectratio>
+              <aspectratio scalediffuse="false">scale</aspectratio>
               <texture background="true" diffuse="arc-mask-poster.png">$INFO[ListItem.Art(thumb)]</texture>
             </control>
             <control type="image">
@@ -10115,7 +10042,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -10126,7 +10053,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -10134,8 +10061,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3412).NumItems,0)</visible>
+        <height>614</height>
+        <visible>Integer.IsGreater(Container(3012).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3412</defaultcontrol>
@@ -10143,7 +10070,7 @@
         <visible>Integer.IsGreater(Container(3412).NumItems,0)</visible>
         <control type="label" id="3512">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -10152,7 +10079,7 @@
           <visible>Integer.IsGreater(Container(3412).NumItems,0)</visible>
         </control>
         <control type="list" id="3412">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3412).NumItems,0)</visible>
@@ -10279,7 +10206,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -10290,7 +10217,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -10413,7 +10340,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -10424,7 +10351,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -10432,8 +10359,8 @@
         </control>
       </control>
       <control type="group">
-        <height>500</height>
-        <visible>Integer.IsGreater(Container(3812).NumItems,0)</visible>
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3412).NumItems,0)</visible>
       </control>
       <control type="group">
         <defaultcontrol always="true">3812</defaultcontrol>
@@ -10441,7 +10368,7 @@
         <visible>Integer.IsGreater(Container(3812).NumItems,0)</visible>
         <control type="label" id="3912">
           <left>8</left>
-          <top>450</top>
+          <top>0</top>
           <width>1500</width>
           <height>50</height>
           <font>font32_title</font>
@@ -10450,7 +10377,7 @@
           <visible>Integer.IsGreater(Container(3812).NumItems,0)</visible>
         </control>
         <control type="list" id="3812">
-          <top>530</top>
+          <top>80</top>
           <width>1808</width>
           <height>400</height>
           <visible>Integer.IsGreater(Container(3812).NumItems,0)</visible>
@@ -10590,7 +10517,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFA1A1AD</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -10601,7 +10528,7 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
@@ -10737,7 +10664,7 @@
               <height>34</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FFF5F5F7</textcolor>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -10748,12 +10675,16 @@
               <height>30</height>
               <font>font12</font>
               <shadowcolor>99000000</shadowcolor>
-              <align>center</align>
+              <align>left</align>
               <textcolor>FF6B6B78</textcolor>
               <label>$INFO[ListItem.Label2]</label>
             </control>
           </focusedlayout>
         </control>
+      </control>
+      <control type="group">
+        <height>504</height>
+        <visible>Integer.IsGreater(Container(3812).NumItems,0)</visible>
       </control>
     </control>
     <control type="grouplist" id="130">

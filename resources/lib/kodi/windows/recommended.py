@@ -1,6 +1,4 @@
-"""A library's Recommended tab, as the Apple app's: Home's hero and rows, filled with the
-server's Recommended rows (arc/recommended.py), under the library's tab pills, without the
-sidebar. It is Home's window with a different skin and a different source of rows."""
+"""Library Recommended shelves directly under the tab pills, as on Android TV."""
 
 import time
 
@@ -10,6 +8,8 @@ from ..compat import T
 from ..log import log
 from . import home
 from .library import TAB_BASE, TABS, TabsMixin
+
+STATUS = 69
 
 # The Kodi side's words for arc/recommended.py's title keys.
 TITLE_STRINGS = {
@@ -24,8 +24,7 @@ TITLE_STRINGS = {
 
 class RecommendedWindow(TabsMixin, home.HomeWindow):
     xml = "script-arc-library-rows.xml"
-    rows_height = 950   # the row list sits under the tabs (skin/script-arc-library-rows.xml)
-    hero_text = 330
+    HERO_SPOT = None
     ABOVE_ROWS = TABS   # Up from the first row: the library's tabs
 
     def __init__(self, *args, **kwargs):
@@ -41,7 +40,7 @@ class RecommendedWindow(TabsMixin, home.HomeWindow):
             self._show(cached)
             self._refreshing = True
         else:
-            self.set_label(home.HERO_TITLE, T(30007))
+            self.set_label(STATUS, T(30007))
         self._load()
 
     def on_live(self, change):
@@ -79,11 +78,7 @@ class RecommendedWindow(TabsMixin, home.HomeWindow):
                   len(rows), took, int((time.time() - started) * 1000))
 
     def _show(self, rows):
-        if not rows and not self._refreshing:
-            # Nothing to recommend yet: say so, and leave the focus on the tabs.
-            self.set_label(home.HERO_TITLE, T(30231))
-            self.focus_id(TAB_BASE)
-            return
+        self.set_label(STATUS, "" if rows else T(30231))
         if self.rows and [r["id"] for r in rows] != [r["id"] for r in self.rows]:
             # Different rows than the ones showing: lay them out afresh.
             self._refreshing = False
@@ -96,6 +91,14 @@ class RecommendedWindow(TabsMixin, home.HomeWindow):
         for i in range(len(rows), home.MAX_ROWS):
             self._clear_slot(i)
         self._refreshing = False
+        if not rows:
+            self._focused_once = False
+            self._row = None
+            self.focus_id(TAB_BASE)
+
+    def _update_hero(self, idx):
+        # Recommended card focus leaves the library background alone.
+        pass
 
     def _row_title(self, row):
         key, name = row.get("title") or (None, "")
@@ -107,6 +110,16 @@ class RecommendedWindow(TabsMixin, home.HomeWindow):
     def onFocus(self, control_id):
         self.tab_focused(control_id)
         home.HomeWindow.onFocus(self, control_id)
+
+    def on_action(self, action, code):
+        if code == home.ACTION_DOWN and self._row is None:
+            # Kodi remembers a grouplist's last child. Coming down from the tabs starts at the top.
+            first = self._first_row()
+            if first is not None:
+                self._row = first
+                self._focus_row(first)
+                return True
+        return super().on_action(action, code)
 
     def on_click(self, control_id):
         if self.tab_at(control_id):

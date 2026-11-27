@@ -260,8 +260,10 @@ def meta_line(item, episodes_left):
     no ★ and the page draws it."""
     item = item or {}
     bits = []
-    if item.get("year") and not models.is_episode(item):
-        bits.append(str(item["year"]))
+    if not models.is_episode(item):
+        subtitle = models.year_and_edition(item)
+        if subtitle:
+            bits.append(subtitle)
     if models.is_series(item):
         left = int(item.get("unwatched_count") or 0)
         if left > 0:

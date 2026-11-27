@@ -66,8 +66,8 @@ CARDS = 360
 # The description's width, and the room the line estimate allows (a little less, so Kodi's own
 # wrapping never needs a line more than the add-on made room for).
 OVERVIEW_ROOM = 1040 * 0.94
-# An episode card's description: 460 wide in a 23 px font.
-EPISODE_ROOM = 460 * 0.94
+# An episode card's description: 404 wide in a 23 px font.
+EPISODE_ROOM = 404 * 0.94
 
 # Left, right; and how long (ms) a title may take to load before it's logged at info.
 MOVE_ACTIONS, SLOW_MS = (1, 2), 3000

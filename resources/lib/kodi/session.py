@@ -148,6 +148,12 @@ class Session(object):
         # The server's version, so a log shows which Arc build answered (e.g. after an update).
         log.info("loaded %d libraries from Arc %s", len(self.libraries), (ident or {}).get("version") or "?")
 
+    @property
+    def queues_available(self):
+        """Play queues (Play Next, Add to Queue, Home's Queue row): when Arc offers them."""
+        from arc import queues
+        return queues.available(self.features)
+
     def ordered_libraries(self):
         return homerows.ordered_libraries(self.libraries, (self.prefs or {}).get("library_order") or [])
 

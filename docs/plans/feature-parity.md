@@ -35,6 +35,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Watch Together row | Apple | Done | Yes | First on Home while there are rooms; then Join with a Code. |
 | Library: Recommended / Browse / Collections / Folders pills | Both | Done | Yes | Folders for Other videos libraries, which show as wide cards. |
 | Library sort and filter (genre, unwatched, decade, resolution...) | Both | Done | Yes | Seven reversible sorts; Unwatched, Genre, Decade, Resolution (films) from the facets. |
+| Library A–Z bar (jump to a letter) | Both | Done | Yes | Sorted by Title: the letters that have titles down the right; Select loads up to that letter if needed and moves there. |
 | Posters: unwatched count tab, progress bar, watched tick, year · length | Both | Done | Yes | |
 | Paging large libraries | Both | Done | Yes | |
 | Collection, playlist, person and folder pages | Both | Done | Yes | Person (photo, part, rows) and collection (overview, sort) pages; folders in the Folders tab. Playlists are a grid with Play All / Shuffle. |
@@ -66,6 +67,7 @@ Status: **Done**, **Part** (started, gaps named), **Missing**. Kodi: **Yes** (Ko
 | Pre-roll before initial movie play | Android | Done | Yes | Requires server #485; skips resume, Watch Together and queue advancement. |
 | Versions (editions) choice before playing | Android | Done | Yes | Play Version… in the title's ⋯ menu (Context Menu), as Android and Plex; Play itself plays Arc's pick. Also in the player's Playback menu. |
 | Play All / Shuffle (play queues) | Android | Done | Yes | Collections and playlists, through Arc's play queues. |
+| Play Next, Add to Queue, Queue row (reorder, remove) | Both | Done | Yes | As Android: playing starts a queue; Home's Queue row plays on from a card, its menu moves or removes upcoming titles. |
 | Context menu on any card (Play, watched, watchlist, go to show) | Both | Done | Yes | Arc's own menu on Home, grids, search and the title page. |
 
 ## Player
