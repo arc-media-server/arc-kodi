@@ -1,5 +1,5 @@
-from arc.browse import (LibraryQuery, audio_codec_name, choices, dynamic_range_name, facet_values, offered,
-                        resolution_name, shows_resolution, video_codec_name, watchlist_view)
+from arc.browse import (LibraryQuery, audio_codec_name, choices, dynamic_range_name, facet_values, letter_jumps,
+                        offered, pages_to_reach, resolution_name, shows_resolution, video_codec_name, watchlist_view)
 
 FILMS = {"id": 1, "kind": "movies", "name": "Films"}
 SHOWS = {"id": 2, "kind": "shows", "name": "TV"}
@@ -113,3 +113,31 @@ def test_watchlist_view_shows_and_sorts():
     assert [it["id"] for it in watchlist_view(items, "shows")] == [2]
     assert [it["id"] for it in watchlist_view(items, "all", "title")] == [2, 3, 1]  # "The" is ignored
     assert [it["id"] for it in watchlist_view(items, "all", "released")] == [2, 3, 1]
+
+
+LETTERS = [{"letter": "#", "count": 2}, {"letter": "a", "count": 3}, {"letter": "b", "count": 0},
+           {"letter": "s", "count": 5}, {"letter": "#", "count": 1}]
+
+
+def test_letters_asked_for_only_sorted_by_title():
+    q = LibraryQuery()
+    assert q.parameters(FILMS, 0, 60, letters=True)["letters"] == "1"
+    assert "letters" not in q.parameters(FILMS, 0, 60)
+    q.choose_sort("year")
+    assert not q.shows_letters and "letters" not in q.parameters(FILMS, 0, 60, letters=True)
+
+
+def test_letter_jumps_skip_empty_letters_and_keep_the_first_hash():
+    assert letter_jumps(LETTERS) == [("#", 0), ("A", 2), ("S", 5)]
+
+
+def test_letter_jumps_reversed_follow_the_list():
+    assert letter_jumps(LETTERS, reversed_=True) == [("#", 0), ("S", 1), ("A", 6)]
+    assert letter_jumps(None) == []
+
+
+def test_pages_to_reach_load_forwards_in_requests_of_500():
+    assert pages_to_reach(1200, have=60, total=3000, page=60) == [(60, 500), (560, 500), (1060, 200)]
+    assert pages_to_reach(30, have=60, total=3000, page=60) == [(60, 30)]
+    assert pages_to_reach(2990, have=2900, total=3000, page=60) == [(2900, 100)]
+    assert pages_to_reach(10, have=60, total=60, page=60) == []

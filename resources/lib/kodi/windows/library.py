@@ -3,7 +3,8 @@ Sort and Filters are Arc menus; paging loads more as you reach the end. A librar
 tab, a collection, a playlist, the Watchlist and a person's titles reuse GridWindow with a loader.
 The top bar is the Android app's: the heading on the left, with a library's tabs (Recommended,
 Library, Collections) beside it; the count and the page's pills on the right. Choosing another tab
-closes this window with ("tab", name) and the app opens that one in its place."""
+closes this window with ("tab", name) and the app opens that one in its place. Sorted by Title, a
+library has the Apple and Android apps' A–Z bar down the right."""
 
 import xbmcgui
 
@@ -31,6 +32,7 @@ TABS = 120
 PILLS = 110             # the right of the top bar: the count and the pills
 TAB_BASE = 121          # slot i: "current" button 121 + 2i, "other" button 122 + 2i
 TAB_SLOTS = 3
+LETTERS = 140           # the A–Z bar
 
 PAGE_SIZE = 60
 
@@ -237,11 +239,15 @@ class GridWindow(TabsMixin, ArcWindow):
                 self._show_empty()
             self._show_count()
             log.debug("grid redrawn: %d titles", len(items))
+            self.refreshed()
 
         self.run_async(work, done)
 
     def _show_empty(self):
         self.set_label(EMPTY, T(30106))
+
+    def refreshed(self):
+        """Called on the UI side once a refresh has redrawn a changed list."""
 
     def page_loaded(self, offset):
         """Called on the UI side once a page of the grid has arrived (for a page's header)."""
@@ -326,6 +332,9 @@ class LibraryWindow(GridWindow):
         self.query = browse.LibraryQuery()
         self.query.genre = kwargs.pop("genre", None) or None
         self.facets = {}
+        self.letter_counts = []     # /items' letters, from the first page
+        self.letters = []           # the A–Z bar: (letter, offset of its first title)
+        self.generation = 0         # a new sort or filter starts a new one
         kwargs["title"] = kwargs["library"].get("name", "")
         kwargs["paged"] = True
         kwargs["tab"] = "browse"
@@ -362,14 +371,106 @@ class LibraryWindow(GridWindow):
         self.set_label(FILTER, T(30606) % n if n else T(30124))
 
     def _items(self, offset, limit):
-        page = self.session.api.items(self.query.parameters(self.library, offset, limit))
+        page = self.session.api.items(self.query.parameters(self.library, offset, limit, letters=offset == 0))
+        if offset == 0:
+            self.letter_counts = page.get("letters") or []
         return page.get("items", []), page.get("total", 0)
+
+    # MARK: - the A–Z bar
+
+    def page_loaded(self, offset):
+        GridWindow.page_loaded(self, offset)
+        if offset == 0:
+            self._show_letters()
+
+    def refreshed(self):
+        self._show_letters()
+
+    def _show_letters(self):
+        """Fills the A–Z bar from the first page's counts: only the letters that have titles, in
+        the list's order. The skin shows it when there's more than one."""
+        jumps = browse.letter_jumps(self.letter_counts, self.query.reversed) if self.query.shows_letters else []
+        if jumps == self.letters:
+            return
+        self.letters = jumps
+        ctrl = self.list_control(LETTERS)
+        ctrl.reset()
+        ctrl.addItems([xbmcgui.ListItem(letter) for letter, _ in jumps])
+
+    def _letter_at(self, position):
+        """The bar's letter for a place in the grid: the last whose first title is at or before it."""
+        at = 0
+        for i, (_, offset) in enumerate(self.letters):
+            if offset <= position:
+                at = i
+        return at
+
+    def _jump(self, index):
+        """Select on a letter: loads the titles up to its first one, and a page past it, if the grid
+        hasn't reached them (up to 500 a request), then moves the focus there, as the Apple app."""
+        if not 0 <= index < len(self.letters):
+            return
+        target = self.letters[index][1]
+        if self.total:
+            target = min(target, self.total - 1)
+        if target < len(self.items):
+            self._land(target)
+            return
+        if self.loading or self.total is None:
+            return
+        plan = browse.pages_to_reach(target, len(self.items), self.total, PAGE_SIZE)
+        self.loading = True
+        generation, have = self.generation, len(self.items)
+
+        def work():
+            got = []
+            for offset, limit in plan:
+                page, _ = self._items(offset, limit)
+                got += page
+                if not page:
+                    break
+            return got
+
+        def done(got, error):
+            self.loading = False
+            if generation != self.generation:
+                self._load_more()   # a new sort or filter came while this loaded
+                return
+            if error is not None:
+                log.debug("letter jump failed: %s", type(error).__name__)
+                return
+            if len(self.items) != have:
+                return
+            self.items += got
+            self.offset = len(self.items)
+            self.list_control(GRID).addItems([item_list_item(self.session, it, self.style) for it in got])
+            log.debug("letter jump: loaded %d titles in %d requests", len(got), len(plan))
+            if target < len(self.items):
+                self._land(target)
+
+        self.run_async(work, done)
+
+    def _land(self, position):
+        self.list_control(GRID).selectItem(position)
+        self._focus_memory.remember(GRID, position, self.grid_columns(GRID))
+        self.focus_id(GRID)
+
+    def onFocus(self, control_id):
+        GridWindow.onFocus(self, control_id)
+        if control_id == LETTERS and self.letters:
+            # Onto the bar from the grid: on the letter of the title that had the focus.
+            at = self._letter_at(max(self.list_control(GRID).getSelectedPosition(), 0))
+            self.list_control(LETTERS).selectItem(at)
+            self._focus_memory.remember(LETTERS, at)
 
     def _show_empty(self):
         self.set_label(EMPTY, T(30262) if self.query.filtered else T(30106))
 
     def _reset(self):
         self._refresh_pills()
+        self.generation += 1
+        self.letter_counts = []
+        self._show_letters()
         self.items, self.total, self.offset = [], None, 0
         self.list_control(GRID).reset()
         self.set_label(EMPTY, "")
@@ -444,6 +545,8 @@ class LibraryWindow(GridWindow):
             self._sort_menu()
         elif control_id == FILTER:
             self._filter_menu()
+        elif control_id == LETTERS:
+            self._jump(self.list_control(LETTERS).getSelectedPosition())
         else:
             GridWindow.on_click(self, control_id)
 
