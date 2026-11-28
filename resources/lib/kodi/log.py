@@ -14,6 +14,15 @@ class _KodiHandler(logging.Handler):
     def emit(self, record):
         try:
             xbmc.log("[Arc] " + self.format(record), self.LEVELS.get(record.levelno, xbmc.LOGINFO))
+            from arc.device_logs import kodi_event
+            from .device_logs import journal
+
+            status = None
+            if record.msg == "%s failed: %d %s" and isinstance(record.args, tuple):
+                status = record.args[1]
+            event = kodi_event(record.msg, status)
+            if event and not (record.args and record.args[0] == "client-logs"):
+                journal().record(*event)
         except Exception:
             pass
 

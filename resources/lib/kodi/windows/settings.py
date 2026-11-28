@@ -11,6 +11,7 @@ from arc import settings
 
 from ..compat import ADDON_VERSION, T
 from ..log import log
+from ..device_logs import journal, send
 from . import menu
 from .base import ArcWindow, list_item
 from .signin import PROFILE_COLOURS
@@ -28,6 +29,8 @@ NAMES = {"auto_play": 30297, "auto_skip": 30298, "hide_spoilers": 30390, "audio_
          "switch_profile": 30202, "sign_out": 30063, "change_server": 30305, "about": 30307}
 # Theme music
 NAMES["auto_sign_in"] = 30618
+NAMES["send_logs"] = 30631
+NAMES["detailed_logging"] = 30632
 NAMES["theme_music"] = 30540
 NAMES["show_missing_episodes"] = 30614
 HEADINGS = {"playback": 30296, "subtitles": 30185, "together": 30330, "profile": 30308, "about": 30307}
@@ -90,6 +93,8 @@ class SettingsWindow(ArcWindow):
         return T(NOTES[key])
 
     def _detail(self, key):
+        if key == "detailed_logging":
+            return T(30303) if journal().detailed() else T(30304)
         if key == "auto_sign_in":
             return T(30303) if self._auto_sign_in_enabled() else T(30304)
         v = settings.value(self.session.prefs, key)
@@ -184,6 +189,14 @@ class SettingsWindow(ArcWindow):
                                  selected=values.index(current) if current in values else -1)
             if choice >= 0 and values[choice] != current:
                 self._save(settings.change(self.session.prefs, key, values[choice]))
+        elif key == "detailed_logging":
+            journal().toggle()
+            self._fill()
+        elif key == "send_logs":
+            if menu.confirm(T(30631), T(30638), T(30631)):
+                self.run_async(lambda: send(self.session.api),
+                               lambda result, error: menu.choose(T(30631), [T(30000)],
+                                                                message=T(30634) if error else result[1]))
         elif key == "join_code":
             self.result = "join_code"
             self.close()

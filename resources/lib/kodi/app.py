@@ -35,6 +35,11 @@ class App(object):
         self.session.together = self.together
 
     def run(self):
+        from .device_logs import journal, send_and_notify
+
+        logs = journal()
+        logs.record("info", "app_started")
+
         loading = signin.LoadingWindow(signin.LoadingWindow.xml, self._path(), "Main", "1080i",
                                        session=self.session)
         try:
@@ -62,11 +67,23 @@ class App(object):
                     continue
                 if not loaded:
                     return
+                if logs.crash:
+                    if menu.confirm(T(30631), T(30637), T(30631)):
+                        if send_and_notify(self.session.api):
+                            logs.set_crash(False)
+                    else:
+                        logs.set_crash(False)
                 if self._home() != "restart":
                     return
+        except Exception:
+            logs.set_crash(True)
+            raise
         finally:
-            loading.close()
-            self._shut_down()
+            try:
+                loading.close()
+                self._shut_down()
+            finally:
+                logs.flush()
 
     def _shut_down(self):
         """Ends what still runs when the add-on closes: playback, then the artwork proxy's server.
